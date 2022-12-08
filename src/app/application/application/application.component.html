@@ -7,6 +7,48 @@
       make a recommendation as if it were our own loan.
     </p>
     <p>The next few minutes could be life changing… you’re on your way</p>
+    <mat-divider></mat-divider>
+    <p>To start, please enter your email address and reason for enquiry.</p>
 
+    <form class="example-form" [formGroup]="userAddressValidations">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" formControlName="Email" />
+        <mat-error
+          *ngIf="userAddressValidations.get('Email').hasError('required')"
+        >
+          Email is Required!
+        </mat-error>
+        <mat-error
+          *ngIf="userAddressValidations.get('Email').hasError('email')"
+        >
+          Email is invalid!
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div>
+      <label class="label.constant">Reason for Application*:</label>
+      <div class="row mx-0">
+        <div class="col-2" *ngFor="let subtask of subtasks">
+          <mat-checkbox
+            [(ngModel)]="subtask.completed"
+            [color]="'accent'"
+            (ngModelChange)="updateAllComplete()"
+            >{{ subtask.name }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label class="label.constant">Who is your Go Loans broker?*:</label>
+      <div>
+        <mat-form-field>
+          <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
+            <mat-option [value]="'GB'">Great Britain</mat-option>
+            <mat-option [value]="'US'">United States</mat-option>
+            <mat-option [value]="'CA'">Canada</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
   </div>
 </div>

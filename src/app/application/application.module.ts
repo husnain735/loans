@@ -3,6 +3,9 @@ import { ApplicationRoutingModule } from './application-routing.module';
 import { ApplicationComponent } from './application/application.component';
 import { MaterialModule } from '../material/material.module';
 import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     ApplicationRoutingModule,
-    MaterialModule
+    MaterialModule,
+    MatNativeDateModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

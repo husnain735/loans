@@ -41,11 +41,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -83,6 +86,8 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
