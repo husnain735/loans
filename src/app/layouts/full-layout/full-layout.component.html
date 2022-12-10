@@ -1,0 +1,90 @@
+<div *ngIf="guid == undefined" class="container pt-5">
+  <div class="bgContainer p-4">
+    <h1 class="font-w-500">
+      Congratulations, you’re here and you’re in good hands.
+    </h1>
+    <p class="mb-3">
+      The information collected via this link is secure, confidential and
+      importantly, will provide everything we need to assess your position and
+      make a recommendation as if it were our own loan.
+    </p>
+    <p class="mb-3">
+      The next few minutes could be life changing… you’re on your way
+    </p>
+    <mat-divider class="my-4"></mat-divider>
+    <p class="mb-3 lead">
+      To start, please enter your email address and reason for enquiry.
+    </p>
+
+    <form
+      class="example-form mb-2"
+      [formGroup]="userAddressValidations"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" formControlName="Email" />
+        <mat-error
+          *ngIf="userAddressValidations.get('Email').hasError('required')"
+        >
+          Email is Required!
+        </mat-error>
+        <mat-error
+          *ngIf="userAddressValidations.get('Email').hasError('email')"
+        >
+          Email is invalid!
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-group">
+        <label class="label.constant">Reason for Application*:</label>
+        <div class="row mx-0" [class.is-invalid]="f['reasonsFormArr'].invalid">
+          <div
+            class="col-2 px-0"
+            *ngFor="let control of reasonsFormArr?.controls; let i = index"
+          >
+            <mat-checkbox [formControl]="control"
+              >{{ countries[i]?.title }}
+            </mat-checkbox>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            userAddressValidations.controls['reasonsFormArr'].invalid &&
+            (userAddressValidations.controls['reasonsFormArr'].touched ||
+              isSubmitted)
+          "
+          class="invalid-feedback"
+          role="alert"
+        >
+          Please select your reason
+        </div>
+      </div>
+      <div class="mb-2">
+        <mat-form-field>
+          <mat-select
+            placeholder="Favorite animal"
+            formControlName="LoansBroker"
+          >
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let animal of subtasks" [value]="animal.name">
+              {{ animal.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              userAddressValidations.get('LoansBroker').hasError('required')
+            "
+            >Please choose an animal</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" type="submit">
+        START
+        <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>
+<ng-container *ngIf="guid != undefined">
+  <router-outlet></router-outlet>
+</ng-container>

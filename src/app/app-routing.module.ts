@@ -1,16 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'application',
-    pathMatch: 'full',
+    redirectTo: '/',
+    pathMatch: 'full'
   },
   {
-    path: 'application',
-    loadChildren: () => import('./application/application.module').then(x => x.ApplicationModule),
+    path: '',
+    component: FullLayoutComponent,
+    children: [
+      {
+        path: 'client',
+        loadChildren: () => import('./analysis/analysis.module').then(x => x.AnalysisModule),
+      }
+    ]
   },
+
 ];
 
 @NgModule({
