@@ -78,7 +78,7 @@ export class FullLayoutComponent {
       return;
     }
     this.guid = 'd964886a-c7e5-4c61-8535-5c3f28a6fb89';
-    this.router.navigate(['client/' + this.guid + '/applicants']);
+    this.router.navigate(['client/' + this.guid + '/applicant']);
     console.log(this.userAddressValidations.value);
   }
 }

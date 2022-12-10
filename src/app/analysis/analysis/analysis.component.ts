@@ -11,7 +11,7 @@ export class AnalysisComponent implements OnInit {
   sideNavMenu : any = [
     {
       Title: 'Applicants',
-      Route: 'applicants',
+      Route: 'applicant',
       IsActive: true
     },
     {

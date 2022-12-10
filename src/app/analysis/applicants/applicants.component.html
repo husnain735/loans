@@ -1,8 +1,57 @@
 <div class="p-4">
-    <h1>Applicants</h1>
-    <p>Okay, this is the “Personal” stuff, pretty straight forward - Please ensure all applicants have been completed for this loan.</p>
-    <p>We look forward to getting to know you.</p>
-    <button mat-raised-button color="primary" type="submit">
-        Add an applicant
-      </button>
+  <h1>Applicants</h1>
+  <p>
+    Okay, this is the “Personal” stuff, pretty straight forward - Please ensure
+    all applicants have been completed for this loan.
+  </p>
+  <p>We look forward to getting to know you.</p>
+  <button
+    mat-raised-button
+    color="primary"
+    class="mb-3"
+    (click)="openApplicantDailog(content)"
+  >
+    Add an applicant
+  </button>
+  <div class="my-3">Please add all applicants for the loan.</div>
+  <div class="step-nav">
+    <button mat-raised-button color="primary" class="next" [disabled]="!IsNext">
+      Next
+      <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-body p-relative p-4">
+    <h1>Add an applicant</h1>
+    <p>Please enter given names and surname.</p>
+    <form [formGroup]="applicantForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Given Names" formControlName="FirstName" />
+        <mat-error *ngIf="applicantForm.get('FirstName').hasError('required')">
+          Given Names is Required!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Surname" formControlName="SurName" />
+        <mat-error *ngIf="applicantForm.get('SurName').hasError('required')">
+          Surname is Required!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          placeholder="Applicant or Guarantor"
+          formControlName="ApplicantType"
+        >
+          <mat-option *ngFor="let type of applicantType" [value]="type.TypeId">
+            {{ type.TypeName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button type="submit" [disabled]="applicantForm.invalid">Ok</button>
+        <button mat-button mat-dialog-close type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

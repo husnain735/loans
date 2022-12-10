@@ -9,7 +9,7 @@ const routes: Routes = [
     component: AnalysisComponent,
     children: [
       {
-        path: ':guid/applicants',
+        path: ':guid/applicant',
         component: ApplicantsComponent
       }
     ]
