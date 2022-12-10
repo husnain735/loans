@@ -35,7 +35,7 @@
         </mat-error>
       </mat-form-field>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="this.ApplicationReason !=undefined && this.ApplicationReason.length > 0">
         <label class="label.constant">Reason for Application*:</label>
         <div class="row mx-0" [class.is-invalid]="f['reasonsFormArr'].invalid">
           <div
@@ -43,7 +43,7 @@
             *ngFor="let control of reasonsFormArr?.controls; let i = index"
           >
             <mat-checkbox [formControl]="control"
-              >{{ countries[i]?.title }}
+              >{{ ApplicationReason[i]?.ApplicationReasonName}}
             </mat-checkbox>
           </div>
         </div>
@@ -66,8 +66,8 @@
             formControlName="LoansBroker"
           >
             <mat-option>--</mat-option>
-            <mat-option *ngFor="let animal of subtasks" [value]="animal.name">
-              {{ animal.name }}
+            <mat-option *ngFor="let item of LoanBroker" [value]="item.LoansBrokerId">
+              {{ item.LoansBrokerName }}
             </mat-option>
           </mat-select>
           <mat-error

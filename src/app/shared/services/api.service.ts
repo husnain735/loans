@@ -13,7 +13,7 @@ export class ApiService {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) { } 
 
   /**
    * Obtem o token da sessão para utilizar nas requisições
@@ -23,7 +23,7 @@ export class ApiService {
 
     const TOKEN = '';
 
-    return {
+    return { 
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         //Authorization: TOKEN
