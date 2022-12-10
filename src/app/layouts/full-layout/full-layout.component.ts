@@ -74,11 +74,15 @@ export class FullLayoutComponent {
       controlArr,
       atLeastOneCheckboxCheckedValidator()
     );
-  }
+  } 
+
   onSubmit() {
     this.isSubmitted = true;
     if (this.userAddressValidations.invalid) {
       return;
+    }
+    else{
+      
     }
     this.userAddressValidations.value.reasonsFormArr.
     this.guid = 'd964886a-c7e5-4c61-8535-5c3f28a6fb89';
