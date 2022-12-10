@@ -61,7 +61,7 @@ export class FullLayoutComponent {
     this.allComplete =
       this.LoanBroker != null && this.LoanBroker.every((t) => t.completed);
   }
-  buildReasonsFormArr(
+  buildReasonsFormArr( 
     categories: any,
     selectedCategoryIds: string[] = []
   ): FormArray {
