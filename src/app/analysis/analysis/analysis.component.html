@@ -21,13 +21,13 @@
       <ol>
         <li *ngFor="let item of sideNavMenu">
           <a [ngClass]="router.url.includes(item.Route) ? 'is-active' : ''">{{item.Title}}</a>
-          <!-- <ul *ngIf="item.Title == 'Applicants'">
-            <li>
+          <ul *ngIf="item.Title == 'Applicants'">
+            <li *ngFor="let item of ApplicationReason">
               <a>
-                asa asas
+                {{item.ApplicationReasonName}}
               </a>
             </li>
-          </ul> -->
+          </ul>
         </li>
       </ol>
     </nav>

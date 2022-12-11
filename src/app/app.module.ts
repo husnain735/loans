@@ -7,10 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './Home/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FullLayoutComponent
+    FullLayoutComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

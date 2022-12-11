@@ -1,0 +1,90 @@
+<div *ngIf="guid == undefined" class="container pt-5">
+    <div class="bgContainer p-4">
+      <h1 class="font-w-500">
+        Congratulations, you’re here and you’re in good hands.
+      </h1>
+      <p class="mb-3">
+        The information collected via this link is secure, confidential and
+        importantly, will provide everything we need to assess your position and
+        make a recommendation as if it were our own loan.
+      </p>
+      <p class="mb-3">
+        The next few minutes could be life changing… you’re on your way
+      </p>
+      <mat-divider class="my-4"></mat-divider>
+      <p class="mb-3 lead">
+        To start, please enter your email address and reason for enquiry.
+      </p>
+
+      <form
+        class="example-form mb-2"
+        [formGroup]="userAddressValidations"
+        (ngSubmit)="onSubmit()"
+      >
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="Email" />
+          <mat-error
+            *ngIf="userAddressValidations.get('Email').hasError('required')"
+          >
+            Email is Required!
+          </mat-error>
+          <mat-error
+            *ngIf="userAddressValidations.get('Email').hasError('email')"
+          >
+            Email is invalid!
+          </mat-error>
+        </mat-form-field>
+        <div class="mb-2 row mx-0">
+          <ng-container formArrayName="ApplicationReason">
+            <div class="d-flex" *ngFor="let item of ApplicationReason; let i = index">
+              <mat-checkbox
+                class="example-margin"
+                (change)="onChange($event)"
+                [value]="item.ApplicationReasonId"
+              >
+                {{ item.ApplicationReasonName }}
+              </mat-checkbox>
+            </div>
+            <mat-error
+              *ngIf="
+                userAddressValidations
+                  .get('ApplicationReason')
+                  .hasError('required') &&
+                  isSubmitted
+              "
+              >Please select your reason</mat-error
+            >
+          </ng-container>
+        </div>
+        <div class="mb-2 row mx-0">
+          <mat-form-field class="col-5">
+            <mat-select
+              placeholder="Who is your Go Loans broker?"
+              formControlName="LoansBroker"
+            >
+              <mat-option>--</mat-option>
+              <mat-option
+                *ngFor="let item of LoanBroker"
+                [value]="item.LoansBrokerId"
+              >
+                {{ item.LoansBrokerName }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="
+                userAddressValidations.get('LoansBroker').hasError('required')
+              "
+              >Please select broker</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit">
+          START
+          <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+        </button>
+      </form>
+    </div>
+  </div>
+  <ng-container *ngIf="guid != undefined">
+    <router-outlet></router-outlet>
+  </ng-container>

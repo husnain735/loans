@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
 @Component({
   selector: 'app-analysis',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AnalysisComponent implements OnInit {
 
-  sideNavMenu : any = [
+  sideNavMenu: any = [
     {
       Title: 'Applicants',
       Route: 'applicant',
@@ -61,15 +62,26 @@ export class AnalysisComponent implements OnInit {
     },
   ]
   @ViewChild("sidenav", { static: true }) public sidenav: any;
-
-  constructor(private router: Router) {
+  applicationguid: string;
+  ApplicationReason: any = [];
+  constructor(private router: Router, private route: ActivatedRoute,private _analysisService: AnalysisService) {
   }
   ngOnInit() {
-    console.log(this.router.url.includes('applicants'));
-    this.sidenav.toggle(true)
+    console.log(this.router.url);
+    this.sidenav.toggle(true);
+    this.getMeta();
+
+    this.route.params.subscribe((params: any) => {
+      this.applicationguid = params['guid'];
+      console.log('analysis',this.applicationguid);
+    });
   }
 
-
-
+  getMeta() {
+    this._analysisService.getApplicationMeta().subscribe((res: any) => {
+      this.ApplicationReason = res.body.ApplicationReason;
+      // this.LoanBroker = res.body.LoansBroker;
+    })
+  }
 
 }

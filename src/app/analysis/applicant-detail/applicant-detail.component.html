@@ -4,7 +4,7 @@
     <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
       <mat-step [stepControl]="ApplicantDetailForm">
         <form [formGroup]="ApplicantDetailForm" (ngSubmit)="onApplicantDetailSubmit()">
-          <ng-template matStepLabel>Fill out your name</ng-template>
+          <ng-template matStepLabel>Applicant Detail</ng-template>
           <div class="px-15">
             <label class="constant">Applicant or Guarantor:</label>
             <div>
@@ -169,7 +169,7 @@
                   <mat-label>Child #{{ i + 1 }}</mat-label>
                   <mat-select
                     placeholder="Child #{{ i + 1 }}"
-                    formControlName="ChildrenArray"
+                    formControlName="Age"
                   >
                     <mat-option
                       *ngFor="let item of NumberOfChildren"

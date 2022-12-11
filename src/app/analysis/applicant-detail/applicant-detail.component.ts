@@ -88,13 +88,12 @@ export class ApplicantDetailComponent implements OnInit {
     return this.ApplicantDetailForm.get('ChildrenForm') as FormArray
   }
   addChildren() {
-    debugger
+    this.ApplicantDetailForm.controls.ChildrenForm = this._formBuilder.array([]);
     var noOfChildren = this.ApplicantDetailForm.get('NumberOfChildren').value;
-
     for (let index = 0; index < +noOfChildren; index++) {
       var child;
        child = this._formBuilder.group({
-        ChildrenArray: ['' ,Validators.required],
+        Age: ['' ,Validators.required],
       })
       this.childForms.push(child);
     }
@@ -104,5 +103,6 @@ export class ApplicantDetailComponent implements OnInit {
     if(this.ApplicantDetailForm.invalid){
       return
     }
+    console.log(this.ApplicantDetailForm.value)
   }
 }

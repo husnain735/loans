@@ -13,7 +13,7 @@ export class ApplicantsComponent implements OnInit {
 
 
   IsNext = false;
-  isSubmitted:boolean = false;
+  isSubmitted: boolean = false;
   applicantForm: FormGroup;
   applicantType = [
     {
@@ -29,7 +29,7 @@ export class ApplicantsComponent implements OnInit {
       TypeName: 'Non-applicant'
     },
   ]
-  constructor(public dialog: MatDialog,private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService,private route: ActivatedRoute,
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService, private route: ActivatedRoute,
     private router: Router,) {
 
   }
@@ -46,29 +46,29 @@ export class ApplicantsComponent implements OnInit {
       width: '600px'
     });
   }
-  applicant:any = {};
-  applicationguid:string;
+  applicant: any = {};
+  applicationguid: string;
   Applicantguid: string;
-  onSubmit(){
+  onSubmit() {
     debugger
     this.isSubmitted = true;
     if (this.applicantForm.invalid) {
       return;
     }
-    else{
-      this.route.params.subscribe((params:any) => {
-        this.applicationguid = params['guid']; 
-  });
+    else {
+      this.route.params.subscribe((params: any) => {
+        this.applicationguid = params['guid'];
+      });
       console.log(this.applicantForm.value);
       this.applicant.FirstName = this.applicantForm.value.FirstName;
       this.applicant.SurName = this.applicantForm.value.SurName;
       this.applicant.ApplicantTypeId = this.applicantForm.value.ApplicantType;
       this.applicant.ApplicationId = this.applicationguid;
-      this._analysisSerivce.saveApplicant(this.applicant).subscribe(res =>{
-          console.log(res);
-          this.Applicantguid = res.body;
-          this.router.navigate(['client/' + this.applicationguid + '/applicant/'+this.Applicantguid]);
-          this.dialog.closeAll();
+      this._analysisSerivce.saveApplicant(this.applicant).subscribe(res => {
+        console.log(res);
+        this.Applicantguid = res.body;
+        this.router.navigate(['client/' + this.applicationguid + '/applicant/' + this.Applicantguid]);
+        this.dialog.closeAll();
       })
     }
   }
