@@ -135,7 +135,10 @@ label {
   font-weight: 700;
 }
 .mat-error {
-  font-size: .75rem;
+  font-size: .75rem !important;
+}
+mat-error{
+  font-size: .75rem !important;
 }
 label.constant {
   font-size: .775rem;
