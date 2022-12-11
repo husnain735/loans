@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalysisComponent } from './analysis/analysis.component';
+import { ApplicantDetailComponent } from './applicant-detail/applicant-detail.component';
 import { ApplicantsComponent } from './applicants/applicants.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
       {
         path: ':guid/applicant',
         component: ApplicantsComponent
+      },
+      {
+        path: ':guid/applicant/:guid2',
+        component: ApplicantDetailComponent
       }
     ]
   }

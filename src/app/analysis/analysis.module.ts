@@ -4,11 +4,13 @@ import { SharedModule } from '../shared/shared.module';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { AnalysisRoutingModule } from './analysis-routing.module';
 import { ApplicantsComponent } from './applicants/applicants.component';
+import { ApplicantDetailComponent } from './applicant-detail/applicant-detail.component';
 
 @NgModule({
   declarations: [
     AnalysisComponent,
-    ApplicantsComponent
+    ApplicantsComponent,
+    ApplicantDetailComponent
   ],
   imports: [
     CommonModule,

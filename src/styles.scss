@@ -9,6 +9,9 @@ h1 {
 .bgContainer {
   background-color: #f6f6f6;
 }
+.bgWhite{
+  background-color: white;
+}
 *{
   font-family: Roboto,"Helvetica Neue",sans-serif
 }
@@ -130,4 +133,12 @@ label {
 .is-active {
   color: #094d88;
   font-weight: 700;
+}
+.mat-error {
+  font-size: .75rem;
+}
+label.constant {
+  font-size: .775rem;
+  font-weight: 500;
+  color: rgba(0,0,0,.5);
 }
