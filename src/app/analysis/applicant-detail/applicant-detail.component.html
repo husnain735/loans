@@ -1,85 +1,218 @@
 <div class="p-3 bgWhite">
-    <h1>Applicant Name</h1>
-    <div>
-        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="ApplicantDetailForm">
-                <form [formGroup]="ApplicantDetailForm">
-                    <ng-template matStepLabel>Fill out your name</ng-template>
-                    <label class="constant">Applicant or Guarantor:</label>
-                    <div>
-                        <mat-radio-group formControlName="ApplicantType">
-                            <mat-radio-button value="1">Applicant</mat-radio-button>
-                            <mat-radio-button value="2">Guarantor</mat-radio-button>
-                            <mat-radio-button value="3">Non-applicant</mat-radio-button>
-                        </mat-radio-group>
-                        <mat-error *ngIf="
-                ApplicantDetailForm.get('ApplicantType').hasError('required')
-              " class="mat-error">Applicant type is required</mat-error>
-                    </div>
-                    <label class="constant">Salutation:</label>
-                    <div>
-                        <mat-radio-group formControlName="SalutationTypeId">
-                            <mat-radio-button value="4">Mr</mat-radio-button>
-                            <mat-radio-button value="5">Mrs</mat-radio-button>
-                            <mat-radio-button value="6">Miss</mat-radio-button>
-                            <mat-radio-button value="7">Ms</mat-radio-button>
-                        </mat-radio-group>
-                        <mat-error *ngIf="
-                ApplicantDetailForm.get('SalutationTypeId').hasError('required')
-              " class="mat-error">Salutation required
-                        </mat-error>
-                    </div>
-                    <div class="row mx-0">
-                        <mat-form-field class="col-4 w-100">
-                            <mat-label>Given Names</mat-label>
-                            <input matInput placeholder="Given Names" formControlName="FirstName" />
-                        </mat-form-field>
-                        <mat-form-field class="col-4 w-100">
-                            <mat-label>Middle Name</mat-label>
-                            <input matInput placeholder="Middle Name" formControlName="MiddleName" />
-                        </mat-form-field>
-                        <mat-form-field class="col-4 w-100">
-                            <mat-label>Surname</mat-label>
-                            <input matInput placeholder="Surname" formControlName="SurName" />
-                        </mat-form-field>
-                        <mat-form-field class="col-6 w-100">
-                            <mat-label>Date of Birth (dd/mm/yyyy)</mat-label>
-                            <input
-                            matInput
-                            [matDatepicker]="DateOfBirth"
-                            formControlName="DateOfBirth"
-                            >
-                        <mat-datepicker-toggle matSuffix [for]="DateOfBirth"></mat-datepicker-toggle>
-                        <mat-datepicker #DateOfBirth></mat-datepicker>
-                    </mat-form-field>
-                    </div>
-                    <div>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-                <form [formGroup]="secondFormGroup">
-                    <ng-template matStepLabel>Fill out your address</ng-template>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Address</mat-label>
-                        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                            required />
-                    </mat-form-field>
-                    <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
-                </form>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
-                <p>You are now done.</p>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
-                </div>
-            </mat-step>
-        </mat-stepper>
-    </div>
+  <h1>Applicant Name</h1>
+  <div>
+    <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="ApplicantDetailForm">
+        <form [formGroup]="ApplicantDetailForm" (ngSubmit)="onApplicantDetailSubmit()">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <div class="px-15">
+            <label class="constant">Applicant or Guarantor:</label>
+            <div>
+              <mat-radio-group formControlName="ApplicantType">
+                <mat-radio-button value="1">Applicant</mat-radio-button>
+                <mat-radio-button value="2">Guarantor</mat-radio-button>
+                <mat-radio-button value="3">Non-applicant</mat-radio-button>
+              </mat-radio-group>
+              <mat-error
+                *ngIf="
+                  ApplicantDetailForm.get('ApplicantType').hasError('required')
+                "
+                class="mat-error"
+                >Applicant type is required</mat-error
+              >
+            </div>
+            <label class="constant">Salutation:</label>
+            <div>
+              <mat-radio-group formControlName="SalutationTypeId">
+                <mat-radio-button value="4">Mr</mat-radio-button>
+                <mat-radio-button value="5">Mrs</mat-radio-button>
+                <mat-radio-button value="6">Miss</mat-radio-button>
+                <mat-radio-button value="7">Ms</mat-radio-button>
+              </mat-radio-group>
+              <mat-error
+                *ngIf="
+                  ApplicantDetailForm.get('SalutationTypeId').hasError(
+                    'required'
+                  ) && ADSubmitted
+                "
+                class="mat-error"
+                >Salutation required
+              </mat-error>
+            </div>
+          </div>
+          <div class="row mx-0">
+            <mat-form-field class="col-4 w-100">
+              <mat-label>Given Names</mat-label>
+              <input
+                matInput
+                placeholder="Given Names"
+                formControlName="FirstName"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-4 w-100">
+              <mat-label>Middle Name</mat-label>
+              <input
+                matInput
+                placeholder="Middle Name"
+                formControlName="MiddleName"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-4 w-100">
+              <mat-label>Surname</mat-label>
+              <input matInput placeholder="Surname" formControlName="SurName" />
+            </mat-form-field>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Date of Birth (dd/mm/yyyy)</mat-label>
+              <input
+                matInput
+                [matDatepicker]="DateOfBirth"
+                formControlName="DateOfBirth"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="DateOfBirth"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #DateOfBirth></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-3">
+              <mat-label>Marital Status</mat-label>
+              <mat-select
+                placeholder="Marital Status"
+                formControlName="MaritalTypeId"
+              >
+                <mat-option
+                  *ngFor="let item of MaritalStatus"
+                  [value]="item.MaritalStatusId"
+                >
+                  {{ item.MaritalStatusName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field
+              *ngIf="+ApplicantDetailForm.get('MaritalTypeId').value == 14"
+              class="col-3 w-100"
+            >
+              <mat-label>Specify</mat-label>
+              <input matInput placeholder="Specify" formControlName="Specify" />
+            </mat-form-field>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Drivers Licence No.</mat-label>
+              <input
+                matInput
+                placeholder="Drivers Licence No."
+                formControlName="DriversLicenceNo"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Drivers Licence Expiry Date</mat-label>
+              <input
+                matInput
+                placeholder="Drivers Licence Expiry Date"
+                formControlName="DriversExpiryDate"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Mother's Maiden Name</mat-label>
+              <input
+                matInput
+                placeholder="Mother's Maiden Name"
+                formControlName="MotherName"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-6">
+              <mat-label>Number of Children</mat-label>
+              <mat-select
+                (selectionChange)="addChildren()"
+                placeholder="Number of Children"
+                formControlName="NumberOfChildren"
+              >
+                <mat-option
+                  *ngFor="let item of NumberOfChildren"
+                  [value]="item"
+                >
+                  {{ item }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>IBO Number</mat-label>
+              <input
+                matInput
+                placeholder="IBO Number"
+                formControlName="IBONumber"
+              />
+            </mat-form-field>
+            <mat-form-field
+              *ngIf="ApplicantDetailForm.get('IBONumber').value != ''"
+              class="col-6"
+            >
+              <mat-label>How long have you been an IBO?</mat-label>
+              <mat-select
+                placeholder="How long have you been an IBO?"
+                formControlName="IBORangeTypeId"
+              >
+                <mat-option
+                  *ngFor="let item of IBORange"
+                  [value]="item.IBORangeTypeId"
+                >
+                  {{ item.IBORangeTypeName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="col-12 row mx-0 px-0" formArrayName="ChildrenForm">
+              <div
+                class="col-3"
+                *ngFor="let phone of childForms.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <mat-form-field>
+                  <mat-label>Child #{{ i + 1 }}</mat-label>
+                  <mat-select
+                    placeholder="Child #{{ i + 1 }}"
+                    formControlName="ChildrenArray"
+                  >
+                    <mat-option
+                      *ngFor="let item of NumberOfChildren"
+                      [value]="item"
+                    >
+                      {{ item }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="px-15">
+            <button mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              formControlName="secondCtrl"
+              placeholder="Ex. 1 Main St, New York, NY"
+              required
+            />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
 </div>

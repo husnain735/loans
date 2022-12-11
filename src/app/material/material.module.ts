@@ -42,6 +42,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @NgModule({
   declarations: [],
@@ -49,6 +50,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RxReactiveFormsModule,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -88,6 +90,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    RxReactiveFormsModule,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
