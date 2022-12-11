@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Application } from 'src/app/models/application';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class FullLayoutComponent {
   selectedCountry: string = 'GB';
   LoanBroker: any = [];
   ApplicationReason: any = [];
+  applicationObj: Application;
 
   selectedCountryControl = new FormControl(this.selectedCountry);
 
@@ -47,15 +49,26 @@ export class FullLayoutComponent {
       LoansBroker: new FormControl('', [Validators.required]),
       ApplicationReason: this.formBuilder.array([] , [Validators.required])
     });
+    this.applicationObj = new Application();
   }
   onSubmit() {
     this.isSubmitted = true;
     if (this.userAddressValidations.invalid) {
       return;
     }
-    this.guid = 'd964886a-c7e5-4c61-8535-5c3f28a6fb89';
-    this.router.navigate(['client/' + this.guid + '/applicant']);
-    console.log(this.userAddressValidations.value);
+    else{
+      this.applicationObj = new Application();
+      this.applicationObj.EmailAddress = this.userAddressValidations.value.Email;
+      this.applicationObj.LoansBrokerId = this.userAddressValidations.value.LoansBroker;
+      this.applicationObj.ReasonIDS = this.userAddressValidations.value.ApplicationReason.toString();
+      this._analysisService.saveApplication(this.applicationObj).subscribe((res:any) =>{
+        console.log(res);
+        this.guid = res.body;
+        this.router.navigate(['client/' + this.guid + '/applicant']);
+      })
+
+    }
+    
   }
   getMeta() {
     this._analysisService.getApplicationMeta().subscribe((res: any) => {

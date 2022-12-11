@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
+import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
 @Component({
   selector: 'app-applicants',
@@ -11,6 +13,7 @@ export class ApplicantsComponent implements OnInit {
 
 
   IsNext = false;
+  isSubmitted:boolean = false;
   applicantForm: FormGroup;
   applicantType = [
     {
@@ -26,7 +29,8 @@ export class ApplicantsComponent implements OnInit {
       TypeName: 'Non-applicant'
     },
   ]
-  constructor(public dialog: MatDialog,private formBuilder: FormBuilder) {
+  constructor(public dialog: MatDialog,private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService,private route: ActivatedRoute,
+    private router: Router,) {
 
   }
   ngOnInit() {
@@ -42,7 +46,30 @@ export class ApplicantsComponent implements OnInit {
       width: '600px'
     });
   }
+  applicant:any = {};
+  applicationguid:string;
+  Applicantguid: string;
   onSubmit(){
-
+    debugger
+    this.isSubmitted = true;
+    if (this.applicantForm.invalid) {
+      return;
+    }
+    else{
+      this.route.params.subscribe((params:any) => {
+        this.applicationguid = params['guid']; 
+  });
+      console.log(this.applicantForm.value);
+      this.applicant.FirstName = this.applicantForm.value.FirstName;
+      this.applicant.SurName = this.applicantForm.value.SurName;
+      this.applicant.ApplicantTypeId = this.applicantForm.value.ApplicantType;
+      this.applicant.ApplicationId = this.applicationguid;
+      this._analysisSerivce.saveApplicant(this.applicant).subscribe(res =>{
+          console.log(res);
+          this.Applicantguid = res.body;
+          this.router.navigate(['client/' + this.applicationguid + '/applicant/'+this.Applicantguid]);
+          this.dialog.closeAll();
+      })
+    }
   }
 }
