@@ -92,8 +92,9 @@ export class ApplicantDetailComponent implements OnInit {
     var noOfChildren = this.ApplicantDetailForm.get('NumberOfChildren').value;
 
     for (let index = 0; index < +noOfChildren; index++) {
-      const child = this._formBuilder.group({
-        ChildrenArray: new FormControl(['' ,Validators.required]),
+      var child;
+       child = this._formBuilder.group({
+        ChildrenArray: ['' ,Validators.required],
       })
       this.childForms.push(child);
     }
