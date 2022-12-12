@@ -50,6 +50,7 @@ export class HomeComponent {
       return;
     }
     else{
+      debugger
       this.applicationObj = new Application();
       this.applicationObj.EmailAddress = this.userAddressValidations.value.Email;
       this.applicationObj.LoansBrokerId = this.userAddressValidations.value.LoansBroker;
@@ -57,6 +58,7 @@ export class HomeComponent {
       this._analysisService.saveApplication(this.applicationObj).subscribe((res:any) =>{
         console.log(res);
         this.guid = res.body;
+        localStorage.setItem('ApplicationId',this.guid);
         this.router.navigate(['client/' + this.guid + '/applicant']);
       })
 

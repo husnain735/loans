@@ -1,5 +1,5 @@
 export class Application{
-    ApplicationId:number;
+    ApplicationId:string;
     ID:number;
     EmailAddress:string;
     LoansBrokerId:number;

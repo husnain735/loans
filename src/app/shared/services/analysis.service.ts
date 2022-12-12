@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Application } from 'src/app/models/application';
 import { ApiService } from './api.service';
 
@@ -9,6 +9,7 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AnalysisService {
+  getAllAppicants : Subject<Boolean> = new Subject<boolean>();
 
   constructor(private _apiService: ApiService, private httpClient: HttpClient) { }
 
@@ -24,6 +25,14 @@ export class AnalysisService {
 
   saveApplicant(applicant: any){
     var url = 'api/Application/SaveApplicant';
+    return this._apiService.post(url, applicant);
+  }
+
+  getAllApplicants(ApplicationID: string){
+    var applicant : Application;
+    applicant = new Application();
+    applicant.ApplicationId = ApplicationID;
+    var url = 'api/Application/GetAllApplicants';
     return this._apiService.post(url, applicant);
   }
 } 

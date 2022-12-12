@@ -62,9 +62,18 @@ export class AnalysisComponent implements OnInit {
     },
   ]
   @ViewChild("sidenav", { static: true }) public sidenav: any;
+
   applicationguid: string;
   ApplicationReason: any = [];
+  ApplicationList:any = [];
+
+
   constructor(private router: Router, private route: ActivatedRoute,private _analysisService: AnalysisService) {
+    this._analysisService.getAllAppicants.subscribe(
+      (data) => {
+        this.getAllApplicants();
+      }
+    );
   }
   ngOnInit() {
     console.log(this.router.url);
@@ -75,6 +84,13 @@ export class AnalysisComponent implements OnInit {
       this.applicationguid = params['guid'];
       console.log('analysis',this.applicationguid);
     });
+      // var applicationID = this.router.url;
+      // applicationID = applicationID.replace('/client/','')
+      // applicationID = applicationID.replace('/applicant','')
+      // this.applicationguid = applicationID;
+      //if(this.applicationguid != undefined){
+        this.getAllApplicants();
+      // }
   }
 
   getMeta() {
@@ -82,6 +98,20 @@ export class AnalysisComponent implements OnInit {
       this.ApplicationReason = res.body.ApplicationReason;
       // this.LoanBroker = res.body.LoansBroker;
     })
+  }
+  
+  getAllApplicants(){
+    debugger
+    this.applicationguid = localStorage.getItem('ApplicationId');
+    this._analysisService.getAllApplicants(this.applicationguid).subscribe(res =>{
+      this.ApplicationList = res.body;
+      console.log(this.ApplicationList);
+
+    })
+  }
+
+  onNavigateToApplicant(applicant:any){
+    this.router.navigate(['client/' + applicant.ApplicationId + '/applicant/' + applicant.ApplicantId]);
   }
 
 }
