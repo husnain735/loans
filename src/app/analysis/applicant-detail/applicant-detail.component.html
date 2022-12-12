@@ -3,7 +3,10 @@
   <div>
     <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
       <mat-step [stepControl]="ApplicantDetailForm">
-        <form [formGroup]="ApplicantDetailForm" (ngSubmit)="onApplicantDetailSubmit()">
+        <form
+          [formGroup]="ApplicantDetailForm"
+          (ngSubmit)="onApplicantDetailSubmit()"
+        >
           <ng-template matStepLabel>Applicant Detail</ng-template>
           <div class="px-15">
             <label class="constant">Applicant or Guarantor:</label>
@@ -205,201 +208,350 @@
           </div>
         </form>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Contact & More Information</ng-template>haris
-        <div class="row mx-0">
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Home Phone</mat-label>
-            <input
-              matInput
-              placeholder="Home Phone"
-              formControlName="HomePhone"
-            />
-          </mat-form-field>
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Mobile</mat-label>
-            <input
-              matInput
-              placeholder="Mobile"
-              formControlName="Mobile"
-            />
-          </mat-form-field>
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              placeholder="Email"
-              formControlName="Email"
-            />
-          </mat-form-field>
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Skype Address</mat-label>
-            <input
-              matInput
-              placeholder="Skype Address"
-              formControlName="SkypeAddress"
-            />
-          </mat-form-field>
-          </div>
-          <label class="">Are you a Tax resident of any foreign country?</label>
-          <div>
-            <mat-radio-group formControlName="TaxResident">
-              <mat-radio-button value="4">Yes</mat-radio-button>
-              <mat-radio-button value="5">No</mat-radio-button>
-            </mat-radio-group>
-
-            <mat-form-field class="col-12 w-100">
-              <mat-label>Country</mat-label>
+      <mat-step [stepControl]="ApplicantContactInformation">
+        <ng-template matStepLabel>Contact & More Information</ng-template>
+        <form
+          [formGroup]="ApplicantContactInformation"
+          (ngSubmit)="onApplicantContactInformationSubmit()"
+          class="mt-4"
+        >
+          <div class="row mx-0">
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Home Phone</mat-label>
               <input
                 matInput
-                placeholder="Country"
-                formControlName="Country"
+                placeholder="Home Phone"
+                formControlName="PhoneNumber"
               />
             </mat-form-field>
-
-            <mat-form-field class="col-12">
-              <mat-label>What is your Citizenship Status?</mat-label>
-              <mat-select
-                placeholder=""
-                formControlName="CitizenshipStatus"
-              >
-                <mat-option
-                  *ngFor="let item of CitizenshipStatus"
-                  [value]="item.CitizenshipStatusID"
-                >
-                  {{ item.CitizenshipStatusName }}
-                </mat-option>
-              </mat-select>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Mobile</mat-label>
+              <input
+                matInput
+                placeholder="Mobile"
+                formControlName="MobileNumber"
+              />
             </mat-form-field>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </mat-step>
-
-      <mat-step>husnain
-
-        <div class="row mx-0">
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="Email"
+                formControlName="EmailAddress"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-6 w-100">
+              <mat-label>Skype Address</mat-label>
+              <input
+                matInput
+                placeholder="Skype Address"
+                formControlName="SkypeAddress"
+              />
+            </mat-form-field>
+          </div>
+          <div class="px-15">
+            <label class=""
+              >Are you a Tax resident of any foreign country?</label
+            >
+            <div>
+              <mat-radio-group formControlName="IsTaxResident">
+                <mat-radio-button value="1">Yes</mat-radio-button>
+                <mat-radio-button value="0">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
           <mat-form-field class="col-12 w-100">
+            <mat-label>Country</mat-label>
+            <input matInput placeholder="Country" formControlName="Country" />
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <mat-label>What is your Citizenship Status?</mat-label>
             <mat-select
-              placeholder="Type"
-              formControlName="EmploymentDetailTypeID"
+              placeholder=""
+              formControlName="CitizenshipStatusTypeId"
             >
               <mat-option
-                *ngFor="let item of EmploymentDetail"
-                [value]="item.EmploymentDetailTypeID"
+                *ngFor="let item of CitizenshipStatus"
+                [value]="item.CitizenshipStatusID"
               >
-                {{ item.EmploymentDetailTypeName }}
+                {{ item.CitizenshipStatusName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="px-15">
+            <button mat-button mat-raised-button matStepperPrevious>
+              Back
+            </button>
+            <button mat-button mat-raised-button matStepperNext class="ml-2">
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel
+          >Employment Details (more than 3 year records)</ng-template
+        >
+        <div [formGroup]="ApplicantEmploymentDetail" class="mt-4">
+          <div
+            formArrayName="ApplicantEmploymentDetails"
+            *ngFor="
+              let item of ApplicantEmploymentDetail.get(
+                'ApplicantEmploymentDetails'
+              )['controls'];
+              let i = index
+            "
+          >
+            <div
+              [formGroupName]="i"
+              class="py-3 mb-3"
+              [ngClass]="
+                i > 0 && i % 2 == 1
+                  ? 'bgSkinWhite'
+                  : i > 0 && i % 2 == 0
+                  ? 'bgLightGreen'
+                  : ''
+              "
+            >
+              <div class="row mx-0">
+                <mat-form-field class="col-3 w-100">
+                  <mat-select
+                    placeholder="Type"
+                    formControlName="EmploymentTypeId"
+                  >
+                    <mat-option
+                      *ngFor="let item of EmploymentDetail"
+                      [value]="item.EmploymentDetailTypeID"
+                    >
+                      {{ item.EmploymentDetailTypeName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div class="col-9 text-right">
+                  <button *ngIf="i > 0"
+                    (click)="removeApplicantEmploymentDetail(i)"
+                    mat-fab
+                    color="primary"
+                    aria-label="Example icon button with a delete icon"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="row mx-0">
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-6 w-100"
+                >
+                  <mat-label>Occupation</mat-label>
+                  <input
+                    matInput
+                    placeholder="Occupation"
+                    formControlName="Occupation"
+                    type="text"
+                  />
+                </mat-form-field>
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-6 w-100"
+                >
+                  <mat-label>Employer</mat-label>
+                  <input
+                    matInput
+                    placeholder="Employer"
+                    formControlName="Employer"
+                  />
+                </mat-form-field>
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-4 w-100"
+                >
+                  <mat-label>Street Number</mat-label>
+                  <input
+                    matInput
+                    placeholder="Street Number"
+                    formControlName="StreetNumber"
+                  />
+                </mat-form-field>
+
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-4 w-100"
+                >
+                  <mat-label>Street Name</mat-label>
+                  <input
+                    matInput
+                    placeholder="Street Name"
+                    formControlName="StreetName"
+                  />
+                </mat-form-field>
+                <div class="col-4 w-100"></div>
+
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-4 w-100"
+                >
+                  <mat-label>Suburb</mat-label>
+                  <input
+                    matInput
+                    placeholder="Suburb"
+                    formControlName="Suburb"
+                  />
+                </mat-form-field>
+
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-3 w-100"
+                >
+                  <mat-select placeholder="State" formControlName="StateId">
+                    <mat-option
+                      *ngFor="let item of States"
+                      [value]="item.StatesID"
+                    >
+                      {{ item.StatesName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <div class="col-1 w-100"></div>
+
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-4 w-100"
+                >
+                  <mat-label>Postcode</mat-label>
+                  <input
+                    matInput
+                    placeholder="Postcode"
+                    formControlName="Postcode"
+                  />
+                </mat-form-field>
+
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-6 w-100"
+                >
+                  <mat-label>Work Phone</mat-label>
+                  <input
+                    matInput
+                    placeholder="Work Phone"
+                    formControlName="WorkPhone"
+                  />
+                </mat-form-field>
+
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-2 w-100"
+                >
+                  <mat-select placeholder="Basis" formControlName="BasisTypeId">
+                    <mat-option
+                      *ngFor="let item of Basis"
+                      [value]="item.BasisID"
+                    >
+                      {{ item.BasisName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div class="col-4 w-100"></div>
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    +item.get('EmploymentTypeId').value == 23 ||
+                    +item.get('EmploymentTypeId').value == 24 ||
+                    +item.get('EmploymentTypeId').value == 25 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-6 w-100"
+                >
+                  <mat-label>Date Started</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="StartedDate"
+                    formControlName="StartedDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="StartedDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #StartedDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field
+                  *ngIf="
+                    +item.get('EmploymentTypeId').value == 21 ||
+                    +item.get('EmploymentTypeId').value == 22 ||
+                    +item.get('EmploymentTypeId').value == 25 ||
+                    item.get('EmploymentTypeId').value == ''
+                  "
+                  class="col-6 w-100"
+                >
+                  <mat-label>Gross Income</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Gross Income"
+                    formControlName="GrossIncome"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-15 mb-2">
+          <button
+            mat-button
+            mat-raised-button
+            color="primary"
+            (click)="addApplicantEmploymentDetail()"
+          >
+            Add Previous Employment
+          </button>
         </div>
 
-        <!-- <div class="row mx-0" [formGroup]="myGroup">
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Occupation</mat-label>
-            <input
-              matInput
-              placeholder="Occupation"
-              formControlName="Occupation"
-              type="text"
-            />
-          </mat-form-field>
-            
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Employer</mat-label>
-            <input
-              matInput
-              placeholder="Employer"
-              formControlName="Employer"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-4 w-100">
-            <mat-label>Street Number</mat-label>
-            <input
-              matInput
-              placeholder="Street Number"
-              formControlName="StreetNumber"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-4 w-100">
-            <mat-label>Street Name</mat-label>
-            <input
-              matInput
-              placeholder="Street Name"
-              formControlName="StreetName"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-4 w-100">
-          </mat-form-field>
-
-          <mat-form-field class="col-4 w-100">
-            <mat-label>Suburb</mat-label>
-            <input
-              matInput
-              placeholder="Suburb"
-              formControlName="Suburb"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-3 w-100">
-            <mat-select
-              placeholder="State"
-              formControlName="State"
-            >
-              <mat-option
-                *ngFor="let item of States"
-                [value]="item.StatesID"
-              >
-                {{ item.StatesName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="col-1 w-100">
-          </mat-form-field>
-
-          <mat-form-field class="col-4 w-100">
-            <mat-label>Postcode</mat-label>
-            <input
-              matInput
-              placeholder="Postcode"
-              formControlName="Postcode"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-6 w-100">
-            <mat-label>Work Phone</mat-label>
-            <input
-              matInput
-              placeholder="Work Phone"
-              formControlName="WorkPhone"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-2 w-100">
-            <mat-select
-              placeholder="Basis"
-              formControlName="Basis"
-            >
-              <mat-option
-                *ngFor="let item of Basis"
-                [value]="item.BasisID"
-              >
-                {{ item.BasisName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
-        
-
-
+        <div class="px-15">
+          <button mat-button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button matStepperNext class="ml-2">
+            Next
+          </button>
+        </div>
       </mat-step>
-
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>

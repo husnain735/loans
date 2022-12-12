@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
@@ -162,19 +162,34 @@ export class ApplicantDetailComponent implements OnInit {
     IBORangeTypeId: [''],
     ChildrenForm: this._formBuilder.array([]),
   });
+  ApplicantContactInformation = this._formBuilder.group({
+    PhoneNumber: [''],
+    MobileNumber: ['', [Validators.required]],
+    EmailAddress: ['', [Validators.required, Validators.email]],
+    SkypeAddress: [''],
+    IsTaxResident: ['', [Validators.required]],
+    Country: ['', [Validators.required]],
+    CitizenshipStatusTypeId: ['', [Validators.required]]
+  });
+  ApplicantEmploymentDetail: FormGroup;
+  Items: FormArray;
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
   myGroup = this._formBuilder.group({
     Occupation: ['', Validators.required],
   });
-  isLinear = true;
+  isLinear = false;
   ADSubmitted = false;
   constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService) {
 
   }
   ngOnInit() {
     this._analysisService.getAllAppicants.next(true);
+    this.ApplicantEmploymentDetail = new FormGroup({
+      ApplicantEmploymentDetails: new FormArray([]),
+    });
+    this.addApplicantEmploymentDetail();
   }
   get childForms() {
     return this.ApplicantDetailForm.get('ChildrenForm') as FormArray
@@ -184,17 +199,47 @@ export class ApplicantDetailComponent implements OnInit {
     var noOfChildren = this.ApplicantDetailForm.get('NumberOfChildren').value;
     for (let index = 0; index < +noOfChildren; index++) {
       var child;
-       child = this._formBuilder.group({
-        Age: ['' ,Validators.required],
+      child = this._formBuilder.group({
+        Age: ['', Validators.required],
       })
       this.childForms.push(child);
     }
   }
-  onApplicantDetailSubmit(){
+  onApplicantDetailSubmit() {
     this.ADSubmitted = true
-    if(this.ApplicantDetailForm.invalid){
+    if (this.ApplicantDetailForm.invalid) {
       return
     }
     console.log(this.ApplicantDetailForm.value)
+  }
+  onApplicantContactInformationSubmit() {
+    if (this.ApplicantContactInformation.invalid) {
+      return
+    }
+  }
+  createApplicantEmploymentDetail(): FormGroup {
+    return this._formBuilder.group({
+      EmploymentTypeId: ['', [Validators.required]],
+      Occupation: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
+      Employer: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
+      StreetNumber: [''],
+      StreetName: [''],
+      Suburb: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
+      StateId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
+      Postcode: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
+      WorkPhone: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == '' })],
+      BasisTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == '' })],
+      StartedDate: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == 23 || x.EmploymentTypeId == 24 || x.EmploymentTypeId == 25 || x.EmploymentTypeId == '' })],
+      GrossIncome: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == 25 || x.EmploymentTypeId == '' })]
+    });
+  }
+
+  addApplicantEmploymentDetail(): void {
+    this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
+    this.Items.push(this.createApplicantEmploymentDetail());
+  }
+  removeApplicantEmploymentDetail(index){
+    this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
+    this.Items.removeAt(index);
   }
 }
