@@ -168,8 +168,8 @@ export class ApplicantDetailComponent implements OnInit {
     EmailAddress: ['', [Validators.required, Validators.email]],
     SkypeAddress: [''],
     IsTaxResident: ['', [Validators.required]],
-    Country: ['', [Validators.required]],
-    CitizenshipStatusTypeId: ['', [Validators.required]]
+    Country: ['', RxwebValidators.required({ conditionalExpression: (x) => x.IsTaxResident == 'true' })],
+    CitizenshipStatusTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.IsTaxResident == 'true' })]
   });
   ApplicantEmploymentDetail: FormGroup;
   Items: FormArray;
@@ -181,6 +181,7 @@ export class ApplicantDetailComponent implements OnInit {
   });
   isLinear = false;
   ADSubmitted = false;
+  ACInformation = false;
   constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService) {
 
   }
@@ -213,6 +214,7 @@ export class ApplicantDetailComponent implements OnInit {
     console.log(this.ApplicantDetailForm.value)
   }
   onApplicantContactInformationSubmit() {
+    this.ACInformation = true;
     if (this.ApplicantContactInformation.invalid) {
       return
     }

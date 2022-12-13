@@ -17,7 +17,7 @@ export class AnalysisComponent implements OnInit {
     },
     {
       Title: 'Assets',
-      Route: 'asets',
+      Route: 'assets',
       IsActive: true
     },
     {
@@ -99,7 +99,7 @@ export class AnalysisComponent implements OnInit {
       // this.LoanBroker = res.body.LoansBroker;
     })
   }
-  
+
   getAllApplicants(){
     debugger
     this.applicationguid = localStorage.getItem('ApplicationId');
