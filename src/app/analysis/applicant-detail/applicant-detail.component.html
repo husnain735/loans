@@ -298,7 +298,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step>
+      <mat-step [stepControl]="ApplicantEmploymentDetail">
         <ng-template matStepLabel
           >Employment Details (more than 3 year records)</ng-template
         >
@@ -514,6 +514,7 @@
                     matInput
                     [matDatepicker]="StartedDate"
                     formControlName="StartedDate"
+                    (dateChange)="addEvent('change', $event,i)"
                   />
                   <mat-datepicker-toggle
                     matSuffix
@@ -545,6 +546,7 @@
         </div>
         <div class="px-15 mb-2">
           <button
+            *ngIf="IsButtonVisible"
             mat-button
             mat-raised-button
             color="primary"
@@ -556,7 +558,7 @@
 
         <div class="px-15">
           <button mat-button mat-raised-button matStepperPrevious>Back</button>
-          <button mat-button mat-raised-button matStepperNext class="ml-2">
+          <button mat-button mat-raised-button matStepperNext class="ml-2" (click)="onApplicantEmploymentDetailSubmit()">
             Next
           </button>
         </div>

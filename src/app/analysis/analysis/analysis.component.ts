@@ -101,7 +101,6 @@ export class AnalysisComponent implements OnInit {
   }
 
   getAllApplicants(){
-    debugger
     this.applicationguid = localStorage.getItem('ApplicationId');
     this._analysisService.getAllApplicants(this.applicationguid).subscribe(res =>{
       this.ApplicationList = res.body;

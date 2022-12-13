@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
@@ -182,6 +183,10 @@ export class ApplicantDetailComponent implements OnInit {
   isLinear = false;
   ADSubmitted = false;
   ACInformation = false;
+  events: any[] = [
+  ];
+  date: Date;
+  IsButtonVisible = true;
   constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService) {
 
   }
@@ -209,15 +214,21 @@ export class ApplicantDetailComponent implements OnInit {
   onApplicantDetailSubmit() {
     this.ADSubmitted = true
     if (this.ApplicantDetailForm.invalid) {
-      return
+      return;
     }
     console.log(this.ApplicantDetailForm.value)
   }
   onApplicantContactInformationSubmit() {
     this.ACInformation = true;
     if (this.ApplicantContactInformation.invalid) {
-      return
+      return;
     }
+  }
+  onApplicantEmploymentDetailSubmit() {
+    if (this.ApplicantEmploymentDetail.invalid) {
+      return;
+    }
+    console.log(this.ApplicantEmploymentDetail.value);
   }
   createApplicantEmploymentDetail(): FormGroup {
     return this._formBuilder.group({
@@ -240,8 +251,71 @@ export class ApplicantDetailComponent implements OnInit {
     this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
     this.Items.push(this.createApplicantEmploymentDetail());
   }
-  removeApplicantEmploymentDetail(index){
+  removeApplicantEmploymentDetail(index) {
     this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
     this.Items.removeAt(index);
+  }
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>, index) {
+    this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
+    var idx = this.events.findIndex(i => i.Id == index);
+    if (idx == -1) {
+      var obj = {
+        Date: event.value,
+        Id: index
+      }
+      this.events.push(obj);
+    } else {
+      this.events[idx].Date = event.value;
+    }
+    var totalYear = 0;
+    this.events.forEach(i => {
+      var startDate = new Date(i.Date);
+      var endingDate = new Date();
+      // user not pass endingDate then set current date as end date.
+      if (!endingDate) {
+        endingDate = new Date();
+      }
+      let endDate = new Date(endingDate);
+      // chack start date and end date and base on condication alter date.
+      if (startDate > endDate) {
+        var swap = startDate;
+        startDate = endDate;
+        endDate = swap;
+      }
+      // This is for leap year.
+      const startYear = startDate.getFullYear();
+      const february =
+        (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0
+          ? 29
+          : 28;
+      const daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      let yearDiff = endDate.getFullYear() - startYear;
+      let monthDiff = endDate.getMonth() - startDate.getMonth();
+      if (monthDiff < 0) {
+        yearDiff--;
+        monthDiff += 12;
+      }
+      let dayDiff = endDate.getDate() - startDate.getDate();
+      let hourDiff = endDate.getHours() - startDate.getHours();
+      let minuteDiff = endDate.getMinutes() - startDate.getMinutes();
+      let secondDiff = endDate.getSeconds() - startDate.getSeconds();
+      if (dayDiff < 0) {
+        if (monthDiff > 0) {
+          monthDiff--;
+        } else {
+          yearDiff--;
+          monthDiff = 11;
+        }
+        dayDiff += daysInMonth[startDate.getMonth()];
+      }
+
+      totalYear += yearDiff;
+    })
+    if (totalYear >= 3) {
+      this.IsButtonVisible = false;
+    }else {
+      this.IsButtonVisible = true;
+    }
   }
 }
