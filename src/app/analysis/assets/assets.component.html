@@ -1,1 +1,93 @@
-<p>assets works!</p>
+<h1>Assets</h1>
+<div [formGroup]="AssetsDetails" class="mt-4">
+  <div
+    formArrayName="AssetsDetails"
+    *ngFor="
+      let item of AssetsDetails.get('AssetsDetails')['controls'];
+      let i = index
+    "
+  >
+    <div
+      [formGroupName]="i"
+      class="py-3 mb-3"
+      [ngClass]="
+        i > 0 && i % 2 == 1
+          ? 'bgSkinWhite'
+          : i > 0 && i % 2 == 0
+          ? 'bgLightGreen'
+          : ''
+      "
+    >
+      <div class="row mx-0">
+        <mat-form-field class="col-4 w-100">
+          <mat-label>Street Number</mat-label>
+          <input
+            matInput
+            placeholder="Street Number"
+            formControlName="StreetNumber"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="col-4 w-100">
+            <mat-label>Street Name</mat-label>
+            <input
+              matInput
+              placeholder="Street Name"
+              formControlName="StreetName"
+            />
+          </mat-form-field>
+      </div>
+
+      <div class="row mx-0">
+        <mat-form-field class="col-4 w-100">
+          <mat-label>Suburb</mat-label>
+          <input
+            matInput
+            placeholder="Suburb"
+            formControlName="Suburb"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+        class="col-3 w-100"
+      >
+        <mat-select placeholder="State" formControlName="StateId">
+          <mat-option
+            *ngFor="let item of States"
+            [value]="item.StatesID"
+          >
+            {{ item.StatesName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="col-1 w-100"></div>
+
+        <mat-form-field class="col-4 w-100">
+            <mat-label>Post Code</mat-label>
+            <input
+              matInput
+              placeholder="Post Code"
+              formControlName="PostCode"
+            />
+          </mat-form-field>
+      </div>
+
+      <div class="row mx-0">
+        <mat-form-field
+        class="col-6 w-100"
+      >
+        <mat-label>Gross Income</mat-label>
+        <input
+          type="number"
+          matInput
+          placeholder="Gross Income"
+          formControlName="GrossIncome"
+        />
+        <span matPrefix>&nbsp;$&nbsp;</span>
+      </mat-form-field>
+        </div>
+
+    </div>
+  </div>
+</div>

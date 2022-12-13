@@ -244,4 +244,5 @@ export class ApplicantDetailComponent implements OnInit {
     this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
     this.Items.removeAt(index);
   }
+
 }
