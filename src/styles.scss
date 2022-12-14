@@ -136,9 +136,11 @@ label {
 }
 .mat-error {
   font-size: .75rem !important;
+  color: var(--mdc-theme-error, #f44336);
 }
 mat-error{
   font-size: .75rem !important;
+  color: var(--mdc-theme-error, #f44336);
 }
 label.constant {
   font-size: .775rem;
