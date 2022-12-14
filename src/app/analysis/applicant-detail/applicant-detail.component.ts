@@ -143,9 +143,49 @@ export class ApplicantDetailComponent implements OnInit {
       BasisID: 36,
       BasisName: 'Casual'
     }]
-
-
-
+  OtherIncomeType = [
+    {
+      OtherIncomeType: 37,
+      OtherIncomeName: 'Family Tax Benefit'
+    },
+    {
+      OtherIncomeType: 38,
+      OtherIncomeName: 'Pensions'
+    }
+    ,
+    {
+      OtherIncomeType: 39,
+      OtherIncomeName: 'Child Support'
+    }
+    ,
+    {
+      OtherIncomeType: 40,
+      OtherIncomeName: 'Maintenance'
+    }
+    ,
+    {
+      OtherIncomeType: 41,
+      OtherIncomeName: 'Other'
+    }
+  ]
+  OtherIncomeDurationType = [
+    {
+      OtherIncomeDurationTypeId: 42,
+      OtherIncomeDurationTypeName: 'Week'
+    },
+    {
+      OtherIncomeDurationTypeId: 43,
+      OtherIncomeDurationTypeName: 'Fortnight'
+    },
+    {
+      OtherIncomeDurationTypeId: 44,
+      OtherIncomeDurationTypeName: 'Month'
+    },
+    {
+      OtherIncomeDurationTypeId: 45,
+      OtherIncomeDurationTypeName: 'Year'
+    },
+  ]
   ApplicantDetailForm = this._formBuilder.group({
     ApplicantType: ['1', [Validators.required]],
     SalutationTypeId: ['', [Validators.required]],
@@ -173,12 +213,11 @@ export class ApplicantDetailComponent implements OnInit {
     CitizenshipStatusTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.IsTaxResident == 'true' })]
   });
   ApplicantEmploymentDetail: FormGroup;
+  ApplicantOtherIncome: FormGroup;
   Items: FormArray;
+  OtherIncomeItems: FormArray;
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
-  });
-  myGroup = this._formBuilder.group({
-    Occupation: ['', Validators.required],
   });
   isLinear = false;
   ADSubmitted = false;
@@ -187,6 +226,8 @@ export class ApplicantDetailComponent implements OnInit {
   ];
   date: Date;
   IsButtonVisible = true;
+  TotalYear: number = 0;
+  IsYearMoreThen3: boolean = false;
   constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService) {
 
   }
@@ -195,7 +236,10 @@ export class ApplicantDetailComponent implements OnInit {
     this.ApplicantEmploymentDetail = new FormGroup({
       ApplicantEmploymentDetails: new FormArray([]),
     });
-    this.addApplicantEmploymentDetail();
+    this.ApplicantOtherIncome = new FormGroup({
+      ApplicantOtherIncomes: new FormArray([]),
+    });
+    this.addApplicantEmploymentDetail(1);
   }
   get childForms() {
     return this.ApplicantDetailForm.get('ChildrenForm') as FormArray
@@ -225,14 +269,19 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   onApplicantEmploymentDetailSubmit() {
-    if (this.ApplicantEmploymentDetail.invalid) {
+    debugger
+    if (this.TotalYear < 3) {
+      this.IsYearMoreThen3 = true;
+    }
+    if (this.ApplicantEmploymentDetail.invalid && this.IsYearMoreThen3) {
       return;
     }
     console.log(this.ApplicantEmploymentDetail.value);
   }
-  createApplicantEmploymentDetail(): FormGroup {
+  createApplicantEmploymentDetail(TypeId): FormGroup {
     return this._formBuilder.group({
-      EmploymentTypeId: ['', [Validators.required]],
+      PreviousEmployementType: [TypeId],
+      EmploymentTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousEmployementType == 1})],
       Occupation: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
       Employer: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
       StreetNumber: [''],
@@ -246,10 +295,10 @@ export class ApplicantDetailComponent implements OnInit {
       GrossIncome: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == 25 || x.EmploymentTypeId == '' })]
     });
   }
-
-  addApplicantEmploymentDetail(): void {
+  addApplicantEmploymentDetail(TypeId): void {
     this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
-    this.Items.push(this.createApplicantEmploymentDetail());
+    this.Items.push(this.createApplicantEmploymentDetail(TypeId));
+
   }
   removeApplicantEmploymentDetail(index) {
     this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
@@ -267,7 +316,7 @@ export class ApplicantDetailComponent implements OnInit {
     } else {
       this.events[idx].Date = event.value;
     }
-    var totalYear = 0;
+    this.TotalYear = 0;
     this.events.forEach(i => {
       var startDate = new Date(i.Date);
       var endingDate = new Date();
@@ -310,12 +359,31 @@ export class ApplicantDetailComponent implements OnInit {
         dayDiff += daysInMonth[startDate.getMonth()];
       }
 
-      totalYear += yearDiff;
+      this.TotalYear += yearDiff;
+      if (this.TotalYear >= 3) {
+        this.IsYearMoreThen3 = false;
+      }
     })
-    if (totalYear >= 3) {
+    if (this.TotalYear >= 3) {
       this.IsButtonVisible = false;
     }else {
       this.IsButtonVisible = true;
     }
+  }
+  addApplicantOtherIncome(): void {
+    this.OtherIncomeItems = this.ApplicantOtherIncome.get('ApplicantOtherIncomes') as FormArray;
+    this.OtherIncomeItems.push(this.createApplicantOtherIncome());
+  }
+  createApplicantOtherIncome(): FormGroup {
+    return this._formBuilder.group({
+      OtherIncomeType: ['', Validators.required],
+      OtherDetails: [''],
+      OtherAmount: ['', Validators.required],
+      OtherDurationType: ['', Validators.required],
+    });
+  }
+  removeApplicantOtherIncome(index) {
+    this.OtherIncomeItems = this.ApplicantOtherIncome.get('ApplicantOtherIncomes') as FormArray;
+    this.OtherIncomeItems.removeAt(index);
   }
 }
