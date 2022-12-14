@@ -42,6 +42,37 @@ export class AssetsComponent {
       StatesName: 'WA'
     }
   ];
+
+  PerRentReceived = [
+    {
+      PerRentID: 37,
+      PerRentName: 'Week'
+    },
+    {
+      PerRentID: 38,
+      PerRentName: 'Fortnight'
+    },
+    {
+      PerRentID: 39,
+      PerRentName: 'Month'
+    },
+    {
+      PerRentID: 40,
+      PerRentName: 'Year'
+    }
+  ];
+
+  InterestType = [
+    {
+      InterestTypeID: 41,
+      InterestTypeName: 'Variable'
+    },
+    {
+      InterestTypeID: 42,
+      InterestTypeName: 'Fixed'
+    }
+  ];
+
   Items: FormArray;
 
 
