@@ -186,6 +186,35 @@ export class ApplicantDetailComponent implements OnInit {
       OtherIncomeDurationTypeName: 'Year'
     },
   ]
+  HousingState = [
+    {
+      HousingStateTypeId: 46,
+      HousingStateTypeName: 'Renting'
+    },
+    {
+      HousingStateTypeId: 47,
+      HousingStateTypeName: 'Mortgage'
+    },
+    {
+      HousingStateTypeId: 48,
+      HousingStateTypeName: 'With parents'
+    },
+    {
+      HousingStateTypeId: 49,
+      HousingStateTypeName: 'Home in duty'
+    },
+    {
+      HousingStateTypeId: 50,
+      HousingStateTypeName: 'Other'
+    },
+  ]
+  ResidingYear = [
+    0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
+    41,42,43,44,45,46,47,48,49,50
+  ]
+  ResidingMonth = [
+    0,1,2,3,4,5,6,7,8,9,10,11,12
+  ]
   ApplicantDetailForm = this._formBuilder.group({
     ApplicantType: ['1', [Validators.required]],
     SalutationTypeId: ['', [Validators.required]],
@@ -214,12 +243,14 @@ export class ApplicantDetailComponent implements OnInit {
   });
   ApplicantEmploymentDetail: FormGroup;
   ApplicantOtherIncome: FormGroup;
+  ApplicantAddress: FormGroup;
   Items: FormArray;
   OtherIncomeItems: FormArray;
+  ApplicantAddresses: FormArray;
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
-  isLinear = false;
+  isLinear = true;
   ADSubmitted = false;
   ACInformation = false;
   events: any[] = [
@@ -239,7 +270,11 @@ export class ApplicantDetailComponent implements OnInit {
     this.ApplicantOtherIncome = new FormGroup({
       ApplicantOtherIncomes: new FormArray([]),
     });
+    this.ApplicantAddress = new FormGroup({
+      ApplicantAddresses: new FormArray([]),
+    });
     this.addApplicantEmploymentDetail(1);
+    this.addApplicantAddress(1);
   }
   get childForms() {
     return this.ApplicantDetailForm.get('ChildrenForm') as FormArray
@@ -274,6 +309,13 @@ export class ApplicantDetailComponent implements OnInit {
       this.IsYearMoreThen3 = true;
     }
     if (this.ApplicantEmploymentDetail.invalid && this.IsYearMoreThen3) {
+      return;
+    }
+    console.log(this.ApplicantEmploymentDetail.value);
+  }
+  onApplicantAddressSubmit() {
+    debugger
+    if (this.ApplicantAddress.invalid) {
       return;
     }
     console.log(this.ApplicantEmploymentDetail.value);
@@ -385,5 +427,34 @@ export class ApplicantDetailComponent implements OnInit {
   removeApplicantOtherIncome(index) {
     this.OtherIncomeItems = this.ApplicantOtherIncome.get('ApplicantOtherIncomes') as FormArray;
     this.OtherIncomeItems.removeAt(index);
+  }
+  addApplicantAddress(TypeId): void {
+    this.ApplicantAddresses = this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
+    this.ApplicantAddresses.push(this.createApplicantAddress(TypeId));
+  }
+  createApplicantAddress(TypeId): FormGroup {
+    return this._formBuilder.group({
+      PreviousAddressType: [TypeId],
+      StreetNumber: [''],
+      StreetName: [''],
+      Suburb: ['', Validators.required],
+      StateTypeId: ['', Validators.required],
+      Postcode: ['', Validators.required],
+      HousingStatusTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousAddressType == 1 })],
+      Specify: ['', RxwebValidators.required({ conditionalExpression: (x) => x.HousingStatusTypeId == 50 })],
+      YearTimeResiding: ['', Validators.required],
+      MonthTimeResiding: ['', Validators.required],
+      MorePostalAddress: [''],
+      StreetNumber2: [''],
+      StreetName2: [''],
+      POBox: [''],
+      Suburb2: ['', RxwebValidators.required({ conditionalExpression: (x) => (x.MorePostalAddress == 0 && x.PreviousAddressType == 1) })],
+      State2TypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => (x.MorePostalAddress == 0 && x.PreviousAddressType == 1)  })],
+      Postcode2: ['', RxwebValidators.required({ conditionalExpression: (x) => (x.MorePostalAddress == 0 && x.PreviousAddressType == 1)  })],
+    });
+  }
+  removeApplicantAddress(index) {
+    this.ApplicantAddresses = this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
+    this.ApplicantAddresses.removeAt(index);
   }
 }
