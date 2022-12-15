@@ -448,9 +448,9 @@ export class ApplicantDetailComponent implements OnInit {
       StreetNumber2: [''],
       StreetName2: [''],
       POBox: [''],
-      Suburb2: ['', RxwebValidators.required({ conditionalExpression: (x) => (x.MorePostalAddress == 0 && x.PreviousAddressType == 1) })],
-      State2TypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => (x.MorePostalAddress == 0 && x.PreviousAddressType == 1)  })],
-      Postcode2: ['', RxwebValidators.required({ conditionalExpression: (x) => (x.MorePostalAddress == 0 && x.PreviousAddressType == 1)  })],
+      Suburb2: ['', RxwebValidators.required({ conditionalExpression: (x,y) => (x.MorePostalAddress == 0 && y.PreviousAddressType == 1) })],
+      State2TypeId: ['', RxwebValidators.required({ conditionalExpression: (x,y) => (x.MorePostalAddress == 0 && y.PreviousAddressType == 1)  })],
+      Postcode2: ['', RxwebValidators.required({ conditionalExpression: (x,y) => (x.MorePostalAddress == 0 && y.PreviousAddressType == 1)  })],
     });
   }
   removeApplicantAddress(index) {
