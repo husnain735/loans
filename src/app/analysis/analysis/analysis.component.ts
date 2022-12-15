@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-analysis',
@@ -68,7 +69,7 @@ export class AnalysisComponent implements OnInit {
   ApplicationList:any = [];
 
 
-  constructor(private router: Router, private route: ActivatedRoute,private _analysisService: AnalysisService) {
+  constructor(private router: Router, private route: ActivatedRoute,private _analysisService: AnalysisService,public _sharedService: SharedService) {
     this._analysisService.getAllAppicants.subscribe(
       (data) => {
         this.getAllApplicants();
@@ -103,7 +104,8 @@ export class AnalysisComponent implements OnInit {
   getAllApplicants(){
     this.applicationguid = localStorage.getItem('ApplicationId');
     this._analysisService.getAllApplicants(this.applicationguid).subscribe(res =>{
-      this.ApplicationList = res.body;
+      // this.ApplicationList = res.body;
+      this._sharedService.TotalApplicants = res.body;
       console.log(this.ApplicationList);
 
     })

@@ -80,7 +80,7 @@ export class AssetsComponent {
     this.AssetsDetails = new FormGroup({
       AssetsDetails: new FormArray([]),
     });
-    this.addAssetsDetails();
+    // this.addAssetsDetails();
     
   }
   constructor(private _formBuilder: FormBuilder){}
@@ -90,11 +90,31 @@ export class AssetsComponent {
       StreetNumber: [''],
       StreetName: [''],
       Suburb: ['', [Validators.required]],
-      StateId: ['']
+      StateId: ['',[Validators.required]],
+      PostCode: ['',[Validators.required]],
+      EstimatedValue: ['',[Validators.required]],
+      RentReceived: ['',[Validators.required]],
+      RentPerID: ['',[Validators.required]],
+      Lender: ['',[Validators.required]],
+      InterestTypeID: ['',[Validators.required]],
+      InterestRate: ['',[Validators.required]],
+      Limit: ['',[Validators.required]],
+      Payment: ['',[Validators.required]],
+      PaymentPerID: ['',[Validators.required]],
+      Balance: ['',[Validators.required]],
+      Refinance: ['',[Validators.required]],
+      IsInvestmentProperty:  [''],
+      IsMortgage: [''],
+      ApplicantType: ''
+
     });
   }
   addAssetsDetails(): void {
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     this.Items.push(this.createAssetsDetails());
+  }
+  removeAssetsDetails(index) {
+    this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
+    this.Items.removeAt(index);
   }
 }

@@ -13,6 +13,13 @@
   >
     Add an applicant
   </button>
+  <ol>
+    <li *ngFor="let item of _sharedService.TotalApplicants">
+      <span (click)="onNavigateToApplicant(item)" class="pointer">
+        {{item.FirstName}}&nbsp;{{item.SurName}}
+      </span>
+    </li>
+  </ol>
   <div class="my-3">Please add all applicants for the loan.</div>
   <div class="step-nav">
     <button mat-raised-button color="primary" class="next" [disabled]="!IsNext">

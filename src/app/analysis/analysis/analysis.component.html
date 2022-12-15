@@ -22,7 +22,7 @@
         <li *ngFor="let item of sideNavMenu">
           <a [ngClass]="router.url.includes(item.Route) ? 'is-active' : ''">{{item.Title}}</a>
           <ul *ngIf="item.Title == 'Applicants'">
-            <li *ngFor="let item of ApplicationList">
+            <li *ngFor="let item of _sharedService.TotalApplicants">
               <a (click)="onNavigateToApplicant(item)">
                 {{item.FirstName}}&nbsp;{{item.SurName}}
               </a>

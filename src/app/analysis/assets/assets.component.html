@@ -9,7 +9,7 @@
   >
     <div
       [formGroupName]="i"
-      class="py-3 mb-3"
+      class="py-3 mb-3 px-5"
       [ngClass]="
         i > 0 && i % 2 == 1
           ? 'bgSkinWhite'
@@ -18,6 +18,25 @@
           : ''
       "
     >
+      <div class="row mx-3 py-2">
+        <div class="col-3 text-left">
+          <span class="font-w-bold"> Real Estate - Property #{{ i + 1 }} </span>
+        </div>
+    
+        <div
+        class="col-9 text-right"
+      >
+        <button
+          (click)="removeAssetsDetails(i)"
+          class="pointer" 
+          mat-fab
+          color="primary"
+          aria-label="Example icon button with a delete icon"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      </div>
       <div class="row mx-0">
         <mat-form-field class="col-4 w-100">
           <mat-label>Street Number</mat-label>
@@ -73,23 +92,32 @@
         </mat-form-field>
       </div>
 
-      <div class="row mx-0">
-        <div class="col-2 w-100">
-          <span> Investment Property </span>
+      <div class="row mx-0 py-3">
+        <div class="col-2 w-100 pointer">
+          <!-- <span> Investment Property </span> -->
+          <mat-slide-toggle formControlName="IsInvestmentProperty">
+            Investment Property
+          </mat-slide-toggle>
         </div>
 
-        <mat-form-field class="col-4 w-100">
+        <mat-form-field
+          class="col-4 w-100"
+          *ngIf="item.get('IsInvestmentProperty').value == true"
+        >
           <mat-label>Rent Received</mat-label>
           <input
             type="number"
             matInput
-            placeholder="Estimated Value"
-            formControlName="EstimatedValue"
+            placeholder="Rent Value"
+            formControlName="RentReceived"
           />
           <span matPrefix>&nbsp;$&nbsp;</span>
         </mat-form-field>
 
-        <mat-form-field class="col-3 w-100">
+        <mat-form-field
+          class="col-3 w-100"
+          *ngIf="item.get('IsInvestmentProperty').value == true"
+        >
           <mat-select placeholder="Per" formControlName="RentPerID">
             <ng-container *ngFor="let item of PerRentReceived">
               <mat-option [value]="item.PerRentID" *ngIf="item.PerRentID != 40">
@@ -100,125 +128,134 @@
         </mat-form-field>
       </div>
 
-      <div class="row mx-0">
-        <div class="col-2 w-100">
-          <span> Mortgage </span>
+      <div class="row mx-0 py-3">
+        <div class="col-2 w-100 pointer">
+          <mat-slide-toggle formControlName="IsMortgage">
+            Mortgage
+          </mat-slide-toggle>
         </div>
 
-        <mat-form-field class="col-5 w-100">
-          <mat-label>Lender</mat-label>
-          <input matInput placeholder="Lender" formControlName="Lender" />
-        </mat-form-field>
+        <div
+          class="col-10 w-100 px-0"
+          *ngIf="item.get('IsMortgage').value == true"
+        >
+          <div class="row mx-0">
+            <mat-form-field class="col-5 w-100">
+              <mat-label>Lender</mat-label>
+              <input matInput placeholder="Lender" formControlName="Lender" />
+            </mat-form-field>
 
-        <mat-form-field class="col-3 w-100">
-          <mat-select
-            placeholder="Interest Type"
-            formControlName="InterestTypeID"
-          >
-            <mat-option
-              *ngFor="let item of InterestType"
-              [value]="item.InterestTypeID"
-            >
-              {{ item.InterestTypeName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="row mx-0">
-        <div class="col-2 w-100"></div>
-
-        <mat-form-field class="col-5 w-100">
-          <mat-label>Interest Rate</mat-label>
-          <input
-            matInput
-            placeholder="Interest Rate"
-            formControlName="InterestRate"
-          />
-          <span matSuffix>&nbsp;%&nbsp;</span>
-        </mat-form-field>
-
-        <mat-form-field class="col-5 w-100">
-          <mat-label>Limit</mat-label>
-          <input
-            type="number"
-            matInput
-            placeholder="Limit"
-            formControlName="Limit"
-          />
-          <span matPrefix>&nbsp;$&nbsp;</span>
-        </mat-form-field>
-      </div>
-
-      <div class="row mx-0">
-        <div class="col-2 w-100"></div>
-
-        <mat-form-field class="col-2 w-100">
-          <mat-label>Payment</mat-label>
-          <input
-            type="number"
-            matInput
-            placeholder="Payment"
-            formControlName="Payment"
-          />
-          <span matPrefix>&nbsp;$&nbsp;</span>
-        </mat-form-field>
-
-        <mat-form-field class="col-3 w-100">
-          <mat-select placeholder="Per" formControlName="PaymentPerID">
-            <mat-option
-              [value]="item.PerRentID"
-              *ngFor="let item of PerRentReceived"
-            >
-              {{ item.PerRentName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <div class="col-1 w-100"></div>
-
-        <mat-form-field class="col-2 w-100">
-          <mat-label>Balance</mat-label>
-          <input
-            type="number"
-            matInput
-            placeholder="Balance"
-            formControlName="Balance"
-          />
-          <span matPrefix>&nbsp;$&nbsp;</span>
-        </mat-form-field>
-      </div>
-
-      <div class="row mx-0">
-        <div class="col-2 w-100"></div>
-        <div class="px-15">
-          <label class="constant">Name on Liability</label>
-          <div>
-            <mat-radio-group formControlName="ApplicantType">
-              <mat-radio-button value="1">Applicant</mat-radio-button>
-              <mat-radio-button value="2">Guarantor</mat-radio-button>
-              <mat-radio-button value="3">Non-applicant</mat-radio-button>
-            </mat-radio-group>
+            <mat-form-field class="col-3 w-100">
+              <mat-select
+                placeholder="Interest Type"
+                formControlName="InterestTypeID"
+              >
+                <mat-option
+                  *ngFor="let item of InterestType"
+                  [value]="item.InterestTypeID"
+                >
+                  {{ item.InterestTypeName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-          <label class="constant">Refinance?</label>
-          <div>
-            <mat-radio-group formControlName="RefinanceTypeID">
-              <mat-radio-button value="4">Yes</mat-radio-button>
-              <mat-radio-button value="5">No</mat-radio-button>
-            </mat-radio-group>
+
+          <div class="row mx-0">
+            <!-- <div class="col-2 w-100"></div> -->
+
+            <mat-form-field class="col-5 w-100">
+              <mat-label>Interest Rate</mat-label>
+              <input
+                matInput
+                placeholder="Interest Rate"
+                formControlName="InterestRate"
+              />
+              <span matSuffix>&nbsp;%&nbsp;</span>
+            </mat-form-field>
+
+            <mat-form-field class="col-5 w-100">
+              <mat-label>Limit</mat-label>
+              <input
+                type="number"
+                matInput
+                placeholder="Limit"
+                formControlName="Limit"
+              />
+              <span matPrefix>&nbsp;$&nbsp;</span>
+            </mat-form-field>
+          </div>
+
+          <div class="row mx-0">
+            <!-- <div class="col-2 w-100"></div> -->
+
+            <mat-form-field class="col-2 w-100">
+              <mat-label>Payment</mat-label>
+              <input
+                type="number"
+                matInput
+                placeholder="Payment"
+                formControlName="Payment"
+              />
+              <span matPrefix>&nbsp;$&nbsp;</span>
+            </mat-form-field>
+
+            <mat-form-field class="col-2 w-100">
+              <mat-select placeholder="Per" formControlName="PaymentPerID">
+                <mat-option
+                  [value]="item.PerRentID"
+                  *ngFor="let item of PerRentReceived"
+                >
+                  {{ item.PerRentName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="col-1 w-100"></div>
+
+            <mat-form-field class="col-2 w-100">
+              <mat-label>Balance</mat-label>
+              <input
+                type="number"
+                matInput
+                placeholder="Balance"
+                formControlName="Balance"
+              />
+              <span matPrefix>&nbsp;$&nbsp;</span>
+            </mat-form-field>
+          </div>
+
+          <div class="row mx-0">
+            <!-- <div class="col-2 w-100"></div> -->
+            <div class="px-15">
+              <label class="constant">Name on Liability</label>
+              <div>
+                <mat-radio-group formControlName="ApplicantType">
+                  <mat-radio-button value="1">Applicant</mat-radio-button>
+                  <mat-radio-button value="2">Guarantor</mat-radio-button>
+                  <mat-radio-button value="3">Non-applicant</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <label class="constant">Refinance?</label>
+              <div>
+                <mat-radio-group formControlName="Refinance">
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
     </div>
   </div>
 </div>
+<button
+  mat-button
+  mat-raised-button
+  color="primary"
+  class="mx-3 pointer"
+  (click)="addAssetsDetails()"
+>
+  Add Previous Employment
+  <mat-icon class="btnOrder">add</mat-icon>
+</button>

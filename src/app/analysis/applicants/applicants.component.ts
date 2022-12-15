@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-applicants',
@@ -30,7 +31,7 @@ export class ApplicantsComponent implements OnInit {
     },
   ]
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService, private route: ActivatedRoute,
-    private router: Router,) {
+    private router: Router,public _sharedService: SharedService) {
 
   }
   ngOnInit() {
@@ -71,5 +72,8 @@ export class ApplicantsComponent implements OnInit {
         this.dialog.closeAll();
       })
     }
+  }
+  onNavigateToApplicant(applicant:any){
+    this.router.navigate(['client/' + applicant.ApplicationId + '/applicant/' + applicant.ApplicantId]);
   }
 }
