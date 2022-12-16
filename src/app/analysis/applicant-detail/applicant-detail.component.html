@@ -320,13 +320,15 @@
                 <div *ngIf="+item.get('PreviousAddressType').value == 1" class="col-12 mb-3">
                   <label class="mb-2">Postal Address:</label>
                   <div>
-                    <mat-slide-toggle formControlName="MorePostalAddress"
+                    {{item.get('MorePostalAddress').value}}
+                    {{item.get('PreviousAddressType').value}}
+                    <mat-slide-toggle (change)="onToggle($event)"
                       >Use the same address above</mat-slide-toggle
                     >
                   </div>
                 </div>
                 <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == 0
+                  *ngIf="+item.get('MorePostalAddress').value == false
                   && +item.get('PreviousAddressType').value == 1"
                   class="col-4 w-100"
                 >
@@ -338,7 +340,7 @@
                   />
                 </mat-form-field>
                 <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == 0
+                  *ngIf="+item.get('MorePostalAddress').value == false
                   && +item.get('PreviousAddressType').value == 1"
                   class="col-4 w-100"
                 >
@@ -350,7 +352,7 @@
                   />
                 </mat-form-field>
                 <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == 0
+                  *ngIf="+item.get('MorePostalAddress').value == false
                   && +item.get('PreviousAddressType').value == 1"
                   class="col-4 w-100"
                 >
@@ -358,7 +360,7 @@
                   <input matInput placeholder="POBox" formControlName="POBox" />
                 </mat-form-field>
                 <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == 0
+                  *ngIf="+item.get('MorePostalAddress').value == false
                   && +item.get('PreviousAddressType').value == 1"
                   class="col-4 w-100"
                 >
@@ -370,7 +372,7 @@
                   />
                 </mat-form-field>
                 <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == 0
+                  *ngIf="+item.get('MorePostalAddress').value == false
                   && +item.get('PreviousAddressType').value == 1"
                   class="col-3 w-100"
                 >
@@ -387,7 +389,7 @@
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == 0
+                  *ngIf="+item.get('MorePostalAddress').value == false
                   && +item.get('PreviousAddressType').value == 1"
                   class="col-4 w-100"
                 >

@@ -209,11 +209,11 @@ export class ApplicantDetailComponent implements OnInit {
     },
   ]
   ResidingYear = [
-    0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
-    41,42,43,44,45,46,47,48,49,50
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50
   ]
   ResidingMonth = [
-    0,1,2,3,4,5,6,7,8,9,10,11,12
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
   ]
   ApplicantDetailForm = this._formBuilder.group({
     ApplicantType: ['1', [Validators.required]],
@@ -323,7 +323,7 @@ export class ApplicantDetailComponent implements OnInit {
   createApplicantEmploymentDetail(TypeId): FormGroup {
     return this._formBuilder.group({
       PreviousEmployementType: [TypeId],
-      EmploymentTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousEmployementType == 1})],
+      EmploymentTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousEmployementType == 1 })],
       Occupation: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
       Employer: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
       StreetNumber: [''],
@@ -408,7 +408,7 @@ export class ApplicantDetailComponent implements OnInit {
     })
     if (this.TotalYear >= 3) {
       this.IsButtonVisible = false;
-    }else {
+    } else {
       this.IsButtonVisible = true;
     }
   }
@@ -444,17 +444,21 @@ export class ApplicantDetailComponent implements OnInit {
       Specify: ['', RxwebValidators.required({ conditionalExpression: (x) => x.HousingStatusTypeId == 50 })],
       YearTimeResiding: ['', Validators.required],
       MonthTimeResiding: ['', Validators.required],
-      MorePostalAddress: [''],
+      MorePostalAddress: [false],
       StreetNumber2: [''],
       StreetName2: [''],
       POBox: [''],
-      Suburb2: ['', RxwebValidators.required({ conditionalExpression: (x,y) => (x.MorePostalAddress == 0 && y.PreviousAddressType == 1) })],
-      State2TypeId: ['', RxwebValidators.required({ conditionalExpression: (x,y) => (x.MorePostalAddress == 0 && y.PreviousAddressType == 1)  })],
-      Postcode2: ['', RxwebValidators.required({ conditionalExpression: (x,y) => (x.MorePostalAddress == 0 && y.PreviousAddressType == 1)  })],
+      Suburb2: ['', RxwebValidators.required({ conditionalExpression: (x,y) => x.MorePostalAddress == false }) ,],
+      State2TypeId: ['', RxwebValidators.required({ conditionalExpression: (x,y) =>  x.MorePostalAddress == false })],
+      Postcode2: ['', RxwebValidators.required({ conditionalExpression: (x,y) =>  x.MorePostalAddress == false })],
     });
   }
   removeApplicantAddress(index) {
     this.ApplicantAddresses = this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
     this.ApplicantAddresses.removeAt(index);
+  }
+  onToggle(event){
+    debugger
+    console.log(event)
   }
 }
