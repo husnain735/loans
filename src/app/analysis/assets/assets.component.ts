@@ -8,6 +8,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AssetsComponent {
   AssetsDetails: FormGroup;
+  SavingDetails: FormGroup;
+  SuperannuationDetails: FormGroup;
+  MotorVehicleDetails: FormGroup;
+  MoreAssetDetails: FormGroup;
+  
   States = [
     {
       StatesID: 26,
@@ -73,6 +78,21 @@ export class AssetsComponent {
     }
   ];
 
+  AssetType = [
+    {
+      AssetTypeID: 43,
+      AssetTypeName: 'Investments'
+    },
+    {
+      AssetTypeID: 44,
+      AssetTypeName: 'Furniture & effects'
+    },
+    {
+      AssetTypeID: 45,
+      AssetTypeName: 'Other'
+    }
+  ];
+
   Items: FormArray;
 
 
@@ -80,8 +100,23 @@ export class AssetsComponent {
     this.AssetsDetails = new FormGroup({
       AssetsDetails: new FormArray([]),
     });
-    // this.addAssetsDetails();
-    
+
+    this.SavingDetails = new FormGroup({
+      SavingDetails: new FormArray([]),
+    });
+
+    this.SuperannuationDetails = new FormGroup({
+      SuperannuationDetails: new FormArray([]),
+    });
+
+    this.MotorVehicleDetails = new FormGroup({
+      MotorVehicleDetails: new FormArray([]),
+    });
+
+    this.MoreAssetDetails = new FormGroup({
+      MoreAssetDetails: new FormArray([]),
+    });
+
   }
   constructor(private _formBuilder: FormBuilder){}
 
@@ -109,12 +144,79 @@ export class AssetsComponent {
 
     });
   }
+
+  createSavingDetails(): FormGroup {
+    return this._formBuilder.group({
+      Institution: ['',[Validators.required]],
+      EstimatedValue: ['',[Validators.required]]
+    });
+  }
+
+  createSuperannuationDetails(): FormGroup {
+    return this._formBuilder.group({
+      Institution: ['',[Validators.required]],
+      EstimatedValue: ['',[Validators.required]]
+    });
+  }
+
+  createMotorVehicleDetails(): FormGroup {
+    return this._formBuilder.group({
+      Make: ['',[Validators.required]],
+      Year: ['',[Validators.required]],
+      EstimatedValue: ['',[Validators.required]]
+    });
+  }
+  
+  createMoreAssetDetails(): FormGroup {
+    return this._formBuilder.group({
+      AssetTypeID: [''],
+      Details: [''],
+      EstimatedValue: ['',[Validators.required]]
+    });
+  }
+
   addAssetsDetails(): void {
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     this.Items.push(this.createAssetsDetails());
   }
   removeAssetsDetails(index) {
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
+    this.Items.removeAt(index);
+  }
+
+  addSavingDetails(): void {
+    this.Items = this.SavingDetails.get('SavingDetails') as FormArray;
+    this.Items.push(this.createSavingDetails());
+  }
+  removeSavingDetails(index) {
+    this.Items = this.SavingDetails.get('SavingDetails') as FormArray;
+    this.Items.removeAt(index);
+  }
+
+  addSuperannuationDetails(): void {
+    this.Items = this.SuperannuationDetails.get('SuperannuationDetails') as FormArray;
+    this.Items.push(this.createSuperannuationDetails());
+  }
+  removeSuperannuationDetails(index) {
+    this.Items = this.SuperannuationDetails.get('SuperannuationDetails') as FormArray;
+    this.Items.removeAt(index);
+  }
+
+  addMotorVehicleDetails(): void {
+    this.Items = this.MotorVehicleDetails.get('MotorVehicleDetails') as FormArray;
+    this.Items.push(this.createMotorVehicleDetails());
+  }
+  removeMotorVehicleDetails(index) {
+    this.Items = this.MotorVehicleDetails.get('MotorVehicleDetails') as FormArray;
+    this.Items.removeAt(index);
+  }
+
+  addMoreAssetDetails(): void {
+    this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
+    this.Items.push(this.createMoreAssetDetails());
+  }
+  removeMoreAssetDetails(index) {
+    this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
     this.Items.removeAt(index);
   }
 }
