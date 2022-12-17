@@ -194,7 +194,7 @@
         <ng-template matStepLabel
           >Address (more than 3 year records)</ng-template
         >
-        <div [formGroup]="ApplicantAddress" class="mt-4">
+        <form [formGroup]="ApplicantAddress" class="mt-4">
           <div
             formArrayName="ApplicantAddresses"
             *ngFor="
@@ -215,206 +215,208 @@
                   : ''
               "
             >
-              <div class="row mx-0">
-                <div *ngIf="i > 0" class="col-12 text-right mb-3">
-                  <button
-                    (click)="removeApplicantAddress(i)"
-                    mat-fab
-                    color="primary"
-                    aria-label="Example icon button with a delete icon"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-                <mat-form-field class="col-4 w-100">
-                  <mat-label>Street Number</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Number"
-                    formControlName="StreetNumber"
-                  />
-                </mat-form-field>
-                <mat-form-field class="col-4 w-100">
-                  <mat-label>Street Name</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Name"
-                    formControlName="StreetName"
-                  />
-                </mat-form-field>
-                <div class="col-4 w-100"></div>
-                <mat-form-field class="col-4 w-100">
-                  <mat-label>Suburb</mat-label>
-                  <input
-                    matInput
-                    placeholder="Suburb"
-                    formControlName="Suburb"
-                  />
-                </mat-form-field>
-                <mat-form-field class="col-3 w-100">
-                  <mat-select placeholder="State" formControlName="StateTypeId">
-                    <mat-option
-                      *ngFor="let item of States"
-                      [value]="item.StatesID"
-                    >
-                      {{ item.StatesName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <div class="col-1 w-100"></div>
-                <mat-form-field class="col-4 w-100">
-                  <mat-label>Postcode</mat-label>
-                  <input
-                    matInput
-                    placeholder="Postcode"
-                    formControlName="Postcode"
-                  />
-                </mat-form-field>
-                <mat-form-field *ngIf="+item.get('PreviousAddressType').value == 1" class="col-2 w-100">
-                  <mat-select
-                    placeholder="Housing Status"
-                    formControlName="HousingStatusTypeId"
-                  >
-                    <mat-option
-                      *ngFor="let item of HousingState"
-                      [value]="item.HousingStateTypeId"
-                    >
-                      {{ item.HousingStateTypeName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field *ngIf="+item.get('HousingStatusTypeId').value == 50" class="col-2 w-100">
-                  <mat-label>Specify</mat-label>
-                  <input
-                    matInput
-                    placeholder="Specify"
-                    formControlName="Specify"
-                  />
-                </mat-form-field>
-                <mat-form-field class="col-2 w-100">
-                  <mat-select
-                    placeholder="Time residing (Year)"
-                    formControlName="YearTimeResiding"
-                  >
-                    <mat-option
-                      *ngFor="let item of ResidingYear"
-                      [value]="item"
-                    >
-                      {{ item }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-2 w-100">
-                  <mat-select
-                    placeholder="Month"
-                    formControlName="MonthTimeResiding"
-                  >
-                    <mat-option
-                      *ngFor="let item of ResidingMonth"
-                      [value]="item"
-                    >
-                      {{ item }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <div *ngIf="+item.get('PreviousAddressType').value == 1" class="col-12 mb-3">
-                  <label class="mb-2">Postal Address:</label>
-                  <div>
-                    {{item.get('MorePostalAddress').value}}
-                    {{item.get('PreviousAddressType').value}}
-                    <mat-slide-toggle (change)="onToggle($event)"
-                      >Use the same address above</mat-slide-toggle
-                    >
-                  </div>
-                </div>
-                <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == false
-                  && +item.get('PreviousAddressType').value == 1"
-                  class="col-4 w-100"
+            <div class="row mx-0">
+              <div *ngIf="i > 0" class="col-12 text-right mb-3">
+                <button
+                  (click)="removeApplicantAddress(i)"
+                  mat-fab
+                  color="primary"
+                  aria-label="Example icon button with a delete icon"
                 >
-                  <mat-label>Street Number</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Number"
-                    formControlName="StreetNumber2"
-                  />
-                </mat-form-field>
-                <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == false
-                  && +item.get('PreviousAddressType').value == 1"
-                  class="col-4 w-100"
-                >
-                  <mat-label>Street Name</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Name"
-                    formControlName="StreetName2"
-                  />
-                </mat-form-field>
-                <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == false
-                  && +item.get('PreviousAddressType').value == 1"
-                  class="col-4 w-100"
-                >
-                  <mat-label>POBox</mat-label>
-                  <input matInput placeholder="POBox" formControlName="POBox" />
-                </mat-form-field>
-                <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == false
-                  && +item.get('PreviousAddressType').value == 1"
-                  class="col-4 w-100"
-                >
-                  <mat-label>Suburb</mat-label>
-                  <input
-                    matInput
-                    placeholder="Suburb"
-                    formControlName="Suburb2"
-                  />
-                </mat-form-field>
-                <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == false
-                  && +item.get('PreviousAddressType').value == 1"
-                  class="col-3 w-100"
-                >
-                  <mat-select
-                    placeholder="State"
-                    formControlName="State2TypeId"
-                  >
-                    <mat-option
-                      *ngFor="let item of States"
-                      [value]="item.StatesID"
-                    >
-                      {{ item.StatesName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field
-                  *ngIf="+item.get('MorePostalAddress').value == false
-                  && +item.get('PreviousAddressType').value == 1"
-                  class="col-4 w-100"
-                >
-                  <mat-label>Postcode</mat-label>
-                  <input
-                    matInput
-                    placeholder="Postcode"
-                    formControlName="Postcode2"
-                  />
-                </mat-form-field>
+                  <mat-icon>delete</mat-icon>
+                </button>
               </div>
+              <mat-form-field class="col-4 w-100">
+                <mat-label>Street Number</mat-label>
+                <input
+                  matInput
+                  placeholder="Street Number"
+                  formControlName="StreetNumber"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-4 w-100">
+                <mat-label>Street Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Street Name"
+                  formControlName="StreetName"
+                />
+              </mat-form-field>
+              <div class="col-4 w-100"></div>
+              <mat-form-field class="col-4 w-100">
+                <mat-label>Suburb</mat-label>
+                <input
+                  matInput
+                  placeholder="Suburb"
+                  formControlName="Suburb"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-select placeholder="State" formControlName="StateTypeId">
+                  <mat-option
+                    *ngFor="let item of States"
+                    [value]="item.StatesID"
+                  >
+                    {{ item.StatesName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="col-1 w-100"></div>
+              <mat-form-field class="col-4 w-100">
+                <mat-label>Postcode</mat-label>
+                <input
+                  matInput
+                  placeholder="Postcode"
+                  formControlName="Postcode"
+                />
+              </mat-form-field>
+              <mat-form-field *ngIf="item.get('PreviousAddressType').value == ''" class="col-2 w-100">
+                <mat-select
+                  placeholder="Housing Status"
+                  formControlName="HousingStatusTypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of HousingState"
+                    [value]="item.HousingStateTypeId"
+                  >
+                    {{ item.HousingStateTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="+item.get('HousingStatusTypeId').value == 50" class="col-2 w-100">
+                <mat-label>Specify</mat-label>
+                <input
+                  matInput
+                  placeholder="Specify"
+                  formControlName="Specify"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-select
+                  placeholder="Time residing (Year)"
+                  formControlName="YearTimeResiding"
+                  (selectionChange)="selectApplicantAddressYear($event.value,i)"
+                >
+                  <mat-option
+                    *ngFor="let item of ResidingYear"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-select
+                  placeholder="Month"
+                  formControlName="MonthTimeResiding"
+                  (selectionChange)="selectApplicantAddressMonth($event.value,i)"
+                >
+                  <mat-option
+                    *ngFor="let item of ResidingMonth"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="item.get('PreviousAddressType').value == ''" class="col-12 mb-3">
+                <label class="mb-2">Postal Address:</label>
+                <div>
+                  <mat-slide-toggle formControlName="MorePostalAddress"
+                    >Use the same address above</mat-slide-toggle
+                  >
+                </div>
+              </div>
+              <mat-form-field
+                *ngIf="item.get('MorePostalAddress').value == false
+                && item.get('PreviousAddressType').value == ''"
+                class="col-4 w-100"
+              >
+                <mat-label>Street Number</mat-label>
+                <input
+                  matInput
+                  placeholder="Street Number"
+                  formControlName="StreetNumber2"
+                />
+              </mat-form-field>
+              <mat-form-field
+                *ngIf="item.get('MorePostalAddress').value == false
+                && item.get('PreviousAddressType').value == ''"
+                class="col-4 w-100"
+              >
+                <mat-label>Street Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Street Name"
+                  formControlName="StreetName2"
+                />
+              </mat-form-field>
+              <mat-form-field
+                *ngIf="item.get('MorePostalAddress').value == false
+                && item.get('PreviousAddressType').value == ''"
+                class="col-4 w-100"
+              >
+                <mat-label>POBox</mat-label>
+                <input matInput placeholder="POBox" formControlName="POBox" />
+              </mat-form-field>
+              <mat-form-field
+                *ngIf="item.get('MorePostalAddress').value == false
+                && item.get('PreviousAddressType').value == ''"
+                class="col-4 w-100"
+              >
+                <mat-label>Suburb</mat-label>
+                <input
+                  matInput
+                  placeholder="Suburb"
+                  formControlName="Suburb2"
+                />
+              </mat-form-field>
+              <mat-form-field
+                *ngIf="item.get('MorePostalAddress').value == false
+                && item.get('PreviousAddressType').value == ''"
+                class="col-3 w-100"
+              >
+                <mat-select
+                  placeholder="State"
+                  formControlName="State2TypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of States"
+                    [value]="item.StatesID"
+                  >
+                    {{ item.StatesName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field
+                *ngIf="item.get('MorePostalAddress').value == false
+                && item.get('PreviousAddressType').value == ''"
+                class="col-4 w-100"
+              >
+                <mat-label>Postcode</mat-label>
+                <input
+                  matInput
+                  placeholder="Postcode"
+                  formControlName="Postcode2"
+                />
+              </mat-form-field>
+            </div>
             </div>
           </div>
-          <div class="px-15 mb-3">
+          <div *ngIf="!IsApplicantAddressMoreThen3" class="px-15 mb-3">
             <button
               mat-button
               mat-raised-button
               color="primary"
-              (click)="addApplicantAddress(2)"
+              (click)="addApplicantAddress(1)"
+              class="mb-3"
             >
              Add Previous Address
               <mat-icon class="btnOrder">add</mat-icon>
             </button>
+            <p class="mat-error">Please complete more than 3 year records</p>
           </div>
-        </div>
+        </form>
         <div class="px-15">
           <button mat-button mat-raised-button matStepperPrevious>Back</button>
           <button mat-button mat-raised-button matStepperNext class="ml-2" (click)="onApplicantAddressSubmit()">

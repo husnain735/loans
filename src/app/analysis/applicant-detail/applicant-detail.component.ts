@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
 @Component({
@@ -250,7 +250,7 @@ export class ApplicantDetailComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
-  isLinear = true;
+  isLinear = false;
   ADSubmitted = false;
   ACInformation = false;
   events: any[] = [
@@ -259,7 +259,11 @@ export class ApplicantDetailComponent implements OnInit {
   IsButtonVisible = true;
   TotalYear: number = 0;
   IsYearMoreThen3: boolean = false;
-  constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService) {
+  ApplicantAddressYears: any[] = [];
+  ApplicantAddressMonth: any[] = [];
+  IsApplicantAddressMoreThen3: boolean;
+  constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService,
+    private rxFormBuilder: RxFormBuilder) {
 
   }
   ngOnInit() {
@@ -274,7 +278,7 @@ export class ApplicantDetailComponent implements OnInit {
       ApplicantAddresses: new FormArray([]),
     });
     this.addApplicantEmploymentDetail(1);
-    this.addApplicantAddress(1);
+    this.addApplicantAddress('');
   }
   get childForms() {
     return this.ApplicantDetailForm.get('ChildrenForm') as FormArray
@@ -321,7 +325,7 @@ export class ApplicantDetailComponent implements OnInit {
     console.log(this.ApplicantEmploymentDetail.value);
   }
   createApplicantEmploymentDetail(TypeId): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       PreviousEmployementType: [TypeId],
       EmploymentTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousEmployementType == 1 })],
       Occupation: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
@@ -347,7 +351,6 @@ export class ApplicantDetailComponent implements OnInit {
     this.Items.removeAt(index);
   }
   addEvent(type: string, event: MatDatepickerInputEvent<Date>, index) {
-    this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
     var idx = this.events.findIndex(i => i.Id == index);
     if (idx == -1) {
       var obj = {
@@ -433,32 +436,76 @@ export class ApplicantDetailComponent implements OnInit {
     this.ApplicantAddresses.push(this.createApplicantAddress(TypeId));
   }
   createApplicantAddress(TypeId): FormGroup {
-    return this._formBuilder.group({
-      PreviousAddressType: [TypeId],
-      StreetNumber: [''],
-      StreetName: [''],
-      Suburb: ['', Validators.required],
-      StateTypeId: ['', Validators.required],
-      Postcode: ['', Validators.required],
-      HousingStatusTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousAddressType == 1 })],
-      Specify: ['', RxwebValidators.required({ conditionalExpression: (x) => x.HousingStatusTypeId == 50 })],
-      YearTimeResiding: ['', Validators.required],
-      MonthTimeResiding: ['', Validators.required],
-      MorePostalAddress: [false],
-      StreetNumber2: [''],
-      StreetName2: [''],
-      POBox: [''],
-      Suburb2: ['', RxwebValidators.required({ conditionalExpression: (x,y) => x.MorePostalAddress == false }) ,],
-      State2TypeId: ['', RxwebValidators.required({ conditionalExpression: (x,y) =>  x.MorePostalAddress == false })],
-      Postcode2: ['', RxwebValidators.required({ conditionalExpression: (x,y) =>  x.MorePostalAddress == false })],
+    return this.rxFormBuilder.group({
+    PreviousAddressType: [TypeId],
+    StreetNumber: [''],
+    StreetName: [''],
+    Suburb: ['', Validators.required],
+    StateTypeId: ['', Validators.required],
+    Postcode: ['', Validators.required],
+    HousingStatusTypeId: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.PreviousAddressType == '' })],
+    Specify: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.HousingStatusTypeId == 50 })],
+    YearTimeResiding: ['', Validators.required],
+    MonthTimeResiding: ['', Validators.required],
+    MorePostalAddress: [false],
+    StreetNumber2: [''],
+    StreetName2: [''],
+    POBox: [''],
+    Suburb2: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.MorePostalAddress == false && x.PreviousAddressType == '' })],
+    State2TypeId: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.MorePostalAddress == false && x.PreviousAddressType == '' })],
+    Postcode2: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.MorePostalAddress == false && x.PreviousAddressType == '' })],
     });
   }
   removeApplicantAddress(index) {
     this.ApplicantAddresses = this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
     this.ApplicantAddresses.removeAt(index);
   }
-  onToggle(event){
+  selectApplicantAddressYear(event,index){
     debugger
-    console.log(event)
+    var idx = this.ApplicantAddressYears.findIndex(i => i.Id == index);
+    if (idx == -1) {
+      var obj = {
+        Year: event,
+        Id: index
+      }
+      this.ApplicantAddressYears.push(obj);
+    } else {
+      this.ApplicantAddressYears[idx].Year = event;
+    }
+     var yearCount  = this.ApplicantAddressYears.reduce((a, b) => a + b.Year, 0);
+     var monthCount = this.ApplicantAddressMonth.reduce((a, b) => a + b.Month, 0);
+     if (yearCount < 3) {
+      if (yearCount >= 2 && monthCount >= 12) {
+        this.IsApplicantAddressMoreThen3 = true;
+      }else {
+        this.IsApplicantAddressMoreThen3 = false;
+      }
+     }else {
+      this.IsApplicantAddressMoreThen3 = true;
+     }
+  }
+  selectApplicantAddressMonth(event,index){
+    debugger
+    var idx = this.ApplicantAddressMonth.findIndex(i => i.Id == index);
+    if (idx == -1) {
+      var obj = {
+        Month: event,
+        Id: index
+      }
+      this.ApplicantAddressMonth.push(obj);
+    } else {
+      this.ApplicantAddressMonth[idx].Month = event;
+    }
+     var yearCount  = this.ApplicantAddressYears.reduce((a, b) => a + b.Year, 0);
+     var monthCount = this.ApplicantAddressMonth.reduce((a, b) => a + b.Month, 0);
+     if (yearCount < 3) {
+      if (yearCount >= 2 && monthCount >= 12) {
+        this.IsApplicantAddressMoreThen3 = true;
+      }else {
+        this.IsApplicantAddressMoreThen3 = false;
+      }
+     }else {
+      this.IsApplicantAddressMoreThen3 = true;
+     }
   }
 }
