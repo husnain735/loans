@@ -19,7 +19,7 @@ const routes: Routes = [
         component: ApplicantDetailComponent
       },
       {
-        path: ':guid/assets/:guid2',
+        path: ':guid/assets',
         component: AssetsComponent
       }
     ]
