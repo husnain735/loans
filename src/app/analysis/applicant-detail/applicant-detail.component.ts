@@ -267,7 +267,7 @@ export class ApplicantDetailComponent implements OnInit {
 
   }
   ngOnInit() {
-    this._analysisService.getAllAppicants.next(true);
+    // this._analysisService.getAllAppicants.next(true);
     this.ApplicantEmploymentDetail = new FormGroup({
       ApplicantEmploymentDetails: new FormArray([]),
     });

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-assets',
@@ -118,10 +120,10 @@ export class AssetsComponent {
     });
 
   }
-  constructor(private _formBuilder: FormBuilder){}
+  constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService,private rxFormBuilder:RxFormBuilder ){}
 
   createAssetsDetails(): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       StreetNumber: [''],
       StreetName: [''],
       Suburb: ['', [Validators.required]],
@@ -140,27 +142,28 @@ export class AssetsComponent {
       Refinance: ['',[Validators.required]],
       IsInvestmentProperty:  [''],
       IsMortgage: [''],
-      ApplicantType: ''
+      ApplicantType: [''],
+      ApplicationReasonID: ['']
 
     });
   }
 
   createSavingDetails(): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       Institution: ['',[Validators.required]],
       EstimatedValue: ['',[Validators.required]]
     });
   }
 
   createSuperannuationDetails(): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       Institution: ['',[Validators.required]],
       EstimatedValue: ['',[Validators.required]]
     });
   }
 
   createMotorVehicleDetails(): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       Make: ['',[Validators.required]],
       Year: ['',[Validators.required]],
       EstimatedValue: ['',[Validators.required]]
@@ -168,7 +171,7 @@ export class AssetsComponent {
   }
   
   createMoreAssetDetails(): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       AssetTypeID: [''],
       Details: [''],
       EstimatedValue: ['',[Validators.required]]
