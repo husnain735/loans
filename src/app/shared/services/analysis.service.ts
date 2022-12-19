@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AnalysisService {
-  getAllAppicants : Subject<Boolean> = new Subject<boolean>();
+  // getAllAppicants : Subject<Boolean> = new Subject<boolean>();
 
   constructor(private _apiService: ApiService, private httpClient: HttpClient) { }
 

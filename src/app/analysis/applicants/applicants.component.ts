@@ -68,8 +68,12 @@ export class ApplicantsComponent implements OnInit {
       this._analysisSerivce.saveApplicant(this.applicant).subscribe(res => {
         console.log(res);
         this.Applicantguid = res.body;
+        this.applicant.ApplicantId = this.Applicantguid;
+        this._sharedService.TotalApplicants.push(this.applicant);
+        this.applicant ={}; 
         this.router.navigate(['client/' + this.applicationguid + '/applicant/' + this.Applicantguid]);
         this.dialog.closeAll();
+
       })
     }
   }
