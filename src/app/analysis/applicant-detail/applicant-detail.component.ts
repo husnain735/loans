@@ -145,26 +145,26 @@ export class ApplicantDetailComponent implements OnInit {
     }]
   OtherIncomeType = [
     {
-      OtherIncomeType: 37,
+      OtherIncomeTypeId: 37,
       OtherIncomeName: 'Family Tax Benefit'
     },
     {
-      OtherIncomeType: 38,
+      OtherIncomeTypeId: 38,
       OtherIncomeName: 'Pensions'
     }
     ,
     {
-      OtherIncomeType: 39,
+      OtherIncomeTypeId: 39,
       OtherIncomeName: 'Child Support'
     }
     ,
     {
-      OtherIncomeType: 40,
+      OtherIncomeTypeId: 40,
       OtherIncomeName: 'Maintenance'
     }
     ,
     {
-      OtherIncomeType: 41,
+      OtherIncomeTypeId: 41,
       OtherIncomeName: 'Other'
     }
   ]

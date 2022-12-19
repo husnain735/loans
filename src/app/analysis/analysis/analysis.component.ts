@@ -66,10 +66,10 @@ export class AnalysisComponent implements OnInit {
 
   applicationguid: string;
   ApplicationReason: any = [];
-  ApplicationList:any = [];
+  ApplicationList: any = [];
 
 
-  constructor(private router: Router, private route: ActivatedRoute,private _analysisService: AnalysisService,public _sharedService: SharedService) {
+  constructor(public router: Router, private route: ActivatedRoute, private _analysisService: AnalysisService, public _sharedService: SharedService) {
     this._analysisService.getAllAppicants.subscribe(
       (data) => {
         this.getAllApplicants();
@@ -83,35 +83,25 @@ export class AnalysisComponent implements OnInit {
 
     this.route.params.subscribe((params: any) => {
       this.applicationguid = params['guid'];
-      console.log('analysis',this.applicationguid);
+      console.log('analysis', this.applicationguid);
     });
-      // var applicationID = this.router.url;
-      // applicationID = applicationID.replace('/client/','')
-      // applicationID = applicationID.replace('/applicant','')
-      // this.applicationguid = applicationID;
-      //if(this.applicationguid != undefined){
-        this.getAllApplicants();
-      // }
+    this.getAllApplicants();
   }
 
   getMeta() {
     this._analysisService.getApplicationMeta().subscribe((res: any) => {
       this.ApplicationReason = res.body.ApplicationReason;
-      // this.LoanBroker = res.body.LoansBroker;
     })
   }
 
-  getAllApplicants(){
+  getAllApplicants() {
     this.applicationguid = localStorage.getItem('ApplicationId');
-    this._analysisService.getAllApplicants(this.applicationguid).subscribe(res =>{
-      // this.ApplicationList = res.body;
+    this._analysisService.getAllApplicants(this.applicationguid).subscribe(res => {
       this._sharedService.TotalApplicants = res.body;
-      console.log(this.ApplicationList);
-
     })
   }
 
-  onNavigateToApplicant(applicant:any){
+  onNavigateToApplicant(applicant: any) {
     this.router.navigate(['client/' + applicant.ApplicationId + '/applicant/' + applicant.ApplicantId]);
   }
 
