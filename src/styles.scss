@@ -163,4 +163,13 @@ cursor: pointer;
 .bgLightGreen{
   background-color: #f1fff0;
 }
+.step-nav {
+  padding-top: 5px;
+  border-top: 5px solid #2f4f4f;
+  margin-top: 60px;
+  padding-bottom: 40px;
+}
+.step-nav .next {
+  float: right;
+}
 
