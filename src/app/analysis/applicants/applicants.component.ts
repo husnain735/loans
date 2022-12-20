@@ -73,7 +73,6 @@ export class ApplicantsComponent implements OnInit {
         this.applicant ={}; 
         this.router.navigate(['client/' + this.applicationguid + '/applicant/' + this.Applicantguid]);
         this.dialog.closeAll();
-
       })
     }
   }

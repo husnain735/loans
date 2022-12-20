@@ -151,14 +151,16 @@ export class AssetsComponent {
   createSavingDetails(): FormGroup {
     return this.rxFormBuilder.group({
       Institution: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]]
+      EstimatedValue: ['',[Validators.required]],
+      OwnerID: ['']
     });
   }
 
   createSuperannuationDetails(): FormGroup {
     return this.rxFormBuilder.group({
       Institution: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]]
+      EstimatedValue: ['',[Validators.required]],
+      OwnerID: ['']
     });
   }
 
@@ -166,7 +168,8 @@ export class AssetsComponent {
     return this.rxFormBuilder.group({
       Make: ['',[Validators.required]],
       Year: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]]
+      EstimatedValue: ['',[Validators.required]],
+      OwnerID:['']
     });
   }
   
@@ -174,7 +177,8 @@ export class AssetsComponent {
     return this.rxFormBuilder.group({
       AssetTypeID: [''],
       Details: [''],
-      EstimatedValue: ['',[Validators.required]]
+      EstimatedValue: ['',[Validators.required]],
+      OwnerID:[''] 
     });
   }
 
