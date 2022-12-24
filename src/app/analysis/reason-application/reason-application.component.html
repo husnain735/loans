@@ -1,1 +1,23 @@
-<p>reason-application works!</p>
+<div class="p-3 bgWhite">
+  <h1>Reason for Application</h1>
+  <form [formGroup]="ApplicantReasonForm">
+    <ng-container formArrayName="Status">
+      <ng-container
+        *ngFor="
+          let row of ApplicantReasonForm.get('Status')['controls'];
+          let i = index
+        "
+        [formGroupName]="i"
+      >
+        <div class="row mx-0 pointer">
+          <label class="col-3">{{ row.get("Name").value }}</label>
+          <mat-radio-group class="col-9" formControlName="Status">
+            <mat-radio-button value="1" class="pointer">Important</mat-radio-button>
+            <mat-radio-button value="2" class="pointer">Not Important</mat-radio-button>
+            <mat-radio-button value="3" class="pointer">Don't want</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+</div>

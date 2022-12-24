@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from '../material/material.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormFilterPipe } from './pipes/filter.pipe';
 
 
 
 @NgModule({
   declarations: [
+    FormFilterPipe
   ],
   imports: [
     CommonModule,
@@ -15,7 +16,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MatNativeDateModule
   ],exports: [
     MaterialModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    FormFilterPipe
   ]
 })
 export class SharedModule { }

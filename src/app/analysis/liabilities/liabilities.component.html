@@ -3,15 +3,271 @@
   <mat-divider></mat-divider>
   <div class="row mx-0">
     <div class="col-12 p-3 bb-2">
-      <button mat-button mat-raised-button color="primary" class="mx-3 pointer">
-        Add Personal / Car Loan
+      <div [formGroup]="ApplicantLaibility" class="mt-4">
+        <div
+          formArrayName="ApplicantLaibilities"
+          *ngFor="
+            let item of ApplicantLaibility.get('ApplicantLaibilities')[
+              'controls'
+            ]| formFilter : ApplicantLaibility : 'ApplicantLaibilities' : 1 :'LiabilityTypeId';
+            let i = index
+          "
+        >
+          <div
+            [formGroupName]="i"
+            class="py-3 mb-3"
+            [ngClass]="
+              i % 2 == 1 ? 'bgSkinWhite' : i % 2 == 0 ? 'bgLightGreen' : ''
+            "
+          >
+            <div class="row mx-0">
+              <div class="col-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <b>Personal / Car Loan #{{ i + 1 }}</b>
+                  <button
+                    (click)="removeApplicantLaibility(i)"
+                    mat-fab
+                    color="primary"
+                    aria-label="Example icon button with a delete icon"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <mat-form-field class="col-6 w-100">
+                <mat-label>Lender</mat-label>
+                <input matInput placeholder="Lender" formControlName="Lender" />
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-label>Balance</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="Balance"
+                  formControlName="Balance"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <div class="col-3 w-100">
+
+              </div>
+              <mat-form-field  *ngIf="+item.get('LiabilityTypeId').value == 2" class="col-3 w-100">
+                <mat-label>CardLimit</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="CardLimit"
+                  formControlName="CardLimit"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-label>Payment</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="Payment"
+                  formControlName="Payment"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-select
+                  placeholder="Per"
+                  formControlName="LaibilityDurationTypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of DurationType"
+                    [value]="item.DurationTypeId"
+                  >
+                    {{ item.DurationTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="col-6 w-100">
+                <label class="constant"> Name on Liabilitiy </label>
+                <div>
+                  <ng-container formArrayName="ApplicantTypeId">
+                    <span
+                      class=""
+                      *ngFor="
+                        let item of _sharedService.TotalApplicants;
+                        let i = index
+                      "
+                      [ngClass]="i == 0 ? 'pl-0' : ''"
+                    >
+                      <mat-checkbox [value]="item.ApplicantId">
+                        {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                      </mat-checkbox>
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="px-15 mb-2">
+                <label class="">Refinance?</label>
+                <div>
+                  <mat-radio-group formControlName="IsRefinance">
+                    <mat-radio-button value="true">Yes</mat-radio-button>
+                    <mat-radio-button value="false">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <mat-error
+                  *ngIf="
+                    item.get('IsRefinance').hasError(
+                      'required'
+                    )
+                  "
+                  class="mat-error"
+                  >Refinance required
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        (click)="addApplicantLaibility(1)"
+        mat-button
+        mat-raised-button
+        color="primary"
+        class="mx-3 pointer"
+      >
+        Credit Card / Layby
         <mat-icon class="btnOrder">add</mat-icon>
       </button>
     </div>
   </div>
   <div class="row mx-0">
     <div class="col-12 p-3 bb-2">
-      <button mat-button mat-raised-button color="primary" class="mx-3 pointer">
+      <div [formGroup]="ApplicantLaibility" class="mt-4">
+        <div
+            formArrayName="ApplicantLaibilities"
+            *ngFor="
+              let item of ApplicantLaibility.get('ApplicantLaibilities')[
+                'controls'
+              ]| formFilter : ApplicantLaibility : 'ApplicantLaibilities' : 2 :'LiabilityTypeId';
+              let i = index
+            "
+          >
+            <div
+
+              [formGroupName]="i"
+              class="py-3 mb-3"
+              [ngClass]="
+                i % 2 == 1 ? 'bgSkinWhite' : i % 2 == 0 ? 'bgLightGreen' : ''
+              "
+            >
+              <div class="row mx-0">
+                <div class="col-12 mb-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <b>Credit Card / Layby #{{ i + 1 }}</b>
+                    <button
+                      (click)="removeApplicantLaibility(i)"
+                      mat-fab
+                      color="primary"
+                      aria-label="Example icon button with a delete icon"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <mat-form-field class="col-6 w-100">
+                  <mat-label>Lender</mat-label>
+                  <input matInput placeholder="Lender" formControlName="Lender" />
+                </mat-form-field>
+                <mat-form-field class="col-3 w-100">
+                  <mat-label>Balance</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Balance"
+                    formControlName="Balance"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+                <mat-form-field  *ngIf="+item.get('LiabilityTypeId').value == 2" class="col-3 w-100">
+                  <mat-label>CardLimit</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="CardLimit"
+                    formControlName="CardLimit"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+                <mat-form-field class="col-3 w-100">
+                  <mat-label>Payment</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Payment"
+                    formControlName="Payment"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+                <mat-form-field class="col-3 w-100">
+                  <mat-select
+                    placeholder="Per"
+                    formControlName="LaibilityDurationTypeId"
+                  >
+                    <mat-option
+                      *ngFor="let item of DurationType"
+                      [value]="item.DurationTypeId"
+                    >
+                      {{ item.DurationTypeName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div class="col-6 w-100">
+                  <label class="constant"> Name on Liabilitiy </label>
+                  <div>
+                    <ng-container formArrayName="ApplicantTypeId">
+                      <span
+                        class=""
+                        *ngFor="
+                          let item of _sharedService.TotalApplicants;
+                          let i = index
+                        "
+                        [ngClass]="i == 0 ? 'pl-0' : ''"
+                      >
+                        <mat-checkbox [value]="item.ApplicantId">
+                          {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                        </mat-checkbox>
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="px-15 mb-2">
+                  <label class="">Refinance?</label>
+                  <div>
+                    <mat-radio-group formControlName="IsRefinance">
+                      <mat-radio-button value="true">Yes</mat-radio-button>
+                      <mat-radio-button value="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <mat-error
+                    *ngIf="
+                      item.get('IsRefinance').hasError(
+                        'required'
+                      )
+                    "
+                    class="mat-error"
+                    >Refinance required
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <button
+        (click)="addApplicantLaibility(2)"
+        mat-button
+        mat-raised-button
+        color="primary"
+        class="mx-3 pointer"
+      >
         Add Credit Card / Layby
         <mat-icon class="btnOrder">add</mat-icon>
       </button>
@@ -19,7 +275,130 @@
   </div>
   <div class="row mx-0">
     <div class="col-12 p-3 bb-2">
-      <button mat-button mat-raised-button color="primary" class="mx-3 pointer">
+      <div [formGroup]="ApplicantLaibility" class="mt-4">
+        <div
+          formArrayName="ApplicantLaibilities"
+          *ngFor="
+            let item of ApplicantLaibility.get('ApplicantLaibilities')[
+              'controls'
+            ] | formFilter : ApplicantLaibility : 'ApplicantLaibilities' : 3 :'LiabilityTypeId';
+            let i = index
+          "
+        >
+          <div
+            [formGroupName]="i"
+            class="py-3 mb-3"
+            [ngClass]="
+              i % 2 == 1 ? 'bgSkinWhite' : i % 2 == 0 ? 'bgLightGreen' : ''
+            "
+          >
+            <div class="row mx-0">
+              <div class="col-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <b>Salary Sacrifice #{{ i + 1 }}</b>
+                  <button
+                    (click)="removeApplicantLaibility(i)"
+                    mat-fab
+                    color="primary"
+                    aria-label="Example icon button with a delete icon"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <mat-form-field class="col-6 w-100">
+                <mat-label>Lender</mat-label>
+                <input matInput placeholder="Lender" formControlName="Lender" />
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-label>Balance</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="Balance"
+                  formControlName="Balance"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <div class="col-3 w-100">
+
+              </div>
+              <mat-form-field  *ngIf="+item.get('LiabilityTypeId').value == 2" class="col-3 w-100">
+                <mat-label>CardLimit</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="CardLimit"
+                  formControlName="CardLimit"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-label>Payment</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="Payment"
+                  formControlName="Payment"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-select
+                  placeholder="Per"
+                  formControlName="LaibilityDurationTypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of DurationType"
+                    [value]="item.DurationTypeId"
+                  >
+                    {{ item.DurationTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="col-6 w-100">
+                <label class="constant"> Name on Liabilitiy </label>
+                <div>
+                  <ng-container formArrayName="ApplicantTypeId">
+                    <span
+                      class=""
+                      *ngFor="
+                        let item of _sharedService.TotalApplicants;
+                        let i = index
+                      "
+                      [ngClass]="i == 0 ? 'pl-0' : ''"
+                    >
+                      <mat-checkbox [value]="item.ApplicantId">
+                        {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                      </mat-checkbox>
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="px-15 mb-2">
+                <label class="">Refinance?</label>
+                <div>
+                  <mat-radio-group formControlName="IsRefinance">
+                    <mat-radio-button value="true">Yes</mat-radio-button>
+                    <mat-radio-button value="false">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <mat-error
+                  *ngIf="
+                    item.get('IsRefinance').hasError(
+                      'required'
+                    )
+                  "
+                  class="mat-error"
+                  >Refinance required
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button (click)="addApplicantLaibility(3)" mat-button mat-raised-button color="primary" class="mx-3 pointer">
         Add Salary Sacrifice (HELP/HECS debt)
         <mat-icon class="btnOrder">add</mat-icon>
       </button>
@@ -27,7 +406,130 @@
   </div>
   <div class="row mx-0">
     <div class="col-12 p-3">
-      <button mat-button mat-raised-button color="primary" class="mx-3 pointer">
+      <div [formGroup]="ApplicantLaibility" class="mt-4">
+        <div
+          formArrayName="ApplicantLaibilities"
+          *ngFor="
+            let item of ApplicantLaibility.get('ApplicantLaibilities')[
+              'controls'
+            ] | formFilter : ApplicantLaibility : 'ApplicantLaibilities' : 4 :'LiabilityTypeId';
+            let i = index
+          "
+        >
+          <div
+            [formGroupName]="i"
+            class="py-3 mb-3"
+            [ngClass]="
+              i % 2 == 1 ? 'bgSkinWhite' : i % 2 == 0 ? 'bgLightGreen' : ''
+            "
+          >
+            <div class="row mx-0">
+              <div class="col-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <b></b>
+                  <button
+                    (click)="removeApplicantLaibility(i)"
+                    mat-fab
+                    color="primary"
+                    aria-label="Example icon button with a delete icon"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <mat-form-field class="col-6 w-100">
+                <mat-label>Lender</mat-label>
+                <input matInput placeholder="Lender" formControlName="Lender" />
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-label>Balance</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="Balance"
+                  formControlName="Balance"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <div class="col-3 w-100">
+
+              </div>
+              <mat-form-field  *ngIf="+item.get('LiabilityTypeId').value == 2" class="col-3 w-100">
+                <mat-label>CardLimit</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="CardLimit"
+                  formControlName="CardLimit"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-label>Payment</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  placeholder="Payment"
+                  formControlName="Payment"
+                />
+                <span matPrefix>&nbsp;$&nbsp;</span>
+              </mat-form-field>
+              <mat-form-field class="col-3 w-100">
+                <mat-select
+                  placeholder="Per"
+                  formControlName="LaibilityDurationTypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of DurationType"
+                    [value]="item.DurationTypeId"
+                  >
+                    {{ item.DurationTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="col-6 w-100">
+                <label class="constant"> Name on Liabilitiy </label>
+                <div>
+                  <ng-container formArrayName="ApplicantTypeId">
+                    <span
+                      class=""
+                      *ngFor="
+                        let item of _sharedService.TotalApplicants;
+                        let i = index
+                      "
+                      [ngClass]="i == 0 ? 'pl-0' : ''"
+                    >
+                      <mat-checkbox [value]="item.ApplicantId">
+                        {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                      </mat-checkbox>
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="px-15 mb-2">
+                <label class="">Refinance?</label>
+                <div>
+                  <mat-radio-group formControlName="IsRefinance">
+                    <mat-radio-button value="true">Yes</mat-radio-button>
+                    <mat-radio-button value="false">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <mat-error
+                  *ngIf="
+                    item.get('IsRefinance').hasError(
+                      'required'
+                    )
+                  "
+                  class="mat-error"
+                  >Refinance required
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button (click)="addApplicantLaibility(4)" mat-button mat-raised-button color="primary" class="mx-3 pointer">
         Add Other Liabilities
         <mat-icon class="btnOrder">add</mat-icon>
       </button>
@@ -37,10 +539,10 @@
     <div class="d-flex justify-content-between align-items-center">
       <button mat-flat-button [routerLink]="">Back</button>
       <button
+        (click)="onApplicantLaibilitySubmit()"
         mat-raised-button
         color="primary"
         class="next"
-        [disabled]="!IsNext"
       >
         Next
         <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
