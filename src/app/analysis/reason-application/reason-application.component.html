@@ -1,23 +1,56 @@
 <div class="p-3 bgWhite">
   <h1>Reason for Application</h1>
   <form [formGroup]="ApplicantReasonForm">
+    <div class="mb-2 row mx-0">
+      <!-- <ng-container formArrayName="ApplicationReason">
+        <div class="d-flex" *ngFor="let item of ApplicationReason; let i = index">
+          <mat-checkbox
+            class="example-margin"
+            (change)="onChange($event)"
+            [value]="item.ApplicationReasonId"
+          >
+            {{ item.ApplicationReasonName }}
+          </mat-checkbox>
+        </div>
+        <mat-error
+          *ngIf="
+            userAddressValidations
+              .get('ApplicationReason')
+              .hasError('required') &&
+              isSubmitted
+          "
+          >Please select your reason</mat-error
+        >
+      </ng-container> -->
+    </div>
+    <mat-form-field class="col-12 w-100">
+      <mat-label>Why do you want a loan?</mat-label>
+      <input
+        matInput
+        placeholder="Why do you want a loan?"
+        formControlName="Loan"
+      />
+    </mat-form-field>
     <ng-container formArrayName="Status">
-      <ng-container
+      <label class="px-15 font-w-600">Do you have any specific Loan & Lender Features?</label>
+
+      <div
+        class="row mx-0 text-center"
         *ngFor="
           let row of ApplicantReasonForm.get('Status')['controls'];
           let i = index
         "
         [formGroupName]="i"
       >
-        <div class="row mx-0 pointer">
-          <label class="col-3">{{ row.get("Name").value }}</label>
+        <div class="col-12">
+          <label class="col-3 text-right font-w-500">{{ row.get("Name").value }}</label>
           <mat-radio-group class="col-9" formControlName="Status">
-            <mat-radio-button value="1" class="pointer">Important</mat-radio-button>
-            <mat-radio-button value="2" class="pointer">Not Important</mat-radio-button>
-            <mat-radio-button value="3" class="pointer">Don't want</mat-radio-button>
+            <mat-radio-button value="1" class="pointer font-w-500">Important</mat-radio-button>
+            <mat-radio-button value="2" class="pointer font-w-500">Not Important</mat-radio-button>
+            <mat-radio-button value="3" class="pointer font-w-500">Don't want</mat-radio-button>
           </mat-radio-group>
         </div>
-      </ng-container>
+      </div>
     </ng-container>
   </form>
 </div>

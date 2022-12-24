@@ -10,7 +10,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 export class ReasonApplicationComponent implements OnInit {
 
   ApplicantReasonForm = this._formBuilder.group({
-    ApplicantTypeId: this._formBuilder.array([]),
+    ApplicationReasonTypeId: this._formBuilder.array([]),
     Loan: ['', [Validators.required]],
     Status: this._formBuilder.array([])
   });
