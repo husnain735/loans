@@ -132,6 +132,21 @@ export class AssetsComponent {
       EstimatedValue: ['',[Validators.required]],
       RentReceived: ['',[Validators.required]],
       RentPerID: ['',[Validators.required]],
+      IsInvestmentProperty:  [''],
+      IsMortgage: [false],
+      ApplicantType: [''],
+      ApplicationReasonID: [''],
+      Mortgage: this.rxFormBuilder.array([null])
+    });
+  }
+
+  onSlideMortgage(item:any){
+    debugger
+    console.log(this.AssetsDetails.value.AssetsDetails[item].IsMortgage);
+  }
+
+  createMortgage(): FormGroup{
+    return this.rxFormBuilder.group({
       Lender: ['',[Validators.required]],
       InterestTypeID: ['',[Validators.required]],
       InterestRate: ['',[Validators.required]],
@@ -139,13 +154,8 @@ export class AssetsComponent {
       Payment: ['',[Validators.required]],
       PaymentPerID: ['',[Validators.required]],
       Balance: ['',[Validators.required]],
-      Refinance: ['',[Validators.required]],
-      IsInvestmentProperty:  [''],
-      IsMortgage: [''],
-      ApplicantType: [''],
-      ApplicationReasonID: ['']
-
-    });
+      Refinance: ['',[Validators.required]]
+    })
   }
 
   createSavingDetails(): FormGroup {

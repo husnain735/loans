@@ -120,11 +120,14 @@
                 <mat-checkbox [value]="item.ApplicantId">
                   {{ item.FirstName }}&nbsp;{{ item.SurName }}
                 </mat-checkbox>
-                
-              <mat-checkbox *ngIf="i == (_sharedService.TotalApplicants.length - 1)"   [value]="item.ApplicantId">
-                Other
-              </mat-checkbox>
-              </span  >
+
+                <mat-checkbox
+                  *ngIf="i == _sharedService.TotalApplicants.length - 1"
+                  [value]="item.ApplicantId"
+                >
+                  Other
+                </mat-checkbox>
+              </span>
             </div>
           </div>
         </div>
@@ -170,7 +173,10 @@
 
         <div class="row mx-0 py-3">
           <div class="col-2 w-100 pointer">
-            <mat-slide-toggle formControlName="IsMortgage">
+            <mat-slide-toggle
+              formControlName="IsMortgage"
+              (click)="onSlideMortgage(i)"
+            >
               Mortgage
             </mat-slide-toggle>
           </div>
@@ -201,8 +207,6 @@
             </div>
 
             <div class="row mx-0">
-              <!-- <div class="col-2 w-100"></div> -->
-
               <mat-form-field class="col-5 w-100">
                 <mat-label>Interest Rate</mat-label>
                 <input
@@ -226,8 +230,6 @@
             </div>
 
             <div class="row mx-0">
-              <!-- <div class="col-2 w-100"></div> -->
-
               <mat-form-field class="col-2 w-100">
                 <mat-label>Payment</mat-label>
                 <input
@@ -265,7 +267,6 @@
             </div>
 
             <div class="row mx-0">
-              <!-- <div class="col-2 w-100"></div> -->
               <div class="px-15">
                 <label class="constant">Name on Liability</label>
                 <div>
@@ -284,10 +285,36 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-12 p-3 bb-2">
+              <button
+                mat-button
+                mat-raised-button
+                color="primary"
+                class="mx-3 pointer"
+                (click)="createMortgage()"
+              >
+                Add Mortgage/Split
+                <mat-icon class="btnOrder">add</mat-icon>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="col-12 p-3 bb-2">
+    <button
+      mat-button
+      mat-raised-button
+      color="primary"
+      class="mx-3 pointer"
+      (click)="createMortgage()"
+    >
+      Add Mortgage/Split
+      <mat-icon class="btnOrder">add</mat-icon>
+    </button>
   </div>
 
   <div class="col-12 p-3 bb-2">
@@ -365,31 +392,29 @@
           </mat-form-field>
 
           <div
-          class="col-6"
-          style="align-items: center"
-          *ngIf="
-            _sharedService.TotalApplicants != undefined &&
-            _sharedService.TotalApplicants.length > 0
-          "
-        >
-          <label class="constant"> Owner </label>
-          <div class="" formArrayName="OwnerID">
-            <span
-              class=""
-              *ngFor="
-                let item of _sharedService.TotalApplicants;
-                let i = index
-              "
-              [ngClass]="i == 0 ? 'pl-0' : ''"
-            >
-              <mat-checkbox [value]="item.ApplicantId">
-                {{ item.FirstName }}&nbsp;{{ item.SurName }}
-              </mat-checkbox>
-            </span  >
+            class="col-6"
+            style="align-items: center"
+            *ngIf="
+              _sharedService.TotalApplicants != undefined &&
+              _sharedService.TotalApplicants.length > 0
+            "
+          >
+            <label class="constant"> Owner </label>
+            <div class="" formArrayName="OwnerID">
+              <span
+                class=""
+                *ngFor="
+                  let item of _sharedService.TotalApplicants;
+                  let i = index
+                "
+                [ngClass]="i == 0 ? 'pl-0' : ''"
+              >
+                <mat-checkbox [value]="item.ApplicantId">
+                  {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                </mat-checkbox>
+              </span>
+            </div>
           </div>
-        </div>
-
-
         </div>
       </div>
     </div>
@@ -470,29 +495,29 @@
           </mat-form-field>
 
           <div
-          class="col-6"
-          style="align-items: center"
-          *ngIf="
-            _sharedService.TotalApplicants != undefined &&
-            _sharedService.TotalApplicants.length > 0
-          "
-        >
-          <label class="constant"> Owner </label>
-          <div class="" formArrayName="OwnerID">
-            <span
-              class=""
-              *ngFor="
-                let item of _sharedService.TotalApplicants;
-                let i = index
-              "
-              [ngClass]="i == 0 ? 'pl-0' : ''"
-            >
-              <mat-checkbox [value]="item.ApplicantId">
-                {{ item.FirstName }}&nbsp;{{ item.SurName }}
-              </mat-checkbox>
-            </span  >
+            class="col-6"
+            style="align-items: center"
+            *ngIf="
+              _sharedService.TotalApplicants != undefined &&
+              _sharedService.TotalApplicants.length > 0
+            "
+          >
+            <label class="constant"> Owner </label>
+            <div class="" formArrayName="OwnerID">
+              <span
+                class=""
+                *ngFor="
+                  let item of _sharedService.TotalApplicants;
+                  let i = index
+                "
+                [ngClass]="i == 0 ? 'pl-0' : ''"
+              >
+                <mat-checkbox [value]="item.ApplicantId">
+                  {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                </mat-checkbox>
+              </span>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -573,29 +598,29 @@
           </mat-form-field>
 
           <div
-          class="col-6"
-          style="align-items: center"
-          *ngIf="
-            _sharedService.TotalApplicants != undefined &&
-            _sharedService.TotalApplicants.length > 0
-          "
-        >
-          <label class="constant"> Owner </label>
-          <div class="" formArrayName="OwnerID">
-            <span
-              class=""
-              *ngFor="
-                let item of _sharedService.TotalApplicants;
-                let i = index
-              "
-              [ngClass]="i == 0 ? 'pl-0' : ''"
-            >
-              <mat-checkbox [value]="item.ApplicantId">
-                {{ item.FirstName }}&nbsp;{{ item.SurName }}
-              </mat-checkbox>
-            </span  >
+            class="col-6"
+            style="align-items: center"
+            *ngIf="
+              _sharedService.TotalApplicants != undefined &&
+              _sharedService.TotalApplicants.length > 0
+            "
+          >
+            <label class="constant"> Owner </label>
+            <div class="" formArrayName="OwnerID">
+              <span
+                class=""
+                *ngFor="
+                  let item of _sharedService.TotalApplicants;
+                  let i = index
+                "
+                [ngClass]="i == 0 ? 'pl-0' : ''"
+              >
+                <mat-checkbox [value]="item.ApplicantId">
+                  {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                </mat-checkbox>
+              </span>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -680,29 +705,29 @@
           </mat-form-field>
 
           <div
-          class="col-6"
-          style="align-items: center"
-          *ngIf="
-            _sharedService.TotalApplicants != undefined &&
-            _sharedService.TotalApplicants.length > 0
-          "
-        >
-          <label class="constant"> Owner </label>
-          <div class="" formArrayName="OwnerID">
-            <span
-              class=""
-              *ngFor="
-                let item of _sharedService.TotalApplicants;
-                let i = index
-              "
-              [ngClass]="i == 0 ? 'pl-0' : ''"
-            >
-              <mat-checkbox [value]="item.ApplicantId">
-                {{ item.FirstName }}&nbsp;{{ item.SurName }}
-              </mat-checkbox>
-            </span  >
+            class="col-6"
+            style="align-items: center"
+            *ngIf="
+              _sharedService.TotalApplicants != undefined &&
+              _sharedService.TotalApplicants.length > 0
+            "
+          >
+            <label class="constant"> Owner </label>
+            <div class="" formArrayName="OwnerID">
+              <span
+                class=""
+                *ngFor="
+                  let item of _sharedService.TotalApplicants;
+                  let i = index
+                "
+                [ngClass]="i == 0 ? 'pl-0' : ''"
+              >
+                <mat-checkbox [value]="item.ApplicantId">
+                  {{ item.FirstName }}&nbsp;{{ item.SurName }}
+                </mat-checkbox>
+              </span>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
