@@ -2,7 +2,8 @@
   <h1>Reason for Application</h1>
   <form [formGroup]="ApplicantReasonForm">
     <div class="mb-2 row mx-0">
-      <!-- <ng-container formArrayName="ApplicationReason">
+      <label class="col-12">Reason for Application</label>
+      <ng-container formArrayName="ApplicationReason">
         <div class="d-flex" *ngFor="let item of ApplicationReason; let i = index">
           <mat-checkbox
             class="example-margin"
@@ -12,16 +13,16 @@
             {{ item.ApplicationReasonName }}
           </mat-checkbox>
         </div>
-        <mat-error
+        <!-- <mat-error
           *ngIf="
-            userAddressValidations
+          ApplicantReasonForm
               .get('ApplicationReason')
               .hasError('required') &&
               isSubmitted
           "
           >Please select your reason</mat-error
-        >
-      </ng-container> -->
+        > -->
+      </ng-container>
     </div>
     <mat-form-field class="col-12 w-100">
       <mat-label>Why do you want a loan?</mat-label>

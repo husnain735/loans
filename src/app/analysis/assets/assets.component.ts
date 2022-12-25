@@ -14,7 +14,7 @@ export class AssetsComponent {
   SuperannuationDetails: FormGroup;
   MotorVehicleDetails: FormGroup;
   MoreAssetDetails: FormGroup;
-  
+
   States = [
     {
       StatesID: 26,
@@ -120,75 +120,105 @@ export class AssetsComponent {
     });
 
   }
-  constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService,private rxFormBuilder:RxFormBuilder ){}
+  constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder) { }
 
   createAssetsDetails(): FormGroup {
     return this.rxFormBuilder.group({
       StreetNumber: [''],
       StreetName: [''],
       Suburb: ['', [Validators.required]],
-      StateId: ['',[Validators.required]],
-      PostCode: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]],
-      RentReceived: ['',[Validators.required]],
-      RentPerID: ['',[Validators.required]],
-      IsInvestmentProperty:  [''],
+      StateId: ['', [Validators.required]],
+      PostCode: ['', [Validators.required]],
+      EstimatedValue: ['', [Validators.required]],
+      RentReceived: ['', [Validators.required]],
+      RentPerID: ['', [Validators.required]],
+      IsInvestmentProperty: [''],
       IsMortgage: [false],
       ApplicantType: [''],
       ApplicationReasonID: [''],
-      Mortgage: this.rxFormBuilder.array([null])
+      Mortgage: this.rxFormBuilder.array([{
+        Lender: ['', [Validators.required]],
+        InterestTypeID: ['', [Validators.required]],
+        InterestRate: ['', [Validators.required]],
+        Limit: ['', [Validators.required]],
+        Payment: ['', [Validators.required]],
+        PaymentPerID: ['', [Validators.required]],
+        Balance: ['', [Validators.required]],
+        Refinance: ['', [Validators.required]]
+      }]),
     });
   }
 
-  onSlideMortgage(item:any){
+  onSlideMortgage(item: any) {
     debugger
-    console.log(this.AssetsDetails.value.AssetsDetails[item].IsMortgage);
-  }
 
-  createMortgage(): FormGroup{
+    // this.nestedForm(0).push(this.rxFormBuilder.group({
+    //   Lender: ['', [Validators.required]],
+    //   InterestTypeID: ['', [Validators.required]],
+    //   InterestRate: ['', [Validators.required]],
+    //   Limit: ['', [Validators.required]],
+    //   Payment: ['', [Validators.required]],
+    //   PaymentPerID: ['', [Validators.required]],
+    //   Balance: ['', [Validators.required]],
+    //   Refinance: ['', [Validators.required]]
+    // }))
+    console.log(this.AssetsDetails.value.AssetsDetails[item]);
+  }
+  fa() { return this.AssetsDetails.get('AssetsDetails') as FormArray; }
+  nestedForm(Index: number): FormArray {
+    debugger
+    if (Index != undefined) {
+      var a = this.fa()
+        .at(Index)
+        .get('Mortgage') as FormArray;
+
+        return a;
+    }
+  }
+  createMortgage(): FormGroup {
     return this.rxFormBuilder.group({
-      Lender: ['',[Validators.required]],
-      InterestTypeID: ['',[Validators.required]],
-      InterestRate: ['',[Validators.required]],
-      Limit: ['',[Validators.required]],
-      Payment: ['',[Validators.required]],
-      PaymentPerID: ['',[Validators.required]],
-      Balance: ['',[Validators.required]],
-      Refinance: ['',[Validators.required]]
+      Lender: ['Husnain', [Validators.required]],
+      InterestTypeID: ['', [Validators.required]],
+      InterestRate: ['', [Validators.required]],
+      Limit: ['', [Validators.required]],
+      Payment: ['', [Validators.required]],
+      PaymentPerID: ['', [Validators.required]],
+      Balance: ['', [Validators.required]],
+      Refinance: ['', [Validators.required]]
     })
   }
 
   createSavingDetails(): FormGroup {
     return this.rxFormBuilder.group({
-      Institution: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]],
+      Institution: ['', [Validators.required]],
+      EstimatedValue: ['', [Validators.required]],
       OwnerID: ['']
     });
   }
 
   createSuperannuationDetails(): FormGroup {
     return this.rxFormBuilder.group({
-      Institution: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]],
+      Institution: ['', [Validators.required]],
+      EstimatedValue: ['', [Validators.required]],
       OwnerID: ['']
     });
   }
 
   createMotorVehicleDetails(): FormGroup {
     return this.rxFormBuilder.group({
-      Make: ['',[Validators.required]],
-      Year: ['',[Validators.required]],
-      EstimatedValue: ['',[Validators.required]],
-      OwnerID:['']
+      Make: ['', [Validators.required]],
+      Year: ['', [Validators.required]],
+      EstimatedValue: ['', [Validators.required]],
+      OwnerID: ['']
     });
   }
-  
+
   createMoreAssetDetails(): FormGroup {
     return this.rxFormBuilder.group({
       AssetTypeID: [''],
       Details: [''],
-      EstimatedValue: ['',[Validators.required]],
-      OwnerID:[''] 
+      EstimatedValue: ['', [Validators.required]],
+      OwnerID: ['']
     });
   }
 

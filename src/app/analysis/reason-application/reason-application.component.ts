@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { AnalysisService } from 'src/app/shared/services/analysis.service';
 
 @Component({
   selector: 'app-reason-application',
@@ -10,7 +11,7 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
 export class ReasonApplicationComponent implements OnInit {
 
   ApplicantReasonForm = this._formBuilder.group({
-    ApplicationReasonTypeId: this._formBuilder.array([]),
+    ApplicationReason: this._formBuilder.array([]),
     Loan: ['', [Validators.required]],
     Status: this._formBuilder.array([])
   });
@@ -46,13 +47,15 @@ export class ReasonApplicationComponent implements OnInit {
       Name: 'Access to branch network'
     }
   ]
-
-  constructor(private _formBuilder: FormBuilder) {
+  ApplicationReason: any = [];
+  isSubmitted = false;
+  constructor(private _formBuilder: FormBuilder,private _analysisService: AnalysisService) {
 
   }
 
   ngOnInit(){
     this.initGroup();
+    this.getMeta();
   }
 
   initGroup() {
@@ -63,6 +66,20 @@ export class ReasonApplicationComponent implements OnInit {
         Status: [null]
       }))
     })
+  }
+  getMeta() {
+    this._analysisService.getApplicationMeta().subscribe((res: any) => {
+      this.ApplicationReason = res.body.ApplicationReason;
+    })
+  }
+  onChange(event) {
+    const interests = <FormArray>this.ApplicantReasonForm.get('ApplicationReason') as FormArray;
 
+    if(event.checked) {
+      interests.push(new FormControl(event.source.value))
+    } else {
+      const i = interests.controls.findIndex(x => x.value === event.source.value);
+      interests.removeAt(i);
+    }
   }
 }

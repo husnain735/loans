@@ -182,141 +182,139 @@
           </div>
 
           <div
+            formArrayName="Mortgage"
             class="col-10 w-100 px-0"
             *ngIf="item.get('IsMortgage').value == true"
           >
-            <div class="row mx-0">
-              <mat-form-field class="col-5 w-100">
-                <mat-label>Lender</mat-label>
-                <input matInput placeholder="Lender" formControlName="Lender" />
-              </mat-form-field>
-
-              <mat-form-field class="col-3 w-100">
-                <mat-select
-                  placeholder="Interest Type"
-                  formControlName="InterestTypeID"
-                >
-                  <mat-option
-                    *ngFor="let item of InterestType"
-                    [value]="item.InterestTypeID"
+            <ng-container
+              *ngFor="let formObj2 of nestedForm(i)['controls']; let j = index"
+            >
+              <div class="row mx-0">
+                {{formObj2.get('Lender').value}}
+                <!-- <mat-form-field class="col-5 w-100">
+                  <mat-label>Lender</mat-label>
+                  <input
+                    matInput
+                    placeholder="Lender"
+                    formControlName="Lender"
+                  />
+                </mat-form-field> -->
+              </div>
+              <!-- <mat-form-field class="col-3 w-100">
+                  <mat-select
+                    placeholder="Interest Type"
+                    formControlName="InterestTypeID"
                   >
-                    {{ item.InterestTypeName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+                    <mat-option
+                      *ngFor="let item of InterestType"
+                      [value]="item.InterestTypeID"
+                    >
+                      {{ item.InterestTypeName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
 
-            <div class="row mx-0">
-              <mat-form-field class="col-5 w-100">
-                <mat-label>Interest Rate</mat-label>
-                <input
-                  matInput
-                  placeholder="Interest Rate"
-                  formControlName="InterestRate"
-                />
-                <span matSuffix>&nbsp;%&nbsp;</span>
-              </mat-form-field>
+              <div class="row mx-0">
+                <mat-form-field class="col-5 w-100">
+                  <mat-label>Interest Rate</mat-label>
+                  <input
+                    matInput
+                    placeholder="Interest Rate"
+                    formControlName="InterestRate"
+                  />
+                  <span matSuffix>&nbsp;%&nbsp;</span>
+                </mat-form-field>
 
-              <mat-form-field class="col-5 w-100">
-                <mat-label>Limit</mat-label>
-                <input
-                  type="number"
-                  matInput
-                  placeholder="Limit"
-                  formControlName="Limit"
-                />
-                <span matPrefix>&nbsp;$&nbsp;</span>
-              </mat-form-field>
-            </div>
+                <mat-form-field class="col-5 w-100">
+                  <mat-label>Limit</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Limit"
+                    formControlName="Limit"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+              </div>
 
-            <div class="row mx-0">
-              <mat-form-field class="col-2 w-100">
-                <mat-label>Payment</mat-label>
-                <input
-                  type="number"
-                  matInput
-                  placeholder="Payment"
-                  formControlName="Payment"
-                />
-                <span matPrefix>&nbsp;$&nbsp;</span>
-              </mat-form-field>
+              <div class="row mx-0">
+                <mat-form-field class="col-2 w-100">
+                  <mat-label>Payment</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Payment"
+                    formControlName="Payment"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
 
-              <mat-form-field class="col-2 w-100">
-                <mat-select placeholder="Per" formControlName="PaymentPerID">
-                  <mat-option
-                    [value]="item.PerRentID"
-                    *ngFor="let item of PerRentReceived"
-                  >
-                    {{ item.PerRentName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field class="col-2 w-100">
+                  <mat-select placeholder="Per" formControlName="PaymentPerID">
+                    <mat-option
+                      [value]="item.PerRentID"
+                      *ngFor="let item of PerRentReceived"
+                    >
+                      {{ item.PerRentName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-              <div class="col-1 w-100"></div>
+                <div class="col-1 w-100"></div>
 
-              <mat-form-field class="col-2 w-100">
-                <mat-label>Balance</mat-label>
-                <input
-                  type="number"
-                  matInput
-                  placeholder="Balance"
-                  formControlName="Balance"
-                />
-                <span matPrefix>&nbsp;$&nbsp;</span>
-              </mat-form-field>
-            </div>
+                <mat-form-field class="col-2 w-100">
+                  <mat-label>Balance</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Balance"
+                    formControlName="Balance"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+              </div>
 
-            <div class="row mx-0">
-              <div class="px-15">
-                <label class="constant">Name on Liability</label>
-                <div>
-                  <mat-radio-group formControlName="ApplicantType">
-                    <mat-radio-button value="1">Applicant</mat-radio-button>
-                    <mat-radio-button value="2">Guarantor</mat-radio-button>
-                    <mat-radio-button value="3">Non-applicant</mat-radio-button>
-                  </mat-radio-group>
-                </div>
-                <label class="constant">Refinance?</label>
-                <div>
-                  <mat-radio-group formControlName="Refinance">
-                    <mat-radio-button value="true">Yes</mat-radio-button>
-                    <mat-radio-button value="false">No</mat-radio-button>
-                  </mat-radio-group>
+              <div class="row mx-0">
+                <div class="px-15">
+                  <label class="constant">Name on Liability</label>
+                  <div>
+                    <mat-radio-group formControlName="ApplicantType">
+                      <mat-radio-button value="1">Applicant</mat-radio-button>
+                      <mat-radio-button value="2">Guarantor</mat-radio-button>
+                      <mat-radio-button value="3"
+                        >Non-applicant</mat-radio-button
+                      >
+                    </mat-radio-group>
+                  </div>
+                  <label class="constant">Refinance?</label>
+                  <div>
+                    <mat-radio-group formControlName="Refinance">
+                      <mat-radio-button value="true">Yes</mat-radio-button>
+                      <mat-radio-button value="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-12 p-3 bb-2">
-              <button
-                mat-button
-                mat-raised-button
-                color="primary"
-                class="mx-3 pointer"
-                (click)="createMortgage()"
-              >
-                Add Mortgage/Split
-                <mat-icon class="btnOrder">add</mat-icon>
-              </button>
-            </div>
+              <div class="col-12 p-3 bb-2">
+                <button
+                  mat-button
+                  mat-raised-button
+                  color="primary"
+                  class="mx-3 pointer"
+                  (click)="createMortgage()"
+                >
+                  Add Mortgage/Split
+                  <mat-icon class="btnOrder">add</mat-icon>
+                </button>
+              </div> -->
+            </ng-container>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="col-12 p-3 bb-2">
-    <button
-      mat-button
-      mat-raised-button
-      color="primary"
-      class="mx-3 pointer"
-      (click)="createMortgage()"
-    >
-      Add Mortgage/Split
-      <mat-icon class="btnOrder">add</mat-icon>
-    </button>
-  </div>
-
   <div class="col-12 p-3 bb-2">
     <button
       mat-button
