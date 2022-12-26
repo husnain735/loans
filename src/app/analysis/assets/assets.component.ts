@@ -123,7 +123,7 @@ export class AssetsComponent {
   constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder) { }
 
   createAssetsDetails(): FormGroup {
-    return this.rxFormBuilder.group({
+    return this._formBuilder.group({
       StreetNumber: [''],
       StreetName: [''],
       Suburb: ['', [Validators.required]],
@@ -136,16 +136,7 @@ export class AssetsComponent {
       IsMortgage: [false],
       ApplicantType: [''],
       ApplicationReasonID: [''],
-      Mortgage: this.rxFormBuilder.array([{
-        Lender: ['', [Validators.required]],
-        InterestTypeID: ['', [Validators.required]],
-        InterestRate: ['', [Validators.required]],
-        Limit: ['', [Validators.required]],
-        Payment: ['', [Validators.required]],
-        PaymentPerID: ['', [Validators.required]],
-        Balance: ['', [Validators.required]],
-        Refinance: ['', [Validators.required]]
-      }]),
+      Mortgage: this._formBuilder.array([]),
     });
   }
 
@@ -164,7 +155,9 @@ export class AssetsComponent {
     // }))
     console.log(this.AssetsDetails.value.AssetsDetails[item]);
   }
-  fa() { return this.AssetsDetails.get('AssetsDetails') as FormArray; }
+  fa() {
+    debugger
+    return this.AssetsDetails.get('AssetsDetails') as FormArray; }
   nestedForm(Index: number): FormArray {
     debugger
     if (Index != undefined) {
@@ -175,9 +168,22 @@ export class AssetsComponent {
         return a;
     }
   }
+
+  addMortgage(index:any){
+    debugger
+    return this.fa()
+    .at(index)
+    .get('Mortgage') as FormArray;
+  }
+
+  employee(index:any){
+    debugger
+    this.addMortgage(index).push(this.createMortgage())
+  }
+
   createMortgage(): FormGroup {
-    return this.rxFormBuilder.group({
-      Lender: ['Husnain', [Validators.required]],
+    return this._formBuilder.group({
+      Lender: ['', [Validators.required]],
       InterestTypeID: ['', [Validators.required]],
       InterestRate: ['', [Validators.required]],
       Limit: ['', [Validators.required]],

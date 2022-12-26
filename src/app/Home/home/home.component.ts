@@ -61,7 +61,6 @@ export class HomeComponent {
         localStorage.setItem('ApplicationId',this.guid);
         this.router.navigate(['client/' + this.guid + '/applicant']);
       })
-
     }
 
   }

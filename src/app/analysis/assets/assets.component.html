@@ -172,14 +172,29 @@
         </div>
 
         <div class="row mx-0 py-3">
-          <div class="col-2 w-100 pointer">
+          <!-- <div class="col-2 w-100 pointer">
             <mat-slide-toggle
               formControlName="IsMortgage"
               (click)="onSlideMortgage(i)"
-            >
+            > 
               Mortgage
             </mat-slide-toggle>
+          </div> -->
+
+          <div class="col-12 p-3 bb-2">
+            <button
+              mat-button
+              mat-raised-button
+              color="primary"
+              class="mx-3 pointer"
+              (click)="employee(i)"
+            >
+              Add Mortgage/Split
+              <mat-icon class="btnOrder">add</mat-icon>
+            </button>
           </div>
+
+
 
           <div
             formArrayName="Mortgage"
@@ -190,15 +205,15 @@
               *ngFor="let formObj2 of nestedForm(i)['controls']; let j = index"
             >
               <div class="row mx-0">
-                {{formObj2.get('Lender').value}}
-                <!-- <mat-form-field class="col-5 w-100">
+
+                <mat-form-field class="col-5 w-100">
                   <mat-label>Lender</mat-label>
                   <input
                     matInput
                     placeholder="Lender"
                     formControlName="Lender"
                   />
-                </mat-form-field> -->
+                </mat-form-field>
               </div>
               <!-- <mat-form-field class="col-3 w-100">
                   <mat-select

@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     ResourceServer: {
         Endpoint: "https://mailerapi.informanagement.com/api/",
 
