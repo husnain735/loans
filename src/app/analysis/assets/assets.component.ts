@@ -123,7 +123,7 @@ export class AssetsComponent {
   constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder) { }
 
   createAssetsDetails(): FormGroup {
-    return this._formBuilder.group({
+    return this.rxFormBuilder.group({
       StreetNumber: [''],
       StreetName: [''],
       Suburb: ['', [Validators.required]],
@@ -136,7 +136,17 @@ export class AssetsComponent {
       IsMortgage: [false],
       ApplicantType: [''],
       ApplicationReasonID: [''],
-      Mortgage: this._formBuilder.array([]),
+      Mortgage: this.rxFormBuilder.array([{
+        Lender: ['', [Validators.required]],
+        InterestTypeID: ['', [Validators.required]],
+        InterestRate: ['', [Validators.required]],
+        Limit: ['', [Validators.required]],
+        Payment: ['', [Validators.required]],
+        PaymentPerID: ['', [Validators.required]],
+        Balance: ['', [Validators.required]],
+        Refinance: ['', [Validators.required]],
+        ApplicantType: ['']
+      }]),
     });
   }
 
@@ -157,7 +167,8 @@ export class AssetsComponent {
   }
   fa() {
     debugger
-    return this.AssetsDetails.get('AssetsDetails') as FormArray; }
+    return this.AssetsDetails.get('AssetsDetails') as FormArray;
+  }
   nestedForm(Index: number): FormArray {
     debugger
     if (Index != undefined) {
@@ -165,18 +176,18 @@ export class AssetsComponent {
         .at(Index)
         .get('Mortgage') as FormArray;
 
-        return a;
+      return a;
     }
   }
 
-  addMortgage(index:any){
+  addMortgage(index: any) {
     debugger
     return this.fa()
-    .at(index)
-    .get('Mortgage') as FormArray;
+      .at(index)
+      .get('Mortgage') as FormArray;
   }
 
-  employee(index:any){
+  employee(index: any) {
     debugger
     this.addMortgage(index).push(this.createMortgage())
   }
@@ -190,7 +201,8 @@ export class AssetsComponent {
       Payment: ['', [Validators.required]],
       PaymentPerID: ['', [Validators.required]],
       Balance: ['', [Validators.required]],
-      Refinance: ['', [Validators.required]]
+      Refinance: ['', [Validators.required]],
+      ApplicantType: ['']
     })
   }
 
