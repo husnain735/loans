@@ -1,1 +1,57 @@
-<p>financial-goals works!</p>
+<div class="content-wrapper">
+  <h1>Financial Goals</h1>
+
+  <div>
+    <div class="row">
+      <div class="col-12">
+        <textarea
+          rows="4"
+          cols="100"
+          class="col-12"
+          placeholder="What are your financial goals for the next 2-5 years?"
+          [(ngModel)]="textarea"
+        >
+        </textarea>
+      </div>
+
+      <div class="row m-2">
+        <div class="col-12 font-18">
+          If you could secure an investment property which may assist with:
+          <ul class="mt-3">
+            <li>Paying down your home sooner;</li>
+            <li>Improving your cash flow further; and</li>
+            <li>Secure your future</li>
+          </ul>
+
+          Would you?
+
+          <div>
+            <mat-radio-group formControlName="IsTaxResident">
+              <mat-radio-button value="true"
+                ><span class="font-18">Yes</span></mat-radio-button
+              >
+              <mat-radio-button value="false"
+                ><span class="font-18">No</span></mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+
+          <div class="font-18 mt-3">
+            <p>
+              What annual income would you like to retire on in order to live
+              your best life?
+            </p>
+
+            <mat-form-field class="col-6 w-100">
+              <mat-select placeholder="Annual income for retirement" formControlName="RetirementAge">
+                <mat-option *ngFor="let item of RetirementIncome" [value]="item">
+                  {{ item }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
