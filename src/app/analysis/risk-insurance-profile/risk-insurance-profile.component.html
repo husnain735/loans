@@ -1,1 +1,168 @@
-<p>risk-insurance-profile works!</p>
+<div class="p-3 bgWhite">
+  <h1>Risk / Insurance profile</h1>
+  <div>
+    <form [formGroup]="RiskInsuranceForm">
+      <div class="row mx-0">
+        <div class="col-12 w-100 mb-3">
+          <label class="constant2">Do you have a clear credit file?</label>
+          <div>
+            <mat-radio-group formControlName="ClearCreditFile">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+              <mat-radio-button [value]="2">Unsure</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <mat-error
+              class="mat-error"
+              *ngIf="
+                RiskInsuranceForm.get('ClearCreditFile').touched &&
+                RiskInsuranceForm.get('ClearCreditFile').invalid
+              "
+              >This fields is required</mat-error
+            >
+          </div>
+        </div>
+        <div class="col-12 w-100 mb-3">
+          <label class="constant2"
+            >Have you had issues with making repayments on any of your
+            liabilities?</label
+          >
+          <div>
+            <mat-radio-group formControlName="RepaymentsOnLiabilities">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <mat-error
+              class="mat-error"
+              *ngIf="
+                RiskInsuranceForm.get('RepaymentsOnLiabilities').touched &&
+                RiskInsuranceForm.get('RepaymentsOnLiabilities').invalid
+              "
+              >This fields is required</mat-error
+            >
+          </div>
+        </div>
+        <div class="col-12 w-100 mb-3">
+          <div class="constant2 mb-2">
+            Do you know of any foreseeable significant changes to your
+            circumstance?
+          </div>
+          <div class="constant2">
+            For example, are you planning on changing jobs? Retiring? Starting a
+            family?
+          </div>
+          <div>
+            <mat-radio-group formControlName="JobsChanging">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <mat-error
+              class="mat-error"
+              *ngIf="
+                RiskInsuranceForm.get('JobsChanging').touched &&
+                RiskInsuranceForm.get('JobsChanging').invalid
+              "
+              >This fields is required</mat-error
+            >
+          </div>
+        </div>
+        <mat-form-field
+          *ngIf="RiskInsuranceForm.get('JobsChanging').value == 1"
+          class="col-12 w-100"
+        >
+          <input matInput formControlName="JobsChangingSpecification" />
+        </mat-form-field>
+        <div class="col-12 w-100 mb-3">
+          <label class="constant2"
+            >Are you comfortable that you have the following insurances in
+            place: Property Insurance (contents, building, vehicle, etc)</label
+          >
+          <div>
+            <mat-radio-group formControlName="ThingsInsurance">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <mat-error
+              class="mat-error"
+              *ngIf="
+                RiskInsuranceForm.get('ThingsInsurance').touched &&
+                RiskInsuranceForm.get('ThingsInsurance').invalid
+              "
+              >This fields is required</mat-error
+            >
+          </div>
+        </div>
+        <div class="col-12 w-100 mb-3">
+          <label class="constant2"
+            >Personal Insurance (life, income protection, trauma, etc)</label
+          >
+          <div>
+            <mat-radio-group formControlName="PersonalInsurance">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <mat-error
+              class="mat-error"
+              *ngIf="
+                RiskInsuranceForm.get('PersonalInsurance').touched &&
+                RiskInsuranceForm.get('PersonalInsurance').invalid
+              "
+              >This fields is required</mat-error
+            >
+          </div>
+        </div>
+        <div
+          class="col-12 w-100 mb-3"
+          *ngIf="
+            RiskInsuranceForm.get('ThingsInsurance').value == 0 &&
+            RiskInsuranceForm.get('PersonalInsurance').value == 0
+          "
+        >
+          <label class="constant2"
+            >Would you like us to arrange for someone to contact you to discuss
+            your insurance needs?</label
+          >
+          <div>
+            <mat-radio-group formControlName="DiscussInsurance">
+              <mat-radio-button [value]="1">Yes</mat-radio-button>
+              <mat-radio-button [value]="0">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div>
+            <mat-error
+              class="mat-error"
+              *ngIf="
+                RiskInsuranceForm.get('DiscussInsurance').touched &&
+                RiskInsuranceForm.get('DiscussInsurance').invalid
+              "
+              >This fields is required</mat-error
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="step-nav">
+    <div class="d-flex justify-content-between align-items-center">
+      <button mat-flat-button>Back</button>
+      <button
+        (click)="onRiskInsuranceFormSubmit()"
+        mat-raised-button
+        color="primary"
+        class="next"
+      >
+        Next
+        <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
