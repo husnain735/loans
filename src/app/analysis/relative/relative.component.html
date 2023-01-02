@@ -1,1 +1,72 @@
-<p>relative works!</p>
+<div class="p-3 bgWhite">
+  <h1>Nearest Relative - that does not live with you</h1>
+  <div>
+    <form [formGroup]="RelativeForm">
+      <div class="row mx-0">
+        <mat-form-field class="col-12 w-100">
+          <mat-label>Full Name</mat-label>
+          <input matInput placeholder="Full Name" formControlName="FullName" />
+        </mat-form-field>
+        <mat-form-field class="col-6 w-100">
+          <mat-label>Relation Ship To You</mat-label>
+          <input
+            matInput
+            placeholder="Relation Ship To You"
+            formControlName="RelationShipToYou"
+          />
+        </mat-form-field>
+        <div class="col-6 w-100">
+          <div class="px-15">
+            <label class="constant">Applicant or Guarantor:</label>
+            <div>
+              <mat-radio-group formControlName="ApplicantId">
+                <mat-radio-button
+                  *ngFor="let item of sharedService.TotalApplicants"
+                  [value]="item.ApplicationId"
+                  >{{ item.FirstName }}&nbsp;{{
+                    item.SurName
+                  }}</mat-radio-button
+                >
+              </mat-radio-group>
+              <mat-error
+                *ngIf="RelativeForm.get('ApplicantId').hasError('required')"
+                class="mat-error"
+                >Applicant is required</mat-error
+              >
+            </div>
+          </div>
+        </div>
+        <mat-form-field class="col-12 w-100">
+          <mat-label>Contact Number</mat-label>
+          <input
+            matInput
+            placeholder="Contact Number"
+            formControlName="ContactNumber"
+          />
+        </mat-form-field>
+        <mat-form-field class="col-12 w-100">
+          <mat-label>Australian Residential Address</mat-label>
+          <input
+            matInput
+            placeholder="Australian Residential Address"
+            formControlName="AusResidentialAddress"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="step-nav">
+    <div class="d-flex justify-content-between align-items-center">
+      <button mat-flat-button>Back</button>
+      <button
+        (click)="onRelativeFormSubmit()"
+        mat-raised-button
+        color="primary"
+        class="next"
+      >
+        Next
+        <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
