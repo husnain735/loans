@@ -1,4 +1,17 @@
-<div *ngIf="guid == undefined" class="container pt-5">
+<ng-template #content let-modal>
+  <div class="modal-body p-relative p-4">
+    <p>Please enter password</p>
+    <mat-form-field class="w-100">
+      <input matInput type="password" placeholder="Password" [(ngModel)]="password" />
+    </mat-form-field>
+    <p *ngIf="error" class="mat-error">invalid password</p>
+    <div class="row mx-0 justify-content-end">
+      <button mat-raised-button color="primary" type="button" (click)="checkPassword()">Save</button>
+    </div>
+  </div>
+</ng-template>
+<ng-container *ngIf="IsTrue">
+  <div *ngIf="guid == undefined" class="container pt-5">
     <div class="bgContainer p-4">
       <h1 class="font-w-500">
         Congratulations, you’re here and you’re in good hands.
@@ -88,3 +101,6 @@
   <ng-container *ngIf="guid != undefined">
     <router-outlet></router-outlet>
   </ng-container>
+
+</ng-container>
+

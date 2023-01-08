@@ -4,4 +4,7 @@ export const environment = {
         Endpoint: "http://loansapi.financeprospects.loans/",
 
     },
+    key: {
+      password: '192.168.10.1'
+    }
 }

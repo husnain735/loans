@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Application } from 'src/app/models/application';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -26,12 +28,19 @@ export class HomeComponent {
   isSubmitted = false;
   guid: string;
   routeName: string;
+  key = environment.key.password;
+  password: string;
+  IsTrue = false;
+  error = false;
+  @ViewChild('content', { static: true }) content: TemplateRef<any>;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private _analysisService: AnalysisService
+    private _analysisService: AnalysisService,
+    public dialog: MatDialog
   ) { }
   ngOnInit() {
+    this.openApplicantDailog(this.content);
     this.getMeta();
     if (this.router.url != '/') {
       var url = this.router.url;
@@ -80,6 +89,21 @@ export class HomeComponent {
     } else {
       const i = interests.controls.findIndex(x => x.value === event.source.value);
       interests.removeAt(i);
+    }
+  }
+  openApplicantDailog(content): void {
+    const dialogRef = this.dialog.open(content, {
+      height: '230px',
+      width: '500px',
+      disableClose: true
+    });
+  }
+  checkPassword(){
+    if (this.password == this.key) {
+      this.dialog.closeAll();
+      this.IsTrue = true;
+    }else{
+      this.error = true;
     }
   }
 }
