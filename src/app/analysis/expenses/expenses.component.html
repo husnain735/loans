@@ -2,7 +2,67 @@
   <h1>Living Expenses</h1>
   <div>
     <form [formGroup]="ApplicantExpensesForm">
-
+      <ng-container formArrayName="ApplicationExpense">
+        <div
+          *ngFor="
+            let row of ApplicantExpensesForm.get('ApplicationExpense')[
+              'controls'
+            ];
+            let i = index
+          "
+          [formGroupName]="i"
+        >
+          <div
+          class="p-2"
+            [ngClass]="
+              i % 2 == 1
+                ? 'bgSkinWhite'
+                : i % 2 == 0
+                ? 'bgLightGreen'
+                : ''
+            "
+          >
+            <div class="row mx-0">
+              <div class="col-5">
+                <p class="font-w-700 text-left mb-0">
+                  {{ row.get("Title").value }}
+                </p>
+                <p class="text-left mb-0">{{ row.get("SubTitle").value }}</p>
+              </div>
+              <div class="col-3">
+                <mat-form-field class="col-5 w-100">
+                  <input
+                    type="number"
+                    matInput
+                    placeholder="Cost"
+                    formControlName="Cost"
+                  />
+                  <span matPrefix>&nbsp;$&nbsp;</span>
+                </mat-form-field>
+                <mat-form-field class="col-7 w-100">
+                  <mat-select
+                    placeholder="Per"
+                    formControlName="Duration"
+                  >
+                    <mat-option
+                      *ngFor="let item of DurationType"
+                      [value]="item.DurationTypeId"
+                    >
+                      {{ item.DurationTypeName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-4">
+                <mat-form-field class="w-100">
+                  <mat-label>Comment</mat-label>
+                  <textarea matInput formControlName="Comments"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </form>
   </div>
 </div>

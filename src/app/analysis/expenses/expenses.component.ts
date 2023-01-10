@@ -87,11 +87,30 @@ export class ExpensesComponent implements OnInit {
   ApplicantExpensesForm = this._formBuilder.group({
     ApplicationExpense: this._formBuilder.array([]),
   });
+
+  DurationType = [
+    {
+      DurationTypeId: 42,
+      DurationTypeName: 'Week'
+    },
+    {
+      DurationTypeId: 43,
+      DurationTypeName: 'Fortnight'
+    },
+    {
+      DurationTypeId: 44,
+      DurationTypeName: 'Month'
+    },
+    {
+      DurationTypeId: 45,
+      DurationTypeName: 'Year'
+    },
+  ]
   constructor(private _formBuilder: FormBuilder,private _analysisService: AnalysisService) {
 
   }
   ngOnInit(){
-
+    this.initGroup();
   }
 
   initGroup() {
