@@ -30,7 +30,8 @@ export class ApplicantsComponent implements OnInit {
       TypeName: 'Non-applicant'
     },
   ]
-  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService, private route: ActivatedRoute,
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService,
+    private route: ActivatedRoute,
     private router: Router,public _sharedService: SharedService) {
 
   }
@@ -70,7 +71,7 @@ export class ApplicantsComponent implements OnInit {
         this.Applicantguid = res.body;
         this.applicant.ApplicantId = this.Applicantguid;
         this._sharedService.TotalApplicants.push(this.applicant);
-        this.applicant ={}; 
+        this.applicant ={};
         this.router.navigate(['client/' + this.applicationguid + '/applicant/' + this.Applicantguid]);
         this.dialog.closeAll();
       })

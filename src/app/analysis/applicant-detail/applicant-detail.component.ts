@@ -1,260 +1,258 @@
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
-import { AnalysisService } from 'src/app/shared/services/analysis.service';
+import { ActivatedRoute } from '@angular/router';
+import {
+  RxFormBuilder,
+  RxwebValidators,
+} from '@rxweb/reactive-form-validators';
+import { ApplicantDetailService } from 'src/app/shared/services/applicantDetail.service';
 
 @Component({
   selector: 'app-applicant-detail',
   templateUrl: './applicant-detail.component.html',
-  styleUrls: ['./applicant-detail.component.scss']
+  styleUrls: ['./applicant-detail.component.scss'],
 })
 export class ApplicantDetailComponent implements OnInit {
-
   MaritalStatus = [
     {
       MaritalStatusId: 8,
-      MaritalStatusName: 'Single'
+      MaritalStatusName: 'Single',
     },
     {
       MaritalStatusId: 9,
-      MaritalStatusName: 'Married'
+      MaritalStatusName: 'Married',
     },
     {
       MaritalStatusId: 10,
-      MaritalStatusName: 'DeFacto'
+      MaritalStatusName: 'DeFacto',
     },
     {
       MaritalStatusId: 11,
-      MaritalStatusName: 'Seperated'
+      MaritalStatusName: 'Seperated',
     },
     {
       MaritalStatusId: 12,
-      MaritalStatusName: 'Divorced'
+      MaritalStatusName: 'Divorced',
     },
     {
       MaritalStatusId: 13,
-      MaritalStatusName: 'Widowed'
+      MaritalStatusName: 'Widowed',
     },
     {
       MaritalStatusId: 14,
-      MaritalStatusName: 'Other'
+      MaritalStatusName: 'Other',
     },
-  ]
-  NumberOfChildren = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-  ]
+  ];
+  NumberOfChildren = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   IBORange = [
     {
       IBORangeTypeId: 15,
-      IBORangeTypeName: '0 – 3 Months'
+      IBORangeTypeName: '0 – 3 Months',
     },
     {
       IBORangeTypeId: 16,
-      IBORangeTypeName: '3 –12 months'
+      IBORangeTypeName: '3 –12 months',
     },
     {
       IBORangeTypeId: 17,
-      IBORangeTypeName: '12 + months'
+      IBORangeTypeName: '12 + months',
     },
-  ]
+  ];
   CitizenshipStatus = [
     {
       CitizenshipStatusID: 18,
-      CitizenshipStatusName: 'Citizen'
+      CitizenshipStatusName: 'Citizen',
     },
     {
       CitizenshipStatusID: 19,
-      CitizenshipStatusName: 'Permanent Resident'
+      CitizenshipStatusName: 'Permanent Resident',
     },
     {
       CitizenshipStatusID: 20,
-      CitizenshipStatusName: 'Visa'
+      CitizenshipStatusName: 'Visa',
     },
-  ]
+  ];
 
   EmploymentDetail = [
     {
       EmploymentDetailTypeID: 21,
-      EmploymentDetailTypeName: 'PAYG'
+      EmploymentDetailTypeName: 'PAYG',
     },
     {
       EmploymentDetailTypeID: 22,
-      EmploymentDetailTypeName: 'Self Employed'
+      EmploymentDetailTypeName: 'Self Employed',
     },
     {
       EmploymentDetailTypeID: 23,
-      EmploymentDetailTypeName: 'Unemployed'
+      EmploymentDetailTypeName: 'Unemployed',
     },
     {
       EmploymentDetailTypeID: 24,
-      EmploymentDetailTypeName: 'Home Duties'
+      EmploymentDetailTypeName: 'Home Duties',
     },
     {
       EmploymentDetailTypeID: 25,
-      EmploymentDetailTypeName: 'Retired'
+      EmploymentDetailTypeName: 'Retired',
     },
-  ]
-
+  ];
   States = [
     {
       StatesID: 26,
-      StatesName: 'SA'
+      StatesName: 'SA',
     },
     {
       StatesID: 27,
-      StatesName: 'ACT'
+      StatesName: 'ACT',
     },
     {
       StatesID: 28,
-      StatesName: 'NSW'
+      StatesName: 'NSW',
     },
     {
       StatesID: 29,
-      StatesName: 'NT'
+      StatesName: 'NT',
     },
     {
       StatesID: 30,
-      StatesName: 'QLD'
+      StatesName: 'QLD',
     },
     {
       StatesID: 31,
-      StatesName: 'TAS'
+      StatesName: 'TAS',
     },
     {
       StatesID: 32,
-      StatesName: 'VIC'
+      StatesName: 'VIC',
     },
     {
       StatesID: 33,
-      StatesName: 'WA'
-    }
-  ]
+      StatesName: 'WA',
+    },
+  ];
   Basis = [
     {
       BasisID: 34,
-      BasisName: 'Full Time'
+      BasisName: 'Full Time',
     },
     {
       BasisID: 35,
-      BasisName: 'Part Time'
+      BasisName: 'Part Time',
     },
     {
       BasisID: 36,
-      BasisName: 'Casual'
-    }]
+      BasisName: 'Casual',
+    },
+  ];
   OtherIncomeType = [
     {
       OtherIncomeTypeId: 37,
-      OtherIncomeName: 'Family Tax Benefit'
+      OtherIncomeName: 'Family Tax Benefit',
     },
     {
       OtherIncomeTypeId: 38,
-      OtherIncomeName: 'Pensions'
-    }
-    ,
+      OtherIncomeName: 'Pensions',
+    },
     {
       OtherIncomeTypeId: 39,
-      OtherIncomeName: 'Child Support'
-    }
-    ,
+      OtherIncomeName: 'Child Support',
+    },
     {
       OtherIncomeTypeId: 40,
-      OtherIncomeName: 'Maintenance'
-    }
-    ,
+      OtherIncomeName: 'Maintenance',
+    },
     {
       OtherIncomeTypeId: 41,
-      OtherIncomeName: 'Other'
-    }
-  ]
+      OtherIncomeName: 'Other',
+    },
+  ];
   OtherIncomeDurationType = [
     {
       OtherIncomeDurationTypeId: 42,
-      OtherIncomeDurationTypeName: 'Week'
+      OtherIncomeDurationTypeName: 'Week',
     },
     {
       OtherIncomeDurationTypeId: 43,
-      OtherIncomeDurationTypeName: 'Fortnight'
+      OtherIncomeDurationTypeName: 'Fortnight',
     },
     {
       OtherIncomeDurationTypeId: 44,
-      OtherIncomeDurationTypeName: 'Month'
+      OtherIncomeDurationTypeName: 'Month',
     },
     {
       OtherIncomeDurationTypeId: 45,
-      OtherIncomeDurationTypeName: 'Year'
+      OtherIncomeDurationTypeName: 'Year',
     },
-  ]
+  ];
   HousingState = [
     {
       HousingStateTypeId: 46,
-      HousingStateTypeName: 'Renting'
+      HousingStateTypeName: 'Renting',
     },
     {
       HousingStateTypeId: 47,
-      HousingStateTypeName: 'Mortgage'
+      HousingStateTypeName: 'Mortgage',
     },
     {
       HousingStateTypeId: 48,
-      HousingStateTypeName: 'With parents'
+      HousingStateTypeName: 'With parents',
     },
     {
       HousingStateTypeId: 49,
-      HousingStateTypeName: 'Home in duty'
+      HousingStateTypeName: 'Home in duty',
     },
     {
       HousingStateTypeId: 50,
-      HousingStateTypeName: 'Other'
+      HousingStateTypeName: 'Other',
     },
-  ]
+  ];
   ResidingYear = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50
-  ]
-  ResidingMonth = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-  ]
-  ApplicantDetailForm = this._formBuilder.group({
-    ApplicantType: ['1', [Validators.required]],
-    SalutationTypeId: ['', [Validators.required]],
-    FirstName: ['', [Validators.required]],
-    SurName: ['', [Validators.required]],
-    MiddleName: ['', [Validators.required]],
-    DateOfBirth: ['', [Validators.required]],
-    MaritalTypeId: new FormControl('', [Validators.required]),
-    Specify: ['', RxwebValidators.required({ conditionalExpression: (x) => x.MaritalTypeId == 14 })],
-    DriversLicenceNo: ['', [Validators.required]],
-    DriversExpiryDate: ['', [Validators.required]],
-    MotherName: ['', [Validators.required]],
-    NumberOfChildren: ['', [Validators.required]],
-    IBONumber: [''],
-    IBORangeTypeId: [''],
-    ChildrenForm: this._formBuilder.array([]),
-  });
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+    40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+  ];
+  ResidingMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  ApplicantDetailForm: FormGroup;
   ApplicantContactInformation = this._formBuilder.group({
     PhoneNumber: [''],
     MobileNumber: ['', [Validators.required]],
     EmailAddress: ['', [Validators.required, Validators.email]],
     SkypeAddress: [''],
     IsTaxResident: ['', [Validators.required]],
-    Country: ['', RxwebValidators.required({ conditionalExpression: (x) => x.IsTaxResident == 'true' })],
-    CitizenshipStatusTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.IsTaxResident == 'true' })]
+    Country: [
+      '',
+      RxwebValidators.required({
+        conditionalExpression: (x) => x.IsTaxResident == 'true',
+      }),
+    ],
+    CitizenshipStatusTypeId: [
+      '',
+      RxwebValidators.required({
+        conditionalExpression: (x) => x.IsTaxResident == 'true',
+      }),
+    ],
   });
   ApplicantEmploymentDetail: FormGroup;
   ApplicantOtherIncome: FormGroup;
   ApplicantAddress: FormGroup;
+  ApplicantChildrenDetail: FormGroup;
   Items: FormArray;
   OtherIncomeItems: FormArray;
   ApplicantAddresses: FormArray;
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
-  isLinear = false;
+  isLinear = true;
   ADSubmitted = false;
   ACInformation = false;
-  events: any[] = [
-  ];
+  events: any[] = [];
   date: Date;
   IsButtonVisible = true;
   TotalYear: number = 0;
@@ -262,12 +260,41 @@ export class ApplicantDetailComponent implements OnInit {
   ApplicantAddressYears: any[] = [];
   ApplicantAddressMonth: any[] = [];
   IsApplicantAddressMoreThen3: boolean;
-  constructor(private _formBuilder: FormBuilder, private _analysisService: AnalysisService,
-    private rxFormBuilder: RxFormBuilder) {
-
-  }
+  ApplicantId: string;
+  constructor(
+    private _formBuilder: FormBuilder,
+    private applicantDetailService: ApplicantDetailService,
+    private rxFormBuilder: RxFormBuilder,
+    private route: ActivatedRoute
+  ) {}
   ngOnInit() {
-    // this._analysisService.getAllAppicants.next(true);
+    this.ApplicantDetailForm = this.rxFormBuilder.group({
+      ApplicantType: ['1', [Validators.required]],
+      SalutationTypeId: ['', [Validators.required]],
+      FirstName: ['', [Validators.required]],
+      SurName: ['', [Validators.required]],
+      MiddleName: ['', [Validators.required]],
+      DateOfBirth: ['', [Validators.required]],
+      MaritalTypeId: new FormControl('', [Validators.required]),
+      Specify: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) => x.MaritalTypeId == 14,
+        }),
+      ],
+      DriversLicenceNo: ['', [Validators.required]],
+      DriversExpiryDate: ['', [Validators.required]],
+      MotherName: ['', [Validators.required]],
+      NumberOfChildren: ['', [Validators.required]],
+      IBONumber: [''],
+      IBORangeTypeId: ['']
+    });
+    this.route.params.subscribe((params: any) => {
+      this.ApplicantId = params['guid2'];
+    });
+    this.ApplicantChildrenDetail = new FormGroup({
+      ApplicantChildrenDetails: new FormArray([])
+    })
     this.ApplicantEmploymentDetail = new FormGroup({
       ApplicantEmploymentDetails: new FormArray([]),
     });
@@ -281,25 +308,81 @@ export class ApplicantDetailComponent implements OnInit {
     this.addApplicantAddress('');
   }
   get childForms() {
-    return this.ApplicantDetailForm.get('ChildrenForm') as FormArray
+    return this.ApplicantChildrenDetail.get(
+      'ApplicantChildrenDetails'
+    ) as FormArray;
   }
   addChildren() {
-    this.ApplicantDetailForm.controls.ChildrenForm = this._formBuilder.array([]);
+    debugger;
     var noOfChildren = this.ApplicantDetailForm.get('NumberOfChildren').value;
-    for (let index = 0; index < +noOfChildren; index++) {
-      var child;
-      child = this._formBuilder.group({
-        Age: ['', Validators.required],
-      })
-      this.childForms.push(child);
+    if (+noOfChildren == 0) {
+      var total = this.childForms.value.length;
+      for (let index = 0; index < total; index++) {
+        var idx = this.childForms.value.length - 1;
+        this.childForms.removeAt(idx);
+      }
+    } else if (+noOfChildren > this.childForms.value.length) {
+      total = +noOfChildren - this.childForms.value.length;
+      for (let index = 0; index < total; index++) {
+        var child;
+        child = this.rxFormBuilder.group({
+          Age: ['', [Validators.required]],
+        });
+        this.childForms.push(child);
+      }
+    } else {
+      total = this.childForms.value.length - +noOfChildren;
+      for (let index = 0; index < total; index++) {
+        var idx = this.childForms.value.length - 1;
+        this.childForms.removeAt(idx);
+      }
     }
   }
   onApplicantDetailSubmit() {
-    this.ADSubmitted = true
-    if (this.ApplicantDetailForm.invalid) {
+    debugger;
+    this.ADSubmitted = true;
+    if (this.ApplicantDetailForm.invalid || this.ApplicantChildrenDetail.invalid) {
       return;
     }
-    console.log(this.ApplicantDetailForm.value)
+
+    var ApplicantDetail = {
+      ApplicantDetailId: 1,
+      ApplicantTypeId: +this.ApplicantDetailForm.value.ApplicantType,
+      ApplicantId: this.ApplicantId,
+      FirstName: this.ApplicantDetailForm.value.FirstName,
+      SurName: this.ApplicantDetailForm.value.SurName,
+      MiddleName: this.ApplicantDetailForm.value.MiddleName,
+      SalutationTypeId: +this.ApplicantDetailForm.value.SalutationTypeId,
+      DateOfBirth: this.ApplicantDetailForm.value.DateOfBirth,
+      MaritalTypeId: +this.ApplicantDetailForm.value.MaritalTypeId,
+      Specify:
+        this.ApplicantDetailForm.value.Specify != ''
+          ? this.ApplicantDetailForm.value.Specify
+          : null,
+      DriversLicenceNo: this.ApplicantDetailForm.value.DriversLicenceNo,
+      DriversExpiryDate: this.ApplicantDetailForm.value.DriversExpiryDate,
+      MotherName: this.ApplicantDetailForm.value.MotherName,
+      NumberOfChildren: +this.ApplicantDetailForm.value.NumberOfChildren,
+      IBONumber:
+        this.ApplicantDetailForm.value.IBONumber != ''
+          ? this.ApplicantDetailForm.value.IBONumber
+          : null,
+      IBORangeTypeId:
+        this.ApplicantDetailForm.value.IBORangeTypeId != ''
+          ? this.ApplicantDetailForm.value.IBORangeTypeId
+          : null,
+    };
+    var ApplicantDetailChildrens = this.childForms.value;
+    var saveApplicantDetailViewModel = {
+      ApplicantDetail: ApplicantDetail,
+      ApplicantDetailChildrens: ApplicantDetailChildrens,
+    };
+    this.applicantDetailService
+      .SaveApplicantDetail(saveApplicantDetailViewModel)
+      .subscribe(
+        (res: any) => {},
+        (error) => {}
+      );
   }
   onApplicantContactInformationSubmit() {
     this.ACInformation = true;
@@ -308,7 +391,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   onApplicantEmploymentDetailSubmit() {
-    debugger
+    debugger;
     if (this.TotalYear < 3) {
       this.IsYearMoreThen3 = true;
     }
@@ -318,7 +401,7 @@ export class ApplicantDetailComponent implements OnInit {
     console.log(this.ApplicantEmploymentDetail.value);
   }
   onApplicantAddressSubmit() {
-    debugger
+    debugger;
     if (this.ApplicantAddress.invalid) {
       return;
     }
@@ -327,42 +410,122 @@ export class ApplicantDetailComponent implements OnInit {
   createApplicantEmploymentDetail(TypeId): FormGroup {
     return this.rxFormBuilder.group({
       PreviousEmployementType: [TypeId],
-      EmploymentTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.PreviousEmployementType == 1 })],
-      Occupation: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
-      Employer: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
+      EmploymentTypeId: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) => x.PreviousEmployementType == 1,
+        }),
+      ],
+      Occupation: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
+      Employer: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
       StreetNumber: [''],
       StreetName: [''],
-      Suburb: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
-      StateId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
-      Postcode: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == '' })],
-      WorkPhone: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == '' })],
-      BasisTypeId: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == '' })],
-      StartedDate: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == 23 || x.EmploymentTypeId == 24 || x.EmploymentTypeId == 25 || x.EmploymentTypeId == '' })],
-      GrossIncome: ['', RxwebValidators.required({ conditionalExpression: (x) => x.EmploymentTypeId == 21 || x.EmploymentTypeId == 22 || x.EmploymentTypeId == 25 || x.EmploymentTypeId == '' })]
+      Suburb: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
+      StateId: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
+      Postcode: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
+      WorkPhone: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 || x.EmploymentTypeId == '',
+        }),
+      ],
+      BasisTypeId: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 || x.EmploymentTypeId == '',
+        }),
+      ],
+      StartedDate: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == 23 ||
+            x.EmploymentTypeId == 24 ||
+            x.EmploymentTypeId == 25 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
+      GrossIncome: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.EmploymentTypeId == 21 ||
+            x.EmploymentTypeId == 22 ||
+            x.EmploymentTypeId == 25 ||
+            x.EmploymentTypeId == '',
+        }),
+      ],
     });
   }
   addApplicantEmploymentDetail(TypeId): void {
-    this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
+    this.Items = this.ApplicantEmploymentDetail.get(
+      'ApplicantEmploymentDetails'
+    ) as FormArray;
     this.Items.push(this.createApplicantEmploymentDetail(TypeId));
-
   }
   removeApplicantEmploymentDetail(index) {
-    this.Items = this.ApplicantEmploymentDetail.get('ApplicantEmploymentDetails') as FormArray;
+    this.Items = this.ApplicantEmploymentDetail.get(
+      'ApplicantEmploymentDetails'
+    ) as FormArray;
     this.Items.removeAt(index);
   }
   addEvent(type: string, event: MatDatepickerInputEvent<Date>, index) {
-    var idx = this.events.findIndex(i => i.Id == index);
+    var idx = this.events.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
         Date: event.value,
-        Id: index
-      }
+        Id: index,
+      };
       this.events.push(obj);
     } else {
       this.events[idx].Date = event.value;
     }
     this.TotalYear = 0;
-    this.events.forEach(i => {
+    this.events.forEach((i) => {
       var startDate = new Date(i.Date);
       var endingDate = new Date();
       // user not pass endingDate then set current date as end date.
@@ -382,7 +545,20 @@ export class ApplicantDetailComponent implements OnInit {
         (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0
           ? 29
           : 28;
-      const daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      const daysInMonth = [
+        31,
+        february,
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+      ];
 
       let yearDiff = endDate.getFullYear() - startYear;
       let monthDiff = endDate.getMonth() - startDate.getMonth();
@@ -408,7 +584,7 @@ export class ApplicantDetailComponent implements OnInit {
       if (this.TotalYear >= 3) {
         this.IsYearMoreThen3 = false;
       }
-    })
+    });
     if (this.TotalYear >= 3) {
       this.IsButtonVisible = false;
     } else {
@@ -416,7 +592,9 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   addApplicantOtherIncome(): void {
-    this.OtherIncomeItems = this.ApplicantOtherIncome.get('ApplicantOtherIncomes') as FormArray;
+    this.OtherIncomeItems = this.ApplicantOtherIncome.get(
+      'ApplicantOtherIncomes'
+    ) as FormArray;
     this.OtherIncomeItems.push(this.createApplicantOtherIncome());
   }
   createApplicantOtherIncome(): FormGroup {
@@ -428,84 +606,131 @@ export class ApplicantDetailComponent implements OnInit {
     });
   }
   removeApplicantOtherIncome(index) {
-    this.OtherIncomeItems = this.ApplicantOtherIncome.get('ApplicantOtherIncomes') as FormArray;
+    this.OtherIncomeItems = this.ApplicantOtherIncome.get(
+      'ApplicantOtherIncomes'
+    ) as FormArray;
     this.OtherIncomeItems.removeAt(index);
   }
   addApplicantAddress(TypeId): void {
-    this.ApplicantAddresses = this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
+    this.ApplicantAddresses = this.ApplicantAddress.get(
+      'ApplicantAddresses'
+    ) as FormArray;
     this.ApplicantAddresses.push(this.createApplicantAddress(TypeId));
   }
   createApplicantAddress(TypeId): FormGroup {
     return this.rxFormBuilder.group({
-    PreviousAddressType: [TypeId],
-    StreetNumber: [''],
-    StreetName: [''],
-    Suburb: ['', Validators.required],
-    StateTypeId: ['', Validators.required],
-    Postcode: ['', Validators.required],
-    HousingStatusTypeId: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.PreviousAddressType == '' })],
-    Specify: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.HousingStatusTypeId == 50 })],
-    YearTimeResiding: ['', Validators.required],
-    MonthTimeResiding: ['', Validators.required],
-    MorePostalAddress: [false],
-    StreetNumber2: [''],
-    StreetName2: [''],
-    POBox: [''],
-    Suburb2: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.MorePostalAddress == false && x.PreviousAddressType == '' })],
-    State2TypeId: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.MorePostalAddress == false && x.PreviousAddressType == '' })],
-    Postcode2: ['' , RxwebValidators.required({ conditionalExpression: (x) => x.MorePostalAddress == false && x.PreviousAddressType == '' })],
+      PreviousAddressType: [TypeId],
+      StreetNumber: [''],
+      StreetName: [''],
+      Suburb: ['', Validators.required],
+      StateTypeId: ['', Validators.required],
+      Postcode: ['', Validators.required],
+      HousingStatusTypeId: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) => x.PreviousAddressType == '',
+        }),
+      ],
+      Specify: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) => x.HousingStatusTypeId == 50,
+        }),
+      ],
+      YearTimeResiding: ['', Validators.required],
+      MonthTimeResiding: ['', Validators.required],
+      MorePostalAddress: [false],
+      StreetNumber2: [''],
+      StreetName2: [''],
+      POBox: [''],
+      Suburb2: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.MorePostalAddress == false && x.PreviousAddressType == '',
+        }),
+      ],
+      State2TypeId: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.MorePostalAddress == false && x.PreviousAddressType == '',
+        }),
+      ],
+      Postcode2: [
+        '',
+        RxwebValidators.required({
+          conditionalExpression: (x) =>
+            x.MorePostalAddress == false && x.PreviousAddressType == '',
+        }),
+      ],
     });
   }
   removeApplicantAddress(index) {
-    this.ApplicantAddresses = this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
+    this.ApplicantAddresses = this.ApplicantAddress.get(
+      'ApplicantAddresses'
+    ) as FormArray;
     this.ApplicantAddresses.removeAt(index);
   }
-  selectApplicantAddressYear(event,index){
-    debugger
-    var idx = this.ApplicantAddressYears.findIndex(i => i.Id == index);
+  selectApplicantAddressYear(event, index) {
+    debugger;
+    var idx = this.ApplicantAddressYears.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
         Year: event,
-        Id: index
-      }
+        Id: index,
+      };
       this.ApplicantAddressYears.push(obj);
     } else {
       this.ApplicantAddressYears[idx].Year = event;
     }
-     var yearCount  = this.ApplicantAddressYears.reduce((a, b) => a + b.Year, 0);
-     var monthCount = this.ApplicantAddressMonth.reduce((a, b) => a + b.Month, 0);
-     if (yearCount < 3) {
+    var yearCount = this.ApplicantAddressYears.reduce((a, b) => a + b.Year, 0);
+    var monthCount = this.ApplicantAddressMonth.reduce(
+      (a, b) => a + b.Month,
+      0
+    );
+    if (yearCount < 3) {
       if (yearCount >= 2 && monthCount >= 12) {
         this.IsApplicantAddressMoreThen3 = true;
-      }else {
+      } else {
         this.IsApplicantAddressMoreThen3 = false;
       }
-     }else {
+    } else {
       this.IsApplicantAddressMoreThen3 = true;
-     }
+    }
   }
-  selectApplicantAddressMonth(event,index){
-    debugger
-    var idx = this.ApplicantAddressMonth.findIndex(i => i.Id == index);
+  selectApplicantAddressMonth(event, index) {
+    debugger;
+    var idx = this.ApplicantAddressMonth.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
         Month: event,
-        Id: index
-      }
+        Id: index,
+      };
       this.ApplicantAddressMonth.push(obj);
     } else {
       this.ApplicantAddressMonth[idx].Month = event;
     }
-     var yearCount  = this.ApplicantAddressYears.reduce((a, b) => a + b.Year, 0);
-     var monthCount = this.ApplicantAddressMonth.reduce((a, b) => a + b.Month, 0);
-     if (yearCount < 3) {
+    var yearCount = this.ApplicantAddressYears.reduce((a, b) => a + b.Year, 0);
+    var monthCount = this.ApplicantAddressMonth.reduce(
+      (a, b) => a + b.Month,
+      0
+    );
+    if (yearCount < 3) {
       if (yearCount >= 2 && monthCount >= 12) {
         this.IsApplicantAddressMoreThen3 = true;
-      }else {
+      } else {
         this.IsApplicantAddressMoreThen3 = false;
       }
-     }else {
+    } else {
       this.IsApplicantAddressMoreThen3 = true;
-     }
+    }
+  }
+  selectionChange(event: StepperSelectionEvent) {
+    console.log(event.selectedStep.label);
+    let stepLabel = event.selectedStep.label;
+    if (stepLabel == 'Step 2') {
+      console.log('CLICKED STEP 2');
+    }
   }
 }
