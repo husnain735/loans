@@ -14,5 +14,7 @@ export class ApplicantDetailService {
   SaveApplicantDetail(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveApplicantDetail/`, obj);
   }
-
+  GetApplicantDetail(obj): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}GetApplicantDetail/`, obj);
+  }
 }

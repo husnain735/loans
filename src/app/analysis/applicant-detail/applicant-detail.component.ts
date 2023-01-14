@@ -292,6 +292,7 @@ export class ApplicantDetailComponent implements OnInit {
     this.route.params.subscribe((params: any) => {
       this.ApplicantId = params['guid2'];
     });
+    this.GetApplicantDetail();
     this.ApplicantChildrenDetail = new FormGroup({
       ApplicantChildrenDetails: new FormArray([])
     })
@@ -732,5 +733,16 @@ export class ApplicantDetailComponent implements OnInit {
     if (stepLabel == 'Step 2') {
       console.log('CLICKED STEP 2');
     }
+  }
+
+  GetApplicantDetail(){
+    var obj = {
+      ApplicantId: this.ApplicantId
+    }
+    this.applicantDetailService.GetApplicantDetail(obj).subscribe((res: any) => {
+
+    }, error => {
+
+    })
   }
 }
