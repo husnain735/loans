@@ -261,6 +261,7 @@ export class ApplicantDetailComponent implements OnInit {
   ApplicantAddressMonth: any[] = [];
   IsApplicantAddressMoreThen3: boolean;
   ApplicantId: string;
+  ApplicantDetailObj: any;
   constructor(
     private _formBuilder: FormBuilder,
     private applicantDetailService: ApplicantDetailService,
@@ -406,7 +407,7 @@ export class ApplicantDetailComponent implements OnInit {
     if (this.ApplicantAddress.invalid) {
       return;
     }
-    console.log(this.ApplicantEmploymentDetail.value);
+    console.log(this.GetApplicantAddress().value);
   }
   createApplicantEmploymentDetail(TypeId): FormGroup {
     return this.rxFormBuilder.group({
@@ -673,6 +674,11 @@ export class ApplicantDetailComponent implements OnInit {
     ) as FormArray;
     this.ApplicantAddresses.removeAt(index);
   }
+  GetApplicantAddress(){
+    return this.ApplicantAddress.get(
+      'ApplicantAddresses'
+    ) as FormArray;
+  }
   selectApplicantAddressYear(event, index) {
     debugger;
     var idx = this.ApplicantAddressYears.findIndex((i) => i.Id == index);
@@ -734,15 +740,40 @@ export class ApplicantDetailComponent implements OnInit {
       console.log('CLICKED STEP 2');
     }
   }
-
   GetApplicantDetail(){
     var obj = {
       ApplicantId: this.ApplicantId
     }
     this.applicantDetailService.GetApplicantDetail(obj).subscribe((res: any) => {
-
+      this.ApplicantDetailObj = res.body;
+      this.PatchApplicationDetailValue(this.ApplicantDetailObj.ApplicantDetail,this.ApplicantDetailObj.ApplicantDetailChildrens);
     }, error => {
 
     })
+  }
+  PatchApplicationDetailValue(ApplicantDetailObj,ApplicantChildrenDetails){
+    this.ApplicantDetailForm.patchValue({
+      ApplicantType: ApplicantDetailObj.ApplicantTypeId.toString(),
+      SalutationTypeId: ApplicantDetailObj.SalutationTypeId.toString(),
+      FirstName: ApplicantDetailObj.FirstName,
+      SurName: ApplicantDetailObj.SurName,
+      MiddleName: ApplicantDetailObj.MiddleName,
+      DateOfBirth: ApplicantDetailObj.DateOfBirth,
+      MaritalTypeId: ApplicantDetailObj.MaritalTypeId,
+      Specify: ApplicantDetailObj.Specify,
+      DriversLicenceNo: ApplicantDetailObj.DriversLicenceNo,
+      DriversExpiryDate: ApplicantDetailObj.DriversExpiryDate,
+      MotherName: ApplicantDetailObj.MotherName,
+      NumberOfChildren: ApplicantDetailObj.NumberOfChildren,
+      IBONumber: ApplicantDetailObj.IBONumber,
+      IBORangeTypeId: ApplicantDetailObj.IBORangeTypeId
+    })
+    for (let index = 0; index < ApplicantChildrenDetails.length; index++) {
+      var child;
+      child = this.rxFormBuilder.group({
+        Age: [ApplicantChildrenDetails[index].Age, [Validators.required]],
+      });
+      this.childForms.push(child);
+    }
   }
 }
