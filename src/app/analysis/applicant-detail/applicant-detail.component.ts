@@ -80,7 +80,6 @@ export class ApplicantDetailComponent implements OnInit {
       CitizenshipStatusName: 'Visa',
     },
   ];
-
   EmploymentDetail = [
     {
       EmploymentDetailTypeID: 21,
@@ -270,6 +269,7 @@ export class ApplicantDetailComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.ApplicantDetailForm = this.rxFormBuilder.group({
+      ApplicantDetailId: [''],
       ApplicantType: ['1', [Validators.required]],
       SalutationTypeId: ['', [Validators.required]],
       FirstName: ['', [Validators.required]],
@@ -307,7 +307,6 @@ export class ApplicantDetailComponent implements OnInit {
       ApplicantAddresses: new FormArray([]),
     });
     this.addApplicantEmploymentDetail(1);
-    this.addApplicantAddress('');
   }
   get childForms() {
     return this.ApplicantChildrenDetail.get(
@@ -348,7 +347,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     var ApplicantDetail = {
-      ApplicantDetailId: 1,
+      ApplicantDetailId: +this.ApplicantDetailForm.value.ApplicantDetailId,
       ApplicantTypeId: +this.ApplicantDetailForm.value.ApplicantType,
       ApplicantId: this.ApplicantId,
       FirstName: this.ApplicantDetailForm.value.FirstName,
@@ -403,11 +402,45 @@ export class ApplicantDetailComponent implements OnInit {
     console.log(this.ApplicantEmploymentDetail.value);
   }
   onApplicantAddressSubmit() {
-    debugger;
     if (this.ApplicantAddress.invalid) {
       return;
     }
-    console.log(this.GetApplicantAddress().value);
+    var appAddress  = [];
+    appAddress = this.GetApplicantAddress().value;
+    var list = [];
+    appAddress.forEach(i => {
+      var obj = {
+        ApplicantDetailAddressId: +i.ApplicantDetailAddressId,
+        HousingStatusTypeId: +i.HousingStatusTypeId,
+        MonthTimeResiding: +i.MonthTimeResiding,
+        MorePostalAddress: false,
+        POBox: i.POBox,
+        Postcode: i.Postcode,
+        Postcode2: i.Postcode2,
+        PreviousAddressType: +i.PreviousAddressType,
+        Specify: i.Specify,
+        State2TypeId: +i.State2TypeId,
+        StateTypeId: +i.StateTypeId,
+        StreetName: i.StreetName,
+        StreetName2: i.StreetName2,
+        StreetNumber: i.StreetNumber,
+        StreetNumber2: i.StreetNumber2,
+        Suburb: i.Suburb,
+        Suburb2: i.Suburb2,
+        YearTimeResiding: +i.YearTimeResiding
+      }
+      list.push(obj);
+    });
+    var obj = {
+      ApplicantId: this.ApplicantId,
+      ApplicantAddresses: list
+    }
+
+    this.applicantDetailService.SaveApplicantDetailAddress(obj).subscribe((res: any) => {
+
+    }, error => {
+
+    })
   }
   createApplicantEmploymentDetail(TypeId): FormGroup {
     return this.rxFormBuilder.group({
@@ -621,6 +654,7 @@ export class ApplicantDetailComponent implements OnInit {
   }
   createApplicantAddress(TypeId): FormGroup {
     return this.rxFormBuilder.group({
+      ApplicantDetailAddressId: [''],
       PreviousAddressType: [TypeId],
       StreetNumber: [''],
       StreetName: [''],
@@ -747,12 +781,19 @@ export class ApplicantDetailComponent implements OnInit {
     this.applicantDetailService.GetApplicantDetail(obj).subscribe((res: any) => {
       this.ApplicantDetailObj = res.body;
       this.PatchApplicationDetailValue(this.ApplicantDetailObj.ApplicantDetail,this.ApplicantDetailObj.ApplicantDetailChildrens);
+      if (this.ApplicantDetailObj != undefined && this.ApplicantDetailObj.ApplicantDetailAddresses != undefined && this.ApplicantDetailObj.ApplicantDetailAddresses.length > 0) {
+        this.PatchApplicationDetailAddressValue(this.ApplicantDetailObj.ApplicantDetailAddresses);
+      }else {
+        this.addApplicantAddress('');
+      }
+
     }, error => {
 
     })
   }
   PatchApplicationDetailValue(ApplicantDetailObj,ApplicantChildrenDetails){
     this.ApplicantDetailForm.patchValue({
+      ApplicantDetailId: ApplicantDetailObj.ApplicantDetailId.toString(),
       ApplicantType: ApplicantDetailObj.ApplicantTypeId.toString(),
       SalutationTypeId: ApplicantDetailObj.SalutationTypeId.toString(),
       FirstName: ApplicantDetailObj.FirstName,
@@ -775,5 +816,32 @@ export class ApplicantDetailComponent implements OnInit {
       });
       this.childForms.push(child);
     }
+  }
+  PatchApplicationDetailAddressValue(ApplicantDetailAddresses: any[]){
+    ApplicantDetailAddresses.forEach(i => {
+     var form = this.rxFormBuilder.group({
+        ApplicantDetailAddressId: +i.ApplicantDetailAddressId,
+        HousingStatusTypeId: +i.HousingStatusTypeId,
+        MonthTimeResiding: +i.MonthTimeResiding,
+        MorePostalAddress: false,
+        POBox: i.POBox,
+        Postcode: i.Postcode,
+        Postcode2: i.Postcode2,
+        PreviousAddressType: +i.PreviousAddressType,
+        Specify: i.Specify,
+        State2TypeId: +i.State2TypeId,
+        StateTypeId: +i.StateTypeId,
+        StreetName: i.StreetName,
+        StreetName2: i.StreetName2,
+        StreetNumber: i.StreetNumber,
+        StreetNumber2: i.StreetNumber2,
+        Suburb: i.Suburb,
+        Suburb2: i.Suburb2,
+        YearTimeResiding: +i.YearTimeResiding
+      })
+      this.GetApplicantAddress().push(form);
+      this.selectApplicantAddressYear(+i.YearTimeResiding,+i.ApplicantDetailAddressId);
+      this.selectApplicantAddressMonth(+i.YearTimeResiding,+i.ApplicantDetailAddressId);
+    })
   }
 }
