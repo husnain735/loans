@@ -43,8 +43,14 @@
             </p>
 
             <mat-form-field class="col-6 w-100">
-              <mat-select placeholder="Annual income for retirement" formControlName="RetirementAge">
-                <mat-option *ngFor="let item of RetirementIncome" [value]="item">
+              <mat-select
+                placeholder="Annual income for retirement"
+                formControlName="RetirementAge"
+              >
+                <mat-option
+                  *ngFor="let item of RetirementIncome"
+                  [value]="item"
+                >
                   {{ item }}
                 </mat-option>
               </mat-select>

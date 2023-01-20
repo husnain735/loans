@@ -15,7 +15,7 @@ export class AnalysisService {
 
 
   getApplicationMeta(): Observable<any>{
-    return this.apiService.get(`${this.pageUrl}GetApplicationMeta/`);
+    return this.apiService.get(`${this.pageUrl}GetApplicationMeta`);
   }
 
   saveApplication(obj: Application): Observable<any> {
@@ -24,12 +24,22 @@ export class AnalysisService {
 
   saveApplicant(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveApplicant/`, obj);
-  }
+  } 
 
   getAllApplicants(ApplicationID: string): Observable<any> {
     var applicant : Application;
     applicant = new Application();
     applicant.ApplicationId = ApplicationID;
     return this.apiService.post(`${this.pageUrl}GetAllApplicants/`, applicant);
+  }
+
+  saveAssets(AssetDetails: any){
+    debugger
+    var url = 'Assets/SaveAssets'
+    var assets: any;
+    var property= [];
+    property = AssetDetails;
+    assets = assets.property;
+    return this.apiService.put(url, {assets});
   }
 }

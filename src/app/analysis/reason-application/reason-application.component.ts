@@ -16,34 +16,43 @@ export class ReasonApplicationComponent implements OnInit {
     Status: this._formBuilder.array([])
   });
   ReasonRadioArray = [
-    {
+    { Id: '1',
       Name: 'Fixed Rate'
     },
     {
+      Id: '2',
       Name: 'Variable Rate'
     },
     {
+      Id: '3',
       Name: 'Split Loans'
     },
     {
+      Id: '4',
       Name: 'Principal & Interest'
     },
     {
+      Id: '5',
       Name: 'Interest Only'
     },
     {
+      Id: '6',
       Name: 'Interest in advance'
     },
     {
+      Id: '7',
       Name: 'Line of Credit'
     },
     {
+      Id: '8',
       Name: 'Offset Account'
     },
     {
+      Id: '9',
       Name: 'Access to redraw'
     },
     {
+      Id: '10',
       Name: 'Access to branch network'
     }
   ]
@@ -62,6 +71,7 @@ export class ReasonApplicationComponent implements OnInit {
     let rows = this.ApplicantReasonForm.get('Status') as FormArray;
     this.ReasonRadioArray.forEach(i => {
       rows.push(this._formBuilder.group({
+        Id: [i.Id],
         Name: [i.Name],
         Status: [null]
       }))

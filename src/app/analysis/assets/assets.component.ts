@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
+import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
@@ -120,7 +121,9 @@ export class AssetsComponent {
     });
 
   }
-  constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder,
+    private _analysisService: AnalysisService
+    ) { }
 
   createAssetsDetails(): FormGroup {
     return this.rxFormBuilder.group({
@@ -283,5 +286,12 @@ export class AssetsComponent {
   removeMoreAssetDetails(index) {
     this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
     this.Items.removeAt(index);
+  }
+
+  onSubmitAssets(){
+    console.log(this.AssetsDetails.value);
+    this._analysisService.saveAssets(this.AssetsDetails.value).subscribe(res =>{
+      console.log(res);
+    })
   }
 }
