@@ -303,7 +303,7 @@
                     placeholder="Time residing (Year)"
                     formControlName="YearTimeResiding"
                     (selectionChange)="
-                      selectApplicantAddressYear($event.value, i)
+                      selectApplicantAddressYear($event.value, item.get('ApplicantDetailAddressId').value != '' ? item.get('ApplicantDetailAddressId').value : i)
                     "
                   >
                     <mat-option
@@ -319,7 +319,7 @@
                     placeholder="Month"
                     formControlName="MonthTimeResiding"
                     (selectionChange)="
-                      selectApplicantAddressMonth($event.value, i)
+                      selectApplicantAddressMonth($event.value, item.get('ApplicantDetailAddressId').value != '' ? item.get('ApplicantDetailAddressId').value : i)
                     "
                   >
                     <mat-option
