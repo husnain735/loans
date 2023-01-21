@@ -1,5 +1,9 @@
 <h1>Assets</h1>
 
+<button (click)="onSubmitAssets()">
+  Save
+</button>
+
 <div class="row mx-0">
   <div [formGroup]="AssetsDetails" class="col-12">
     <div
@@ -320,7 +324,7 @@
       class="mx-3 pointer"
       (click)="addAssetsDetails()"
     >
-      Add Previous Employment
+      Add Property
       <mat-icon class="btnOrder">add</mat-icon>
     </button>
   </div>
