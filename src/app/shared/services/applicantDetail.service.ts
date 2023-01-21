@@ -20,4 +20,10 @@ export class ApplicantDetailService {
   SaveApplicantDetailAddress(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveApplicantDetailAddress/`, obj);
   }
+  SaveApplicantContactInformation(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}SaveApplicantContactInformation/`, obj);
+  }
+  SaveApplicantEmployeeDetails(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}SaveApplicantEmployeeDetails/`, obj);
+  }
 }
