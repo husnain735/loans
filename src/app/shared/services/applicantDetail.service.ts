@@ -26,4 +26,7 @@ export class ApplicantDetailService {
   SaveApplicantEmployeeDetails(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveApplicantEmployeeDetails/`, obj);
   }
+  SaveApplicantOtherIncomes(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}SaveApplicantOtherIncomes/`, obj);
+  }
 }
