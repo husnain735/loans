@@ -29,4 +29,7 @@ export class ApplicantDetailService {
   SaveApplicantOtherIncomes(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveApplicantOtherIncomes/`, obj);
   }
+  DeleteApplicantDetailsForms(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}DeleteApplicantDetailsForms/`, obj);
+  }
 }

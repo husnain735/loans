@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   RxFormBuilder,
   RxwebValidators,
@@ -262,13 +262,19 @@ export class ApplicantDetailComponent implements OnInit {
   IsApplicantAddressMoreThen3: boolean;
   ApplicantId: string;
   ApplicantDetailObj: any;
+  navigationSubscription: any;
   constructor(
     private _formBuilder: FormBuilder,
     private applicantDetailService: ApplicantDetailService,
     private rxFormBuilder: RxFormBuilder,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
   ngOnInit() {
+    debugger
+    this.ApplicantDetailObj = new Object();
     this.ApplicantDetailForm = this.rxFormBuilder.group({
       ApplicantDetailId: [''],
       ApplicantType: ['1', [Validators.required]],
@@ -289,15 +295,15 @@ export class ApplicantDetailComponent implements OnInit {
       MotherName: ['', [Validators.required]],
       NumberOfChildren: ['', [Validators.required]],
       IBONumber: [''],
-      IBORangeTypeId: ['']
+      IBORangeTypeId: [''],
     });
-    this.route.params.subscribe((params: any) => {
+    this.navigationSubscription = this.route.params.subscribe((params: any) => {
       this.ApplicantId = params['guid2'];
     });
     this.GetApplicantDetail();
     this.ApplicantChildrenDetail = new FormGroup({
-      ApplicantChildrenDetails: new FormArray([])
-    })
+      ApplicantChildrenDetails: new FormArray([]),
+    });
     this.ApplicantEmploymentDetail = new FormGroup({
       ApplicantEmploymentDetails: new FormArray([]),
     });
@@ -308,13 +314,17 @@ export class ApplicantDetailComponent implements OnInit {
       ApplicantAddresses: new FormArray([]),
     });
   }
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
+  }
   get childForms() {
     return this.ApplicantChildrenDetail.get(
       'ApplicantChildrenDetails'
     ) as FormArray;
   }
   addChildren() {
-    debugger;
     var noOfChildren = this.ApplicantDetailForm.get('NumberOfChildren').value;
     if (+noOfChildren == 0) {
       var total = this.childForms.value.length;
@@ -340,9 +350,11 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   onApplicantDetailSubmit() {
-    debugger;
     this.ADSubmitted = true;
-    if (this.ApplicantDetailForm.invalid || this.ApplicantChildrenDetail.invalid) {
+    if (
+      this.ApplicantDetailForm.invalid ||
+      this.ApplicantChildrenDetail.invalid
+    ) {
       return;
     }
 
@@ -381,7 +393,9 @@ export class ApplicantDetailComponent implements OnInit {
     this.applicantDetailService
       .SaveApplicantDetail(saveApplicantDetailViewModel)
       .subscribe(
-        (res: any) => {},
+        (res: any) => {
+          this.GetApplicantDetail();
+        },
         (error) => {}
       );
   }
@@ -392,26 +406,32 @@ export class ApplicantDetailComponent implements OnInit {
     }
     console.log(this.ApplicantContactInformation.value);
     var obj = {
-      ApplicantContactInformationID: +this.ApplicantContactInformation.value.ApplicantContactInformationID,
+      ApplicantContactInformationID:
+        +this.ApplicantContactInformation.value.ApplicantContactInformationID,
       ApplicantId: this.ApplicantId,
       PhoneNumber: this.ApplicantContactInformation.value.PhoneNumber,
       MobileNumber: this.ApplicantContactInformation.value.MobileNumber,
       EmailAddress: this.ApplicantContactInformation.value.EmailAddress,
       SkypeAddress: this.ApplicantContactInformation.value.SkypeAddress,
-      IsTaxResident: this.ApplicantContactInformation.value.IsTaxResident == 'true' ? true : false,
+      IsTaxResident:
+        this.ApplicantContactInformation.value.IsTaxResident == 'true'
+          ? true
+          : false,
       Country: this.ApplicantContactInformation.value.Country,
-      CitizenshipStatusTypeID: +this.ApplicantContactInformation.value.CitizenshipStatusTypeId
-    }
-    this.applicantDetailService.SaveApplicantContactInformation(obj).subscribe((res: any) => {
-
-    }, error => {
-
-    })
+      CitizenshipStatusTypeID:
+        +this.ApplicantContactInformation.value.CitizenshipStatusTypeId,
+    };
+    this.applicantDetailService.SaveApplicantContactInformation(obj).subscribe(
+      (res: any) => {
+        this.GetApplicantDetail();
+      },
+      (error) => {}
+    );
   }
   onApplicantEmploymentDetailSubmit() {
-    debugger;
     if (this.TotalYear < 3) {
       this.IsYearMoreThen3 = true;
+      return;
     }
     if (this.ApplicantEmploymentDetail.invalid && this.IsYearMoreThen3) {
       return;
@@ -419,7 +439,7 @@ export class ApplicantDetailComponent implements OnInit {
     var appEmpDetail = [];
     var list = [];
     appEmpDetail = this.GetApplicantEmploymentDetail().value;
-    appEmpDetail.forEach(i => {
+    appEmpDetail.forEach((i) => {
       var obj = {
         ApplicantEmployeeDetailsID: +i.ApplicantEmployeeDetailsID,
         PreviousEmployementType: +i.PreviousEmployementType,
@@ -435,27 +455,28 @@ export class ApplicantDetailComponent implements OnInit {
         BasisTypeId: +i.BasisTypeId,
         StartedDate: i.StartedDate,
         GrossIncome: i.GrossIncome,
-      }
+      };
       list.push(obj);
-    })
+    });
     var obj = {
       ApplicantId: this.ApplicantId,
-      ApplicantEmployeeDetails: list
-    }
-    this.applicantDetailService.SaveApplicantEmployeeDetails(obj).subscribe((res: any) => {
-
-    }, error => {
-
-    })
+      ApplicantEmployeeDetails: list,
+    };
+    this.applicantDetailService.SaveApplicantEmployeeDetails(obj).subscribe(
+      (res: any) => {
+        this.GetApplicantDetail();
+      },
+      (error) => {}
+    );
   }
   onApplicantAddressSubmit() {
     if (this.ApplicantAddress.invalid) {
       return;
     }
-    var appAddress  = [];
+    var appAddress = [];
     appAddress = this.GetApplicantAddress().value;
     var list = [];
-    appAddress.forEach(i => {
+    appAddress.forEach((i) => {
       var obj = {
         ApplicantDetailAddressId: +i.ApplicantDetailAddressId,
         HousingStatusTypeId: +i.HousingStatusTypeId,
@@ -474,48 +495,50 @@ export class ApplicantDetailComponent implements OnInit {
         StreetNumber2: i.StreetNumber2,
         Suburb: i.Suburb,
         Suburb2: i.Suburb2,
-        YearTimeResiding: +i.YearTimeResiding
-      }
+        YearTimeResiding: +i.YearTimeResiding,
+      };
       list.push(obj);
     });
     var obj = {
       ApplicantId: this.ApplicantId,
-      ApplicantAddresses: list
-    }
+      ApplicantAddresses: list,
+    };
 
-    this.applicantDetailService.SaveApplicantDetailAddress(obj).subscribe((res: any) => {
-
-    }, error => {
-
-    })
+    this.applicantDetailService.SaveApplicantDetailAddress(obj).subscribe(
+      (res: any) => {
+        this.GetApplicantDetail();
+      },
+      (error) => {}
+    );
   }
-  onApplicantOtherIncomeSubmit(){
+  onApplicantOtherIncomeSubmit() {
     if (this.ApplicantOtherIncome.invalid) {
       return;
     }
-    var appIncome  = [];
+    var appIncome = [];
     appIncome = this.GetApplicantOtherIncome().value;
     var list = [];
-    appIncome.forEach(i => {
+    appIncome.forEach((i) => {
       var obj = {
         ApplicantOtherIncomeId: +i.ApplicantOtherIncomeId,
         OtherIncomeType: +i.OtherIncomeType,
         OtherDetails: i.OtherDetails,
         OtherAmount: +i.OtherAmount,
         OtherDurationType: +i.OtherDurationType,
-      }
+      };
       list.push(obj);
     });
     var obj = {
       ApplicantId: this.ApplicantId,
-      ApplicantOtherIncomes: list
-    }
+      ApplicantOtherIncomes: list,
+    };
 
-    this.applicantDetailService.SaveApplicantOtherIncomes(obj).subscribe((res: any) => {
-
-    }, error => {
-
-    })
+    this.applicantDetailService.SaveApplicantOtherIncomes(obj).subscribe(
+      (res: any) => {
+        this.GetApplicantDetail();
+      },
+      (error) => {}
+    );
   }
   createApplicantEmploymentDetail(TypeId): FormGroup {
     return this.rxFormBuilder.group({
@@ -624,7 +647,7 @@ export class ApplicantDetailComponent implements OnInit {
     ) as FormArray;
     this.Items.removeAt(index);
   }
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>, index) {
+  addEvent(type: string, event: any, index) {
     var idx = this.events.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
@@ -780,28 +803,44 @@ export class ApplicantDetailComponent implements OnInit {
     });
   }
   removeApplicantAddress(index) {
+    debugger;
     this.ApplicantAddresses = this.ApplicantAddress.get(
       'ApplicantAddresses'
     ) as FormArray;
-    this.ApplicantAddresses.removeAt(index);
+
+    var ApplicantAddresses = [];
+    ApplicantAddresses = this.ApplicantAddresses.value;
+    var idx = ApplicantAddresses.findIndex(
+      (i) => i.ApplicantDetailAddressId == index
+    );
+    if (idx > -1) {
+      var obj = {
+        ApplicantDetailAddressId: index,
+        ApplicantEmployeeDetailsId: 0,
+        ApplicantOtherIncomeId: 0
+      };
+      this.applicantDetailService.DeleteApplicantDetailsForms(obj).subscribe(
+        (res) => {
+          this.GetApplicantDetail();
+        },
+        (error) => {}
+      );
+    } else {
+      this.ApplicantAddresses.removeAt(index);
+    }
   }
-  GetApplicantAddress(){
-    return this.ApplicantAddress.get(
-      'ApplicantAddresses'
-    ) as FormArray;
+  GetApplicantAddress() {
+    return this.ApplicantAddress.get('ApplicantAddresses') as FormArray;
   }
-  GetApplicantEmploymentDetail(){
+  GetApplicantEmploymentDetail() {
     return this.ApplicantEmploymentDetail.get(
       'ApplicantEmploymentDetails'
     ) as FormArray;
   }
-  GetApplicantOtherIncome(){
-    return this.ApplicantOtherIncome.get(
-      'ApplicantOtherIncomes'
-    ) as FormArray;
+  GetApplicantOtherIncome() {
+    return this.ApplicantOtherIncome.get('ApplicantOtherIncomes') as FormArray;
   }
   selectApplicantAddressYear(event, index) {
-    debugger;
     var idx = this.ApplicantAddressYears.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
@@ -828,7 +867,6 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   selectApplicantAddressMonth(event, index) {
-    debugger;
     var idx = this.ApplicantAddressMonth.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
@@ -861,32 +899,52 @@ export class ApplicantDetailComponent implements OnInit {
       console.log('CLICKED STEP 2');
     }
   }
-  GetApplicantDetail(){
+  GetApplicantDetail() {
     var obj = {
-      ApplicantId: this.ApplicantId
-    }
-    this.applicantDetailService.GetApplicantDetail(obj).subscribe((res: any) => {
-      this.ApplicantDetailObj = res.body;
-      this.PatchApplicationDetailValue(this.ApplicantDetailObj.ApplicantDetail,this.ApplicantDetailObj.ApplicantDetailChildrens);
-      if (this.ApplicantDetailObj != undefined && this.ApplicantDetailObj.ApplicantDetailAddresses != undefined
-        && this.ApplicantDetailObj.ApplicantDetailAddresses.length > 0) {
-        this.PatchApplicationDetailAddressValue(this.ApplicantDetailObj.ApplicantDetailAddresses);
-      }else {
-        this.addApplicantAddress('');
-      }
-      this.PatchApplicantContactInformation(this.ApplicantDetailObj.ApplicantContactInformation);
-      if (this.ApplicantDetailObj != undefined && this.ApplicantDetailObj.ApplicantEmployeeDetails != undefined
-        && this.ApplicantDetailObj.ApplicantEmployeeDetails.length > 0) {
-        this.PatchApplicantEmploymentDetail(this.ApplicantDetailObj.ApplicantEmployeeDetails);
-      }else {
-        this.addApplicantEmploymentDetail(1);
-      }
-      this.PatchApplicantOtherIncome(this.ApplicantDetailObj.ApplicantOtherIncomes);
-    }, error => {
-
-    })
+      ApplicantId: this.ApplicantId,
+    };
+    this.applicantDetailService.GetApplicantDetail(obj).subscribe(
+      (res: any) => {
+        this.ApplicantDetailObj = {};
+        this.ApplicantDetailObj = res.body;
+        this.PatchApplicationDetailValue(
+          this.ApplicantDetailObj.ApplicantDetail,
+          this.ApplicantDetailObj.ApplicantDetailChildrens
+        );
+        if (
+          this.ApplicantDetailObj != undefined &&
+          this.ApplicantDetailObj.ApplicantDetailAddresses != undefined &&
+          this.ApplicantDetailObj.ApplicantDetailAddresses.length > 0
+        ) {
+          this.PatchApplicationDetailAddressValue(
+            this.ApplicantDetailObj.ApplicantDetailAddresses
+          );
+        } else {
+          this.addApplicantAddress('');
+        }
+        this.PatchApplicantContactInformation(
+          this.ApplicantDetailObj.ApplicantContactInformation
+        );
+        if (
+          this.ApplicantDetailObj != undefined &&
+          this.ApplicantDetailObj.ApplicantEmployeeDetails != undefined &&
+          this.ApplicantDetailObj.ApplicantEmployeeDetails.length > 0
+        ) {
+          this.PatchApplicantEmploymentDetail(
+            this.ApplicantDetailObj.ApplicantEmployeeDetails
+          );
+        } else {
+          this.addApplicantEmploymentDetail(1);
+        }
+        this.PatchApplicantOtherIncome(
+          this.ApplicantDetailObj.ApplicantOtherIncomes
+        );
+      },
+      (error) => {}
+    );
   }
-  PatchApplicationDetailValue(ApplicantDetailObj,ApplicantChildrenDetails){
+  PatchApplicationDetailValue(ApplicantDetailObj, ApplicantChildrenDetails) {
+    this.childForms.clear();
     this.ApplicantDetailForm.patchValue({
       ApplicantDetailId: ApplicantDetailObj.ApplicantDetailId.toString(),
       ApplicantType: ApplicantDetailObj.ApplicantTypeId.toString(),
@@ -902,8 +960,8 @@ export class ApplicantDetailComponent implements OnInit {
       MotherName: ApplicantDetailObj.MotherName,
       NumberOfChildren: ApplicantDetailObj.NumberOfChildren,
       IBONumber: ApplicantDetailObj.IBONumber,
-      IBORangeTypeId: ApplicantDetailObj.IBORangeTypeId
-    })
+      IBORangeTypeId: ApplicantDetailObj.IBORangeTypeId,
+    });
     for (let index = 0; index < ApplicantChildrenDetails.length; index++) {
       var child;
       child = this.rxFormBuilder.group({
@@ -912,9 +970,12 @@ export class ApplicantDetailComponent implements OnInit {
       this.childForms.push(child);
     }
   }
-  PatchApplicationDetailAddressValue(ApplicantDetailAddresses: any[]){
-    ApplicantDetailAddresses.forEach(i => {
-     var form = this.rxFormBuilder.group({
+  PatchApplicationDetailAddressValue(ApplicantDetailAddresses: any[]) {
+    this.GetApplicantAddress().clear();
+    this.ApplicantAddressYears = [];
+    this.ApplicantAddressMonth = [];
+    ApplicantDetailAddresses.forEach((i) => {
+      var form = this.rxFormBuilder.group({
         ApplicantDetailAddressId: +i.ApplicantDetailAddressId,
         HousingStatusTypeId: +i.HousingStatusTypeId,
         MonthTimeResiding: +i.MonthTimeResiding,
@@ -932,27 +993,37 @@ export class ApplicantDetailComponent implements OnInit {
         StreetNumber2: i.StreetNumber2,
         Suburb: i.Suburb,
         Suburb2: i.Suburb2,
-        YearTimeResiding: +i.YearTimeResiding
+        YearTimeResiding: +i.YearTimeResiding,
       });
       this.GetApplicantAddress().push(form);
-      this.selectApplicantAddressYear(+i.YearTimeResiding,+i.ApplicantDetailAddressId);
-      this.selectApplicantAddressMonth(+i.YearTimeResiding,+i.ApplicantDetailAddressId);
-    })
+      this.selectApplicantAddressYear(
+        +i.YearTimeResiding,
+        +i.ApplicantDetailAddressId
+      );
+      this.selectApplicantAddressMonth(
+        +i.YearTimeResiding,
+        +i.ApplicantDetailAddressId
+      );
+    });
   }
-  PatchApplicantContactInformation(ApplicantContactInformation){
+  PatchApplicantContactInformation(ApplicantContactInformation) {
     this.ApplicantContactInformation.patchValue({
-      ApplicantContactInformationID: ApplicantContactInformation.ApplicantContactInformationID.toString(),
-      CitizenshipStatusTypeId: ApplicantContactInformation.CitizenshipStatusTypeID,
+      ApplicantContactInformationID:
+        ApplicantContactInformation.ApplicantContactInformationID.toString(),
+      CitizenshipStatusTypeId:
+        ApplicantContactInformation.CitizenshipStatusTypeID,
       Country: ApplicantContactInformation.Country,
       EmailAddress: ApplicantContactInformation.EmailAddress,
       IsTaxResident: ApplicantContactInformation.IsTaxResident.toString(),
       MobileNumber: ApplicantContactInformation.MobileNumber,
       PhoneNumber: ApplicantContactInformation.PhoneNumber,
-      SkypeAddress: ApplicantContactInformation.SkypeAddress
-    })
+      SkypeAddress: ApplicantContactInformation.SkypeAddress,
+    });
   }
-  PatchApplicantEmploymentDetail(ApplicantEmploymentDetails: any[]){
-    ApplicantEmploymentDetails.forEach(i => {
+  PatchApplicantEmploymentDetail(ApplicantEmploymentDetails: any[]) {
+    this.GetApplicantEmploymentDetail().clear();
+    this.events = [];
+    ApplicantEmploymentDetails.forEach((i) => {
       var form = this.rxFormBuilder.group({
         ApplicantEmployeeDetailsID: [i.ApplicantEmployeeDetailsID],
         PreviousEmployementType: [i.PreviousEmployementType],
@@ -1046,11 +1117,17 @@ export class ApplicantDetailComponent implements OnInit {
           }),
         ],
       });
+      var eventObj = {
+        Date: i.StartedDate,
+        Id: i.ApplicantEmployeeDetailsID,
+      };
+      this.events.push(eventObj);
       this.GetApplicantEmploymentDetail().push(form);
-    })
+    });
   }
-  PatchApplicantOtherIncome(ApplicantOtherIncome: any[]){
-    ApplicantOtherIncome.forEach(i => {
+  PatchApplicantOtherIncome(ApplicantOtherIncome: any[]) {
+    this.GetApplicantOtherIncome().clear();
+    ApplicantOtherIncome.forEach((i) => {
       var form = this._formBuilder.group({
         ApplicantOtherIncomeId: i.ApplicantOtherIncomeId,
         OtherIncomeType: i.OtherIncomeType,
@@ -1059,6 +1136,6 @@ export class ApplicantDetailComponent implements OnInit {
         OtherDurationType: i.OtherDurationType,
       });
       this.GetApplicantOtherIncome().push(form);
-    })
+    });
   }
 }
