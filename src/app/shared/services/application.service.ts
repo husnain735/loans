@@ -9,8 +9,8 @@
 //   constructor(_apiService: ApiService) { }
 
 //     getApplicationMeta(){
-//     debugger
+//
 //     var url ='api/Application/GetApplicationMeta';
 //     return this._apiService.get(url);
 //   }
-// } 
+// }

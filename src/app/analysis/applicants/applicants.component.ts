@@ -52,7 +52,7 @@ export class ApplicantsComponent implements OnInit {
   applicationguid: string;
   Applicantguid: string;
   onSubmit() {
-    debugger
+
     this.isSubmitted = true;
     if (this.applicantForm.invalid) {
       return;

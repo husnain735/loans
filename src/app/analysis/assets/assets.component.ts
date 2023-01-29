@@ -154,7 +154,7 @@ export class AssetsComponent {
   }
 
   onSlideMortgage(item: any) {
-    debugger
+
 
     // this.nestedForm(0).push(this.rxFormBuilder.group({
     //   Lender: ['', [Validators.required]],
@@ -169,11 +169,11 @@ export class AssetsComponent {
     console.log(this.AssetsDetails.value.AssetsDetails[item]);
   }
   fa() {
-    debugger
+
     return this.AssetsDetails.get('AssetsDetails') as FormArray;
   }
   nestedForm(Index: number): FormArray {
-    debugger
+
     if (Index != undefined) {
       var a = this.fa()
         .at(Index)
@@ -184,14 +184,14 @@ export class AssetsComponent {
   }
 
   addMortgage(index: any) {
-    debugger
+
     return this.fa()
       .at(index)
       .get('Mortgage') as FormArray;
   }
 
   employee(index: any) {
-    debugger
+
     this.addMortgage(index).push(this.createMortgage())
   }
 

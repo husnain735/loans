@@ -59,7 +59,7 @@ export class HomeComponent {
       return;
     }
     else{
-      debugger
+
       this.applicationObj = new Application();
       this.applicationObj.EmailAddress = this.userAddressValidations.value.Email;
       this.applicationObj.LoansBrokerId = this.userAddressValidations.value.LoansBroker;

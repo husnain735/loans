@@ -1,5 +1,5 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,7 +7,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   RxFormBuilder,
@@ -263,17 +264,26 @@ export class ApplicantDetailComponent implements OnInit {
   ApplicantId: string;
   ApplicantDetailObj: any;
   navigationSubscription: any;
+  ApplicationId: string;
+  ApplicantAddressCount = 0;
+  ApplicantEmployementDetailCount = 0;
+  Step1 = false;
+  Step2 = false;
+  Step3 = false;
+  Step4 = false;
+  Step5 = false;
+  @ViewChild('stepper') private myStepper: MatStepper;
   constructor(
     private _formBuilder: FormBuilder,
     private applicantDetailService: ApplicantDetailService,
     private rxFormBuilder: RxFormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
   ngOnInit() {
-    debugger
     this.ApplicantDetailObj = new Object();
     this.ApplicantDetailForm = this.rxFormBuilder.group({
       ApplicantDetailId: [''],
@@ -299,6 +309,9 @@ export class ApplicantDetailComponent implements OnInit {
     });
     this.navigationSubscription = this.route.params.subscribe((params: any) => {
       this.ApplicantId = params['guid2'];
+    });
+    this.navigationSubscription = this.route.params.subscribe((params: any) => {
+      this.ApplicationId = params['guid'];
     });
     this.GetApplicantDetail();
     this.ApplicantChildrenDetail = new FormGroup({
@@ -357,7 +370,7 @@ export class ApplicantDetailComponent implements OnInit {
     ) {
       return;
     }
-
+    this.Step1 = true;
     var ApplicantDetail = {
       ApplicantDetailId: +this.ApplicantDetailForm.value.ApplicantDetailId,
       ApplicantTypeId: +this.ApplicantDetailForm.value.ApplicantType,
@@ -394,6 +407,7 @@ export class ApplicantDetailComponent implements OnInit {
       .SaveApplicantDetail(saveApplicantDetailViewModel)
       .subscribe(
         (res: any) => {
+          this.myStepper.next();
           this.GetApplicantDetail();
         },
         (error) => {}
@@ -404,7 +418,7 @@ export class ApplicantDetailComponent implements OnInit {
     if (this.ApplicantContactInformation.invalid) {
       return;
     }
-    console.log(this.ApplicantContactInformation.value);
+    this.Step3 = true;
     var obj = {
       ApplicantContactInformationID:
         +this.ApplicantContactInformation.value.ApplicantContactInformationID,
@@ -423,12 +437,14 @@ export class ApplicantDetailComponent implements OnInit {
     };
     this.applicantDetailService.SaveApplicantContactInformation(obj).subscribe(
       (res: any) => {
+        this.myStepper.next();
         this.GetApplicantDetail();
       },
       (error) => {}
     );
   }
   onApplicantEmploymentDetailSubmit() {
+    debugger
     if (this.TotalYear < 3) {
       this.IsYearMoreThen3 = true;
       return;
@@ -436,6 +452,7 @@ export class ApplicantDetailComponent implements OnInit {
     if (this.ApplicantEmploymentDetail.invalid && this.IsYearMoreThen3) {
       return;
     }
+    this.Step4 = true;
     var appEmpDetail = [];
     var list = [];
     appEmpDetail = this.GetApplicantEmploymentDetail().value;
@@ -464,15 +481,18 @@ export class ApplicantDetailComponent implements OnInit {
     };
     this.applicantDetailService.SaveApplicantEmployeeDetails(obj).subscribe(
       (res: any) => {
+        this.myStepper.next();
         this.GetApplicantDetail();
       },
       (error) => {}
     );
   }
   onApplicantAddressSubmit() {
-    if (this.ApplicantAddress.invalid) {
+    debugger
+    if (this.ApplicantAddress.invalid && !this.IsApplicantAddressMoreThen3) {
       return;
     }
+    this.Step2 = true;
     var appAddress = [];
     appAddress = this.GetApplicantAddress().value;
     var list = [];
@@ -506,6 +526,7 @@ export class ApplicantDetailComponent implements OnInit {
 
     this.applicantDetailService.SaveApplicantDetailAddress(obj).subscribe(
       (res: any) => {
+        this.myStepper.next();
         this.GetApplicantDetail();
       },
       (error) => {}
@@ -515,6 +536,7 @@ export class ApplicantDetailComponent implements OnInit {
     if (this.ApplicantOtherIncome.invalid) {
       return;
     }
+    this.Step5 = true;
     var appIncome = [];
     appIncome = this.GetApplicantOtherIncome().value;
     var list = [];
@@ -535,6 +557,7 @@ export class ApplicantDetailComponent implements OnInit {
 
     this.applicantDetailService.SaveApplicantOtherIncomes(obj).subscribe(
       (res: any) => {
+        this.myStepper.next();
         this.GetApplicantDetail();
       },
       (error) => {}
@@ -641,13 +664,31 @@ export class ApplicantDetailComponent implements OnInit {
     ) as FormArray;
     this.Items.push(this.createApplicantEmploymentDetail(TypeId));
   }
-  removeApplicantEmploymentDetail(index) {
+  removeApplicantEmploymentDetail(id, index) {
+    ;
     this.Items = this.ApplicantEmploymentDetail.get(
       'ApplicantEmploymentDetails'
     ) as FormArray;
-    this.Items.removeAt(index);
+
+    if ((id == '' || id == 0) && index != -1) {
+      this.Items.removeAt(index);
+    } else {
+      var obj = {
+        ApplicantId: this.ApplicantId,
+        ApplicantDetailAddressId: 0,
+        ApplicantEmployeeDetailsId: id,
+        ApplicantOtherIncomeId: 0,
+      };
+      this.applicantDetailService.DeleteApplicantDetailsForms(obj).subscribe(
+        (res) => {
+          this.GetApplicantDetail();
+        },
+        (error) => {}
+      );
+    }
   }
   addEvent(type: string, event: any, index) {
+    debugger
     var idx = this.events.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
@@ -740,11 +781,27 @@ export class ApplicantDetailComponent implements OnInit {
       OtherDurationType: ['', Validators.required],
     });
   }
-  removeApplicantOtherIncome(index) {
+  removeApplicantOtherIncome(id, index) {
     this.OtherIncomeItems = this.ApplicantOtherIncome.get(
       'ApplicantOtherIncomes'
     ) as FormArray;
-    this.OtherIncomeItems.removeAt(index);
+
+    if ((id == '' || id == 0) && index != -1) {
+      this.OtherIncomeItems.removeAt(index);
+    } else {
+      var obj = {
+        ApplicantId: this.ApplicantId,
+        ApplicantDetailAddressId: 0,
+        ApplicantEmployeeDetailsId: 0,
+        ApplicantOtherIncomeId: id,
+      };
+      this.applicantDetailService.DeleteApplicantDetailsForms(obj).subscribe(
+        (res) => {
+          this.GetApplicantDetail();
+        },
+        (error) => {}
+      );
+    }
   }
   addApplicantAddress(TypeId): void {
     this.ApplicantAddresses = this.ApplicantAddress.get(
@@ -802,22 +859,19 @@ export class ApplicantDetailComponent implements OnInit {
       ],
     });
   }
-  removeApplicantAddress(index) {
-    debugger;
+  removeApplicantAddress(id, index) {
+    ;
     this.ApplicantAddresses = this.ApplicantAddress.get(
       'ApplicantAddresses'
     ) as FormArray;
-
-    var ApplicantAddresses = [];
-    ApplicantAddresses = this.ApplicantAddresses.value;
-    var idx = ApplicantAddresses.findIndex(
-      (i) => i.ApplicantDetailAddressId == index
-    );
-    if (idx > -1) {
+    if ((id == '' || id == 0) && index != -1) {
+      this.ApplicantAddresses.removeAt(index);
+    } else {
       var obj = {
-        ApplicantDetailAddressId: index,
+        ApplicantId: this.ApplicantId,
+        ApplicantDetailAddressId: id,
         ApplicantEmployeeDetailsId: 0,
-        ApplicantOtherIncomeId: 0
+        ApplicantOtherIncomeId: 0,
       };
       this.applicantDetailService.DeleteApplicantDetailsForms(obj).subscribe(
         (res) => {
@@ -825,8 +879,6 @@ export class ApplicantDetailComponent implements OnInit {
         },
         (error) => {}
       );
-    } else {
-      this.ApplicantAddresses.removeAt(index);
     }
   }
   GetApplicantAddress() {
@@ -892,13 +944,6 @@ export class ApplicantDetailComponent implements OnInit {
       this.IsApplicantAddressMoreThen3 = true;
     }
   }
-  selectionChange(event: StepperSelectionEvent) {
-    console.log(event.selectedStep.label);
-    let stepLabel = event.selectedStep.label;
-    if (stepLabel == 'Step 2') {
-      console.log('CLICKED STEP 2');
-    }
-  }
   GetApplicantDetail() {
     var obj = {
       ApplicantId: this.ApplicantId,
@@ -907,43 +952,52 @@ export class ApplicantDetailComponent implements OnInit {
       (res: any) => {
         this.ApplicantDetailObj = {};
         this.ApplicantDetailObj = res.body;
-        this.PatchApplicationDetailValue(
-          this.ApplicantDetailObj.ApplicantDetail,
-          this.ApplicantDetailObj.ApplicantDetailChildrens
-        );
-        if (
-          this.ApplicantDetailObj != undefined &&
-          this.ApplicantDetailObj.ApplicantDetailAddresses != undefined &&
-          this.ApplicantDetailObj.ApplicantDetailAddresses.length > 0
-        ) {
-          this.PatchApplicationDetailAddressValue(
-            this.ApplicantDetailObj.ApplicantDetailAddresses
+        if (this.ApplicantDetailObj != undefined) {
+          if (this.ApplicantDetailObj.ApplicantDetail != undefined) {
+            this.PatchApplicationDetailValue(
+              this.ApplicantDetailObj.ApplicantDetail,
+              this.ApplicantDetailObj.ApplicantDetailChildrens
+            );
+          }
+          if (
+            this.ApplicantDetailObj != undefined &&
+            this.ApplicantDetailObj.ApplicantDetailAddresses != undefined &&
+            this.ApplicantDetailObj.ApplicantDetailAddresses.length > 0
+          ) {
+            this.PatchApplicationDetailAddressValue(
+              this.ApplicantDetailObj.ApplicantDetailAddresses
+            );
+          } else if (this.ApplicantAddressCount == 0){
+              this.addApplicantAddress('');
+              this.ApplicantAddressCount++;
+          }
+          if (this.ApplicantDetailObj.ApplicantContactInformation != undefined) {
+            this.PatchApplicantContactInformation(
+              this.ApplicantDetailObj.ApplicantContactInformation
+            );
+          }
+          if (
+            this.ApplicantDetailObj != undefined &&
+            this.ApplicantDetailObj.ApplicantEmployeeDetails != undefined &&
+            this.ApplicantDetailObj.ApplicantEmployeeDetails.length > 0
+          ) {
+            this.PatchApplicantEmploymentDetail(
+              this.ApplicantDetailObj.ApplicantEmployeeDetails
+            );
+          } else if(this.ApplicantEmployementDetailCount == 0) {
+            this.addApplicantEmploymentDetail(1);
+            this.ApplicantEmployementDetailCount++;
+          }
+          this.PatchApplicantOtherIncome(
+            this.ApplicantDetailObj.ApplicantOtherIncomes
           );
-        } else {
-          this.addApplicantAddress('');
         }
-        this.PatchApplicantContactInformation(
-          this.ApplicantDetailObj.ApplicantContactInformation
-        );
-        if (
-          this.ApplicantDetailObj != undefined &&
-          this.ApplicantDetailObj.ApplicantEmployeeDetails != undefined &&
-          this.ApplicantDetailObj.ApplicantEmployeeDetails.length > 0
-        ) {
-          this.PatchApplicantEmploymentDetail(
-            this.ApplicantDetailObj.ApplicantEmployeeDetails
-          );
-        } else {
-          this.addApplicantEmploymentDetail(1);
-        }
-        this.PatchApplicantOtherIncome(
-          this.ApplicantDetailObj.ApplicantOtherIncomes
-        );
       },
       (error) => {}
     );
   }
   PatchApplicationDetailValue(ApplicantDetailObj, ApplicantChildrenDetails) {
+    //this.Step1 = true;
     this.childForms.clear();
     this.ApplicantDetailForm.patchValue({
       ApplicantDetailId: ApplicantDetailObj.ApplicantDetailId.toString(),
@@ -971,6 +1025,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   PatchApplicationDetailAddressValue(ApplicantDetailAddresses: any[]) {
+    //this.Step2 = true;
     this.GetApplicantAddress().clear();
     this.ApplicantAddressYears = [];
     this.ApplicantAddressMonth = [];
@@ -1007,6 +1062,7 @@ export class ApplicantDetailComponent implements OnInit {
     });
   }
   PatchApplicantContactInformation(ApplicantContactInformation) {
+    //this.Step3 = true;
     this.ApplicantContactInformation.patchValue({
       ApplicantContactInformationID:
         ApplicantContactInformation.ApplicantContactInformationID.toString(),
@@ -1021,6 +1077,7 @@ export class ApplicantDetailComponent implements OnInit {
     });
   }
   PatchApplicantEmploymentDetail(ApplicantEmploymentDetails: any[]) {
+    //this.Step4 = true;
     this.GetApplicantEmploymentDetail().clear();
     this.events = [];
     ApplicantEmploymentDetails.forEach((i) => {
@@ -1118,14 +1175,14 @@ export class ApplicantDetailComponent implements OnInit {
         ],
       });
       var eventObj = {
-        Date: i.StartedDate,
-        Id: i.ApplicantEmployeeDetailsID,
+        value: i.StartedDate
       };
-      this.events.push(eventObj);
+      this.addEvent(null,eventObj,i.ApplicantEmployeeDetailsID)
       this.GetApplicantEmploymentDetail().push(form);
     });
   }
   PatchApplicantOtherIncome(ApplicantOtherIncome: any[]) {
+    //this.Step5 = true;
     this.GetApplicantOtherIncome().clear();
     ApplicantOtherIncome.forEach((i) => {
       var form = this._formBuilder.group({
@@ -1137,5 +1194,26 @@ export class ApplicantDetailComponent implements OnInit {
       });
       this.GetApplicantOtherIncome().push(form);
     });
+  }
+  openApplicantDailog(content): void {
+    const dialogRef = this.dialog.open(content, {
+      height: '200px',
+      width: '430px'
+    });
+  }
+  deleteApplicant(){
+    var obj = {
+      ApplicantId: this.ApplicantId,
+      ApplicantDetailAddressId: 0,
+      ApplicantEmployeeDetailsId: 0,
+      ApplicantOtherIncomeId: 0,
+    };
+    this.applicantDetailService.DeleteApplicantDetailsForms(obj).subscribe(
+      (res) => {
+        this.dialog.closeAll();
+        this.router.navigate(['client/' + this.ApplicationId + '/applicant']);
+      },
+      (error) => {}
+    );
   }
 }

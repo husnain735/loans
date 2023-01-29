@@ -24,7 +24,7 @@ export class AnalysisService {
 
   saveApplicant(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveApplicant/`, obj);
-  } 
+  }
 
   getAllApplicants(ApplicationID: string): Observable<any> {
     var applicant : Application;
@@ -34,7 +34,7 @@ export class AnalysisService {
   }
 
   saveAssets(AssetDetails: any){
-    debugger
+
     var url = 'Assets/SaveAssets'
     var assets: any;
     var property= [];

@@ -1,8 +1,19 @@
 <div class="p-3 bgWhite">
-  <h1>{{ApplicantDetailObj?.Applicant?.FirstName}}&nbsp; {{ApplicantDetailObj?.Applicant?.SurName}}</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>{{ApplicantDetailObj?.Applicant?.FirstName}}&nbsp; {{ApplicantDetailObj?.Applicant?.SurName}}</h1>
+    <button
+            mat-button
+            mat-raised-button
+            color="primary"
+            (click)="openApplicantDailog(content)"
+          >
+            Remove this applicant
+            <mat-icon class="btnOrder">clear</mat-icon>
+          </button>
+  </div>
   <div>
-    <mat-stepper orientation="vertical" linear #stepper>
-      <mat-step [stepControl]="ApplicantDetailForm">
+    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+      <mat-step [completed]="Step1">
         <form
           [formGroup]="ApplicantDetailForm"
         >
@@ -191,7 +202,7 @@
           <button mat-button mat-raised-button matStepperNext (click)="onApplicantDetailSubmit()">Next</button>
         </div>
       </mat-step>
-      <mat-step [stepControl]="ApplicantAddress">
+      <mat-step [completed]="Step2">
         <ng-template matStepLabel
           >Address (more than 3 year records)</ng-template
         >
@@ -219,7 +230,7 @@
               <div class="row mx-0">
                 <div *ngIf="i > 0" class="col-12 text-right mb-3">
                   <button
-                    (click)="removeApplicantAddress(item.get('ApplicantDetailAddressId').value > 0 ? item.get('ApplicantDetailAddressId').value  : i)"
+                    (click)="removeApplicantAddress(+item.get('ApplicantDetailAddressId').value,i)"
                     mat-fab
                     color="primary"
                     aria-label="Example icon button with a delete icon"
@@ -451,13 +462,13 @@
             matStepperNext
             class="ml-2"
             [disabled]="!IsApplicantAddressMoreThen3"
-            (click)="onApplicantAddressSubmit()"
+            (click)="Step2 = true;onApplicantAddressSubmit()"
           >
             Next
           </button>
         </div>
       </mat-step>
-      <mat-step [stepControl]="ApplicantContactInformation">
+      <mat-step [completed]="Step3">
         <ng-template matStepLabel>Contact & More Information</ng-template>
         <form
           [formGroup]="ApplicantContactInformation"
@@ -557,7 +568,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="ApplicantEmploymentDetail">
+      <mat-step [completed]="Step4">
         <ng-template matStepLabel
           >Employment Details (more than 3 year records)</ng-template
         >
@@ -610,7 +621,7 @@
                 >
                   <button
                     *ngIf="i > 0"
-                    (click)="removeApplicantEmploymentDetail(i)"
+                    (click)="removeApplicantEmploymentDetail(+item.get('ApplicantEmployeeDetailsID').value , i)"
                     mat-fab
                     color="primary"
                     aria-label="Example icon button with a delete icon"
@@ -858,7 +869,7 @@
           </button>
         </div>
       </mat-step>
-      <mat-step [stepControl]="ApplicantOtherIncome">
+      <mat-step [completed]="Step5">
         <ng-template matStepLabel>Other Income</ng-template>
         <div [formGroup]="ApplicantOtherIncome" class="mt-4">
           <div
@@ -880,7 +891,7 @@
               <div class="row mx-0">
                 <div class="col-12 text-right mb-3">
                   <button
-                    (click)="removeApplicantOtherIncome(i)"
+                    (click)="removeApplicantOtherIncome(+item.get('ApplicantOtherIncomeId').value, i)"
                     mat-fab
                     color="primary"
                     aria-label="Example icon button with a delete icon"
@@ -972,3 +983,13 @@
     </mat-stepper>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-body p-relative p-4">
+    <h1>Delete applicant</h1>
+    <p>Are you sure want to delete Applicant.</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <button mat-button mat-dialog-close type="button">Cancel</button>
+      <button mat-button mat-raised-button color="primary" type="button" (click)="deleteApplicant()">Delete</button>
+    </div>
+  </div>
+</ng-template>
