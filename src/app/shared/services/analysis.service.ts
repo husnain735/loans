@@ -33,13 +33,9 @@ export class AnalysisService {
     return this.apiService.post(`${this.pageUrl}GetAllApplicants/`, applicant);
   }
 
-  saveAssets(AssetDetails: any){
-
+  saveAssets(obj: any){
+    debugger
     var url = 'Assets/SaveAssets'
-    var assets: any;
-    var property= [];
-    property = AssetDetails;
-    assets = assets.property;
-    return this.apiService.put(url, {assets});
+    return this.apiService.post(`${url}`, obj);
   }
 }
