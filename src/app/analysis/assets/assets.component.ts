@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -97,9 +98,13 @@ export class AssetsComponent {
   ];
 
   Items: FormArray;
+  ApplicationId: string;
 
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: any) => {
+      this.ApplicationId = params['guid'];
+    });
     this.AssetsDetails = new FormGroup({
       AssetsDetails: new FormArray([]),
     });
@@ -122,7 +127,7 @@ export class AssetsComponent {
 
   }
   constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder,
-    private _analysisService: AnalysisService
+    private _analysisService: AnalysisService,private route: ActivatedRoute
     ) { }
 
   createAssetsDetails(): FormGroup {
@@ -290,7 +295,43 @@ export class AssetsComponent {
 
   onSubmitAssets(){
     console.log(this.AssetsDetails.value);
-    this._analysisService.saveAssets(this.AssetsDetails.value).subscribe(res =>{
+    var assetDetails = this.AssetsDetails.value;
+    var list = [];
+    assetDetails.forEach(i =>{
+      var listObj = { 
+      StreetNumber: i.StreetNumber,
+      StreetName: i.StreetName,
+      Suburb: i.Suburb,
+      StateId: i.StateId,
+      PostCode: i.PostCode,
+      EstimatedValue: i.EstimatedValue,
+      RentReceived: i.RentReceived,
+      RentPerID: i.RentPerID,
+      IsInvestmentProperty: i.IsInvestmentProperty,
+      IsMortgage: i.IsMortgage,
+      ApplicantType: i.ApplicantType,
+      ApplicationReasonID: i.ApplicationReasonID,
+      Mortage: i.Mortgage.forEach(j =>{
+        var mortgageObj = {
+        Lender: j.Lender,
+        InterestTypeID: j.InterestTypeID,
+        InterestRate: j.InterestRate,
+        Limit: j.Limit,
+        Payment: j.Payment,
+        PaymentPerID: j.PaymentPerID,
+        Balance: j.Balance,
+        Refinance: j.Refinance,
+        ApplicantType: j.ApplicantType
+        };
+      })
+    };
+    list.push(listObj);
+  });
+    var obj = {
+      AssetsDetails: list,
+      ApplicationId: this.ApplicationId
+    };
+    this._analysisService.saveAssets(obj).subscribe(res =>{
       console.log(res);
     })
   }
