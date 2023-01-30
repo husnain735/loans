@@ -1216,4 +1216,17 @@ export class ApplicantDetailComponent implements OnInit {
       (error) => {}
     );
   }
+  ApplicantDetailsCompleted(){
+    var obj = {
+      ApplicantId: this.ApplicantId,
+      ApplicantDetailAddressId: 0,
+      ApplicantEmployeeDetailsId: 0,
+      ApplicantOtherIncomeId: 0,
+    }
+    this.applicantDetailService.ApplicantDetailsCompleted(obj).subscribe((res: any) => {
+      this.router.navigate(['client/' + this.ApplicationId + '/applicant']);
+    }, error => {
+
+    })
+  }
 }

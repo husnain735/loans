@@ -32,4 +32,7 @@ export class ApplicantDetailService {
   DeleteApplicantDetailsForms(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}DeleteApplicantDetailsForms/`, obj);
   }
+  ApplicantDetailsCompleted(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}ApplicantDetailsCompleted/`, obj);
+  }
 }
