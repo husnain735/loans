@@ -1,9 +1,5 @@
 <h1>Assets</h1>
 
-<button (click)="onSubmitAssets()">
-  Save
-</button>
-
 <div class="row mx-0">
   <div [formGroup]="AssetsDetails" class="col-12">
     <div
@@ -743,5 +739,20 @@
       Add More Asset (Investments,Furniture, and others)
       <mat-icon class="btnOrder">add</mat-icon>
     </button>
+  </div>
+
+  <div class="step-nav col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <button mat-flat-button [routerLink]="">Back</button>
+      <button
+      (click)="onSubmitAssets()"
+        mat-raised-button
+        color="primary"
+        class="next"
+      >
+        Next
+        <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
