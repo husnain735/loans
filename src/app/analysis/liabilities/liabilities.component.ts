@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
+import { LiabilitiesService } from 'src/app/shared/services/liabilities.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
@@ -11,7 +12,10 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 export class LiabilitiesComponent implements OnInit {
 
   IsNext = false;
-  ApplicantLaibility: FormGroup;
+  AddPersonalLoan: FormGroup;
+  AddCreditCardLoan: FormGroup;
+  AddSalaryScrificesLoan: FormGroup;
+  AddOtherLoan: FormGroup;
   LaibilityItems: FormArray;
   DurationType = [
     {
@@ -31,16 +35,35 @@ export class LiabilitiesComponent implements OnInit {
       DurationTypeName: 'Year'
     },
   ]
-  constructor(public _sharedService: SharedService,private _formBuilder: FormBuilder) {
+  constructor(public _sharedService: SharedService,private _formBuilder: FormBuilder,
+    private _liabilitiesService: LiabilitiesService,
+    private rxFormBuilder: RxFormBuilder) {
 
   }
   ngOnInit(){
-    this.ApplicantLaibility = new FormGroup({
+    this.AddPersonalLoan = new FormGroup({
+      ApplicantLaibilities: new FormArray([]),
+    });
+    this.AddCreditCardLoan = new FormGroup({
+      ApplicantLaibilities: new FormArray([]),
+    });
+    this.AddSalaryScrificesLoan = new FormGroup({
+      ApplicantLaibilities: new FormArray([]),
+    });
+    this.AddOtherLoan = new FormGroup({
       ApplicantLaibilities: new FormArray([]),
     });
   }
   addApplicantLaibility(LiabilityTypeId): void {
-    this.LaibilityItems = this.ApplicantLaibility.get('ApplicantLaibilities') as FormArray;
+    if (LiabilityTypeId == 1) {
+      this.LaibilityItems = this.AddPersonalLoan.get('ApplicantLaibilities') as FormArray;
+    }else if (LiabilityTypeId == 2) {
+      this.LaibilityItems = this.AddCreditCardLoan.get('ApplicantLaibilities') as FormArray;
+    }else if (LiabilityTypeId == 3) {
+      this.LaibilityItems = this.AddSalaryScrificesLoan.get('ApplicantLaibilities') as FormArray;
+    }else if (LiabilityTypeId == 4) {
+      this.LaibilityItems = this.AddOtherLoan.get('ApplicantLaibilities') as FormArray;
+    }
     this.LaibilityItems.push(this.createApplicantLaibility(LiabilityTypeId));
   }
   createApplicantLaibility(LiabilityTypeId): FormGroup {
@@ -55,19 +78,85 @@ export class LiabilitiesComponent implements OnInit {
       IsRefinance: ['',[Validators.required]]
     });
   }
-  removeApplicantLaibility(index) {
-    this.LaibilityItems = this.ApplicantLaibility.get('ApplicantLaibilities') as FormArray;
+  removeApplicantLaibility(index,LiabilityTypeId) {
+    if (LiabilityTypeId == 1) {
+      this.LaibilityItems = this.AddPersonalLoan.get('ApplicantLaibilities') as FormArray;
+    }else if (LiabilityTypeId == 2) {
+      this.LaibilityItems = this.AddCreditCardLoan.get('ApplicantLaibilities') as FormArray;
+    }else if (LiabilityTypeId == 3) {
+      this.LaibilityItems = this.AddSalaryScrificesLoan.get('ApplicantLaibilities') as FormArray;
+    }else if (LiabilityTypeId == 4) {
+      this.LaibilityItems = this.AddOtherLoan.get('ApplicantLaibilities') as FormArray;
+    }
+
     this.LaibilityItems.removeAt(index);
   }
   onApplicantLaibilitySubmit() {
-    if (this.ApplicantLaibility.invalid) {
-      (<FormArray>this.ApplicantLaibility.get('ApplicantLaibilities')).controls.forEach((group: FormGroup) => {
+    debugger
+    if (this.AddPersonalLoan.invalid || this.AddCreditCardLoan.invalid || this.AddSalaryScrificesLoan.invalid
+       || this.AddOtherLoan.invalid) {
+      (<FormArray>this.AddPersonalLoan.get('ApplicantLaibilities')).controls.forEach((group: FormGroup) => {
+        (<any>Object).values(group.controls).forEach((control: FormControl) => {
+            control.markAsTouched();
+        })
+      });
+      (<FormArray>this.AddCreditCardLoan.get('ApplicantLaibilities')).controls.forEach((group: FormGroup) => {
+        (<any>Object).values(group.controls).forEach((control: FormControl) => {
+            control.markAsTouched();
+        })
+      });
+      (<FormArray>this.AddSalaryScrificesLoan.get('ApplicantLaibilities')).controls.forEach((group: FormGroup) => {
+        (<any>Object).values(group.controls).forEach((control: FormControl) => {
+            control.markAsTouched();
+        })
+      });
+      (<FormArray>this.AddOtherLoan.get('ApplicantLaibilities')).controls.forEach((group: FormGroup) => {
         (<any>Object).values(group.controls).forEach((control: FormControl) => {
             control.markAsTouched();
         })
       });
       return;
     }
-    console.log(this.ApplicantLaibility.value);
+    console.log(this.AddPersonalLoan.value);
+  }
+  onChange(event,index,LiabilityTypeId) {
+    debugger
+    if (LiabilityTypeId == 1) {
+      const ApplicantLaibilities = <FormArray>this.AddPersonalLoan.get('ApplicantLaibilities') as FormArray;
+      const Applicants = <FormArray>ApplicantLaibilities.at(index).get('ApplicantTypeId') as FormArray;
+      if(event.checked) {
+        Applicants.push(new FormControl(event.source.value))
+      } else {
+        const i = Applicants.controls.findIndex(x => x.value === event.source.value);
+        Applicants.removeAt(i);
+      }
+    }else if (LiabilityTypeId == 2) {
+      const ApplicantLaibilities = <FormArray>this.AddCreditCardLoan.get('ApplicantLaibilities') as FormArray;
+      const Applicants = <FormArray>ApplicantLaibilities.at(index).get('ApplicantTypeId') as FormArray;
+      if(event.checked) {
+        Applicants.push(new FormControl(event.source.value))
+      } else {
+        const i = Applicants.controls.findIndex(x => x.value === event.source.value);
+        Applicants.removeAt(i);
+      }
+    }else if (LiabilityTypeId == 3) {
+      const ApplicantLaibilities = <FormArray>this.AddSalaryScrificesLoan.get('ApplicantLaibilities') as FormArray;
+      const Applicants = <FormArray>ApplicantLaibilities.at(index).get('ApplicantTypeId') as FormArray;
+      if(event.checked) {
+        Applicants.push(new FormControl(event.source.value))
+      } else {
+        const i = Applicants.controls.findIndex(x => x.value === event.source.value);
+        Applicants.removeAt(i);
+      }
+    }else if (LiabilityTypeId == 4) {
+      const ApplicantLaibilities = <FormArray>this.AddOtherLoan.get('ApplicantLaibilities') as FormArray;
+      const Applicants = <FormArray>ApplicantLaibilities.at(index).get('ApplicantTypeId') as FormArray;
+      if(event.checked) {
+        Applicants.push(new FormControl(event.source.value))
+      } else {
+        const i = Applicants.controls.findIndex(x => x.value === event.source.value);
+        Applicants.removeAt(i);
+      }
+    }
   }
 }
