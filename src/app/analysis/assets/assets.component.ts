@@ -294,11 +294,15 @@ export class AssetsComponent {
   }
 
   onSubmitAssets(){
+    debugger
     console.log(this.AssetsDetails.value);
-    var assetDetails = this.AssetsDetails.value;
+    var assetDetails = [];
+    assetDetails = this.AssetsDetails.value.AssetsDetails;
     var list = [];
+    var mortgageList = [];
     assetDetails.forEach(i =>{
-      var listObj = { 
+      var listObj = {
+      DummyPropertyID : this._sharedService.generateGUID(), 
       StreetNumber: i.StreetNumber,
       StreetName: i.StreetName,
       Suburb: i.Suburb,
@@ -310,29 +314,41 @@ export class AssetsComponent {
       IsInvestmentProperty: i.IsInvestmentProperty,
       IsMortgage: i.IsMortgage,
       ApplicantType: i.ApplicantType,
-      ApplicationReasonID: i.ApplicationReasonID,
-      Mortage: i.Mortgage.forEach(j =>{
+      ApplicationReasonID: i.ApplicationReasonID
+    };
+    i.Mortgage.forEach(j =>{
         var mortgageObj = {
         Lender: j.Lender,
-        InterestTypeID: j.InterestTypeID,
-        InterestRate: j.InterestRate,
-        Limit: j.Limit,
-        Payment: j.Payment,
-        PaymentPerID: j.PaymentPerID,
-        Balance: j.Balance,
-        Refinance: j.Refinance,
-        ApplicantType: j.ApplicantType
+        DummyPropertyID: listObj.DummyPropertyID,
+        InterestTypeID: +j.InterestTypeID,
+        InterestRate: +j.InterestRate,
+        Limit: +j.Limit,
+        Payment: +j.Payment,
+        PaymentPerID: +j.PaymentPerID,
+        Balance: +j.Balance,
+        Refinance: +j.Refinance,
+        ApplicantType: +j.ApplicantType
         };
-      })
-    };
+        mortgageList.push(mortgageObj);
+       
+      });
+     
     list.push(listObj);
   });
+
     var obj = {
       AssetsDetails: list,
+      Mortgage: mortgageList,
       ApplicationId: this.ApplicationId
     };
     this._analysisService.saveAssets(obj).subscribe(res =>{
       console.log(res);
     })
+  }
+
+  GetMortgage() {
+    return this.AssetsDetails.get(
+      'Mortgage'
+    ) as FormArray;
   }
 }
