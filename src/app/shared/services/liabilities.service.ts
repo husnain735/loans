@@ -14,5 +14,7 @@ export class LiabilitiesService {
   SaveLiabilities(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveLiabilities/`, obj);
   }
-
+  GetLiabilities(obj){
+    return this.apiService.post(`${this.pageUrl}GetLiabilities/`, obj);
+  }
 }

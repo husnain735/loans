@@ -79,7 +79,7 @@
               <mat-form-field class="col-3 w-100">
                 <mat-select
                   placeholder="Per"
-                  formControlName="LaibilityDurationTypeId"
+                  formControlName="PaymentTimePeriod"
                 >
                   <mat-option
                     *ngFor="let item of DurationType"
@@ -104,6 +104,7 @@
                       <mat-checkbox
                         (change)="onChange($event,i,+item.get('LiabilityTypeId').value)"
                         [value]="item2.ApplicantId"
+                        [checked]="item?.get('ApplicantTypeId')?.at(i2)?.value == item2.ApplicantId"
                       >
                         {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
                       </mat-checkbox>
@@ -215,7 +216,7 @@
               <mat-form-field class="col-3 w-100">
                 <mat-select
                   placeholder="Per"
-                  formControlName="LaibilityDurationTypeId"
+                  formControlName="PaymentTimePeriod"
                 >
                   <mat-option
                     *ngFor="let item of DurationType"
@@ -355,7 +356,7 @@
               <mat-form-field class="col-3 w-100">
                 <mat-select
                   placeholder="Per"
-                  formControlName="LaibilityDurationTypeId"
+                  formControlName="PaymentTimePeriod"
                 >
                   <mat-option
                     *ngFor="let item of DurationType"
@@ -380,6 +381,7 @@
                       <mat-checkbox
                         (change)="onChange($event,i,+item.get('LiabilityTypeId').value)"
                         [value]="item2.ApplicantId"
+
                       >
                         {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
                       </mat-checkbox>
@@ -495,7 +497,7 @@
               <mat-form-field class="col-3 w-100">
                 <mat-select
                   placeholder="Per"
-                  formControlName="LaibilityDurationTypeId"
+                  formControlName="PaymentTimePeriod"
                 >
                   <mat-option
                     *ngFor="let item of DurationType"
