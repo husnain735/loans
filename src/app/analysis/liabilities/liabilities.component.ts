@@ -349,6 +349,10 @@ export class LiabilitiesComponent implements OnInit {
     });
   }
   PatchLiabilitiesValue(Liabilities: any[]) {
+    this.GetLiabilitiesForm(1).clear();
+    this.GetLiabilitiesForm(2).clear();
+    this.GetLiabilitiesForm(3).clear();
+    this.GetLiabilitiesForm(4).clear();
     Liabilities.forEach((i) => {
       var applicantsIds = i.ApplicantIds.split(',');
       var form = this._formBuilder.group({
@@ -371,7 +375,6 @@ export class LiabilitiesComponent implements OnInit {
             : ['true', [Validators.required]],
       });
       if (i.LiabilityTypeID == 1) {
-        this.GetLiabilitiesForm(i.LiabilityTypeID).clear();
         this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
         const ApplicantLaibilities = (<FormArray>(
           this.AddPersonalLoan.get('ApplicantLaibilities')
