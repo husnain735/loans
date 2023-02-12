@@ -38,4 +38,13 @@ export class AnalysisService {
     var url = 'Assets/SaveAssets'
     return this.apiService.post(`${url}`, obj);
   }
+
+  getAllAssets(ApplicationID: string): Observable<any> {
+    debugger 
+    var url = 'Assets/GetAllAssets'
+    var application : Application;
+    application = new Application();
+    application.ApplicationId = ApplicationID;
+    return this.apiService.post(`${url}`, application);
+  }
 }

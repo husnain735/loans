@@ -125,6 +125,8 @@ export class AssetsComponent {
       MoreAssetDetails: new FormArray([]),
     });
 
+    this.getAllAssets();
+
   }
   constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder,
     private _analysisService: AnalysisService,private route: ActivatedRoute
@@ -299,6 +301,15 @@ export class AssetsComponent {
     var assetDetails = [];
     assetDetails = this.AssetsDetails.value.AssetsDetails;
     var list = [];
+     
+    var savings = [];
+    savings = this.SavingDetails.value.SavingDetails;
+    var savingsObj = [];
+
+    var superannuation = [];
+    superannuation = this.SavingDetails.value.SavingDetails;
+    var superannuationObj = [];
+
     var mortgageList = [];
     assetDetails.forEach(i =>{
       var listObj = {
@@ -332,13 +343,32 @@ export class AssetsComponent {
         mortgageList.push(mortgageObj);
        
       });
-     
     list.push(listObj);
   });
+
+  savings.forEach(i =>{
+    var saving = {
+      Institution: i.Institution,
+      EstimatedValue: i.EstimatedValue,
+      OwnerID: i.OwnerID
+    };
+    savingsObj.push(saving);
+  })
+
+  superannuation.forEach(i =>{
+    var superannu = {
+      Institution: i.Institution,
+      EstimatedValue: i.EstimatedValue,
+      OwnerID: i.OwnerID
+    };
+    superannuationObj.push(superannu);
+  })
+  
 
     var obj = {
       AssetsDetails: list,
       Mortgage: mortgageList,
+      Savings : savingsObj,
       ApplicationId: this.ApplicationId
     };
     this._analysisService.saveAssets(obj).subscribe(res =>{
@@ -350,5 +380,12 @@ export class AssetsComponent {
     return this.AssetsDetails.get(
       'Mortgage'
     ) as FormArray;
+  }
+
+  getAllAssets(){
+    debugger
+    this._analysisService.getAllAssets(this.ApplicationId).subscribe(res =>{
+      console.log(res);
+    })
   }
 }
