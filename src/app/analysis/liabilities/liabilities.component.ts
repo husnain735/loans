@@ -349,7 +349,10 @@ export class LiabilitiesComponent implements OnInit {
     });
   }
   PatchLiabilitiesValue(Liabilities: any[]) {
-    debugger
+    this.GetLiabilitiesForm(1).clear();
+    this.GetLiabilitiesForm(2).clear();
+    this.GetLiabilitiesForm(3).clear();
+    this.GetLiabilitiesForm(4).clear();
     Liabilities.forEach((i) => {
       var applicantsIds = i.ApplicantIds.split(',');
       var form = this._formBuilder.group({
@@ -384,11 +387,7 @@ export class LiabilitiesComponent implements OnInit {
             ApplicantLaibilities.at(index).get('ApplicantTypeId')
           )) as FormArray;
           applicantsIds.forEach((c) => {
-            this._sharedService.TotalApplicants.forEach(el =>{
-              if(el.ApplicantId == c){
-                el.IsChecked = true;
-              }
-            })
+            Applicants.push(new FormControl(c));
           });
         }
       } else if (i.LiabilityTypeID == 2) {
