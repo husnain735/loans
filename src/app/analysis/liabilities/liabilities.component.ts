@@ -372,7 +372,6 @@ export class LiabilitiesComponent implements OnInit {
             : ['true', [Validators.required]],
       });
       if (i.LiabilityTypeID == 1) {
-        this.GetLiabilitiesForm(i.LiabilityTypeID).clear();
         this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
         const ApplicantLaibilities = (<FormArray>(
           this.AddPersonalLoan.get('ApplicantLaibilities')
