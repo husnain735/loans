@@ -307,8 +307,16 @@ export class AssetsComponent {
     var savingsObj = [];
 
     var superannuation = [];
-    superannuation = this.SavingDetails.value.SavingDetails;
+    superannuation = this.SuperannuationDetails.value.SuperannuationDetails;
     var superannuationObj = [];
+
+    var motorVehicle = [];
+    motorVehicle = this.MotorVehicleDetails.value.MotorVehicleDetails;
+    var motorVehicleObj = [];
+
+    var moreAssets = [];
+    moreAssets = this.MoreAssetDetails.value.MoreAssetDetails;
+    var moreAssetsObj = [];
 
     var mortgageList = [];
     assetDetails.forEach(i =>{
@@ -327,7 +335,8 @@ export class AssetsComponent {
       ApplicantType: i.ApplicantType,
       ApplicationReasonID: i.ApplicationReasonID
     };
-    i.Mortgage.forEach(j =>{
+    if(i.IsMortgage == true){
+      i.Mortgage.forEach(j =>{
         var mortgageObj = {
         Lender: j.Lender,
         DummyPropertyID: listObj.DummyPropertyID,
@@ -343,6 +352,8 @@ export class AssetsComponent {
         mortgageList.push(mortgageObj);
        
       });
+    }
+
     list.push(listObj);
   });
 
@@ -363,13 +374,35 @@ export class AssetsComponent {
     };
     superannuationObj.push(superannu);
   })
+
+  motorVehicle.forEach(i =>{
+    var mv = {
+      Make: i.Make,
+      Year: i.Year,
+      EstimatedValue: i.EstimatedValue
+    };
+    motorVehicleObj.push(mv);
+  })
+
+  moreAssets.forEach(i =>{
+    var massets = {
+      AssetTypeID: i.AssetTypeID,
+      Details: i.Details,
+      EstimatedValue: i.EstimatedValue,
+      OwnerID: i.OwnerID
+    };
+    moreAssetsObj.push(massets);
+  })
   
 
     var obj = {
       AssetsDetails: list,
       Mortgage: mortgageList,
       Savings : savingsObj,
-      ApplicationId: this.ApplicationId
+      Superannuation : superannuationObj,
+      MotorVehicle : motorVehicleObj,
+      MoreAssets : moreAssetsObj,
+      ApplicationId: this.ApplicationId 
     };
     this._analysisService.saveAssets(obj).subscribe(res =>{
       console.log(res);
@@ -385,7 +418,48 @@ export class AssetsComponent {
   getAllAssets(){
     debugger
     this._analysisService.getAllAssets(this.ApplicationId).subscribe(res =>{
-      console.log(res);
+      console.log(res.body);
+      if(res.body.AssetsDetails != undefined && res.body.AssetsDetails.length > 0){
+        this.patchAssetDetails(res.body.AssetsDetails);
+      }
+      
     })
+  }
+
+  patchAssetDetails(AssetsDetails:any[]){
+    this.getAssetDetailsForm().clear();
+    AssetsDetails.forEach(i =>{
+      var form = this.rxFormBuilder.group({
+        StreetNumber: [i.StreetNumber],
+        StreetName: [i.StreetName],
+        Suburb: [i.Suburb, [Validators.required]],
+        StateId: [i.StateId, [Validators.required]],
+        PostCode: [i.PostCode, [Validators.required]],
+        EstimatedValue: [i.EstimatedValue, [Validators.required]],
+        RentReceived: [i.RentReceived, [Validators.required]],
+        RentPerID: [i.RentPerID, [Validators.required]],
+        IsInvestmentProperty: [i.IsInvestmentProperty],
+        IsMortgage: [i.IsMortgage],
+        ApplicantType: [i.ApplicantType],
+        ApplicationReasonID: [''],
+        Mortgage: this.rxFormBuilder.array([{
+          Lender: ['', [Validators.required]],
+          InterestTypeID: ['', [Validators.required]],
+          InterestRate: ['', [Validators.required]],
+          Limit: ['', [Validators.required]],
+          Payment: ['', [Validators.required]],
+          PaymentPerID: ['', [Validators.required]],
+          Balance: ['', [Validators.required]],
+          Refinance: ['', [Validators.required]],
+          ApplicantType: ['']
+        }]),
+      });
+      this.getAssetDetailsForm().push(form);
+
+    })
+  }
+
+  getAssetDetailsForm(){
+    return this.AssetsDetails.get('AssetsDetails') as FormArray;
   }
 }

@@ -77,7 +77,7 @@ export class AnalysisComponent implements OnInit {
     // );
   }
   ngOnInit() {
-
+    debugger
     console.log(this.router.url);
     this.sidenav.toggle(true);
     this.getMeta();
@@ -97,9 +97,9 @@ export class AnalysisComponent implements OnInit {
 
   getAllApplicants() {
     this.applicationguid = localStorage.getItem('ApplicationId');
-    if(this.applicationguid == undefined){
-      this.applicationguid = 'c6858457-a335-4fdc-b92a-78569d936c91';
-    }
+    // if(this.applicationguid == undefined){
+    //   this.applicationguid = 'c6858457-a335-4fdc-b92a-78569d936c91';
+    // }
     this._analysisService.getAllApplicants(this.applicationguid).subscribe(res => {
       this._sharedService.TotalApplicants = res.body;
     })
