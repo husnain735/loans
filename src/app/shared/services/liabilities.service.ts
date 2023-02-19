@@ -17,4 +17,7 @@ export class LiabilitiesService {
   GetLiabilities(obj){
     return this.apiService.post(`${this.pageUrl}GetLiabilities/`, obj);
   }
+  DeleteLiability(id){
+    return this.apiService.get(`${this.pageUrl}DeleteLiability/${id}`)
+  }
 }
