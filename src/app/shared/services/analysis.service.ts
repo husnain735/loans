@@ -47,4 +47,9 @@ export class AnalysisService {
     application.ApplicationId = ApplicationID;
     return this.apiService.post(`${url}`, application);
   }
+
+  DeleteAssets(obj: any): Observable<any> {
+    var url = 'Assets/DeleteAssets';
+    return this.apiService.post(`${url}`, obj);
+  }
 }

@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
+import {
+  RxFormBuilder,
+  RxwebValidators,
+} from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-assets',
   templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss']
+  styleUrls: ['./assets.component.scss'],
 })
 export class AssetsComponent {
   AssetsDetails: FormGroup;
@@ -20,86 +23,85 @@ export class AssetsComponent {
   States = [
     {
       StatesID: 26,
-      StatesName: 'SA'
+      StatesName: 'SA',
     },
     {
       StatesID: 27,
-      StatesName: 'ACT'
+      StatesName: 'ACT',
     },
     {
       StatesID: 28,
-      StatesName: 'NSW'
+      StatesName: 'NSW',
     },
     {
       StatesID: 29,
-      StatesName: 'NT'
+      StatesName: 'NT',
     },
     {
       StatesID: 30,
-      StatesName: 'QLD'
+      StatesName: 'QLD',
     },
     {
       StatesID: 31,
-      StatesName: 'TAS'
+      StatesName: 'TAS',
     },
     {
       StatesID: 32,
-      StatesName: 'VIC'
+      StatesName: 'VIC',
     },
     {
       StatesID: 33,
-      StatesName: 'WA'
-    }
+      StatesName: 'WA',
+    },
   ];
 
   PerRentReceived = [
     {
       PerRentID: 37,
-      PerRentName: 'Week'
+      PerRentName: 'Week',
     },
     {
       PerRentID: 38,
-      PerRentName: 'Fortnight'
+      PerRentName: 'Fortnight',
     },
     {
       PerRentID: 39,
-      PerRentName: 'Month'
+      PerRentName: 'Month',
     },
     {
       PerRentID: 40,
-      PerRentName: 'Year'
-    }
+      PerRentName: 'Year',
+    },
   ];
 
   InterestType = [
     {
       InterestTypeID: 41,
-      InterestTypeName: 'Variable'
+      InterestTypeName: 'Variable',
     },
     {
       InterestTypeID: 42,
-      InterestTypeName: 'Fixed'
-    }
+      InterestTypeName: 'Fixed',
+    },
   ];
 
   AssetType = [
     {
       AssetTypeID: 43,
-      AssetTypeName: 'Investments'
+      AssetTypeName: 'Investments',
     },
     {
       AssetTypeID: 44,
-      AssetTypeName: 'Furniture & effects'
+      AssetTypeName: 'Furniture & effects',
     },
     {
       AssetTypeID: 45,
-      AssetTypeName: 'Other'
-    }
+      AssetTypeName: 'Other',
+    },
   ];
 
   Items: FormArray;
   ApplicationId: string;
-
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {
@@ -126,14 +128,18 @@ export class AssetsComponent {
     });
 
     this.getAllAssets();
-
   }
-  constructor(private _formBuilder: FormBuilder, public _sharedService: SharedService, private rxFormBuilder: RxFormBuilder,
-    private _analysisService: AnalysisService,private route: ActivatedRoute
-    ) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    public _sharedService: SharedService,
+    private rxFormBuilder: RxFormBuilder,
+    private _analysisService: AnalysisService,
+    private route: ActivatedRoute
+  ) {}
 
   createAssetsDetails(): FormGroup {
     return this.rxFormBuilder.group({
+      PropertyID: [null],
       StreetNumber: [''],
       StreetName: [''],
       Suburb: ['', [Validators.required]],
@@ -146,23 +152,23 @@ export class AssetsComponent {
       IsMortgage: [false],
       ApplicantType: [''],
       ApplicationReasonID: [''],
-      Mortgage: this.rxFormBuilder.array([{
-        Lender: ['', [Validators.required]],
-        InterestTypeID: ['', [Validators.required]],
-        InterestRate: ['', [Validators.required]],
-        Limit: ['', [Validators.required]],
-        Payment: ['', [Validators.required]],
-        PaymentPerID: ['', [Validators.required]],
-        Balance: ['', [Validators.required]],
-        Refinance: ['', [Validators.required]],
-        ApplicantType: ['']
-      }]),
+      Mortgage: this.rxFormBuilder.array([
+        {
+          Lender: ['', [Validators.required]],
+          InterestTypeID: ['', [Validators.required]],
+          InterestRate: ['', [Validators.required]],
+          Limit: ['', [Validators.required]],
+          Payment: ['', [Validators.required]],
+          PaymentPerID: ['', [Validators.required]],
+          Balance: ['', [Validators.required]],
+          Refinance: ['', [Validators.required]],
+          ApplicantType: [''],
+        },
+      ]),
     });
   }
 
   onSlideMortgage(item: any) {
-
-
     // this.nestedForm(0).push(this.rxFormBuilder.group({
     //   Lender: ['', [Validators.required]],
     //   InterestTypeID: ['', [Validators.required]],
@@ -176,30 +182,22 @@ export class AssetsComponent {
     console.log(this.AssetsDetails.value.AssetsDetails[item]);
   }
   fa() {
-
     return this.AssetsDetails.get('AssetsDetails') as FormArray;
   }
   nestedForm(Index: number): FormArray {
-
     if (Index != undefined) {
-      var a = this.fa()
-        .at(Index)
-        .get('Mortgage') as FormArray;
+      var a = this.fa().at(Index).get('Mortgage') as FormArray;
 
       return a;
     }
   }
 
   addMortgage(index: any) {
-
-    return this.fa()
-      .at(index)
-      .get('Mortgage') as FormArray;
+    return this.fa().at(index).get('Mortgage') as FormArray;
   }
 
   employee(index: any) {
-
-    this.addMortgage(index).push(this.createMortgage())
+    this.addMortgage(index).push(this.createMortgage());
   }
 
   createMortgage(): FormGroup {
@@ -212,15 +210,15 @@ export class AssetsComponent {
       PaymentPerID: ['', [Validators.required]],
       Balance: ['', [Validators.required]],
       Refinance: ['', [Validators.required]],
-      ApplicantType: ['']
-    })
+      ApplicantType: [''],
+    });
   }
 
   createSavingDetails(): FormGroup {
     return this.rxFormBuilder.group({
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
-      OwnerID: ['']
+      OwnerID: [''],
     });
   }
 
@@ -228,7 +226,7 @@ export class AssetsComponent {
     return this.rxFormBuilder.group({
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
-      OwnerID: ['']
+      OwnerID: [''],
     });
   }
 
@@ -237,7 +235,7 @@ export class AssetsComponent {
       Make: ['', [Validators.required]],
       Year: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
-      OwnerID: ['']
+      OwnerID: [''],
     });
   }
 
@@ -246,7 +244,7 @@ export class AssetsComponent {
       AssetTypeID: [''],
       Details: [''],
       EstimatedValue: ['', [Validators.required]],
-      OwnerID: ['']
+      OwnerID: [''],
     });
   }
 
@@ -254,54 +252,79 @@ export class AssetsComponent {
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     this.Items.push(this.createAssetsDetails());
   }
-  removeAssetsDetails(index) {
+  removeAssetsDetails(index, id) {
+    debugger
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     this.Items.removeAt(index);
+    if(id > 0){
+      this.deleteAssetDetails(id);
+    }    
   }
 
   addSavingDetails(): void {
     this.Items = this.SavingDetails.get('SavingDetails') as FormArray;
     this.Items.push(this.createSavingDetails());
   }
-  removeSavingDetails(index) {
+  removeSavingDetails(index, id) {
     this.Items = this.SavingDetails.get('SavingDetails') as FormArray;
     this.Items.removeAt(index);
+    if(id > 0){
+      this.deleteSavingDetails(id);
+    } 
   }
 
   addSuperannuationDetails(): void {
-    this.Items = this.SuperannuationDetails.get('SuperannuationDetails') as FormArray;
+    this.Items = this.SuperannuationDetails.get(
+      'SuperannuationDetails'
+    ) as FormArray;
     this.Items.push(this.createSuperannuationDetails());
   }
-  removeSuperannuationDetails(index) {
-    this.Items = this.SuperannuationDetails.get('SuperannuationDetails') as FormArray;
+  removeSuperannuationDetails(index, id) {
+    this.Items = this.SuperannuationDetails.get(
+      'SuperannuationDetails'
+    ) as FormArray;
     this.Items.removeAt(index);
+    if(id > 0){
+      this.DeleteSuperannuationDetails(id);
+    } 
   }
 
   addMotorVehicleDetails(): void {
-    this.Items = this.MotorVehicleDetails.get('MotorVehicleDetails') as FormArray;
+    this.Items = this.MotorVehicleDetails.get(
+      'MotorVehicleDetails'
+    ) as FormArray;
     this.Items.push(this.createMotorVehicleDetails());
   }
-  removeMotorVehicleDetails(index) {
-    this.Items = this.MotorVehicleDetails.get('MotorVehicleDetails') as FormArray;
+  removeMotorVehicleDetails(index, id) {
+    this.Items = this.MotorVehicleDetails.get(
+      'MotorVehicleDetails'
+    ) as FormArray;
     this.Items.removeAt(index);
+    if(id > 0){
+      this.deleteMotorVehicleDetails(id);
+    } 
   }
 
   addMoreAssetDetails(): void {
     this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
     this.Items.push(this.createMoreAssetDetails());
   }
-  removeMoreAssetDetails(index) {
+  removeMoreAssetDetails(index, id) {
     this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
     this.Items.removeAt(index);
+    if(id > 0){
+      this.DeleteMoreAssetDetails(id);
+    } 
   }
+  
 
-  onSubmitAssets(){
-    debugger
+  onSubmitAssets() {
+    debugger;
     console.log(this.AssetsDetails.value);
     var assetDetails = [];
     assetDetails = this.AssetsDetails.value.AssetsDetails;
     var list = [];
-     
+
     var savings = [];
     savings = this.SavingDetails.value.SavingDetails;
     var savingsObj = [];
@@ -319,117 +342,127 @@ export class AssetsComponent {
     var moreAssetsObj = [];
 
     var mortgageList = [];
-    assetDetails.forEach(i =>{
+    assetDetails.forEach((i) => {
       var listObj = {
-      DummyPropertyID : this._sharedService.generateGUID(), 
-      StreetNumber: i.StreetNumber,
-      StreetName: i.StreetName,
-      Suburb: i.Suburb,
-      StateId: i.StateId,
-      PostCode: i.PostCode,
-      EstimatedValue: i.EstimatedValue,
-      RentReceived: i.RentReceived,
-      RentPerID: i.RentPerID,
-      IsInvestmentProperty: i.IsInvestmentProperty,
-      IsMortgage: i.IsMortgage,
-      ApplicantType: i.ApplicantType,
-      ApplicationReasonID: i.ApplicationReasonID
-    };
-    if(i.IsMortgage == true){
-      i.Mortgage.forEach(j =>{
-        var mortgageObj = {
-        Lender: j.Lender,
-        DummyPropertyID: listObj.DummyPropertyID,
-        InterestTypeID: +j.InterestTypeID,
-        InterestRate: +j.InterestRate,
-        Limit: +j.Limit,
-        Payment: +j.Payment,
-        PaymentPerID: +j.PaymentPerID,
-        Balance: +j.Balance,
-        Refinance: +j.Refinance,
-        ApplicantType: +j.ApplicantType
-        };
-        mortgageList.push(mortgageObj);
-       
-      });
-    }
+        PropertyID : i.PropertyID,
+        DummyPropertyID: this._sharedService.generateGUID(),
+        StreetNumber: i.StreetNumber,
+        StreetName: i.StreetName,
+        Suburb: i.Suburb,
+        StateId: i.StateId,
+        PostCode: i.PostCode,
+        EstimatedValue: i.EstimatedValue,
+        RentReceived: i.RentReceived,
+        RentPerID: i.RentPerID,
+        IsInvestmentProperty: i.IsInvestmentProperty,
+        IsMortgage: i.IsMortgage,
+        ApplicantType: i.ApplicantType,
+        ApplicationReasonID: i.ApplicationReasonID,
+      };
+      if (i.IsMortgage == true) {
+        i.Mortgage.forEach((j) => {
+          var mortgageObj = {
+            MortgageID: j.MortgageID,
+            Lender: j.Lender,
+            DummyPropertyID: listObj.DummyPropertyID,
+            InterestTypeID: +j.InterestTypeID,
+            InterestRate: +j.InterestRate,
+            Limit: +j.Limit,
+            Payment: +j.Payment,
+            PaymentPerID: +j.PaymentPerID,
+            Balance: +j.Balance,
+            Refinance: +j.Refinance,
+            ApplicantType: +j.ApplicantType,
+          };
+          mortgageList.push(mortgageObj);
+        });
+      }
 
-    list.push(listObj);
-  });
+      list.push(listObj);
+    });
 
-  savings.forEach(i =>{
-    var saving = {
-      Institution: i.Institution,
-      EstimatedValue: i.EstimatedValue,
-      OwnerID: i.OwnerID
-    };
-    savingsObj.push(saving);
-  })
+    savings.forEach((i) => {
+      var saving = {
+        SavingsID : i.SavingsID,
+        Institution: i.Institution,
+        EstimatedValue: i.EstimatedValue,
+        OwnerID: i.OwnerID,
+      };
+      savingsObj.push(saving);
+    });
 
-  superannuation.forEach(i =>{
-    var superannu = {
-      Institution: i.Institution,
-      EstimatedValue: i.EstimatedValue,
-      OwnerID: i.OwnerID
-    };
-    superannuationObj.push(superannu);
-  })
+    superannuation.forEach((i) => {
+      var superannu = {
+        SuperannuationID : i.SuperannuationID,
+        Institution: i.Institution,
+        EstimatedValue: i.EstimatedValue,
+        OwnerID: i.OwnerID,
+      };
+      superannuationObj.push(superannu);
+    });
 
-  motorVehicle.forEach(i =>{
-    var mv = {
-      Make: i.Make,
-      Year: i.Year,
-      EstimatedValue: i.EstimatedValue
-    };
-    motorVehicleObj.push(mv);
-  })
+    motorVehicle.forEach((i) => {
+      var mv = {
+        MotorVehicleID: i.MotorVehicleID,
+        Make: i.Make,
+        Year: i.Year,
+        EstimatedValue: i.EstimatedValue,
+      };
+      motorVehicleObj.push(mv);
+    });
 
-  moreAssets.forEach(i =>{
-    var massets = {
-      AssetTypeID: i.AssetTypeID,
-      Details: i.Details,
-      EstimatedValue: i.EstimatedValue,
-      OwnerID: i.OwnerID
-    };
-    moreAssetsObj.push(massets);
-  })
-  
+    moreAssets.forEach((i) => {
+      var massets = {
+        MoreAssetsID : i.MoreAssetsID,
+        AssetTypeID: i.AssetTypeID,
+        Details: i.Details,
+        EstimatedValue: i.EstimatedValue,
+        OwnerID: i.OwnerID,
+      };
+      moreAssetsObj.push(massets);
+    });
 
     var obj = {
       AssetsDetails: list,
       Mortgage: mortgageList,
-      Savings : savingsObj,
-      Superannuation : superannuationObj,
-      MotorVehicle : motorVehicleObj,
-      MoreAssets : moreAssetsObj,
-      ApplicationId: this.ApplicationId 
+      Savings: savingsObj,
+      Superannuation: superannuationObj,
+      MotorVehicle: motorVehicleObj,
+      MoreAssets: moreAssetsObj,
+      ApplicationId: this.ApplicationId,
     };
-    this._analysisService.saveAssets(obj).subscribe(res =>{
+    this._analysisService.saveAssets(obj).subscribe((res) => {
       console.log(res);
-    })
+    });
   }
 
   GetMortgage() {
-    return this.AssetsDetails.get(
-      'Mortgage'
-    ) as FormArray;
+    return this.AssetsDetails.get('Mortgage') as FormArray;
   }
 
-  getAllAssets(){
-    debugger
-    this._analysisService.getAllAssets(this.ApplicationId).subscribe(res =>{
+  getAllAssets() {
+    debugger;
+    this._analysisService.getAllAssets(this.ApplicationId).subscribe((res) => {
       console.log(res.body);
-      if(res.body.AssetsDetails != undefined && res.body.AssetsDetails.length > 0){
+      // if (
+      //   res.body.AssetsDetails != undefined &&
+      //   res.body.AssetsDetails.length > 0
+      // ) {
         this.patchAssetDetails(res.body.AssetsDetails);
-      }
-      
-    })
+        this.patchSavingDetails(res.body.Savings);
+        this.patchSuperannuationDetails(res.body.Superannuation);
+        this.patchMotorVehicleDetails(res.body.MotorVehicle);
+        this.patchMoreAssets(res.body.MoreAssets);
+      // }
+    });
   }
 
-  patchAssetDetails(AssetsDetails:any[]){
+  patchAssetDetails(AssetsDetails: any[]) {
+    debugger
     this.getAssetDetailsForm().clear();
-    AssetsDetails.forEach(i =>{
+    AssetsDetails.forEach((i) => {
       var form = this.rxFormBuilder.group({
+        PropertyID : [i.PropertyID],
         StreetNumber: [i.StreetNumber],
         StreetName: [i.StreetName],
         Suburb: [i.Suburb, [Validators.required]],
@@ -437,29 +470,197 @@ export class AssetsComponent {
         PostCode: [i.PostCode, [Validators.required]],
         EstimatedValue: [i.EstimatedValue, [Validators.required]],
         RentReceived: [i.RentReceived, [Validators.required]],
-        RentPerID: [i.RentPerID, [Validators.required]],
+        RentPerID: [(i.PerRentName != undefined ? this.PerRentReceived.find(item => item.PerRentName == i.RentTimePeriod).PerRentID : ''), [Validators.required]],
         IsInvestmentProperty: [i.IsInvestmentProperty],
         IsMortgage: [i.IsMortgage],
         ApplicantType: [i.ApplicantType],
         ApplicationReasonID: [''],
-        Mortgage: this.rxFormBuilder.array([{
-          Lender: ['', [Validators.required]],
-          InterestTypeID: ['', [Validators.required]],
-          InterestRate: ['', [Validators.required]],
-          Limit: ['', [Validators.required]],
-          Payment: ['', [Validators.required]],
-          PaymentPerID: ['', [Validators.required]],
-          Balance: ['', [Validators.required]],
-          Refinance: ['', [Validators.required]],
-          ApplicantType: ['']
-        }]),
+        Mortgage: this.rxFormBuilder.array([
+          {
+            MortgageID : [i.MortgageID],
+            Lender: ['', [Validators.required]],
+            InterestTypeID: ['', [Validators.required]],
+            InterestRate: ['', [Validators.required]],
+            Limit: ['', [Validators.required]],
+            Payment: ['', [Validators.required]],
+            PaymentPerID: ['', [Validators.required]],
+            Balance: ['', [Validators.required]],
+            Refinance: ['', [Validators.required]],
+            ApplicantType: [''],
+          },
+        ])        
       });
       this.getAssetDetailsForm().push(form);
-
-    })
+    });
   }
 
-  getAssetDetailsForm(){
+  patchSavingDetails(SavingDetails: any[]) {
+    this.getSavingDetailsForm().clear();
+    SavingDetails.forEach((i) => {
+      var form = this.rxFormBuilder.group({
+        SavingsID : [i.SavingsID],
+        Institution: [i.Institution, [Validators.required]],
+        EstimatedValue: [i.EstimatedValue, [Validators.required]],
+        OwnerID: [i.OwnerID],
+      });
+      this.getSavingDetailsForm().push(form);
+    });
+  }
+
+  patchSuperannuationDetails(Superannuation: any[]) {
+    this.getSuperannuationDetailsForm().clear();
+    Superannuation.forEach((i) => {
+      var form = this.rxFormBuilder.group({
+        SuperannuationID : [i.SuperannuationID],
+        Institution: [i.Institution, [Validators.required]],
+        EstimatedValue: [i.EstimatedValue, [Validators.required]],
+        OwnerID: [i.OwnerID],
+      });
+      this.getSuperannuationDetailsForm().push(form);
+    });
+  }
+
+  patchMotorVehicleDetails(MotorVehicleDetails: any[]) {
+    this.getMotorVehicleDetailsForm().clear();
+    MotorVehicleDetails.forEach((i) => {
+      var form = this.rxFormBuilder.group({
+        MotorVehicleID : [i.MotorVehicleID],
+        Make: [i.Make, [Validators.required]],
+        Year: [i.Year, [Validators.required]],
+        EstimatedValue: [i.EstimatedValue, [Validators.required]],
+        OwnerID: [i.OwnerID],
+      });
+      this.getMotorVehicleDetailsForm().push(form);
+    });
+  }
+
+  patchMoreAssets(MoreAssets: any[]) {
+    this.getMoreAssetDetailsForm().clear();
+    MoreAssets.forEach((i) => {
+      var form = this.rxFormBuilder.group({
+        MoreAssetsID : [i.MoreAssetsID],
+        AssetTypeID: [i.AssetTypeID],
+        Details: [i.Details],
+        EstimatedValue: [i.EstimatedValue, [Validators.required]],
+        OwnerID: [i.OwnerID],
+      });
+      this.getMoreAssetDetailsForm().push(form);
+    });
+  }
+
+  getAssetDetailsForm() {
     return this.AssetsDetails.get('AssetsDetails') as FormArray;
   }
+
+  getSavingDetailsForm() {
+    return this.SavingDetails.get('SavingDetails') as FormArray;
+  }
+
+  getSuperannuationDetailsForm() {
+    return this.SuperannuationDetails.get('SuperannuationDetails') as FormArray;
+  }
+
+  getMotorVehicleDetailsForm() {
+    return this.MotorVehicleDetails.get('MotorVehicleDetails') as FormArray;
+  }
+
+  getMoreAssetDetailsForm() {
+    return this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
+  }
+
+  deleteSavingDetails(id) {
+    debugger
+      var obj = {
+        PropertyID: 0,
+        MortgageID: 0,
+        SavingsID: id,
+        SuperannuationID: 0,
+        MotorVehicleID: 0,
+        MoreAssetsID: 0
+      };
+      this._analysisService.DeleteAssets(obj).subscribe(
+        (res) => {
+          this.getAllAssets();
+        },
+        (error) => {}
+      );
+    
+  }
+
+  DeleteSuperannuationDetails(id) {
+    debugger
+      var obj = {
+        PropertyID: 0,
+        MortgageID: 0,
+        SavingsID: 0,
+        SuperannuationID: id,
+        MotorVehicleID: 0,
+        MoreAssetsID: 0
+      };
+      this._analysisService.DeleteAssets(obj).subscribe(
+        (res) => {
+          this.getAllAssets();
+        },
+        (error) => {}
+      );
+    
+  }
+
+  deleteAssetDetails(id) {
+    debugger
+      var obj = {
+        PropertyID: id,
+        MortgageID: 0,
+        SavingsID: 0,
+        SuperannuationID: 0,
+        MotorVehicleID: 0,
+        MoreAssetsID: 0
+      };
+      this._analysisService.DeleteAssets(obj).subscribe(
+        (res) => {
+          this.getAllAssets();
+        },
+        (error) => {}
+      );
+    
+  }
+
+  deleteMotorVehicleDetails(id) {
+    debugger
+      var obj = {
+        PropertyID: 0,
+        MortgageID: 0,
+        SavingsID: 0,
+        SuperannuationID: 0,
+        MotorVehicleID: id,
+        MoreAssetsID: 0
+      };
+      this._analysisService.DeleteAssets(obj).subscribe(
+        (res) => {
+          this.getAllAssets();
+        },
+        (error) => {}
+      );
+    
+  }
+
+  DeleteMoreAssetDetails(id) {
+    debugger
+      var obj = {
+        PropertyID: 0,
+        MortgageID: 0,
+        SavingsID: 0,
+        SuperannuationID: 0,
+        MotorVehicleID: 0,
+        MoreAssetsID: id
+      };
+      this._analysisService.DeleteAssets(obj).subscribe(
+        (res) => {
+          this.getAllAssets();
+        },
+        (error) => {}
+      );
+    
+  }
+
 }

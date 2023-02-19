@@ -29,7 +29,7 @@
 
           <div class="col-9 text-right">
             <button
-              (click)="removeAssetsDetails(i)"
+              (click)="removeAssetsDetails(i,+item.get('PropertyID').value)"
               class="pointer"
               mat-fab
               color="primary"
@@ -161,7 +161,7 @@
             <mat-select placeholder="Per" formControlName="RentPerID">
               <ng-container *ngFor="let item of PerRentReceived">
                 <mat-option
-                  [value]="item.PerRentID"
+                  [value]="item.PerRentName"
                   *ngIf="item.PerRentID != 40"
                 >
                   {{ item.PerRentName }}
@@ -347,13 +347,13 @@
         <div class="row mx-3 py-2">
           <div class="col-3 text-left">
             <span class="font-w-bold">
-              Real Estate - Property #{{ i + 1 }}
+              Savings #{{ i + 1 }}
             </span>
           </div>
 
           <div class="col-9 text-right">
             <button
-              (click)="removeSavingDetails(i)"
+              (click)="removeSavingDetails(i,+item.get('SavingsID').value)"
               class="pointer"
               mat-fab
               color="primary"
@@ -456,7 +456,7 @@
 
           <div class="col-9 text-right">
             <button
-              (click)="removeSuperannuationDetails(i)"
+              (click)="removeSuperannuationDetails(i,+item.get('SuperannuationID').value)"
               class="pointer"
               mat-fab
               color="primary"
@@ -557,7 +557,7 @@
 
           <div class="col-9 text-right">
             <button
-              (click)="removeMotorVehicleDetails(i)"
+              (click)="removeMotorVehicleDetails(i,+item.get('MotorVehicleID').value)"
               class="pointer"
               mat-fab
               color="primary"
@@ -658,7 +658,7 @@
 
           <div class="col-9 text-right">
             <button
-              (click)="removeMoreAssetDetails(i)"
+              (click)="removeMoreAssetDetails(i,+item.get('MoreAssetsID').value)"
               class="pointer"
               mat-fab
               color="primary"
