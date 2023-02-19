@@ -176,7 +176,7 @@ export class LiabilitiesComponent implements OnInit {
       var obj = {};
       this.AddPersonalLoan.value.ApplicantLaibilities.forEach((i) => {
         debugger;
-        i.ApplicantTypeId = this.clearDuplicatesInArray(i.ApplicantTypeId)
+        //i.ApplicantTypeId = this.clearDuplicatesInArray(i.ApplicantTypeId)
         obj = {
           LiabilityID: +i.LiabilityID,
           LiabilityTypeId: +i.LiabilityTypeId,
@@ -345,6 +345,11 @@ export class LiabilitiesComponent implements OnInit {
         res.body.Liabilities.length > 0
       ) {
         this.PatchLiabilitiesValue(res.body.Liabilities);
+      }else {
+        this.GetLiabilitiesForm(1).clear();
+        this.GetLiabilitiesForm(2).clear();
+        this.GetLiabilitiesForm(3).clear();
+        this.GetLiabilitiesForm(4).clear();
       }
     });
   }
@@ -413,4 +418,10 @@ export class LiabilitiesComponent implements OnInit {
     }
     return array;
   }
+  DeleteLiability(id){
+    this._liabilitiesService.DeleteLiability(id).subscribe((res: any) => {
+      this.GetLiabilities();
+    })
+  }
+
 }
