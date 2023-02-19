@@ -103,9 +103,9 @@
                       [ngClass]="i2 == 0 ? 'pl-0' : ''"
                     >
                       <mat-checkbox
-                        (change)="onChange($event,i,+item.get('LiabilityTypeId').value)"
+                        (change)="onChange($event,i,+item.get('LiabilityTypeId').value); item2.IsChecked = !item2.IsChecked"
                         [value]="item2.ApplicantId"
-                        [checked]="item?.get('ApplicantTypeId')?.at(i2)?.value == item2.ApplicantId"
+                        [checked]="item2.IsChecked == true"
                       >
                         {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
                       </mat-checkbox>

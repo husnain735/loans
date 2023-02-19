@@ -54,12 +54,12 @@ export class HomeComponent {
     this.applicationObj = new Application();
   }
   onSubmit() {
+    debugger
     this.isSubmitted = true;
     if (this.userAddressValidations.invalid) {
       return;
     }
     else{
-
       this.applicationObj = new Application();
       this.applicationObj.EmailAddress = this.userAddressValidations.value.Email;
       this.applicationObj.LoansBrokerId = this.userAddressValidations.value.LoansBroker;
