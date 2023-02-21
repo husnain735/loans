@@ -162,9 +162,6 @@ export class ReasonApplicationComponent implements OnInit {
         });
       }
       this.SelectCheckbox = []
-      // if (res.body.ReasonsForApplication_Checkbox != undefined && res.body.ReasonsForApplication_Checkbox.length > 0) {
-
-      // }
       var interests = this.GetApplicantOtherIncome();
         interests.clear();
         this.ApplicationReason.forEach(i => {
