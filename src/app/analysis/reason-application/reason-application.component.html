@@ -19,7 +19,7 @@
           <mat-checkbox
             class="example-margin"
             [checked]="item.IsChecked"
-            (change)="onChange(item.IsChecked = !item.IsChecked,selectChecbox())"
+            (change)="item.IsChecked = !item.IsChecked;selectChecbox(item.ApplicationReasonId)"
             [value]="item.ApplicationReasonId"
           >
             {{ item.ApplicationReasonName }}

@@ -62,7 +62,7 @@ export class ReasonApplicationComponent implements OnInit {
   ApplicationReason: any = [];
   isSubmitted = false;
   ApplicationId: string;
-  SelectCheckbox: any[];
+  SelectCheckbox: any[] = [];
   constructor(private _formBuilder: FormBuilder,private _analysisService: AnalysisService,
      private route: ActivatedRoute, private _reasonForApplication: ReasonForApplicationService) {
 
@@ -107,14 +107,17 @@ export class ReasonApplicationComponent implements OnInit {
     })
   }
   onChange(event) {
-    const interests = <FormArray>this.ApplicantReasonForm.get('ApplicationReason') as FormArray;
+    if (this.ApplicantReasonForm.get('ReasonForApplicationId').value == null) {
+      var interests = this.GetApplicantOtherIncome();
 
-    if(event.checked) {
-      interests.push(new FormControl(event.source.value))
-    } else {
-      const i = interests.controls.findIndex(x => x.value === event.source.value);
-      interests.removeAt(i);
+      if(event.checked) {
+        interests.push(new FormControl(event.source.value))
+      } else {
+        var i = interests.controls.findIndex(x => x.value === event.source.value);
+        interests.removeAt(i);
+      }
     }
+
   }
   onReasonSubmit(){
     if (this.ApplicantReasonForm.invalid) {
@@ -152,13 +155,18 @@ export class ReasonApplicationComponent implements OnInit {
       }else {
         this.initGroup(null);
       }
-      this.ApplicantReasonForm.patchValue({
-        Loan: res.body.ReasonsForApplication.LoanDiscription,
-        ReasonForApplicationId: res.body.ReasonsForApplication.Id
-      });
-      debugger
+      if (res.body.ReasonsForApplication != null) {
+        this.ApplicantReasonForm.patchValue({
+          Loan: res.body.ReasonsForApplication.LoanDiscription,
+          ReasonForApplicationId: res.body.ReasonsForApplication.Id
+        });
+      }
       this.SelectCheckbox = []
-      if (res.body.ReasonsForApplication_Checkbox != undefined && res.body.ReasonsForApplication_Checkbox.length > 0) {
+      // if (res.body.ReasonsForApplication_Checkbox != undefined && res.body.ReasonsForApplication_Checkbox.length > 0) {
+
+      // }
+      var interests = this.GetApplicantOtherIncome();
+        interests.clear();
         this.ApplicationReason.forEach(i => {
           var idx = res.body.ReasonsForApplication_Checkbox.findIndex(j => j.ApplicationReasonId == i.ApplicationReasonId);
           if (idx > -1) {
@@ -168,6 +176,7 @@ export class ReasonApplicationComponent implements OnInit {
               ApplicationReasonName: i.ApplicationReasonName
             }
             this.SelectCheckbox.push(obj);
+            interests.push(new FormControl(i.ApplicationReasonId));
           }else {
             var obj = {
               IsChecked: false,
@@ -177,10 +186,19 @@ export class ReasonApplicationComponent implements OnInit {
             this.SelectCheckbox.push(obj);
           }
         })
-      }
     })
   }
-  selectChecbox(){
-    console.log(this.SelectCheckbox)
+  GetApplicantOtherIncome() {
+    return this.ApplicantReasonForm.get('ApplicationReason') as FormArray;
+  }
+  selectChecbox(applicationId){
+    debugger
+    var interests = this.GetApplicantOtherIncome();
+    var idx = interests.value.findIndex(i => i == applicationId);
+    if (idx == -1) {
+      interests.push(new FormControl(applicationId));
+    }else {
+      interests.removeAt(idx);
+    }
   }
 }
