@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { ReasonForApplicationService } from 'src/app/shared/services/reasonForApplication.service';
 
