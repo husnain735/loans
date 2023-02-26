@@ -9,9 +9,9 @@ import { AnalysisService } from 'src/app/shared/services/analysis.service';
 })
 export class RetirementPlansComponent {
 
-  // RetirementPlans = this._formBuilder.group({
-  //   RetirementAge: ['', [Validators.required]]
-  // });
+  RetirementPlans = this._formBuilder.group({
+    RetirementAge: ['', [Validators.required]]
+  });
 
   constructor(private _formBuilder: FormBuilder,private _analysisService: AnalysisService) {
 
