@@ -64,16 +64,18 @@ export class RiskInsuranceProfileComponent implements OnInit {
       ApplicationId: this.ApplicationId
     }
     this._riskInsuranceProfileService.GetRiskInsuranceProfile(obj).subscribe((res: any) => {
-      this.RiskInsuranceForm = this.rxFormBuilder.group({
-        Id: [res.body.Id],
-        ClearCreditFile: [res.body.ClearCreditFile, [RxwebValidators.required()]],
-        RepaymentsOnLiabilities : [res.body.RepaymentsOnLiabilities, [RxwebValidators.required()]],
-        JobsChanging: [res.body.JobsChanging, [RxwebValidators.required()]],
-        JobsChangingSpecification: [res.body.JobsChangingSpecification, [RxwebValidators.required({ conditionalExpression: (x) => x.JobsChanging == 1 })]],
-        ThingsInsurance: [res.body.ThingsInsurance, [RxwebValidators.required()]],
-        PersonalInsurance: [res.body.PersonalInsurance, [RxwebValidators.required()]],
-        DiscussInsurance: [res.body.DiscussInsurance, [RxwebValidators.required({ conditionalExpression: (x) => x.PersonalInsurance == 0 && x.ThingsInsurance == 0})]],
-      })
+      if (res.body != undefined) {
+        this.RiskInsuranceForm = this.rxFormBuilder.group({
+          Id: [res.body.Id],
+          ClearCreditFile: [res.body.ClearCreditFile, [RxwebValidators.required()]],
+          RepaymentsOnLiabilities : [res.body.RepaymentsOnLiabilities, [RxwebValidators.required()]],
+          JobsChanging: [res.body.JobsChanging, [RxwebValidators.required()]],
+          JobsChangingSpecification: [res.body.JobsChangingSpecification, [RxwebValidators.required({ conditionalExpression: (x) => x.JobsChanging == 1 })]],
+          ThingsInsurance: [res.body.ThingsInsurance, [RxwebValidators.required()]],
+          PersonalInsurance: [res.body.PersonalInsurance, [RxwebValidators.required()]],
+          DiscussInsurance: [res.body.DiscussInsurance, [RxwebValidators.required({ conditionalExpression: (x) => x.PersonalInsurance == 0 && x.ThingsInsurance == 0})]],
+        })
+      }
     });
   }
 }
