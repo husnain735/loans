@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+<div class="p-3">
   <h1>Retirement Plans</h1>
   <form [formGroup]="RetirementPlans">
     <div class="row">
@@ -10,7 +10,6 @@
         <mat-select
           placeholder="Age"
           formControlName="RetirementAge"
-          (selectionChange)="selectRetirementAge($event)"
         >
           <mat-option *ngFor="let item of RetirementAge" [value]="item">
             {{ item }}
@@ -19,78 +18,39 @@
       </mat-form-field>
     </div>
 
-    <!-- <div class="row">
+    <div class="row">
       <div class="col-12">
         <p class="font-18 m-0">
           If you are planning to retire before the end of the anticipated loan
           term, please advise how you intend to make your repayments:
         </p>
-
-        <section>
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox1"> </mat-checkbox>
-              <span for="checkbox1">Repayment of loan prior to retirement</span>
-            </label>
+        <ng-container formArrayName="Checkboxs">
+          <div class="d-flex" *ngFor="let item of RetirementPlansCheckbox; let i = index">
+            <mat-checkbox
+              class="example-margin"
+              [checked]="item.IsChecked"
+              [value]="item.Id"
+              (change)="item.IsChecked = !item.IsChecked"
+            >
+              {{ item.Name }}
+            </mat-checkbox>
           </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox2"> </mat-checkbox>
-              <span for="checkbox2">Downsizing home</span>
-            </label>
-          </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox3"> </mat-checkbox>
-              <span for="checkbox3"
-                >Sale of assets (e.g. investment property or shares)</span
-              >
-            </label>
-          </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox4"> </mat-checkbox>
-              <span for="checkbox4">Ongoing income from your superannuation</span>
-            </label>
-          </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox5"> </mat-checkbox>
-              <span for="checkbox5"
-                >Superannuation lump sum following retirement</span
-              >
-            </label>
-          </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox6"> </mat-checkbox>
-              <span for="checkbox6"
-                >Income from other investments (e.g. shares, rental income)</span
-              >
-            </label>
-          </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="checkbox7"> </mat-checkbox>
-              <span for="checkbox7">Co-applicants income</span>
-            </label>
-          </div>
-
-          <div>
-            <label class="font-18 pointer">
-              <mat-checkbox id="ceckbox8"> </mat-checkbox>
-              <span for="ceckbox8">Reducing loan term</span>
-            </label>
-          </div>
-        </section>
+        </ng-container>
       </div>
-    </div> -->
+    </div>
   </form>
-
+  <div class="step-nav">
+    <div class="d-flex justify-content-between align-items-center">
+      <button mat-flat-button [routerLink]="">Back</button>
+      <button
+        (click)="onRetirementPlanSubmit()"
+        mat-raised-button
+        color="primary"
+        class="next"
+      >
+        Next
+        <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
 </div>

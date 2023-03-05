@@ -54,7 +54,7 @@ export class HomeComponent {
     this.applicationObj = new Application();
   }
   onSubmit() {
-    debugger
+
     this.isSubmitted = true;
     if (this.userAddressValidations.invalid) {
       return;
@@ -65,10 +65,12 @@ export class HomeComponent {
       this.applicationObj.LoansBrokerId = this.userAddressValidations.value.LoansBroker;
       this.applicationObj.ReasonIDS = this.userAddressValidations.value.ApplicationReason.toString();
       this._analysisService.saveApplication(this.applicationObj).subscribe((res:any) =>{
-        console.log(res);
-        this.guid = res.body;
-        localStorage.setItem('ApplicationId',this.guid);
-        this.router.navigate(['client/' + this.guid + '/applicant']);
+        if (res.body != '0') {
+          this.guid = res.body;
+          localStorage.setItem('ApplicationId',this.guid);
+          this.router.navigate(['client/' + this.guid + '/applicant']);
+        }
+
       })
     }
 

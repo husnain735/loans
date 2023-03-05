@@ -77,7 +77,7 @@ export class AnalysisComponent implements OnInit {
     // );
   }
   ngOnInit() {
-    debugger
+
     console.log(this.router.url);
     this.sidenav.toggle(true);
     this.getMeta();

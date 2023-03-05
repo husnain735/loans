@@ -45,6 +45,7 @@ export class LiabilitiesComponent implements OnInit {
     },
   ];
   ApplicationId: string;
+  ApplicantIds: any[] = [];
   constructor(
     public _sharedService: SharedService,
     private _formBuilder: FormBuilder,
@@ -90,9 +91,22 @@ export class LiabilitiesComponent implements OnInit {
         'ApplicantLaibilities'
       ) as FormArray;
     }
-    this.LaibilityItems.push(this.createApplicantLaibility(LiabilityTypeId));
+    var guid = this._sharedService.generateGUID();
+    var SortOrder = this.LaibilityItems.value.length + 1;
+    this.LaibilityItems.push(
+      this.createApplicantLaibility(LiabilityTypeId, guid, SortOrder)
+    );
+    for (const i of this._sharedService.TotalApplicants) {
+      var obj = {
+        Name: i.FirstName + ' ' + i.SurName,
+        ApplicantId: i.ApplicantId,
+        IsChecked: false,
+        LiabilityID: guid,
+      };
+      this.ApplicantIds.push(obj);
+    }
   }
-  createApplicantLaibility(LiabilityTypeId): FormGroup {
+  createApplicantLaibility(LiabilityTypeId, guid, SortOrder): FormGroup {
     return this._formBuilder.group({
       LiabilityID: [],
       LiabilityTypeId: [LiabilityTypeId],
@@ -108,6 +122,8 @@ export class LiabilitiesComponent implements OnInit {
         }),
       ],
       IsRefinance: ['', [Validators.required]],
+      RandomId: guid,
+      SortOrder: SortOrder,
     });
   }
   removeApplicantLaibility(index, LiabilityTypeId) {
@@ -175,8 +191,6 @@ export class LiabilitiesComponent implements OnInit {
     ) {
       var obj = {};
       this.AddPersonalLoan.value.ApplicantLaibilities.forEach((i) => {
-        debugger;
-        //i.ApplicantTypeId = this.clearDuplicatesInArray(i.ApplicantTypeId)
         obj = {
           LiabilityID: +i.LiabilityID,
           LiabilityTypeId: +i.LiabilityTypeId,
@@ -187,6 +201,7 @@ export class LiabilitiesComponent implements OnInit {
           ApplicantTypeId: i.ApplicantTypeId,
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
+          SortOrder: +i.SortOrder,
         };
         liabilities.push(obj);
       });
@@ -207,6 +222,7 @@ export class LiabilitiesComponent implements OnInit {
           ApplicantTypeId: i.ApplicantTypeId,
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
+          SortOrder: +i.SortOrder,
         };
         liabilities.push(obj);
       });
@@ -227,6 +243,7 @@ export class LiabilitiesComponent implements OnInit {
           ApplicantTypeId: i.ApplicantTypeId,
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
+          SortOrder: +i.SortOrder,
         };
         liabilities.push(obj);
       });
@@ -247,6 +264,7 @@ export class LiabilitiesComponent implements OnInit {
           ApplicantTypeId: i.ApplicantTypeId,
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
+          SortOrder: +i.SortOrder,
         };
         liabilities.push(obj);
       });
@@ -344,8 +362,11 @@ export class LiabilitiesComponent implements OnInit {
         res.body.Liabilities != undefined &&
         res.body.Liabilities.length > 0
       ) {
-        this.PatchLiabilitiesValue(res.body.Liabilities);
-      }else {
+        this.PatchLiabilitiesValue(
+          res.body.Liabilities,
+          res.body.liabilities_Applicants_Links
+        );
+      } else {
         this.GetLiabilitiesForm(1).clear();
         this.GetLiabilitiesForm(2).clear();
         this.GetLiabilitiesForm(3).clear();
@@ -353,13 +374,13 @@ export class LiabilitiesComponent implements OnInit {
       }
     });
   }
-  PatchLiabilitiesValue(Liabilities: any[]) {
+  PatchLiabilitiesValue(Liabilities: any[], checkboxArray: any[]) {
     this.GetLiabilitiesForm(1).clear();
     this.GetLiabilitiesForm(2).clear();
     this.GetLiabilitiesForm(3).clear();
     this.GetLiabilitiesForm(4).clear();
+    this.ApplicantIds = [];
     Liabilities.forEach((i) => {
-      var applicantsIds = i.ApplicantIds.split(',');
       var form = this._formBuilder.group({
         LiabilityID: i.LiabilityID,
         LiabilityTypeId: i.LiabilityTypeID,
@@ -378,31 +399,137 @@ export class LiabilitiesComponent implements OnInit {
           i.IsRefinance == false
             ? ['false', [Validators.required]]
             : ['true', [Validators.required]],
+        RandomId: i.LiabilityID,
       });
+
       if (i.LiabilityTypeID == 1) {
-        this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
-        const ApplicantLaibilities = (<FormArray>(
-          this.AddPersonalLoan.get('ApplicantLaibilities')
-        )) as FormArray;
-        var index = ApplicantLaibilities.value.findIndex(
+        var idx = checkboxArray.findIndex(
           (j) => j.LiabilityID == i.LiabilityID
         );
-        if (index > -1) {
-          const Applicants = (<FormArray>(
-            ApplicantLaibilities.at(index).get('ApplicantTypeId')
-          )) as FormArray;
-          applicantsIds.forEach((c) => {
-            Applicants.push(new FormControl(c));
-          });
+        if (idx > -1) {
+          for (const k of this._sharedService.TotalApplicants) {
+            var idx2 = checkboxArray.findIndex(
+              (j) =>
+                j.ApplicantId == k.ApplicantId && j.LiabilityID == i.LiabilityID
+            );
+            if (idx2 > -1) {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: true,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            } else {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: false,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            }
+          }
         }
+        this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
+        this.selectChecbox(i.LiabilityID, i.LiabilityTypeID);
       } else if (i.LiabilityTypeID == 2) {
+        var idx = checkboxArray.findIndex(
+          (j) => j.LiabilityID == i.LiabilityID
+        );
+        if (idx > -1) {
+          for (const k of this._sharedService.TotalApplicants) {
+            var idx2 = checkboxArray.findIndex(
+              (j) =>
+                j.ApplicantId == k.ApplicantId && j.LiabilityID == i.LiabilityID
+            );
+            if (idx2 > -1) {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: true,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            } else {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: false,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            }
+          }
+        }
         this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
-      } else if (i.LiabilityTypeID == 3) {
+        this.selectChecbox(i.LiabilityID, i.LiabilityTypeID);
+      }else if (i.LiabilityTypeID == 3) {
+        var idx = checkboxArray.findIndex(
+          (j) => j.LiabilityID == i.LiabilityID
+        );
+        if (idx > -1) {
+          for (const k of this._sharedService.TotalApplicants) {
+            var idx2 = checkboxArray.findIndex(
+              (j) =>
+                j.ApplicantId == k.ApplicantId && j.LiabilityID == i.LiabilityID
+            );
+            if (idx2 > -1) {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: true,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            } else {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: false,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            }
+          }
+        }
         this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
-      } else if (i.LiabilityTypeID == 4) {
+        this.selectChecbox(i.LiabilityID, i.LiabilityTypeID);
+      }else if (i.LiabilityTypeID == 4) {
+        var idx = checkboxArray.findIndex(
+          (j) => j.LiabilityID == i.LiabilityID
+        );
+        if (idx > -1) {
+          for (const k of this._sharedService.TotalApplicants) {
+            var idx2 = checkboxArray.findIndex(
+              (j) =>
+                j.ApplicantId == k.ApplicantId && j.LiabilityID == i.LiabilityID
+            );
+            if (idx2 > -1) {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: true,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            } else {
+              var obj = {
+                Name: k.FirstName + ' ' + k.SurName,
+                ApplicantId: k.ApplicantId,
+                IsChecked: false,
+                LiabilityID: i.LiabilityID,
+              };
+              this.ApplicantIds.push(obj);
+            }
+          }
+        }
         this.GetLiabilitiesForm(i.LiabilityTypeID).push(form);
+        this.selectChecbox(i.LiabilityID, i.LiabilityTypeID);
       }
     });
+
+    console.log(this.AddPersonalLoan.value.ApplicantLaibilities);
   }
   clearDuplicatesInArray(array) {
     var i = array.length,
@@ -418,10 +545,96 @@ export class LiabilitiesComponent implements OnInit {
     }
     return array;
   }
-  DeleteLiability(id){
+  DeleteLiability(id) {
     this._liabilitiesService.DeleteLiability(id).subscribe((res: any) => {
       this.GetLiabilities();
-    })
+    });
   }
+  selectChecbox(liabilityId, LiabilityTypeId) {
+    if (LiabilityTypeId == 1) {
+      const ApplicantLaibilities = (<FormArray>(
+        this.AddPersonalLoan.get('ApplicantLaibilities')
+      )) as FormArray;
 
+      var idx = ApplicantLaibilities.value.findIndex(
+        (i) => i.RandomId == liabilityId
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantLaibilities.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.LiabilityID == liabilityId) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    } else if (LiabilityTypeId == 2) {
+      const ApplicantLaibilities = (<FormArray>(
+        this.AddCreditCardLoan.get('ApplicantLaibilities')
+      )) as FormArray;
+
+      var idx = ApplicantLaibilities.value.findIndex(
+        (i) => i.RandomId == liabilityId
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantLaibilities.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.LiabilityID == liabilityId) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    } else if (LiabilityTypeId == 3) {
+      const ApplicantLaibilities = (<FormArray>(
+        this.AddSalaryScrificesLoan.get('ApplicantLaibilities')
+      )) as FormArray;
+
+      var idx = ApplicantLaibilities.value.findIndex(
+        (i) => i.RandomId == liabilityId
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantLaibilities.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.LiabilityID == liabilityId) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    } else if (LiabilityTypeId == 4) {
+      const ApplicantLaibilities = (<FormArray>(
+        this.AddOtherLoan.get('ApplicantLaibilities')
+      )) as FormArray;
+
+      var idx = ApplicantLaibilities.value.findIndex(
+        (i) => i.RandomId == liabilityId
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantLaibilities.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.LiabilityID == liabilityId) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    }
+  }
 }
