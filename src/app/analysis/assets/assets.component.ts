@@ -491,7 +491,7 @@ export class AssetsComponent {
         ])        
       });
       this.getAssetDetailsForm().push(form);
-    });
+    }); 
   }
 
   patchSavingDetails(SavingDetails: any[]) {

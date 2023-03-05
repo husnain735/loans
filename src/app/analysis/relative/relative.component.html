@@ -8,10 +8,10 @@
           <input matInput placeholder="Full Name" formControlName="FullName" />
         </mat-form-field>
         <mat-form-field class="col-6 w-100">
-          <mat-label>Relation Ship To You</mat-label>
+          <mat-label>Relationship To You</mat-label>
           <input
             matInput
-            placeholder="Relation Ship To You"
+            placeholder="Relationship To You"
             formControlName="RelationShipToYou"
           />
         </mat-form-field>
@@ -22,7 +22,7 @@
               <mat-radio-group formControlName="ApplicantId">
                 <mat-radio-button
                   *ngFor="let item of sharedService.TotalApplicants"
-                  [value]="item.ApplicationId"
+                  [value]="item.ApplicantId"
                   >{{ item.FirstName }}&nbsp;{{
                     item.SurName
                   }}</mat-radio-button

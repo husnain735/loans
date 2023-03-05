@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Application } from 'src/app/models/application';
 import { ApiService } from './api.service';
+import { ApplicantsComponent } from 'src/app/analysis/applicants/applicants.component';
 
 
 @Injectable({
@@ -52,4 +53,29 @@ export class AnalysisService {
     var url = 'Assets/DeleteAssets';
     return this.apiService.post(`${url}`, obj);
   }
+
+  SaveRelative(obj: any): Observable<any> {
+    var url = 'Relative/SaveRelativeDetails';
+    return this.apiService.post(`${url}`, obj);
+  }
+
+  GetRelative(id: any): Observable<any> {
+    var url = 'Relative/GetRelativeDetails';
+    var application : Application = new Application();
+    application.ApplicationId = id;
+    return this.apiService.post(`${url}`, application);
+  }
+
+  SaveFinancialGoals(obj: any): Observable<any> {
+    var url = 'FinancialGoals/SaveFinancialGoals';
+    return this.apiService.post(`${url}`, obj);
+  }
+
+  GetFinancialGoals(id: any): Observable<any> {
+    var url = 'FinancialGoals/GetFinancialGoals';
+    var application : Application = new Application();
+    application.ApplicationId = id;
+    return this.apiService.post(`${url}`, application);
+  }
+
 }
