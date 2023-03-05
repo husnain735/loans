@@ -93,21 +93,20 @@
               <div class="col-6 w-100">
                 <label class="constant"> Name on Liabilitiy </label>
                 <div>
-                  <ng-container formArrayName="ApplicantTypeId">
+                  <ng-container *ngIf="ApplicantIds != undefined && ApplicantIds.length > 0">
                     <span
-                      class=""
                       *ngFor="
-                        let item2 of _sharedService.TotalApplicants;
+                        let item2 of ApplicantIds| filter : item.get('RandomId').value : 'LiabilityID';
                         let i2 = index
                       "
                       [ngClass]="i2 == 0 ? 'pl-0' : ''"
                     >
                       <mat-checkbox
-                        (change)="onChange($event,i,+item.get('LiabilityTypeId').value); item2.IsChecked = !item2.IsChecked"
+                        (change)="item2.IsChecked = !item2.IsChecked;selectChecbox(item.get('RandomId').value,+item.get('LiabilityTypeId').value)"
                         [value]="item2.ApplicantId"
                         [checked]="item2.IsChecked == true"
                       >
-                        {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
+                        {{ item2.Name }}
                       </mat-checkbox>
                     </span>
                   </ng-container>
@@ -236,20 +235,20 @@
               <div class="col-6 w-100">
                 <label class="constant"> Name on Liabilitiy </label>
                 <div>
-                  <ng-container formArrayName="ApplicantTypeId">
+                  <ng-container *ngIf="ApplicantIds != undefined && ApplicantIds.length > 0">
                     <span
-                      class=""
                       *ngFor="
-                        let item2 of _sharedService.TotalApplicants;
+                        let item2 of ApplicantIds| filter : item.get('RandomId').value : 'LiabilityID';
                         let i2 = index
                       "
                       [ngClass]="i2 == 0 ? 'pl-0' : ''"
                     >
                       <mat-checkbox
-                        (change)="onChange($event,i,+item.get('LiabilityTypeId').value)"
+                        (change)="item2.IsChecked = !item2.IsChecked;selectChecbox(item.get('RandomId').value,+item.get('LiabilityTypeId').value)"
                         [value]="item2.ApplicantId"
+                        [checked]="item2.IsChecked == true"
                       >
-                        {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
+                        {{ item2.Name }}
                       </mat-checkbox>
                     </span>
                   </ng-container>
@@ -382,21 +381,20 @@
               <div class="col-6 w-100">
                 <label class="constant"> Name on Liabilitiy </label>
                 <div>
-                  <ng-container formArrayName="ApplicantTypeId">
+                  <ng-container *ngIf="ApplicantIds != undefined && ApplicantIds.length > 0">
                     <span
-                      class=""
                       *ngFor="
-                        let item2 of _sharedService.TotalApplicants;
+                        let item2 of ApplicantIds| filter : item.get('RandomId').value : 'LiabilityID';
                         let i2 = index
                       "
                       [ngClass]="i2 == 0 ? 'pl-0' : ''"
                     >
                       <mat-checkbox
-                        (change)="onChange($event,i,+item.get('LiabilityTypeId').value)"
+                        (change)="item2.IsChecked = !item2.IsChecked;selectChecbox(item.get('RandomId').value,+item.get('LiabilityTypeId').value)"
                         [value]="item2.ApplicantId"
-
+                        [checked]="item2.IsChecked == true"
                       >
-                        {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
+                        {{ item2.Name }}
                       </mat-checkbox>
                     </span>
                   </ng-container>
@@ -529,20 +527,20 @@
               <div class="col-6 w-100">
                 <label class="constant"> Name on Liabilitiy </label>
                 <div>
-                  <ng-container formArrayName="ApplicantTypeId">
+                  <ng-container *ngIf="ApplicantIds != undefined && ApplicantIds.length > 0">
                     <span
-                      class=""
                       *ngFor="
-                        let item2 of _sharedService.TotalApplicants;
+                        let item2 of ApplicantIds| filter : item.get('RandomId').value : 'LiabilityID';
                         let i2 = index
                       "
                       [ngClass]="i2 == 0 ? 'pl-0' : ''"
                     >
                       <mat-checkbox
-                        (change)="onChange($event,i,+item.get('LiabilityTypeId').value)"
+                        (change)="item2.IsChecked = !item2.IsChecked;selectChecbox(item.get('RandomId').value,+item.get('LiabilityTypeId').value)"
                         [value]="item2.ApplicantId"
+                        [checked]="item2.IsChecked == true"
                       >
-                        {{ item2.FirstName }}&nbsp;{{ item2.SurName }}
+                        {{ item2.Name }}
                       </mat-checkbox>
                     </span>
                   </ng-container>

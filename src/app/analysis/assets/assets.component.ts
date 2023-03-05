@@ -253,12 +253,12 @@ export class AssetsComponent {
     this.Items.push(this.createAssetsDetails());
   }
   removeAssetsDetails(index, id) {
-    debugger
+
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     this.Items.removeAt(index);
     if(id > 0){
       this.deleteAssetDetails(id);
-    }    
+    }
   }
 
   addSavingDetails(): void {
@@ -270,7 +270,7 @@ export class AssetsComponent {
     this.Items.removeAt(index);
     if(id > 0){
       this.deleteSavingDetails(id);
-    } 
+    }
   }
 
   addSuperannuationDetails(): void {
@@ -286,7 +286,7 @@ export class AssetsComponent {
     this.Items.removeAt(index);
     if(id > 0){
       this.DeleteSuperannuationDetails(id);
-    } 
+    }
   }
 
   addMotorVehicleDetails(): void {
@@ -302,7 +302,7 @@ export class AssetsComponent {
     this.Items.removeAt(index);
     if(id > 0){
       this.deleteMotorVehicleDetails(id);
-    } 
+    }
   }
 
   addMoreAssetDetails(): void {
@@ -314,12 +314,12 @@ export class AssetsComponent {
     this.Items.removeAt(index);
     if(id > 0){
       this.DeleteMoreAssetDetails(id);
-    } 
+    }
   }
-  
+
 
   onSubmitAssets() {
-    debugger;
+    ;
     console.log(this.AssetsDetails.value);
     var assetDetails = [];
     assetDetails = this.AssetsDetails.value.AssetsDetails;
@@ -441,7 +441,7 @@ export class AssetsComponent {
   }
 
   getAllAssets() {
-    debugger;
+    ;
     this._analysisService.getAllAssets(this.ApplicationId).subscribe((res) => {
       console.log(res.body);
       // if (
@@ -458,7 +458,7 @@ export class AssetsComponent {
   }
 
   patchAssetDetails(AssetsDetails: any[]) {
-    debugger
+
     this.getAssetDetailsForm().clear();
     AssetsDetails.forEach((i) => {
       var form = this.rxFormBuilder.group({
@@ -488,7 +488,7 @@ export class AssetsComponent {
             Refinance: ['', [Validators.required]],
             ApplicantType: [''],
           },
-        ])        
+        ])
       });
       this.getAssetDetailsForm().push(form);
     }); 
@@ -569,7 +569,7 @@ export class AssetsComponent {
   }
 
   deleteSavingDetails(id) {
-    debugger
+
       var obj = {
         PropertyID: 0,
         MortgageID: 0,
@@ -584,11 +584,11 @@ export class AssetsComponent {
         },
         (error) => {}
       );
-    
+
   }
 
   DeleteSuperannuationDetails(id) {
-    debugger
+
       var obj = {
         PropertyID: 0,
         MortgageID: 0,
@@ -603,11 +603,11 @@ export class AssetsComponent {
         },
         (error) => {}
       );
-    
+
   }
 
   deleteAssetDetails(id) {
-    debugger
+
       var obj = {
         PropertyID: id,
         MortgageID: 0,
@@ -622,11 +622,11 @@ export class AssetsComponent {
         },
         (error) => {}
       );
-    
+
   }
 
   deleteMotorVehicleDetails(id) {
-    debugger
+
       var obj = {
         PropertyID: 0,
         MortgageID: 0,
@@ -641,11 +641,11 @@ export class AssetsComponent {
         },
         (error) => {}
       );
-    
+
   }
 
   DeleteMoreAssetDetails(id) {
-    debugger
+
       var obj = {
         PropertyID: 0,
         MortgageID: 0,
@@ -660,7 +660,7 @@ export class AssetsComponent {
         },
         (error) => {}
       );
-    
+
   }
 
 }

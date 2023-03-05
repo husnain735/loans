@@ -35,13 +35,13 @@ export class AnalysisService {
   }
 
   saveAssets(obj: any){
-    debugger
+
     var url = 'Assets/SaveAssets'
     return this.apiService.post(`${url}`, obj);
   }
 
   getAllAssets(ApplicationID: string): Observable<any> {
-    debugger 
+
     var url = 'Assets/GetAllAssets'
     var application : Application;
     application = new Application();

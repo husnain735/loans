@@ -188,7 +188,7 @@ export class ReasonApplicationComponent implements OnInit {
     return this.ApplicantReasonForm.get('ApplicationReason') as FormArray;
   }
   selectChecbox(applicationId){
-    debugger
+
     var interests = this.GetApplicantOtherIncome();
     var idx = interests.value.findIndex(i => i == applicationId);
     if (idx == -1) {

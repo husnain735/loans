@@ -444,7 +444,7 @@ export class ApplicantDetailComponent implements OnInit {
     );
   }
   onApplicantEmploymentDetailSubmit() {
-    debugger
+
     if (this.TotalYear < 3) {
       this.IsYearMoreThen3 = true;
       return;
@@ -488,7 +488,7 @@ export class ApplicantDetailComponent implements OnInit {
     );
   }
   onApplicantAddressSubmit() {
-    debugger
+
     if (this.ApplicantAddress.invalid && !this.IsApplicantAddressMoreThen3) {
       return;
     }
@@ -688,7 +688,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
   }
   addEvent(type: string, event: any, index) {
-    debugger
+
     var idx = this.events.findIndex((i) => i.Id == index);
     if (idx == -1) {
       var obj = {
