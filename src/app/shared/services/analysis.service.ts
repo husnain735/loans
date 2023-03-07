@@ -78,4 +78,10 @@ export class AnalysisService {
     return this.apiService.post(`${url}`, application);
   }
 
+  getReviewDetails(id:any){
+    var url = 'Review/GetReviewDetails';
+    var application : Application = new Application();
+    application.ApplicationId = id;
+    return this.apiService.post(`${url}`, application);
+  }
 }
