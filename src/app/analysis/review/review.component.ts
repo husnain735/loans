@@ -10,6 +10,9 @@ import { AnalysisService } from 'src/app/shared/services/analysis.service';
 export class ReviewComponent {
 
   ApplicationId: string;
+  AssetsIncome: number;
+  FamilyExpenses: number;
+  LivingExpenses: number;
 
 
   constructor(protected route: ActivatedRoute,
@@ -26,6 +29,9 @@ export class ReviewComponent {
   getReviewDetails(){
     this._analysisService.getReviewDetails(this.ApplicationId).subscribe(res =>{
       console.log(res);
+      this.AssetsIncome = res.body.AssetsIncome;
+      this.FamilyExpenses = res.body.FamilyExpenses;
+      this.LivingExpenses = res.body.LivingExpenses;
     })
 
   }
