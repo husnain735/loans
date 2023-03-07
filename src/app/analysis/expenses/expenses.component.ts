@@ -157,6 +157,7 @@ export class ExpensesComponent implements OnInit {
     let rows = this.ApplicantExpensesForm.get(
       'ApplicationExpense'
     ) as FormArray;
+    rows.clear();
     if (data == undefined || data.length == 0) {
       for (const i of this.Expenses) {
         rows.push(
@@ -167,7 +168,7 @@ export class ExpensesComponent implements OnInit {
             SubTitle: [i.SubTitle],
             Cost: [0],
             Comments: [''],
-            Duration: [''],
+            Duration: [44],
             ApplicationId: [this.ApplicationId],
           })
         );
@@ -218,7 +219,16 @@ export class ExpensesComponent implements OnInit {
       'ApplicationExpense'
     ) as FormArray;
     for (const element of rows.value) {
-      this.TotalCost += element.Cost
+      debugger
+      if (element.Duration == 42) {
+        this.TotalCost += element.Cost * 4;
+      }else if (element.Duration == 43) {
+        this.TotalCost += element.Cost * 2;
+      }else if (element.Duration == 44) {
+        this.TotalCost += element.Cost * 1;
+      }else if (element.Duration == 45) {
+        this.TotalCost += element.Cost / 12;
+      }
     }
   }
 }
