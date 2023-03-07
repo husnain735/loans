@@ -67,17 +67,14 @@ export class AnalysisComponent implements OnInit {
   applicationguid: string;
   ApplicationReason: any = [];
   ApplicationList: any = [];
+  IsAdmin: string;
 
-
-  constructor(public router: Router, private route: ActivatedRoute, private _analysisService: AnalysisService, public _sharedService: SharedService) {
-    // this._analysisService.getAllAppicants.subscribe(
-    //   (data) => {
-    //     this.getAllApplicants();
-    //   }
-    // );
+  constructor(public router: Router, private route: ActivatedRoute,
+    private _analysisService: AnalysisService,
+    public _sharedService: SharedService) {
   }
   ngOnInit() {
-
+    this.IsAdmin = localStorage.getItem('IsAdmin');
     console.log(this.router.url);
     this.sidenav.toggle(true);
     this.getMeta();

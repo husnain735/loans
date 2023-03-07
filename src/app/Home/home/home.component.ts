@@ -40,6 +40,7 @@ export class HomeComponent {
     public dialog: MatDialog
   ) { }
   ngOnInit() {
+    localStorage.clear();
     this.openApplicantDailog(this.content);
     this.getMeta();
     if (this.router.url != '/') {
