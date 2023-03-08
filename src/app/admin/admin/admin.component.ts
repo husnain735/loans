@@ -1,6 +1,6 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { environment } from 'src/environments/environment';
 
@@ -9,10 +9,9 @@ import { environment } from 'src/environments/environment';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit  {
 
-  applications: any[] = [];
-  displayedColumns = ['EmailAddress','CreatedDate','Actions'];
+  @ViewChild("sidenav", { static: true }) public sidenav: any;
   password: string;
   userId: string;
   @ViewChild('content', { static: true }) content: TemplateRef<any>;
@@ -20,27 +19,21 @@ export class AdminComponent {
   IsTrue = false;
   error = false;
   IsAdmin: string;
+
   constructor(private _adminService: AdminService,
-    private router: Router, public dialog: MatDialog) {
+    public router: Router, public dialog: MatDialog,
+    private route: ActivatedRoute,) {
   }
-  ngOnInit() {
+  ngOnInit(): void {
     this.IsAdmin = localStorage.getItem('IsAdmin');
     if (this.IsAdmin == 'true') {
       this.IsTrue = true;
     }else{
       this.openApplicantDailog(this.content);
     }
-    this.GetApplications();
-
-  }
-  GetApplications() {
-    this._adminService.GetApplications().subscribe((res: any) => {
-      this.applications = res.body
-    });
-  }
-  onEdit(ApplicationId) {
-    localStorage.setItem('ApplicationId',ApplicationId);
-    this.router.navigate(['client/' + ApplicationId + '/applicant']);
+    if (this.IsTrue) {
+      this.sidenav.toggle(true);
+    }
   }
   openApplicantDailog(content): void {
     const dialogRef = this.dialog.open(content, {
@@ -57,13 +50,5 @@ export class AdminComponent {
     }else{
       this.error = true;
     }
-  }
-  DeleteApplication(ApplicationId){
-    var obj = {
-      ApplicationId: ApplicationId
-    }
-    this._adminService.DeleteApplication(obj).subscribe((res: any) => {
-      this.GetApplications();
-    });
   }
 }
