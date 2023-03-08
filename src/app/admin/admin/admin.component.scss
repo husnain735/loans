@@ -1,0 +1,36 @@
+.toolbar-item-spacer {
+  flex: 1 1 auto;
+}
+.app-sidenav {
+  width: 255px;
+  background: #f3f2f2;
+  box-shadow: unset !important;
+  border-right: unset !important;
+}
+.app-container {
+  height: calc(100vh - 64px);;
+  margin: 0;
+}
+.bgWhite{
+  background-color: #fafafa;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+li {
+  margin: 10px 0;
+}
+.accessMode {
+  margin: 1rem;
+  padding: 0.5rem;
+  border: 1px solid gold;
+  font-size: .85rem;
+  background: #ffd7001c;
+  border-radius: 5px;
+  text-align: center;
+}
+.example-spacer {
+flex: 1 1 auto;
+}
