@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { ReasonForApplicationService } from 'src/app/shared/services/reasonForApplication.service';
 
@@ -63,7 +63,8 @@ export class ReasonApplicationComponent implements OnInit {
   ApplicationId: string;
   SelectCheckbox: any[] = [];
   constructor(private _formBuilder: FormBuilder,private _analysisService: AnalysisService,
-     private route: ActivatedRoute, private _reasonForApplication: ReasonForApplicationService) {
+     private route: ActivatedRoute, private _reasonForApplication: ReasonForApplicationService,
+     protected router:Router) {
 
   }
 
@@ -141,6 +142,8 @@ export class ReasonApplicationComponent implements OnInit {
       let rows = this.ApplicantReasonForm.get('Status') as FormArray;
       rows.clear();
       this.GetReasonsForApplication();
+      this.router.navigate(['client/' + this.ApplicationId + '/relative']);
+
     })
     console.log(obj);
   }

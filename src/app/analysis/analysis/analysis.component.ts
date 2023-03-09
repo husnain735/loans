@@ -106,4 +106,8 @@ export class AnalysisComponent implements OnInit {
     this.router.navigate(['client/' + applicant.ApplicationId + '/applicant/' + applicant.ApplicantId]);
   }
 
+  logout(){
+    localStorage.clear();
+  }
+
 }

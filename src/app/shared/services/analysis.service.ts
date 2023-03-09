@@ -84,4 +84,13 @@ export class AnalysisService {
     application.ApplicationId = id;
     return this.apiService.post(`${url}`, application);
   }
+
+  getAllLoansBroker(): Observable<any>{
+    return this.apiService.get(`${this.pageUrl}GetAllLoansBroker`);
+  }
+
+  SaveLoansBroker(obj: any): Observable<any> {
+    var url = 'Application/SaveLoansBroker';
+    return this.apiService.post(`${url}`, obj);
+  }
 }

@@ -46,9 +46,18 @@ export class AdminComponent implements OnInit  {
     if (this.userId == this.key.UserId && this.password == this.key.Password) {
       this.dialog.closeAll();
       this.IsTrue = true;
+      this.sidenav.toggle(true);
       localStorage.setItem('IsAdmin','true');
     }else{
       this.error = true;
     }
   }
+
+  logout(){
+    debugger
+    localStorage.clear();
+      this.router.navigate(['/']);
+
+  }
+
 }

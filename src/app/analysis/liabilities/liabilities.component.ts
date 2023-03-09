@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   RxFormBuilder,
   RxwebValidators,
@@ -51,7 +51,8 @@ export class LiabilitiesComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _liabilitiesService: LiabilitiesService,
     private rxFormBuilder: RxFormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected router:Router
   ) {}
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
@@ -275,6 +276,7 @@ export class LiabilitiesComponent implements OnInit {
     };
     this._liabilitiesService.SaveLiabilities(obj2).subscribe((res: any) => {
       this.GetLiabilities();
+      this.router.navigate(['client/' + this.ApplicationId + '/reason-application']);
     });
   }
   onChange(event, index, LiabilityTypeId) {

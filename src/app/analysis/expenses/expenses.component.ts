@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { LivingExpenseService } from 'src/app/shared/services/livingExpense.service';
 
@@ -143,7 +143,8 @@ export class ExpensesComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _analysisService: AnalysisService,
     private _expenseService: LivingExpenseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected router: Router
   ) {}
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
@@ -203,6 +204,7 @@ export class ExpensesComponent implements OnInit {
     };
     this._expenseService.SaveLivingExpenses(obj).subscribe((res: any) => {
       this.GetLivingExpenses();
+      this.router.navigate(['client/' + this.ApplicationId + '/review']);
     });
   }
   GetLivingExpenses() {

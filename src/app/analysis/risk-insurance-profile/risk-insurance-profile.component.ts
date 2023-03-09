@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ReasonForApplicationService } from 'src/app/shared/services/reasonForApplication.service';
 import { RiskInsuranceProfileService } from 'src/app/shared/services/riskInsuranceProfile.service';
@@ -16,7 +16,8 @@ export class RiskInsuranceProfileComponent implements OnInit {
 
 
   constructor(private rxFormBuilder: RxFormBuilder,
-     private route: ActivatedRoute, private _riskInsuranceProfileService: RiskInsuranceProfileService) {
+     private route: ActivatedRoute, private _riskInsuranceProfileService: RiskInsuranceProfileService,
+     protected router:Router) {
 
   }
 
@@ -57,6 +58,7 @@ export class RiskInsuranceProfileComponent implements OnInit {
     }
     this._riskInsuranceProfileService.SaveRiskInsuranceProfile(obj).subscribe((res: any) => {
       this.GetRiskInsuranceProfile();
+      this.router.navigate(['client/' + this.ApplicationId + '/retirement-plans']);
     });
   }
   GetRiskInsuranceProfile(){

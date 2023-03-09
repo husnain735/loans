@@ -1,7 +1,7 @@
 import { ReturnStatement } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   RxFormBuilder,
   RxwebValidators,
@@ -24,7 +24,7 @@ export class FinancialGoalsComponent {
     this.getFinancialGoals();
   }
 
-  constructor(private rxFormBuilder: RxFormBuilder, private _analysisService: AnalysisService, private route: ActivatedRoute) {}
+  constructor(private rxFormBuilder: RxFormBuilder, private _analysisService: AnalysisService, private route: ActivatedRoute, private router:Router) {}
 
   RetirementIncome = ['$40,000', '$50,000', '$60,000', '$70,000', '$80,000'];
 
@@ -48,6 +48,7 @@ export class FinancialGoalsComponent {
       this._analysisService.SaveFinancialGoals(financialGoals).subscribe(res =>{
         this.resetForm();
         this.patchFinancialGoals(res.body);
+        this.router.navigate(['client/' + this.ApplicationID + '/expenses']);
       })
     }
   }

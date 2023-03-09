@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   RxFormBuilder,
   RxwebValidators,
@@ -134,7 +134,8 @@ export class AssetsComponent {
     public _sharedService: SharedService,
     private rxFormBuilder: RxFormBuilder,
     private _analysisService: AnalysisService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   createAssetsDetails(): FormGroup {
@@ -433,6 +434,7 @@ export class AssetsComponent {
     };
     this._analysisService.saveAssets(obj).subscribe((res) => {
       console.log(res);
+      this.router.navigate(['client/' + this.ApplicationId + '/liabilities']);
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RetirmentPlansService } from 'src/app/shared/services/retirmentPlans.service';
 
 @Component({
@@ -66,7 +66,7 @@ export class RetirementPlansComponent implements OnInit {
     83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100
   ];
   constructor(private _formBuilder: FormBuilder, private _retirmentPlans :  RetirmentPlansService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, protected router:Router) {
 
   }
   ngOnInit(){
@@ -100,6 +100,8 @@ export class RetirementPlansComponent implements OnInit {
     }
     this._retirmentPlans.SaveRetirementPlans(obj).subscribe((res: any) => {
       this.GetRetirementPlansApi();
+      this.router.navigate(['client/' + this.ApplicationId + '/financial-goals']);
+
     });
   }
 

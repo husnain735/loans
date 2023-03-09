@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { AnalysisService } from 'src/app/shared/services/analysis.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -19,7 +19,8 @@ export class RelativeComponent implements OnInit {
   constructor(private rxFormBuilder: RxFormBuilder,
               public sharedService: SharedService,
               private route: ActivatedRoute,
-              private _analysisService: AnalysisService) {
+              private _analysisService: AnalysisService,
+              private router: Router) {
 
   }
 
@@ -56,6 +57,8 @@ export class RelativeComponent implements OnInit {
       this._analysisService.SaveRelative(relativeForm).subscribe(res =>{
         console.log(res);
         this.resetRelativeForm(res.body);
+        this.router.navigate(['client/' + this.ApplicationID + '/risk-insurance-profile']);
+        
 
       })
     }
