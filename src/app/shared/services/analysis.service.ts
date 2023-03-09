@@ -93,4 +93,10 @@ export class AnalysisService {
     var url = 'Application/SaveLoansBroker';
     return this.apiService.post(`${url}`, obj);
   }
+
+  DeleteLoansBroker(obj: any): Observable<any> {
+    var url = 'Application/DeleteLoansBroker';
+    return this.apiService.post(`${url}`, obj); 
+  }
+
 }

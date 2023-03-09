@@ -27,7 +27,7 @@
         <mat-header-cell *matHeaderCellDef class="py-4"> Actions</mat-header-cell>
         <mat-cell *matCellDef="let element">
          <span class="pointer" (click)="onEdit(element)"><mat-icon>edit</mat-icon></span>
-         <span class="pointer" (click)="DeleteApplication(element.ApplicationId)"><mat-icon>delete</mat-icon></span>
+         <span class="pointer" (click)="deleteBroker(element)"><mat-icon>delete</mat-icon></span>
         </mat-cell>
       </ng-container>
 

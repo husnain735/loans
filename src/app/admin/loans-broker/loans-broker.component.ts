@@ -70,4 +70,11 @@ export class LoansBrokerComponent {
     });
   }
 
+  deleteBroker(element){
+    this._analysisService.DeleteLoansBroker(element).subscribe(res =>{
+      console.log(res);
+      this.getAllLoansBroker();
+    })
+  }
+
 }
