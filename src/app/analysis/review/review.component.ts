@@ -10,9 +10,9 @@ import { AnalysisService } from 'src/app/shared/services/analysis.service';
 export class ReviewComponent {
 
   ApplicationId: string;
-  AssetsIncome: number;
-  FamilyExpenses: number;
-  LivingExpenses: number;
+  AssetsIncome: number = 0;
+  FamilyExpenses: number = 0;
+  LivingExpenses: number = 0;
 
 
   constructor(protected route: ActivatedRoute,
