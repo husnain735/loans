@@ -22,7 +22,7 @@
   </ol>
   <div class="my-3">Please add all applicants for the loan.</div>
   <div class="step-nav">
-    <button mat-raised-button color="primary" class="next" [disabled]="!IsNext">
+    <button mat-raised-button color="primary" class="next" [routerLink]="'/client/' + ApplicationId + '/assets'">
       Next
       <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
     </button>

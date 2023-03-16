@@ -958,6 +958,10 @@ export class ApplicantDetailComponent implements OnInit {
               this.ApplicantDetailObj.ApplicantDetail,
               this.ApplicantDetailObj.ApplicantDetailChildrens
             );
+          }else {
+            this.ApplicantDetailForm.patchValue({
+              ApplicantType: this.ApplicantDetailObj.Applicant.ApplicantTypeId.toString()
+            });
           }
           if (
             this.ApplicantDetailObj != undefined &&

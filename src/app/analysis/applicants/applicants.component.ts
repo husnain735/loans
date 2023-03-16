@@ -30,16 +30,21 @@ export class ApplicantsComponent implements OnInit {
       TypeName: 'Non-applicant'
     },
   ]
+  ApplicationId: string;
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private _analysisSerivce: AnalysisService,
     private route: ActivatedRoute,
     private router: Router,public _sharedService: SharedService) {
 
   }
   ngOnInit() {
+    debugger
     this.applicantForm = this.formBuilder.group({
       FirstName: ['', [Validators.required]],
       SurName: ['', [Validators.required]],
       ApplicantType: new FormControl(1, [Validators.required])
+    });
+    this.route.params.subscribe((params: any) => {
+      this.ApplicationId = params['guid'];
     });
   }
   openApplicantDailog(content): void {
