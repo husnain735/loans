@@ -36,7 +36,7 @@
         <h4>Income</h4>
 
 
-        <table class="table">
+        <table class="table" style="font-weight: 400 !important;">
             <thead>
               <tr style="background-color:#eeeeee">
                 <th scope="col" class="font-w-500">Details</th>
@@ -44,7 +44,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr  style="background-color: white;">
+              <!-- <tr  style="background-color: white;">
                 <th scope="row" class="font-w-400">After tax income for applicant:</th>
                 <td class="font-w-400">$0.00</td>
               </tr>
@@ -52,11 +52,17 @@
               <tr style="background-color: white;">
                 <th scope="row" class="font-w-400">Family Tax Benefit:</th>
                 <td class="font-w-400">$0.00</td>
+              </tr> -->
+              <ng-container *ngIf="OtherIncome">
+              <tr *ngFor="let item of OtherIncome" style="background-color: white !important;">
+                <td>{{item.Details}}</td>
+                <td>${{item.TotalIncome}}</td>
               </tr>
+            </ng-container>
 
               <tr>
                 <th scope="row" class="font-w-500">Monthly Total:</th>
-                <td class="font-w-500">$0.00</td>
+                <td class="font-w-500">${{FamilyExpenses}}</td>
               </tr>
               
             </tbody>

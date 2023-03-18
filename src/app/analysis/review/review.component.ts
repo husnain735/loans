@@ -13,6 +13,7 @@ export class ReviewComponent {
   AssetsIncome: number = 0;
   FamilyExpenses: number = 0;
   LivingExpenses: number = 0;
+  OtherIncome: any;
 
 
   constructor(protected route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class ReviewComponent {
       this.AssetsIncome = res.body.AssetsIncome;
       this.FamilyExpenses = res.body.FamilyExpenses;
       this.LivingExpenses = res.body.LivingExpenses;
+      this.OtherIncome = res.body.OtherIncome;
     })
 
   }
