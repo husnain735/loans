@@ -17,4 +17,7 @@ export class AdminService {
   DeleteApplication(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}DeleteApplication/`, obj);
   }
+  PrintPDF(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}PrintPDF`, obj);
+  }
 }

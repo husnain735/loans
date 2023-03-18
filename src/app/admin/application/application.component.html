@@ -17,8 +17,9 @@
       <ng-container matColumnDef="Actions">
         <mat-header-cell *matHeaderCellDef class="py-4"> Actions</mat-header-cell>
         <mat-cell *matCellDef="let element">
-         <span class="pointer" (click)="onEdit(element.ApplicationId)"><mat-icon>edit</mat-icon></span>
-         <span class="pointer" (click)="DeleteApplication(element.ApplicationId)"><mat-icon>delete</mat-icon></span>
+          <span class="pointer" (click)="onEdit(element.ApplicationId)"><mat-icon>edit</mat-icon></span>
+          <span class="pointer" (click)="DeleteApplication(element.ApplicationId)"><mat-icon>delete</mat-icon></span>
+          <span class="pointer" (click)="PrintPDF(element.ApplicationId)"><mat-icon>picture_as_pdf</mat-icon></span>
         </mat-cell>
       </ng-container>
 
@@ -27,5 +28,54 @@
     </mat-table>
   </div>
 </ng-container>
-
-
+<div hidden id="pdfTable1" #pdfTable class="pdfTable">
+  <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
+    <h2>Applicants</h2>
+    <ng-container *ngFor="let item of Applicants;let i = index">
+      <p style="font-weight: 400; font-size: 18px;"><span style="color: blue;">Applicant
+          Name</span>&nbsp;{{item.FirstName}}&nbsp;{{item.SurName}}</p>
+          <h2>Applicant Details</h2>
+      <ng-container *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Applicant Type</span>&nbsp;
+                  {{item2.ApplicantTypeId == 1 ? "Applicant" : item2.ApplicantTypeId == 2 ?
+                  "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Salutation</span>&nbsp;
+                  {{item2.SalutationTypeId == 4 ? "Mr" : item2.SalutationTypeId == 5 ?
+                  "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" : ""}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">FirstName</span>&nbsp;{{item2.FirstName}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">SurName</span>&nbsp;{{item2.SurName}}
+                </p>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">MiddleName</span>&nbsp;{{item2.MiddleName}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">MotherName</span>&nbsp;{{item2.MotherName}}</p>
+              </td>
+              <td>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">DateOfBirth</span>&nbsp;{{item2.DateOfBirth}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Marital Status</span>&nbsp;
+                  {{item2.MaritalTypeId == 8 ? "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
+                  10 ? "DeFacto" :
+                  item2.MaritalTypeId == 11 ? "Seperated" : item2.MaritalTypeId == 12 ? "Divorced" : item2.MaritalTypeId
+                  == 13 ? "Widowed" :
+                  item2.MaritalTypeId == 14 ? "Other" : ""}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Drivers Expiry
+                    Date</span>&nbsp;{{item2.DriversExpiryDate}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Drivers Licence
+                    No</span>&nbsp;{{item2.DriversLicenceNo}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Number Of
+                    Children</span>&nbsp;{{item2.NumberOfChildren}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
