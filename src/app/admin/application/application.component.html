@@ -188,39 +188,80 @@
                   item2.EmploymentTypeId == 23 ? "Unemployed" :
                   item2.EmploymentTypeId == 24 ? "Home Duties" :
                   item2.EmploymentTypeId == 25 ? "Retired" : ""}}</p>
-                <p *ngIf="item2.Occuptation != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Occupation</span>&nbsp;
+                <p *ngIf="item2.Occuptation != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Occupation</span>&nbsp;
                   {{item2.Occuptation}}</p>
-                <p *ngIf="item2.Employer != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Employer</span>&nbsp;
+                <p *ngIf="item2.Employer != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Employer</span>&nbsp;
                   {{item2.Employer}}</p>
               </td>
               <td style="border: none;">
-                <p *ngIf="item2.StreetNumber != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Street Number</span>&nbsp;
+                <p *ngIf="item2.StreetNumber != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Street Number</span>&nbsp;
                   {{item2.StreetNumber}}</p>
-                <p *ngIf="item2.StreetName != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Street Name</span>&nbsp;
+                <p *ngIf="item2.StreetName != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Street Name</span>&nbsp;
                   {{item2.StreetName}}</p>
-                <p *ngIf="item2.Suburb != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Suburb</span>&nbsp;
+                <p *ngIf="item2.Suburb != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Suburb</span>&nbsp;
                   {{item2.Suburb}}</p>
               </td>
               <td style="border: none;">
-                <p *ngIf="item2.StateId != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">State</span>&nbsp;
+                <p *ngIf="item2.StateId != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">State</span>&nbsp;
                   {{item2.StateId == 26 ? "SA" : item2.StateId == 27 ? "ACT" :
                   item2.StateId == 28 ? "NSW" :
                   item2.StateId == 29 ? "NT" : item2.StateId == 30 ? "QLD" :
                   item2.StateId == 31 ? "TAS" :
                   item2.StateId == 32 ? "VIC" : item2.StateId == 33 ? "WA" : ""}}</p>
-                <p *ngIf="item2.Postcode != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Post Code</span>&nbsp;
+                <p *ngIf="item2.Postcode != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Post Code</span>&nbsp;
                   {{item2.Postcode}}</p>
-                <p *ngIf="item2.WorkPhone != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Work Phone</span>&nbsp;
+                <p *ngIf="item2.WorkPhone != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Work Phone</span>&nbsp;
                   {{item2.WorkPhone}}</p>
               </td>
               <td style="border: none;">
-                <p *ngIf="item2.BasisTypeId != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Basis</span>&nbsp;
+                <p *ngIf="item2.BasisTypeId != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Basis</span>&nbsp;
                   {{item2.BasisTypeId == 34 ? "Full Time" : item2.BasisTypeId == 35 ? "Part Time" :
                   item2.BasisTypeId == 36 ? "Casual" : ""}}</p>
-                <p *ngIf="item2.StartedDate != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Started Date</span>&nbsp;
+                <p *ngIf="item2.StartedDate != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Started Date</span>&nbsp;
                   {{item2.StartedDate | date : "dd/MM/yyyy" }}</p>
-                <p *ngIf="item2.GrossIncome != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">GrossIncome</span>&nbsp;
+                <p *ngIf="item2.GrossIncome != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">GrossIncome</span>&nbsp;
                   {{item2.GrossIncome}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <hr>
+      <h2 style="text-decoration: underline;">Other Income</h2>
+      <ng-container
+        *ngFor="let item2 of ApplicantOtherIncomes | filter : item.ApplicantId : 'ApplicantId';let j = index">
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Other Income</span>&nbsp;
+                  {{item2.OtherIncomeType == 37 ? "Family Tax Benefit" : item2.OtherIncomeType == 38 ? "Pensions" :
+                  item2.OtherIncomeType == 39 ? "Child Support" :
+                  item2.OtherIncomeType == 40 ? "Maintenance" : item2.OtherIncomeType == 41 ? "Other" : ""}}</p>
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Other
+                    Details</span>&nbsp;{{item2.OtherDetails}}</p>
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Other
+                    Amount</span>&nbsp;{{item2.OtherAmount}}</p>
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Other Duration</span>
+                  &nbsp;{{item2.OtherDurationType == 42 ? "Week" : item2.OtherDurationType == 43 ? "Fortnight" :
+                  item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "" : "Year"}}</p>
               </td>
             </tr>
           </tbody>

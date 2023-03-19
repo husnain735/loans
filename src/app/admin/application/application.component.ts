@@ -29,6 +29,7 @@ export class ApplicationComponent {
   ApplicantAddress: any[] = [];
   ApplicantContactInformations: any[] = [];
   ApplicantEmployeeDetails: any[] = [];
+  ApplicantOtherIncomes: any[] = [];
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
@@ -67,6 +68,7 @@ export class ApplicationComponent {
       this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
       this.ApplicantContactInformations = res.body.pdfViewModel.ApplicantContactInformations;
       this.ApplicantEmployeeDetails = res.body.pdfViewModel.ApplicantEmployeeDetails;
+      this.ApplicantOtherIncomes = res.body.pdfViewModel.ApplicantOtherIncomes;
     });
     setTimeout(() => {
       this.print();
