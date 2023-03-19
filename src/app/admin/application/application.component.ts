@@ -26,6 +26,9 @@ export class ApplicationComponent {
   displayedColumns = ['EmailAddress', 'CreatedDate', 'Actions'];
   Applicants: any[] = [];
   ApplicantsDetails: any[] = [];
+  ApplicantAddress: any[] = [];
+  ApplicantContactInformations: any[] = [];
+  ApplicantEmployeeDetails: any[] = [];
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
@@ -58,12 +61,16 @@ export class ApplicationComponent {
       ApplicationId: ApplicationId,
     };
     await this._adminService.PrintPDF(obj).subscribe((res: any) => {
+      debugger
       this.Applicants = res.body.pdfViewModel.Applicants;
       this.ApplicantsDetails = res.body.pdfViewModel.ApplicantDetails;
+      this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
+      this.ApplicantContactInformations = res.body.pdfViewModel.ApplicantContactInformations;
+      this.ApplicantEmployeeDetails = res.body.pdfViewModel.ApplicantEmployeeDetails;
     });
     setTimeout(() => {
       this.print();
-    }, 5000);
+    }, 1000);
 
   }
   print() {

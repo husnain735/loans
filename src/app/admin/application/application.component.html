@@ -30,16 +30,16 @@
 </ng-container>
 <div hidden id="pdfTable1" #pdfTable class="pdfTable">
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
-    <h2>Applicants</h2>
+    <h2 style="text-decoration: underline;">Applicants</h2>
     <ng-container *ngFor="let item of Applicants;let i = index">
       <p style="font-weight: 400; font-size: 18px;"><span style="color: blue;">Applicant
           Name</span>&nbsp;{{item.FirstName}}&nbsp;{{item.SurName}}</p>
-          <h2>Applicant Details</h2>
+      <h2 style="text-decoration: underline;">Applicant Details</h2>
       <ng-container *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
         <table style="border: none;">
           <tbody>
             <tr style="width: 100%;">
-              <td>
+              <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Applicant Type</span>&nbsp;
                   {{item2.ApplicantTypeId == 1 ? "Applicant" : item2.ApplicantTypeId == 2 ?
                   "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</p>
@@ -48,17 +48,18 @@
                   "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" : ""}}</p>
                 <p style="font-weight: 400; font-size: 14px;"><span
                     style="color: blue;">FirstName</span>&nbsp;{{item2.FirstName}}</p>
+              </td>
+              <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;"><span
-                    style="color: blue;">SurName</span>&nbsp;{{item2.SurName}}
-                </p>
+                    style="color: blue;">SurName</span>&nbsp;{{item2.SurName}}</p>
                 <p style="font-weight: 400; font-size: 14px;"><span
                     style="color: blue;">MiddleName</span>&nbsp;{{item2.MiddleName}}</p>
                 <p style="font-weight: 400; font-size: 14px;"><span
                     style="color: blue;">MotherName</span>&nbsp;{{item2.MotherName}}</p>
               </td>
-              <td>
+              <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;"><span
-                    style="color: blue;">DateOfBirth</span>&nbsp;{{item2.DateOfBirth}}</p>
+                    style="color: blue;">DateOfBirth</span>&nbsp;{{item2.DateOfBirth | date : "dd/MM/yyyy"}}</p>
                 <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Marital Status</span>&nbsp;
                   {{item2.MaritalTypeId == 8 ? "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
                   10 ? "DeFacto" :
@@ -67,10 +68,159 @@
                   item2.MaritalTypeId == 14 ? "Other" : ""}}</p>
                 <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Drivers Expiry
                     Date</span>&nbsp;{{item2.DriversExpiryDate}}</p>
+              </td>
+              <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Drivers Licence
                     No</span>&nbsp;{{item2.DriversLicenceNo}}</p>
                 <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Number Of
                     Children</span>&nbsp;{{item2.NumberOfChildren}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <hr>
+      <h2 style="text-decoration: underline;">Applicant Addresses</h2>
+      <ng-container *ngFor="let item2 of ApplicantAddress | filter : item.ApplicantId : 'ApplicantId';let j = index">
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Street
+                    Number</span>&nbsp;{{item2.StreetNumber}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Street
+                    Name</span>&nbsp;{{item2.StreetName}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Suburb</span>&nbsp;{{item2.Suburb}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">State</span>&nbsp;
+                  {{item2.StateTypeId == 26 ? "SA" : item2.StateTypeId == 27 ? "ACT" : item2.StateTypeId == 28 ? "NSW" :
+                  item2.StateTypeId == 29 ? "NT" : item2.StateTypeId == 30 ? "QLD" : item2.StateTypeId == 31 ? "TAS" :
+                  item2.StateTypeId == 32 ? "VIC" : item2.StateTypeId == 33 ? "WA" : ""}}</p>
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Post
+                    Code</span>&nbsp;{{item2.Postcode}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Housing
+                    Status</span>&nbsp;{{item2.HousingStatusTypeId == 46 ? "Renting" :
+                  item2.HousingStatusTypeId == 47 ? "Mortgage" :
+                  item2.HousingStatusTypeId == 48 ? "With parents" :
+                  item2.HousingStatusTypeId == 49 ? "Home in duty" : item2.HousingStatusTypeId == 50 ? "Other" : ""}}
+                </p>
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Specify</span>&nbsp;{{item2.Specify}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Year Time
+                    Residing</span>&nbsp;{{item2.YearTimeResiding}}</p>
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Month Time
+                    Residing</span>&nbsp;{{item2.MonthTimeResiding}}</p>
+                <p *ngIf="item2.StreetNumber2 != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Street Number 2</span>&nbsp;
+                  {{item2.StreetNumber2}}</p>
+                <p *ngIf="item2.StreetName2 != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Street Name
+                    2</span>&nbsp;{{item2.StreetName2}}</p>
+                <p *ngIf="item2.POBox != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">POBox</span>&nbsp;
+                  {{item2.POBox}}</p>
+              </td>
+              <td style="border: none;">
+                <p *ngIf="item2.Suburb2 != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Suburb
+                    2</span>&nbsp;{{item2.Suburb2}}</p>
+                <p *ngIf="item2.State2TypeId != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">State</span>&nbsp;
+                  {{item2.State2TypeId == 26 ? "SA" : item2.State2TypeId == 27 ? "ACT" : item2.State2TypeId == 28 ?
+                  "NSW" :
+                  item2.State2TypeId == 29 ? "NT" : item2.State2TypeId == 30 ? "QLD" : item2.State2TypeId == 31 ? "TAS"
+                  :
+                  item2.State2TypeId == 32 ? "VIC" : item2.State2TypeId == 33 ? "WA" : ""}}</p>
+                <p *ngIf="item2.Postcode2 != ''" style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Post
+                    Code 2</span>&nbsp;{{item2.Postcode2}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <hr>
+      <h2 style="text-decoration: underline;">Contact & More Information</h2>
+      <ng-container
+        *ngFor="let item2 of ApplicantContactInformations | filter : item.ApplicantId : 'ApplicantId';let j = index">
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Phone Number</span>&nbsp;
+                  {{item2.PhoneNumber}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Mobile
+                    Number</span>&nbsp;{{item2.MobileNumber}}</p>
+
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Email
+                    Address</span>&nbsp;{{item2.EmailAddress}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Skype
+                    Address</span>&nbsp;{{item2.SkypeAddress}}</p>
+              </td>
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span
+                    style="color: blue;">Country</span>&nbsp;{{item2.Country}}</p>
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Citizenship</span>&nbsp;
+                  {{item2.CitizenshipStatusTypeId == 18 ? "Citizen" :
+                  item2.CitizenshipStatusTypeId == 19 ? "Permanent Resident" :
+                  item2.CitizenshipStatusTypeId == 20 ? "" : "Visa"}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <hr>
+      <h2 style="text-decoration: underline;">Employment Details (more than 3 year records)</h2>
+      <ng-container
+        *ngFor="let item2 of ApplicantEmployeeDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Employment Detail</span>&nbsp;
+                  {{item2.EmploymentTypeId == 21 ? "PAYG" : item2.EmploymentTypeId == 22 ? "Self Employed" :
+                  item2.EmploymentTypeId == 23 ? "Unemployed" :
+                  item2.EmploymentTypeId == 24 ? "Home Duties" :
+                  item2.EmploymentTypeId == 25 ? "Retired" : ""}}</p>
+                <p *ngIf="item2.Occuptation != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Occupation</span>&nbsp;
+                  {{item2.Occuptation}}</p>
+                <p *ngIf="item2.Employer != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Employer</span>&nbsp;
+                  {{item2.Employer}}</p>
+              </td>
+              <td style="border: none;">
+                <p *ngIf="item2.StreetNumber != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Street Number</span>&nbsp;
+                  {{item2.StreetNumber}}</p>
+                <p *ngIf="item2.StreetName != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Street Name</span>&nbsp;
+                  {{item2.StreetName}}</p>
+                <p *ngIf="item2.Suburb != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Suburb</span>&nbsp;
+                  {{item2.Suburb}}</p>
+              </td>
+              <td style="border: none;">
+                <p *ngIf="item2.StateId != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">State</span>&nbsp;
+                  {{item2.StateId == 26 ? "SA" : item2.StateId == 27 ? "ACT" :
+                  item2.StateId == 28 ? "NSW" :
+                  item2.StateId == 29 ? "NT" : item2.StateId == 30 ? "QLD" :
+                  item2.StateId == 31 ? "TAS" :
+                  item2.StateId == 32 ? "VIC" : item2.StateId == 33 ? "WA" : ""}}</p>
+                <p *ngIf="item2.Postcode != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Post Code</span>&nbsp;
+                  {{item2.Postcode}}</p>
+                <p *ngIf="item2.WorkPhone != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Work Phone</span>&nbsp;
+                  {{item2.WorkPhone}}</p>
+              </td>
+              <td style="border: none;">
+                <p *ngIf="item2.BasisTypeId != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Basis</span>&nbsp;
+                  {{item2.BasisTypeId == 34 ? "Full Time" : item2.BasisTypeId == 35 ? "Part Time" :
+                  item2.BasisTypeId == 36 ? "Casual" : ""}}</p>
+                <p *ngIf="item2.StartedDate != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Started Date</span>&nbsp;
+                  {{item2.StartedDate | date : "dd/MM/yyyy" }}</p>
+                <p *ngIf="item2.GrossIncome != ''" style="font-weight: 400; font-size: 14px;"><span style="color: blue;">GrossIncome</span>&nbsp;
+                  {{item2.GrossIncome}}</p>
               </td>
             </tr>
           </tbody>
