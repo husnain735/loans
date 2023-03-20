@@ -32,6 +32,10 @@ export class ApplicationComponent {
   ApplicantOtherIncomes: any[] = [];
   Liabilities: any[] = [];
   liabilities_Applicants_Links: any[] = [];
+  relativesObj: any[] = [];
+  financialGoals: any[] = [];
+  riskInsuarance: any[] = [];
+  applicationReason:any[] = [];
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
@@ -64,6 +68,7 @@ export class ApplicationComponent {
       ApplicationId: ApplicationId,
     };
     await this._adminService.PrintPDF(obj).subscribe((res: any) => {
+      debugger
       this.Applicants = res.body.pdfViewModel.Applicants;
       this.ApplicantsDetails = res.body.pdfViewModel.ApplicantDetails;
       this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
@@ -72,6 +77,11 @@ export class ApplicationComponent {
       this.ApplicantOtherIncomes = res.body.pdfViewModel.ApplicantOtherIncomes;
       this.Liabilities = res.body.GetLiabilities.Liabilities;
       this.liabilities_Applicants_Links = res.body.GetLiabilities.liabilities_Applicants_Links;
+      this.relativesObj.push(res.body.relativeObj);
+      this.financialGoals.push(res.body.financialGoalsObj);
+      this.riskInsuarance.push(res.body.riskInsuranceProfile);
+      this.applicationReason = res.body.getReasonsForApplication.ReasonsForApplication_Radio;
+
     });
     setTimeout(() => {
       this.print();
