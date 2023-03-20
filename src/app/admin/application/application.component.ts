@@ -30,6 +30,8 @@ export class ApplicationComponent {
   ApplicantContactInformations: any[] = [];
   ApplicantEmployeeDetails: any[] = [];
   ApplicantOtherIncomes: any[] = [];
+  Liabilities: any[] = [];
+  liabilities_Applicants_Links: any[] = [];
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
@@ -62,13 +64,14 @@ export class ApplicationComponent {
       ApplicationId: ApplicationId,
     };
     await this._adminService.PrintPDF(obj).subscribe((res: any) => {
-      debugger
       this.Applicants = res.body.pdfViewModel.Applicants;
       this.ApplicantsDetails = res.body.pdfViewModel.ApplicantDetails;
       this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
       this.ApplicantContactInformations = res.body.pdfViewModel.ApplicantContactInformations;
       this.ApplicantEmployeeDetails = res.body.pdfViewModel.ApplicantEmployeeDetails;
       this.ApplicantOtherIncomes = res.body.pdfViewModel.ApplicantOtherIncomes;
+      this.Liabilities = res.body.GetLiabilities.Liabilities;
+      this.liabilities_Applicants_Links = res.body.GetLiabilities.liabilities_Applicants_Links;
     });
     setTimeout(() => {
       this.print();

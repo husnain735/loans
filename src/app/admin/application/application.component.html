@@ -248,13 +248,223 @@
               <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Other Duration</span>
                   &nbsp;{{item2.OtherDurationType == 42 ? "Week" : item2.OtherDurationType == 43 ? "Fortnight" :
-                  item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "" : "Year"}}</p>
+                  item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "Year" : ""}}</p>
               </td>
             </tr>
           </tbody>
         </table>
       </ng-container>
       <hr>
+    </ng-container>
+    <h2 style="text-decoration: underline;">Liabilities</h2>
+    <ng-container *ngFor="let item of Liabilities | filter : 1 : 'LiabilityTypeID';let i = index">
+      <h4 style="text-decoration: underline;">Personal / Car Loan&nbsp;{{i + 1}}</h4>
+      <table style="border: none;">
+        <tbody>
+          <tr style="width: 100%;">
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Lender</span>&nbsp;{{item.Lender}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Balance</span>&nbsp;{{item.Balance}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Payment</span>&nbsp;{{item.Payment}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">
+                  Other Duration</span>
+                &nbsp;{{item.PaymentTimePeriod == 42 ? "Week" :
+                item.PaymentTimePeriod == 43 ? "Fortnight" :
+                item.PaymentTimePeriod == 44 ? "Month" :
+                item.PaymentTimePeriod == 45 ? "Year" : ""}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Refinance</span>&nbsp;{{item.IsRefinance}}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 style="text-decoration: underline;">Applicants</h4>
+      <ng-container>
+        <table style="border: none;">
+          <tbody>
+            <tr *ngFor="let item2 of liabilities_Applicants_Links | filter : item.LiabilityID : 'LiabilityID';let j = index">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Name</span>&nbsp;{{item2.ApplicantName}}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let item of Liabilities | filter : 2 : 'LiabilityTypeID';let i = index">
+      <h4 style="text-decoration: underline;">Credit Card / Layby&nbsp;{{i + 1}}</h4>
+      <table style="border: none;">
+        <tbody>
+          <tr style="width: 100%;">
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Lender</span>&nbsp;{{item.Lender}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Balance</span>&nbsp;{{item.Balance}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Payment</span>&nbsp;{{item.Payment}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">
+                  Other Duration</span>
+                &nbsp;{{item.PaymentTimePeriod == 42 ? "Week" :
+                item.PaymentTimePeriod == 43 ? "Fortnight" :
+                item.PaymentTimePeriod == 44 ? "Month" :
+                item.PaymentTimePeriod == 45 ? "Year" : ""}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Card Limit</span>&nbsp;{{item.CardLimit}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Refinance</span>&nbsp;{{item.IsRefinance}}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 style="text-decoration: underline;">Applicants</h4>
+      <ng-container>
+        <table style="border: none;">
+          <tbody>
+            <tr *ngFor="let item2 of liabilities_Applicants_Links | filter : item.LiabilityID : 'LiabilityID';let j = index">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Name</span>&nbsp;{{item2.ApplicantName}}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let item of Liabilities | filter : 3 : 'LiabilityTypeID';let i = index">
+      <h4 style="text-decoration: underline;">Salary Sacrifice&nbsp;{{i + 1}}</h4>
+      <table style="border: none;">
+        <tbody>
+          <tr style="width: 100%;">
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Lender</span>&nbsp;{{item.Lender}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Balance</span>&nbsp;{{item.Balance}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Payment</span>&nbsp;{{item.Payment}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">
+                  Other Duration</span>
+                &nbsp;{{item.PaymentTimePeriod == 42 ? "Week" :
+                item.PaymentTimePeriod == 43 ? "Fortnight" :
+                item.PaymentTimePeriod == 44 ? "Month" :
+                item.PaymentTimePeriod == 45 ? "Year" : ""}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Refinance</span>&nbsp;{{item.IsRefinance}}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 style="text-decoration: underline;">Applicants</h4>
+      <ng-container>
+        <table style="border: none;">
+          <tbody>
+            <tr *ngFor="let item2 of liabilities_Applicants_Links | filter : item.LiabilityID : 'LiabilityID';let j = index">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Name</span>&nbsp;{{item2.ApplicantName}}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let item of Liabilities | filter : 4 : 'LiabilityTypeID';let i = index">
+      <h4 style="text-decoration: underline;">Other / Layby&nbsp;{{i + 1}}</h4>
+      <table style="border: none;">
+        <tbody>
+          <tr style="width: 100%;">
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Lender</span>&nbsp;{{item.Lender}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Balance</span>&nbsp;{{item.Balance}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Payment</span>&nbsp;{{item.Payment}}
+              </p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">
+                  Other Duration</span>
+                &nbsp;{{item.PaymentTimePeriod == 42 ? "Week" :
+                item.PaymentTimePeriod == 43 ? "Fortnight" :
+                item.PaymentTimePeriod == 44 ? "Month" :
+                item.PaymentTimePeriod == 45 ? "Year" : ""}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;">
+                <span style="color: blue;">Refinance</span>&nbsp;{{item.IsRefinance}}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 style="text-decoration: underline;">Applicants</h4>
+      <ng-container>
+        <table style="border: none;">
+          <tbody>
+            <tr *ngFor="let item2 of liabilities_Applicants_Links | filter : item.LiabilityID : 'LiabilityID';let j = index">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Name</span>&nbsp;{{item2.ApplicantName}}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
     </ng-container>
   </ng-container>
 </div>
