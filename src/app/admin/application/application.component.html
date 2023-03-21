@@ -564,24 +564,23 @@
         </tbody>
       </table>
     </ng-container>
-
-    <h2 style="text-decoration: underline;">Reason For Application</h2>
-    <span><span style="font-weight:bold;">Loan Description:</span>&nbsp;{{applicationReason[0].LoanDescription}} </span>
-    <br>
-    <h5 style="text-decoration: underline;">Specific Loan/Lender features?</h5>
-    <ng-container *ngFor="let item of applicationReason">
-      <table style="border: none;justify-content: space-between;">
-        <tbody>
-          <tr style="width: 100%;">
-        <td style="border: none;width: 50% !important;justify-content: space-between;">
-          <span style="font-weight:bold">{{item.Name}}:</span>&nbsp;
-          <span style="font-weight:100;font-style: monospace;">{{item.SelectedTypeId == 51 ? 'Important' : item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}</span>
-          </td>
-          </tr>
-        </tbody>
-      </table>
+    <ng-container *ngIf="applicationReason != undefined && applicationReason.length > 0">
+      <h2 style="text-decoration: underline;">Reason For Application</h2>
+      <span><span style="font-weight:bold;">Loan Description:</span>&nbsp;{{applicationReason[0].LoanDescription}} </span>
+      <br>
+      <h5 style="text-decoration: underline;">Specific Loan/Lender features?</h5>
+      <ng-container *ngFor="let item of applicationReason">
+        <table style="border: none;justify-content: space-between;">
+          <tbody>
+            <tr style="width: 100%;">
+          <td style="border: none;width: 50% !important;justify-content: space-between;">
+            <span style="font-weight:bold">{{item.Name}}:</span>&nbsp;
+            <span style="font-weight:100;font-style: monospace;">{{item.SelectedTypeId == 51 ? 'Important' : item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}</span>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
     </ng-container>
-
-    
   </ng-container>
 </div>
