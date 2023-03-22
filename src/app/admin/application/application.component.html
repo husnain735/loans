@@ -549,14 +549,15 @@
                   Comfortable with Personal Insuarances?</span>&nbsp;{{item.PersonalInsurance == 1 ? 'Yes' : 'No' }}</p>
 
               <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">
-                  Arrange an insuarance discussion meeting?</span>&nbsp;{{item.DiscussInsurance == 1 ? 'Yes' : 'No' }}</p>
+                  Arrange an insuarance discussion meeting?</span>&nbsp;{{item.DiscussInsurance == 1 ? 'Yes' : 'No' }}
+              </p>
 
             </td>
 
             <td style="border:none" *ngIf="item.JobsChanging == 1">
               <br><br><br><br>
               <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">
-                Details</span>&nbsp;{{item.JobsChangingSpecification}}</p>
+                  Details</span>&nbsp;{{item.JobsChangingSpecification}}</p>
 
             </td>
 
@@ -566,21 +567,143 @@
     </ng-container>
     <ng-container *ngIf="applicationReason != undefined && applicationReason.length > 0">
       <h2 style="text-decoration: underline;">Reason For Application</h2>
-      <span><span style="font-weight:bold;">Loan Description:</span>&nbsp;{{applicationReason[0].LoanDescription}} </span>
+      <span><span style="font-weight:bold;">Loan Description:</span>&nbsp;{{applicationReason[0].LoanDescription}}
+      </span>
       <br>
       <h5 style="text-decoration: underline;">Specific Loan/Lender features?</h5>
       <ng-container *ngFor="let item of applicationReason">
         <table style="border: none;justify-content: space-between;">
           <tbody>
             <tr style="width: 100%;">
-          <td style="border: none;width: 50% !important;justify-content: space-between;">
-            <span style="font-weight:bold">{{item.Name}}:</span>&nbsp;
-            <span style="font-weight:100;font-style: monospace;">{{item.SelectedTypeId == 51 ? 'Important' : item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}</span>
-            </td>
+              <td style="border: none;width: 50% !important;justify-content: space-between;">
+                <span style="font-weight:bold">{{item.Name}}:</span>&nbsp;
+                <span style="font-weight:100;font-style: monospace;">{{item.SelectedTypeId == 51 ? 'Important' :
+                  item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}</span>
+              </td>
             </tr>
           </tbody>
         </table>
       </ng-container>
     </ng-container>
+
+    <ng-container *ngIf="retirementPlans != undefined">
+      <h2 style="text-decoration: underline;">Retirement Plans</h2>
+      <span><span style="font-weight:bold;">Retirement Age:</span>&nbsp;{{retirementPlans.RetirementAge}}</span>
+      <br>
+      <h5 style="text-decoration: underline;">How you inted to make payments?</h5>
+      <ng-container *ngFor="let item of retirementPlansTable">
+        <table *ngIf="retirementPlansTable && retirementPlansTable.length"
+          style="border: none;justify-content: space-between;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;width: 50% !important;justify-content: space-between;">
+                <span style="font-weight:bold">{{item.Text}}:</span>&nbsp;&nbsp;
+                <span style="font-weight:bold">{{item.IsChecked == true ? 'Yes' : 'No'}}</span>&nbsp;
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="livingExpenses && livingExpenses.length">
+      <h2 style="text-decoration: underline;">Living Expenses</h2>
+      <ng-container *ngFor="let item of livingExpenses">
+        <table style="border: none;justify-content: space-between;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;width: 50% !important;justify-content: space-between;">
+                <span style="font-weight:bold">{{item.Title}}:</span>&nbsp;
+                <span style="font-weight:bold">${{item.Cost}}</span>&nbsp;
+                <span style="font-weight:bold">({{item.Comments}})</span>&nbsp;
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container>
+      <h2 style="text-decoration: underline;">Review Details</h2>
+      <span><span style="font-weight:bold;">Assets Income:</span>&nbsp;${{AssetsIncome}}</span>
+      <span><span style="font-weight:bold;">Living Expenses:</span>&nbsp;${{LivingExpenses}}</span>
+      <br>
+      <h5 style="text-decoration: underline;">Income</h5>
+      <table class="table" style="font-weight: 400 !important;">
+        <thead>
+          <tr style="background-color:#eeeeee">
+            <th scope="col" class="font-w-500">Details</th>
+            <th scope="col" class="font-w-500">Monthly Income</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <ng-container *ngIf="OtherIncome">
+            <tr *ngFor="let item of OtherIncome">
+              <td>{{item.Details}}</td>
+              <td>${{item.TotalIncome}}</td>
+            </tr>
+          </ng-container>
+
+          <tr>
+            <th scope="row" class="font-w-500">Monthly Total:</th>
+            <td class="font-w-500">${{FamilyExpenses}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </ng-container>
+
+    <h2 style="text-decoration: underline;">Applicants</h2>
+    <h2 style="text-decoration: underline;">Applicant Details</h2>
+    <ng-container *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+      <table style="border: none;">
+        <tbody>
+          <tr style="width: 100%;">
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Applicant Type</span>&nbsp;
+                {{item2.ApplicantTypeId == 1 ? "Applicant" : item2.ApplicantTypeId == 2 ?
+                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Salutation</span>&nbsp;
+                {{item2.SalutationTypeId == 4 ? "Mr" : item2.SalutationTypeId == 5 ?
+                "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" : ""}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span
+                  style="color: blue;">FirstName</span>&nbsp;{{item2.FirstName}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span
+                  style="color: blue;">SurName</span>&nbsp;{{item2.SurName}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span
+                  style="color: blue;">MiddleName</span>&nbsp;{{item2.MiddleName}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span
+                  style="color: blue;">MotherName</span>&nbsp;{{item2.MotherName}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span
+                  style="color: blue;">DateOfBirth</span>&nbsp;{{item2.DateOfBirth | date : "dd/MM/yyyy"}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Marital Status</span>&nbsp;
+                {{item2.MaritalTypeId == 8 ? "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
+                10 ? "DeFacto" :
+                item2.MaritalTypeId == 11 ? "Seperated" : item2.MaritalTypeId == 12 ? "Divorced" : item2.MaritalTypeId
+                == 13 ? "Widowed" :
+                item2.MaritalTypeId == 14 ? "Other" : ""}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Drivers Expiry
+                  Date</span>&nbsp;{{item2.DriversExpiryDate}}</p>
+            </td>
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Drivers Licence
+                  No</span>&nbsp;{{item2.DriversLicenceNo}}</p>
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Number Of
+                  Children</span>&nbsp;{{item2.NumberOfChildren}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <hr>
   </ng-container>
+
 </div>

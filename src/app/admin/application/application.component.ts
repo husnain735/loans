@@ -35,14 +35,26 @@ export class ApplicationComponent {
   relativesObj: any[] = [];
   financialGoals: any[] = [];
   riskInsuarance: any[] = [];
-  applicationReason:any[] = [];
+  applicationReason: any[] = [];
+  retirementPlans: any;
+  retirementPlansTable: any[];
+  livingExpenses: any[];
+  AssetsIncome: number;
+  FamilyExpenses: number;
+  LivingExpenses: number;
+  OtherIncome: any[];
+  Property: any[];
+  Savings: any[];
+  Superannuation: any[];
+  MotorVehicle: any[];
+  MoreAssets: any[];
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
     private _adminService: AdminService,
     private router: Router,
     public dialog: MatDialog
-  ) {}
+  ) { }
   ngOnInit() {
     this.GetApplications();
   }
@@ -81,12 +93,22 @@ export class ApplicationComponent {
       this.financialGoals.push(res.body.financialGoalsObj);
       this.riskInsuarance.push(res.body.riskInsuranceProfile);
       this.applicationReason = res.body.getReasonsForApplication.ReasonsForApplication_Radio;
-
+      this.retirementPlans = res.body.getRetirementPlans.RetirementPlans;
+      this.retirementPlansTable = res.body.getRetirementPlans.RetirementPlans_Checboxes;
+      this.livingExpenses = res.body.getLivingExpenses.LivingExpenses;
+      this.AssetsIncome = res.body.AssetsIncome;
+      this.FamilyExpenses = res.body.FamilyExpenses;
+      this.LivingExpenses = res.body.LivingExpenses;
+      this.OtherIncome = res.body.OtherIncome;
+      this.Property = res.body.assets.AssetsDetails;
+      this.Savings = res.body.assets.Savings;
+      this.Superannuation = res.body.assets.Superannuation;
+      this.MotorVehicle = res.body.assets.MotorVehicle;
+      this.MoreAssets = res.body.assets.MoreAssets;
     });
     setTimeout(() => {
       this.print();
     }, 1000);
-
   }
   print() {
     const pdfTable = this.pdfTable.nativeElement;
