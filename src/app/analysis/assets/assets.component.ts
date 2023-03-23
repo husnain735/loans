@@ -87,15 +87,15 @@ export class AssetsComponent {
 
   AssetType = [
     {
-      AssetTypeID: 43,
+      AssetTypeID: 46,
       AssetTypeName: 'Investments',
     },
     {
-      AssetTypeID: 44,
+      AssetTypeID: 47,
       AssetTypeName: 'Furniture & effects',
     },
     {
-      AssetTypeID: 45,
+      AssetTypeID: 48,
       AssetTypeName: 'Other',
     },
   ];

@@ -105,6 +105,7 @@ export class ApplicationComponent {
       this.Superannuation = res.body.assets.Superannuation;
       this.MotorVehicle = res.body.assets.MotorVehicle;
       this.MoreAssets = res.body.assets.MoreAssets;
+      console.log(this.Property);
     });
     setTimeout(() => {
       this.print();
