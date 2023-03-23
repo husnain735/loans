@@ -19,7 +19,7 @@
         <mat-cell *matCellDef="let element">
           <span class="pointer" (click)="onEdit(element.ApplicationId)"><mat-icon>edit</mat-icon></span>
           <span class="pointer" (click)="DeleteApplication(element.ApplicationId)"><mat-icon>delete</mat-icon></span>
-          <span class="pointer" (click)="PrintPDF(element.ApplicationId)"><mat-icon>picture_as_pdf</mat-icon></span>
+          <span *ngIf="element.IsCompleted == true" class="pointer" (click)="PrintPDF(element.ApplicationId)"><mat-icon>picture_as_pdf</mat-icon></span>
         </mat-cell>
       </ng-container>
 
@@ -776,7 +776,7 @@
                   <span style="color: blue;">Year</span>&nbsp;{{item.Year}}
                 </p>
               </td>
-              
+
               <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;">
                   <span style="color: blue;">Estimated Value</span>&nbsp;{{item.EstimatedValue}}
@@ -807,7 +807,7 @@
                   <span style="color: blue;">Details</span>&nbsp;{{item.Details}}
                 </p>
               </td>
-              
+
               <td style="border: none;">
                 <p style="font-weight: 400; font-size: 14px;">
                   <span style="color: blue;">Estimated Value</span>&nbsp;{{item.EstimatedValue}}

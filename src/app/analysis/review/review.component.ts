@@ -37,5 +37,12 @@ export class ReviewComponent {
     })
 
   }
+  CompleteApplicationProcess(){
+    var obj = {
+      ApplicationId: this.ApplicationId
+    }
+    this._analysisService.CompleteApplicationProcess(obj).subscribe((res: any) => {
 
+    });
+  }
 }

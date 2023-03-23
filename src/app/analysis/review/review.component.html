@@ -1,14 +1,11 @@
 <div class="col-10 p-3">
-    <h1>Review & Submit</h1>
-
-<div class="summary">
-<div class="row">
-    <div class="col-6 p-3">
+  <h1>Review & Submit</h1>
+  <div class="summary">
+    <div class="row">
+      <div class="col-6 p-3">
         <div>
-        <h4>Assets</h4>
-
-
-        <table class="table">
+          <h4>Assets</h4>
+          <table class="table">
             <thead>
               <tr style="background-color:#eeeeee">
                 <th scope="col" class="font-w-500">Details</th>
@@ -22,21 +19,14 @@
               </tr>
             </tbody>
           </table>
-
-
         </div>
-
-
+      </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-6 p-3">
+    <div class="row">
+      <div class="col-6 p-3">
         <div>
-        <h4>Income</h4>
-
-
-        <table class="table" style="font-weight: 400 !important;">
+          <h4>Income</h4>
+          <table class="table" style="font-weight: 400 !important;">
             <thead>
               <tr style="background-color:#eeeeee">
                 <th scope="col" class="font-w-500">Details</th>
@@ -44,42 +34,24 @@
               </tr>
             </thead>
             <tbody>
-              <!-- <tr  style="background-color: white;">
-                <th scope="row" class="font-w-400">After tax income for applicant:</th>
-                <td class="font-w-400">$0.00</td>
-              </tr>
-
-              <tr style="background-color: white;">
-                <th scope="row" class="font-w-400">Family Tax Benefit:</th>
-                <td class="font-w-400">$0.00</td>
-              </tr> -->
               <ng-container *ngIf="OtherIncome">
-              <tr *ngFor="let item of OtherIncome" style="background-color: white !important;">
-                <td>{{item.Details}}</td>
-                <td>${{item.TotalIncome}}</td>
-              </tr>
-            </ng-container>
-
+                <tr *ngFor="let item of OtherIncome" style="background-color: white !important;">
+                  <td>{{item.Details}}</td>
+                  <td>${{item.TotalIncome}}</td>
+                </tr>
+              </ng-container>
               <tr>
                 <th scope="row" class="font-w-500">Monthly Total:</th>
                 <td class="font-w-500">${{FamilyExpenses}}</td>
               </tr>
-              
             </tbody>
           </table>
-
-
         </div>
-
-
-    </div>
-
-    <div class="col-6 p-3">
+      </div>
+      <div class="col-6 p-3">
         <div>
-        <h4>Liabilities / Expenses</h4>
-
-
-        <table class="table">
+          <h4>Liabilities / Expenses</h4>
+          <table class="table">
             <thead>
               <tr style="background-color:#eeeeee">
                 <th scope="col" class="font-w-500">Details</th>
@@ -87,25 +59,30 @@
               </tr>
             </thead>
             <tbody>
-              <tr  style="background-color: white;">
+              <tr style="background-color: white;">
                 <th scope="row" class="font-w-400">Living expenses</th>
                 <td class="font-w-400">${{LivingExpenses}}</td>
               </tr>
-
               <tr>
                 <th scope="row" class="font-w-500">Monthly Total:</th>
                 <td class="font-w-500">${{LivingExpenses}}</td>
               </tr>
-              
             </tbody>
           </table>
-
-
         </div>
-
-
+      </div>
     </div>
-</div>
-
-</div>
+  </div>
+  <div>
+    <p>Well done, feels like we’ve known you forever.</p>
+    <button
+        (click)="CompleteApplicationProcess()"
+        mat-button
+        mat-raised-button
+        color="primary"
+        class="pointer"
+      >
+       Submit & Complete
+      </button>
+  </div>
 </div>
