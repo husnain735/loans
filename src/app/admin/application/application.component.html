@@ -19,7 +19,8 @@
         <mat-cell *matCellDef="let element">
           <span class="pointer" (click)="onEdit(element.ApplicationId)"><mat-icon>edit</mat-icon></span>
           <span class="pointer" (click)="DeleteApplication(element.ApplicationId)"><mat-icon>delete</mat-icon></span>
-          <span *ngIf="element.IsCompleted == true" class="pointer" (click)="PrintPDF(element.ApplicationId)"><mat-icon>picture_as_pdf</mat-icon></span>
+          <span *ngIf="element.IsCompleted == true" class="pointer"
+            (click)="PrintPDF(element.ApplicationId)"><mat-icon>picture_as_pdf</mat-icon></span>
         </mat-cell>
       </ng-container>
 
@@ -256,6 +257,168 @@
       </ng-container>
       <hr>
     </ng-container>
+    <h2 style="text-decoration: underline;">Assets</h2>
+    <ng-container *ngIf="Property && Property.length > 0">
+      <ng-container *ngFor="let item of Property;let i = index">
+        <h4 style="text-decoration: underline;">Real Estate - Property #{{i + 1}}</h4>
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Street Number</span>&nbsp;{{item.StreetNumber}}
+                </p>
+
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
+                </p>
+
+                <p *ngIf="item.IsInvestmentProperty" style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Rent Recieved</span>&nbsp;${{item.RentReceived}}
+                </p>
+
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Street Name</span>&nbsp;{{item.StreetName}}
+                </p>
+
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Post Code</span>&nbsp;{{item.PostCode}}
+                </p>
+
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Suburb</span>&nbsp;{{item.Suburb}}
+                </p>
+
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Investment Property</span>&nbsp;{{item.IsInvestmentProperty == true ? 'Yes'
+                  : 'No'}}
+                </p>
+              </td>
+
+
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="Savings && Savings.length > 0">
+      <ng-container *ngFor="let item of Savings;let i = index">
+        <h4 style="text-decoration: underline;">Savings #{{i + 1}}</h4>
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Institution</span>&nbsp;{{item.Institution}}
+                </p>
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
+                </p>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="Superannuation && Superannuation.length > 0">
+      <ng-container *ngFor="let item of Superannuation;let i = index">
+        <h4 style="text-decoration: underline;">Superannuation #{{i + 1}}</h4>
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Institution</span>&nbsp;{{item.Institution}}
+                </p>
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
+                </p>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="MotorVehicle && MotorVehicle.length > 0">
+      <ng-container *ngFor="let item of MotorVehicle;let i = index">
+        <h4 style="text-decoration: underline;">Motor Vehicle #{{i + 1}}</h4>
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Make</span>&nbsp;{{item.Make}}
+                </p>
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Year</span>&nbsp;{{item.Year}}
+                </p>
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
+                </p>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="MoreAssets && MoreAssets.length > 0">
+      <ng-container *ngFor="let item of MoreAssets;let i = index">
+        <h4 style="text-decoration: underline;">More Assets #{{i + 1}}</h4>
+        <table style="border: none;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Asset Type</span>&nbsp;{{item.TypeName}}
+                </p>
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Details</span>&nbsp;{{item.Details}}
+                </p>
+              </td>
+
+              <td style="border: none;">
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
+                </p>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
     <h2 style="text-decoration: underline;">Liabilities</h2>
     <ng-container *ngFor="let item of Liabilities | filter : 1 : 'LiabilityTypeID';let i = index">
       <h4 style="text-decoration: underline;">Personal / Car Loan&nbsp;{{i + 1}}</h4>
@@ -470,7 +633,26 @@
         </table>
       </ng-container>
     </ng-container>
-
+    <ng-container *ngIf="applicationReason != undefined && applicationReason.length > 0">
+      <h2 style="text-decoration: underline;">Reason For Application</h2>
+      <span><span style="font-weight:bold;">Loan Description:</span>&nbsp;{{applicationReason[0].LoanDescription}}
+      </span>
+      <br>
+      <h5 style="text-decoration: underline;">Specific Loan/Lender features?</h5>
+      <ng-container *ngFor="let item of applicationReason">
+        <table style="border: none;justify-content: space-between;">
+          <tbody>
+            <tr style="width: 100%;">
+              <td style="border: none;width: 50% !important;justify-content: space-between;">
+                <span style="font-weight:bold">{{item.Name}}:</span>&nbsp;
+                <span style="font-weight:100;font-style: monospace;">{{item.SelectedTypeId == 51 ? 'Important' :
+                  item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
     <h2 style="text-decoration: underline;">Relatives</h2>
     <ng-container *ngFor="let item of relativesObj">
       <table style="border: none;">
@@ -499,32 +681,6 @@
         </tbody>
       </table>
     </ng-container>
-
-
-    <h2 style="text-decoration: underline;">Financial Goals</h2>
-    <ng-container *ngFor="let item of financialGoals">
-      <table style="border: none;">
-        <tbody>
-          <tr style="width: 100%;">
-            <td style="border: none;">
-              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Assistance in
-                  Investment</span>&nbsp;{{item.IsTaxResident == true ? 'Yes' : 'No'}}</p>
-
-              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Future Financial Goal
-                </span>&nbsp;{{item.FutureFinancialGoal}}</p>
-
-            </td>
-
-            <td style="border: none;">
-              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Retirement Age Income
-                </span>&nbsp;{{item.RetirementAgeIncome}}</p>
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-    </ng-container>
-
     <h2 style="text-decoration: underline;">Risk / Insuarance Profile</h2>
     <ng-container *ngFor="let item of riskInsuarance">
       <table style="border: none;">
@@ -565,27 +721,6 @@
         </tbody>
       </table>
     </ng-container>
-    <ng-container *ngIf="applicationReason != undefined && applicationReason.length > 0">
-      <h2 style="text-decoration: underline;">Reason For Application</h2>
-      <span><span style="font-weight:bold;">Loan Description:</span>&nbsp;{{applicationReason[0].LoanDescription}}
-      </span>
-      <br>
-      <h5 style="text-decoration: underline;">Specific Loan/Lender features?</h5>
-      <ng-container *ngFor="let item of applicationReason">
-        <table style="border: none;justify-content: space-between;">
-          <tbody>
-            <tr style="width: 100%;">
-              <td style="border: none;width: 50% !important;justify-content: space-between;">
-                <span style="font-weight:bold">{{item.Name}}:</span>&nbsp;
-                <span style="font-weight:100;font-style: monospace;">{{item.SelectedTypeId == 51 ? 'Important' :
-                  item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
     <ng-container *ngIf="retirementPlans != undefined">
       <h2 style="text-decoration: underline;">Retirement Plans</h2>
       <span><span style="font-weight:bold;">Retirement Age:</span>&nbsp;{{retirementPlans.RetirementAge}}</span>
@@ -605,8 +740,29 @@
         </table>
       </ng-container>
     </ng-container>
+    <h2 style="text-decoration: underline;">Financial Goals</h2>
+    <ng-container *ngFor="let item of financialGoals">
+      <table style="border: none;">
+        <tbody>
+          <tr style="width: 100%;">
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Assistance in
+                  Investment</span>&nbsp;{{item.IsTaxResident == true ? 'Yes' : 'No'}}</p>
 
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Future Financial Goal
+                </span>&nbsp;{{item.FutureFinancialGoal}}</p>
 
+            </td>
+
+            <td style="border: none;">
+              <p style="font-weight: 400; font-size: 14px;"><span style="color: blue;">Retirement Age Income
+                </span>&nbsp;{{item.RetirementAgeIncome}}</p>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
     <ng-container *ngIf="livingExpenses && livingExpenses.length">
       <h2 style="text-decoration: underline;">Living Expenses</h2>
       <ng-container *ngFor="let item of livingExpenses">
@@ -624,8 +780,6 @@
         </table>
       </ng-container>
     </ng-container>
-
-
     <ng-container>
       <h2 style="text-decoration: underline;">Review Details</h2>
       <span><span style="font-weight:bold;">Assets Income:</span>&nbsp;${{AssetsIncome}}</span>
@@ -655,10 +809,10 @@
 
         </tbody>
       </table> -->
-    
+
       <table class="table" style="font-weight: 400 !important;">
         <thead>
-          <tr >
+          <tr>
             <th scope="col" class="font-w-500">Details</th>
             <th scope="col" class="font-w-500">Monthly Income</th>
           </tr>
@@ -683,171 +837,5 @@
         </tbody>
       </table>
     </ng-container>
-
-    <h2 style="text-decoration: underline;">Assets</h2>
-    <ng-container *ngIf="Property && Property.length > 0">
-      <ng-container *ngFor="let item of Property;let i = index">
-        <h4 style="text-decoration: underline;">Real Estate - Property #{{i + 1}}</h4>
-        <table style="border: none;">
-          <tbody>
-            <tr style="width: 100%;">
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Street Number</span>&nbsp;{{item.StreetNumber}}
-                </p>
-
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
-                </p>
-
-                <p *ngIf="item.IsInvestmentProperty" style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Rent Recieved</span>&nbsp;${{item.RentReceived}}
-                </p>
-
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Street Name</span>&nbsp;{{item.StreetName}}
-                </p>
-
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Post Code</span>&nbsp;{{item.PostCode}}
-                </p>
-
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Suburb</span>&nbsp;{{item.Suburb}}
-                </p>
-
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Investment Property</span>&nbsp;{{item.IsInvestmentProperty == true ? 'Yes'
-                  : 'No'}}
-                </p>
-              </td>
-
-
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-
-    <ng-container *ngIf="Savings && Savings.length > 0">
-      <ng-container *ngFor="let item of Savings;let i = index">
-        <h4 style="text-decoration: underline;">Savings #{{i + 1}}</h4>
-        <table style="border: none;">
-          <tbody>
-            <tr style="width: 100%;">
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Institution</span>&nbsp;{{item.Institution}}
-                </p>
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
-                </p>
-
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-
-    <ng-container *ngIf="Superannuation && Superannuation.length > 0">
-      <ng-container *ngFor="let item of Superannuation;let i = index">
-        <h4 style="text-decoration: underline;">Superannuation #{{i + 1}}</h4>
-        <table style="border: none;">
-          <tbody>
-            <tr style="width: 100%;">
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Institution</span>&nbsp;{{item.Institution}}
-                </p>
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
-                </p>
-
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-
-    <ng-container *ngIf="MotorVehicle && MotorVehicle.length > 0">
-      <ng-container *ngFor="let item of MotorVehicle;let i = index">
-        <h4 style="text-decoration: underline;">Motor Vehicle #{{i + 1}}</h4>
-        <table style="border: none;">
-          <tbody>
-            <tr style="width: 100%;">
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Make</span>&nbsp;{{item.Make}}
-                </p>
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Year</span>&nbsp;{{item.Year}}
-                </p>
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
-                </p>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-
-    <ng-container *ngIf="MoreAssets && MoreAssets.length > 0">
-      <ng-container *ngFor="let item of MoreAssets;let i = index">
-        <h4 style="text-decoration: underline;">More Assets #{{i + 1}}</h4>
-        <table style="border: none;">
-          <tbody>
-            <tr style="width: 100%;">
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Asset Type</span>&nbsp;{{item.TypeName}}
-                </p>
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Details</span>&nbsp;{{item.Details}}
-                </p>
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Estimated Value</span>&nbsp;${{item.EstimatedValue}}
-                </p>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-
-
   </ng-container>
 </div>
