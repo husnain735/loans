@@ -12,7 +12,6 @@ import { RelativeComponent } from './relative/relative.component';
 import { RetirementPlansComponent } from './retirement-plans/retirement-plans.component';
 import { ReviewComponent } from './review/review.component';
 import { RiskInsuranceProfileComponent } from './risk-insurance-profile/risk-insurance-profile.component';
-
 const routes: Routes = [
   {
     path: '',

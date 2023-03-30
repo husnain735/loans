@@ -14,6 +14,9 @@ export class ReviewComponent {
   FamilyExpenses: number = 0;
   LivingExpenses: number = 0;
   OtherIncome: any;
+  isSubmitted: boolean = false;
+  MonthlyIncome:any;
+  TotalMonthlyIncome:number;
 
 
   constructor(protected route: ActivatedRoute,
@@ -34,6 +37,10 @@ export class ReviewComponent {
       this.FamilyExpenses = res.body.FamilyExpenses;
       this.LivingExpenses = res.body.LivingExpenses;
       this.OtherIncome = res.body.OtherIncome;
+      this.MonthlyIncome = res.body.MonthlyIncome;
+      this.TotalMonthlyIncome = res.body.TotalMonthlyIncome;
+
+      this.FamilyExpenses = this.FamilyExpenses + this.TotalMonthlyIncome;
     })
 
   }
@@ -42,7 +49,7 @@ export class ReviewComponent {
       ApplicationId: this.ApplicationId
     }
     this._analysisService.CompleteApplicationProcess(obj).subscribe((res: any) => {
-
+      this.isSubmitted = true;
     });
   }
 }

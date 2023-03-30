@@ -34,6 +34,12 @@
               </tr>
             </thead>
             <tbody>
+              <ng-container *ngIf="MonthlyIncome">
+                <tr *ngFor="let item of MonthlyIncome" style="background-color: white !important;">
+                  <td>After tax income for {{item.Name}} (Gross Income: ${{item.GrossIncome}}, tax: ${{item.Tax}})</td>
+                  <td>${{item.MonthlyIncome}}</td>
+                </tr>
+              </ng-container>
               <ng-container *ngIf="OtherIncome">
                 <tr *ngFor="let item of OtherIncome" style="background-color: white !important;">
                   <td>{{item.Details}}</td>
@@ -75,7 +81,7 @@
   </div>
   <div>
     <p>Well done, feels like we’ve known you forever.</p>
-    <button
+    <button *ngIf="!isSubmitted"
         (click)="CompleteApplicationProcess()"
         mat-button
         mat-raised-button
@@ -84,5 +90,7 @@
       >
        Submit & Complete
       </button>
+
+      <h3 *ngIf="isSubmitted">Thank you, we will contact you soon!!</h3>
   </div>
 </div>

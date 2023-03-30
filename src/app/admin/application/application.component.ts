@@ -50,6 +50,8 @@ export class ApplicationComponent {
   Superannuation: any[];
   MotorVehicle: any[];
   MoreAssets: any[];
+  MonthlyIncome:any;
+  TotalMonthlyIncome:number;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
@@ -108,6 +110,10 @@ export class ApplicationComponent {
       this.MotorVehicle = res.body.assets.MotorVehicle;
       this.MoreAssets = res.body.assets.MoreAssets;
       console.log(this.Property);
+      this.MonthlyIncome = res.body.MonthlyIncome;
+      this.TotalMonthlyIncome = res.body.TotalMonthlyIncome;
+
+      this.FamilyExpenses = this.FamilyExpenses + this.TotalMonthlyIncome;
     });
     setTimeout(() => {
       this.print();

@@ -632,7 +632,7 @@
       <span><span style="font-weight:bold;">Living Expenses:</span>&nbsp;${{LivingExpenses}}</span>
       <br>
       <h5 style="text-decoration: underline;">Income</h5>
-      <table class="table" style="font-weight: 400 !important;">
+      <!-- <table class="table" style="font-weight: 400 !important;">
         <thead>
           <tr style="background-color:#eeeeee">
             <th scope="col" class="font-w-500">Details</th>
@@ -653,6 +653,33 @@
             <td class="font-w-500">${{FamilyExpenses}}</td>
           </tr>
 
+        </tbody>
+      </table> -->
+    
+      <table class="table" style="font-weight: 400 !important;">
+        <thead>
+          <tr >
+            <th scope="col" class="font-w-500">Details</th>
+            <th scope="col" class="font-w-500">Monthly Income</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="MonthlyIncome">
+            <tr *ngFor="let item of MonthlyIncome">
+              <td>After tax income for {{item.Name}} (Gross Income: ${{item.GrossIncome}}, tax: ${{item.Tax}})</td>
+              <td>${{item.MonthlyIncome}}</td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="OtherIncome">
+            <tr *ngFor="let item of OtherIncome">
+              <td>{{item.Details}}</td>
+              <td>${{item.TotalIncome}}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <th scope="row" class="font-w-500">Monthly Total:</th>
+            <td class="font-w-500">${{FamilyExpenses}}</td>
+          </tr>
         </tbody>
       </table>
     </ng-container>
