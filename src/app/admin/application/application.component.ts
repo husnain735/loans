@@ -117,7 +117,7 @@ export class ApplicationComponent {
     });
     setTimeout(() => {
       this.print();
-    }, 1000);
+    }, 5000);
   }
   print() {
     const pdfTable = this.pdfTable.nativeElement;
