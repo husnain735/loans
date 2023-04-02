@@ -6,7 +6,6 @@ import { FormFilterPipe } from './pipes/filter.pipe';
 import { FilterPipe } from './pipes/genericFilter.pipe';
 
 
-
 @NgModule({
   declarations: [
     FormFilterPipe,

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { atLeastOneCheckboxCheckedValidator } from './shared/formValidation/atLeastOneCheckboxCheckedValidator';
+import { SharedService } from './shared/services/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +8,8 @@ import { atLeastOneCheckboxCheckedValidator } from './shared/formValidation/atLe
 })
 export class AppComponent {
 
+  constructor(public _sharedService: SharedService) {
+
+
+  }
 }

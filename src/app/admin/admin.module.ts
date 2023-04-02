@@ -6,13 +6,15 @@ import { AdminComponent } from './admin/admin.component';
 import { SharedModule } from '../shared/shared.module';
 import { ApplicationComponent } from './application/application.component';
 import { LoansBrokerComponent } from './loans-broker/loans-broker.component';
+import { GamePlanComponent } from './game-plan/game-plan.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
     ApplicationComponent,
-    LoansBrokerComponent
+    LoansBrokerComponent,
+    GamePlanComponent
   ],
   imports: [
     CommonModule,

@@ -125,4 +125,7 @@ export class ApplicationComponent {
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).download();
   }
+  gotoGamePlan(ApplicationId){
+    this.router.navigate(['admin/' + ApplicationId + '/game-plan']);
+  }
 }

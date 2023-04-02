@@ -1,0 +1,93 @@
+<div class="p-3 bgWhite">
+  <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+    <h1>Game Plan</h1>
+  </div>
+  <form [formGroup]="GamePlanForm">
+    <div class="row mx-0">
+      <mat-form-field class="col-3">
+        <mat-select placeholder="Select Broker" formControlName="BrokerId">
+          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Borker Name" value="" #itemName1>
+            </mat-form-field>
+            <button mat-button mat-raised-button color="primary" (click)="add(itemName1.value);itemName1.value=''">
+              Add</button>
+          </div>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{ food.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-3 w-100">
+        <mat-label>Date of Birth (dd/mm/yyyy)</mat-label>
+        <input matInput [matDatepicker]="PlanDate" formControlName="PlanDate" />
+        <mat-datepicker-toggle matSuffix [for]="PlanDate"></mat-datepicker-toggle>
+        <mat-datepicker #PlanDate></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-3">
+        <mat-select placeholder="Select Lender" formControlName="LenderId">
+          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Lender Name" value="" #itemName2>
+            </mat-form-field>
+            <button mat-button mat-raised-button color="primary" (click)="add(itemName2.value);itemName2.value=''">
+              Add</button>
+          </div>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{ food.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-3 w-100">
+        <mat-label>Given Names</mat-label>
+        <input
+          matInput
+          placeholder="Client Name"
+          formControlName="ClientName"
+        />
+      </mat-form-field>
+      <mat-form-field class="col-3">
+        <mat-select placeholder="Select Referer" formControlName="RefererId">
+          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Referer Name" value="" #itemName3>
+            </mat-form-field>
+            <button mat-button mat-raised-button color="primary" (click)="add(itemName3.value);itemName3.value=''">
+              Add</button>
+          </div>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{ food.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-9">
+        <mat-select placeholder="Select Primary Purpose" formControlName="PrimaryPurposeId">
+          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Primary Purpose Name" value="" #itemName4>
+            </mat-form-field>
+            <button mat-button mat-raised-button color="primary" (click)="add(itemName4.value);itemName4.value=''">
+              Add</button>
+          </div>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{ food.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="step-nav">
+    <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+      <button mat-flat-button [routerLink]="'/admin'">Back</button>
+      <button
+        (click)="onGamePlanSubmit()"
+        mat-raised-button
+        color="primary"
+        class="next"
+      >
+        Next
+        <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
