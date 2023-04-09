@@ -49,6 +49,7 @@ export class GamePlanComponent implements OnInit {
       this.GamPlanObj = res.body;
       this.GamePlanForm.patchValue({
         ClientName: this.GamPlanObj.Applicant.ClientName,
+
       });
     });
   }
@@ -121,5 +122,9 @@ export class GamePlanComponent implements OnInit {
       }
     }
     previousLength = newLength;
+  }
+
+  test(event:any){
+    console.log(event.source.triggerValue);
   }
 }
