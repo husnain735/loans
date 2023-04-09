@@ -20,4 +20,7 @@ export class AdminService {
   PrintPDF(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}PrintPDF`, obj);
   }
+  GetGamePlanMetadata(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}GetGamePlanMetadata`, obj);
+  }
 }
