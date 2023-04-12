@@ -46,7 +46,7 @@
     </mat-table>
   </div>
 </ng-container>
-<div hidden id="pdfTable1" #pdfTable class="pdfTable">
+<div id="pdfTable1" #pdfTable class="pdfTable">
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
     <h2 style="text-decoration: underline;">Applicants</h2>
     <ng-container *ngFor="let item of Applicants;let i = index">

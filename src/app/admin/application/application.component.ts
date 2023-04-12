@@ -13,6 +13,9 @@ declare var require: any;
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
 const htmlToPdfmake = require('html-to-pdfmake');
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -122,19 +125,30 @@ export class ApplicationComponent {
     }, 5000);
   }
   print() {
-    const pdfTable = this.pdfTable.nativeElement;
-    var obj:any = {
-      elementHtml: pdfTable,
-      ApplicationId: this.ApplicationId
-    };
+    //const pdfTable = this.pdfTable.nativeElement;
+    // var obj:any = {
+    //   elementHtml: pdfTable.innerHTML,
+    //   ApplicationId: this.ApplicationId
+    // };
 
-    this._adminService.GeneratePhaseOnePdf(obj).subscribe(res =>{
-      console.log(res);
-    })
+    // this._adminService.GeneratePhaseOnePdf(obj).subscribe(res =>{
+    //   console.log(res);
+    // })
 
     // var html = htmlToPdfmake(pdfTable.innerHTML);
     // const documentDefinition = { content: html };
     // pdfMake.createPdf(documentDefinition).download();
+
+    const pdfTable = document.getElementById('pdfTable1') as HTMLElement;
+    window.scrollTo(0, 0);
+    html2canvas(pdfTable,{scale:4}).then((canvas) => {
+
+      const contentDataURL = canvas.toDataURL('image/jpeg');
+      let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+      pdf.addImage(contentDataURL, 'JPEG', 0, 0, 210, 297);
+      pdf.save('aplllication.pdf'); // Generated PDF
+    });
+
   }
   gotoGamePlan(ApplicationId){
     this.router.navigate(['admin/' + ApplicationId + '/game-plan']);
