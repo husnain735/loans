@@ -275,13 +275,14 @@
       <hr>
     </ng-container>
     <h2 style="text-decoration: underline;">Assets</h2>
+
     <ng-container *ngIf="Property && Property.length > 0">
       <ng-container *ngFor="let item of Property;let i = index">
         <h4 style="text-decoration: underline;">Real Estate - Property #{{i + 1}}</h4>
-        <table style="border: none;">
+        <table style="border:none" class="table">
           <tbody>
             <tr style="width: 100%;">
-              <td style="border: none;">
+              <td style="border:none;max-width:50%">
                 <p style="font-weight: 400; font-size: 14px;">
                   <span style="color: blue;">Street Number</span>&nbsp;{{item.StreetNumber}}
                 </p>
@@ -294,9 +295,13 @@
                   <span style="color: blue;">Rent Recieved</span>&nbsp;${{item.RentReceived}}
                 </p>
 
+                <p style="font-weight: 400; font-size: 14px;">
+                  <span style="color: blue;">Suburb</span>&nbsp;{{item.Suburb}}
+                </p>
+
               </td>
 
-              <td style="border: none;">
+              <td style="border:none;max-width:50%">
                 <p style="font-weight: 400; font-size: 14px;">
                   <span style="color: blue;">Street Name</span>&nbsp;{{item.StreetName}}
                 </p>
@@ -305,17 +310,11 @@
                   <span style="color: blue;">Post Code</span>&nbsp;{{item.PostCode}}
                 </p>
 
-              </td>
-
-              <td style="border: none;">
-                <p style="font-weight: 400; font-size: 14px;">
-                  <span style="color: blue;">Suburb</span>&nbsp;{{item.Suburb}}
-                </p>
-
                 <p style="font-weight: 400; font-size: 14px;">
                   <span style="color: blue;">Investment Property</span>&nbsp;{{item.IsInvestmentProperty == true ? 'Yes'
                   : 'No'}}
                 </p>
+
               </td>
 
 
