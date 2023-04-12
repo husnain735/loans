@@ -52,6 +52,7 @@ export class ApplicationComponent {
   MoreAssets: any[];
   MonthlyIncome:any;
   TotalMonthlyIncome:number;
+  ApplicationId: number;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
   constructor(
@@ -80,6 +81,7 @@ export class ApplicationComponent {
     });
   }
   async PrintPDF(ApplicationId) {
+    this.ApplicationId = ApplicationId;
     var obj = {
       ApplicationId: ApplicationId,
     };
@@ -121,9 +123,18 @@ export class ApplicationComponent {
   }
   print() {
     const pdfTable = this.pdfTable.nativeElement;
-    var html = htmlToPdfmake(pdfTable.innerHTML);
-    const documentDefinition = { content: html };
-    pdfMake.createPdf(documentDefinition).download();
+    var obj:any = {
+      elementHtml: pdfTable,
+      ApplicationId: this.ApplicationId
+    };
+
+    this._adminService.GeneratePhaseOnePdf(obj).subscribe(res =>{
+      console.log(res);
+    })
+
+    // var html = htmlToPdfmake(pdfTable.innerHTML);
+    // const documentDefinition = { content: html };
+    // pdfMake.createPdf(documentDefinition).download();
   }
   gotoGamePlan(ApplicationId){
     this.router.navigate(['admin/' + ApplicationId + '/game-plan']);

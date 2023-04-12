@@ -23,4 +23,8 @@ export class AdminService {
   GetGamePlanMetadata(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}GetGamePlanMetadata`, obj);
   }
+
+  GeneratePhaseOnePdf(obj:any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}GeneratePhaseOnePdf`, obj);
+  }
 }
