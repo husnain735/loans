@@ -11,6 +11,13 @@ export class SharedService {
 
   constructor(private ngxUiLoaderService: NgxUiLoaderService) {
     this.config = this.ngxUiLoaderService.getDefaultConfig();
+    // this.config.bgsColor = "#000000";
+    // this.config.pbColor = "#000000";
+    // this.config.textColor = "#000000";
+    this.config.fgsColor = "#000000";
+    // this.config.overlayColor = "#000000";
+
+
   }
 
   generateGUID(): string {
