@@ -143,10 +143,18 @@ export class ApplicationComponent {
     window.scrollTo(0, 0);
     html2canvas(pdfTable,{scale:4}).then((canvas) => {
 
-      const contentDataURL = canvas.toDataURL('image/jpeg');
-      let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
-      pdf.addImage(contentDataURL, 'JPEG', 0, 0, 210, 297);
-      pdf.save('aplllication.pdf'); // Generated PDF
+      // const contentDataURL = canvas.toDataURL('image/jpeg');
+      // let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+      // pdf.addImage(contentDataURL, 'JPEG', 0, 0, 210, 297);
+      // pdf.save('aplllication.pdf'); // Generated PDF
+
+      const imgWidth = 208;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('phaseOne.pdf'); // Generated PDF
     });
 
   }
