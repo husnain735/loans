@@ -9,16 +9,9 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/services/admin.service';
-declare var require: any;
-
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import jspdf from 'jspdf';
-const htmlToPdfmake = require('html-to-pdfmake');
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { saveAs } from "file-saver/dist/FileSaver";
 
 
 @Component({
@@ -57,11 +50,12 @@ export class ApplicationComponent {
   TotalMonthlyIncome:number;
   ApplicationId: number;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
-
+  baseApiUrl = environment.ResourceServer.BaseApiUrl;
   constructor(
     private _adminService: AdminService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private http: HttpClient
   ) { }
   ngOnInit() {
     this.GetApplications();
@@ -89,7 +83,7 @@ export class ApplicationComponent {
       ApplicationId: ApplicationId,
     };
     await this._adminService.PrintPDF(obj).subscribe((res: any) => {
-      debugger
+
       this.Applicants = res.body.pdfViewModel.Applicants;
       this.ApplicantsDetails = res.body.pdfViewModel.ApplicantDetails;
       this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
@@ -125,38 +119,30 @@ export class ApplicationComponent {
     }, 5000);
   }
   print() {
-    //const pdfTable = this.pdfTable.nativeElement;
-    // var obj:any = {
-    //   elementHtml: pdfTable.innerHTML,
-    //   ApplicationId: this.ApplicationId
-    // };
 
-    // this._adminService.GeneratePhaseOnePdf(obj).subscribe(res =>{
-    //   console.log(res);
-    // })
+    const pdfTable = JSON.stringify(document.body.querySelector('.pdfTable').outerHTML);
+    var obj:any = {
+      elementHtml: pdfTable,
+      ApplicationId: this.ApplicationId
+    };
 
-    // var html = htmlToPdfmake(pdfTable.innerHTML);
-    // const documentDefinition = { content: html };
-    // pdfMake.createPdf(documentDefinition).download();
-
-    const pdfTable = document.getElementById('pdfTable1') as HTMLElement;
-    window.scrollTo(0, 0);
-    html2canvas(pdfTable,{scale:4}).then((canvas) => {
-
-      // const contentDataURL = canvas.toDataURL('image/jpeg');
-      // let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
-      // pdf.addImage(contentDataURL, 'JPEG', 0, 0, 210, 297);
-      // pdf.save('aplllication.pdf'); // Generated PDF
-
-      const imgWidth = 208;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      pdf.save('phaseOne.pdf'); // Generated PDF
+    this._adminService.GeneratePhaseOnePdf(obj).subscribe(res =>{
+      console.log(this.baseApiUrl + '/' + res.body);
+      var url = this.baseApiUrl + '/' + res.body;
+      this.downloadPdf(url);
     });
-
+  }
+  downloadPdf(url) {
+    this.http.get(url, { responseType: "arraybuffer" }).subscribe(
+      pdf => {
+        const blob = new Blob([pdf], { type: "application/pdf" });
+        const fileName = "finance.pdf";
+        saveAs(blob, fileName);
+      },
+      err => {
+        console.log("err->", err);
+      }
+    );
   }
   gotoGamePlan(ApplicationId){
     this.router.navigate(['admin/' + ApplicationId + '/game-plan']);
