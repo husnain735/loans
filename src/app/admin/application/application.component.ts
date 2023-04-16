@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { saveAs } from "file-saver/dist/FileSaver";
-
+import { saveAs } from 'file-saver/dist/FileSaver';
 
 @Component({
   selector: 'app-application',
@@ -46,8 +45,8 @@ export class ApplicationComponent {
   Superannuation: any[];
   MotorVehicle: any[];
   MoreAssets: any[];
-  MonthlyIncome:any;
-  TotalMonthlyIncome:number;
+  MonthlyIncome: any;
+  TotalMonthlyIncome: number;
   ApplicationId: number;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
   baseApiUrl = environment.ResourceServer.BaseApiUrl;
@@ -56,7 +55,7 @@ export class ApplicationComponent {
     private router: Router,
     public dialog: MatDialog,
     private http: HttpClient
-  ) { }
+  ) {}
   ngOnInit() {
     this.GetApplications();
   }
@@ -83,21 +82,29 @@ export class ApplicationComponent {
       ApplicationId: ApplicationId,
     };
     await this._adminService.PrintPDF(obj).subscribe((res: any) => {
-
+      this.relativesObj = [];
+      this.financialGoals = [];
+      this.riskInsuarance = [];
       this.Applicants = res.body.pdfViewModel.Applicants;
       this.ApplicantsDetails = res.body.pdfViewModel.ApplicantDetails;
       this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
-      this.ApplicantContactInformations = res.body.pdfViewModel.ApplicantContactInformations;
-      this.ApplicantEmployeeDetails = res.body.pdfViewModel.ApplicantEmployeeDetails;
+      this.ApplicantContactInformations =
+        res.body.pdfViewModel.ApplicantContactInformations;
+      this.ApplicantEmployeeDetails =
+        res.body.pdfViewModel.ApplicantEmployeeDetails;
       this.ApplicantOtherIncomes = res.body.pdfViewModel.ApplicantOtherIncomes;
       this.Liabilities = res.body.GetLiabilities.Liabilities;
-      this.liabilities_Applicants_Links = res.body.GetLiabilities.liabilities_Applicants_Links;
+      this.liabilities_Applicants_Links =
+        res.body.GetLiabilities.liabilities_Applicants_Links;
+
       this.relativesObj.push(res.body.relativeObj);
       this.financialGoals.push(res.body.financialGoalsObj);
       this.riskInsuarance.push(res.body.riskInsuranceProfile);
-      this.applicationReason = res.body.getReasonsForApplication.ReasonsForApplication_Radio;
+      this.applicationReason =
+        res.body.getReasonsForApplication.ReasonsForApplication_Radio;
       this.retirementPlans = res.body.getRetirementPlans.RetirementPlans;
-      this.retirementPlansTable = res.body.getRetirementPlans.RetirementPlans_Checboxes;
+      this.retirementPlansTable =
+        res.body.getRetirementPlans.RetirementPlans_Checboxes;
       this.livingExpenses = res.body.getLivingExpenses.LivingExpenses;
       this.AssetsIncome = res.body.AssetsIncome;
       this.FamilyExpenses = res.body.FamilyExpenses;
@@ -119,32 +126,35 @@ export class ApplicationComponent {
     }, 5000);
   }
   print() {
-
-    const pdfTable = JSON.stringify(document.body.querySelector('.pdfTable').outerHTML);
-    var obj:any = {
+    const pdfTable = JSON.stringify(
+      document.body.querySelector('.pdfTable').outerHTML
+    );
+    var obj: any = {
       elementHtml: pdfTable,
-      ApplicationId: this.ApplicationId
+      ApplicationId: this.ApplicationId,
     };
 
-    this._adminService.GeneratePhaseOnePdf(obj).subscribe(res =>{
+    this._adminService.GeneratePhaseOnePdf(obj).subscribe((res) => {
+      debugger;
       console.log(this.baseApiUrl + '/' + res.body);
       var url = this.baseApiUrl + '/' + res.body;
       this.downloadPdf(url);
     });
   }
   downloadPdf(url) {
-    this.http.get(url, { responseType: "arraybuffer" }).subscribe(
-      pdf => {
-        const blob = new Blob([pdf], { type: "application/pdf" });
-        const fileName = "finance.pdf";
-        saveAs(blob, fileName);
-      },
-      err => {
-        console.log("err->", err);
-      }
-    );
+    // this.http.get(url, { responseType: "arraybuffer" }).subscribe(
+    //   pdf => {
+    //     const blob = new Blob([pdf], { type: "application/pdf" });
+    //     const fileName = "finance.pdf";
+    //     saveAs(blob, fileName);
+    //   },
+    //   err => {
+    //     console.log("err->", err);
+    //   }
+    // );
+    window.open(url, '_blank');
   }
-  gotoGamePlan(ApplicationId){
+  gotoGamePlan(ApplicationId) {
     this.router.navigate(['admin/' + ApplicationId + '/game-plan']);
   }
 }
