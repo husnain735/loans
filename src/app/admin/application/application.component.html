@@ -1161,21 +1161,19 @@
         </tbody>
       </table>
     </ng-container>
-    <ng-container *ngIf="livingExpenses && livingExpenses.length">
+    <ng-container *ngIf="livingExpenses">
       <h2 style="text-decoration: underline;">Living Expenses</h2>
-      <ng-container *ngFor="let item of livingExpenses">
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
           <tbody>
             <tr>
               <td style="border: none;width: 50% !important;justify-content: space-between;">
-                <span style="font-weight:bold">{{item.Title}}:</span>&nbsp;
-                <span style="font-weight:bold">${{item.Cost}}</span>&nbsp;
-                <span style="font-weight:bold">({{item.Comments}})</span>&nbsp;
+                <span style="font-weight:bold">{{livingExpenses.Title}}:</span>&nbsp;
+                <span style="font-weight:bold">${{livingExpenses.Cost}}</span>&nbsp;
+                <span style="font-weight:bold">({{livingExpenses.Comments}})</span>&nbsp;
               </td>
             </tr>
           </tbody>
         </table>
-      </ng-container>
     </ng-container>
     <ng-container>
       <h2 style="text-decoration: underline;">Review Details</h2>
