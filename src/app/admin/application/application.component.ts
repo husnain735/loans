@@ -29,9 +29,9 @@ export class ApplicationComponent {
   ApplicantOtherIncomes: any[] = [];
   Liabilities: any[] = [];
   liabilities_Applicants_Links: any[] = [];
-  relativesObj: any[] = [];
-  financialGoals: any[] = [];
-  riskInsuarance: any[] = [];
+  relativesObj: any;
+  financialGoals: any;
+  riskInsuarance: any;
   applicationReason: any[] = [];
   retirementPlans: any;
   retirementPlansTable: any[];
@@ -48,6 +48,7 @@ export class ApplicationComponent {
   MonthlyIncome: any;
   TotalMonthlyIncome: number;
   ApplicationId: number;
+  TotalAssetsEstimatedValue: number = 0;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
   baseApiUrl = environment.ResourceServer.BaseApiUrl;
   constructor(
@@ -58,6 +59,7 @@ export class ApplicationComponent {
   ) {}
   ngOnInit() {
     this.GetApplications();
+    this.PrintPDF("7d2f15c7-bebe-4c8f-9bd5-02fb0840321a");
   }
   GetApplications() {
     this._adminService.GetApplications().subscribe((res: any) => {
@@ -82,9 +84,10 @@ export class ApplicationComponent {
       ApplicationId: ApplicationId,
     };
     await this._adminService.PrintPDF(obj).subscribe((res: any) => {
-      this.relativesObj = [];
-      this.financialGoals = [];
-      this.riskInsuarance = [];
+      this.TotalAssetsEstimatedValue = 0;
+      this.relativesObj = new Object();
+      this.financialGoals = new Object();
+      this.riskInsuarance = new Object();
       this.Applicants = res.body.pdfViewModel.Applicants;
       this.ApplicantsDetails = res.body.pdfViewModel.ApplicantDetails;
       this.ApplicantAddress = res.body.pdfViewModel.ApplicantDetailAddresses;
@@ -97,9 +100,9 @@ export class ApplicationComponent {
       this.liabilities_Applicants_Links =
         res.body.GetLiabilities.liabilities_Applicants_Links;
 
-      this.relativesObj.push(res.body.relativeObj);
-      this.financialGoals.push(res.body.financialGoalsObj);
-      this.riskInsuarance.push(res.body.riskInsuranceProfile);
+      this.relativesObj = res.body.relativeObj;
+      this.financialGoals = res.body.financialGoalsObj;
+      this.riskInsuarance = res.body.riskInsuranceProfile;
       this.applicationReason =
         res.body.getReasonsForApplication.ReasonsForApplication_Radio;
       this.retirementPlans = res.body.getRetirementPlans.RetirementPlans;
@@ -118,6 +121,29 @@ export class ApplicationComponent {
       console.log(this.Property);
       this.MonthlyIncome = res.body.MonthlyIncome;
       this.TotalMonthlyIncome = res.body.TotalMonthlyIncome;
+
+      var property:number = 0,savings:number = 0,Superannuation:number = 0,motorVehicle:number = 0,MoreAssets:number = 0;
+      this.Property.forEach(item =>{
+        property += +item.EstimatedValue
+      })
+
+      this.Savings.forEach(item =>{
+        savings += +item.EstimatedValue
+      })
+
+      this.Superannuation.forEach(item =>{
+        Superannuation += +item.EstimatedValue
+      })
+
+      this.MotorVehicle.forEach(item =>{
+        motorVehicle += +item.EstimatedValue
+      })
+
+      this.MoreAssets.forEach(item =>{
+        MoreAssets += +item.EstimatedValue
+      })
+
+      this.TotalAssetsEstimatedValue = property + savings + Superannuation + motorVehicle + MoreAssets;
 
       this.FamilyExpenses = this.FamilyExpenses + this.TotalMonthlyIncome;
     });
