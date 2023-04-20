@@ -35,7 +35,7 @@ export class ApplicationComponent {
   applicationReason: any[] = [];
   retirementPlans: any;
   retirementPlansTable: any[];
-  livingExpenses: any[];
+  livingExpenses: any[] = [];
   AssetsIncome: number;
   FamilyExpenses: number;
   LivingExpensesAmount: number;
