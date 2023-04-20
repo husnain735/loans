@@ -38,7 +38,7 @@ export class ApplicationComponent {
   livingExpenses: any[];
   AssetsIncome: number;
   FamilyExpenses: number;
-  LivingExpenses: number;
+  LivingExpensesAmount: number;
   OtherIncome: any[];
   Property: any[];
   Savings: any[];
@@ -111,7 +111,7 @@ export class ApplicationComponent {
       this.livingExpenses = res.body.getLivingExpenses.LivingExpenses;
       this.AssetsIncome = res.body.AssetsIncome;
       this.FamilyExpenses = res.body.FamilyExpenses;
-      this.LivingExpenses = res.body.LivingExpenses;
+      this.LivingExpensesAmount = res.body.LivingExpenses;
       this.OtherIncome = res.body.OtherIncome;
       this.Property = res.body.assets.AssetsDetails;
       this.Savings = res.body.assets.Savings;
@@ -147,9 +147,9 @@ export class ApplicationComponent {
 
       this.FamilyExpenses = this.FamilyExpenses + this.TotalMonthlyIncome;
     });
-    setTimeout(() => {
-      this.print();
-    }, 5000);
+    // setTimeout(() => {
+    //   this.print();
+    // }, 5000);
   }
   print() {
     const pdfTable = JSON.stringify(
