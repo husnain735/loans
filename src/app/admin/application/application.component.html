@@ -48,15 +48,13 @@
 </ng-container>
 <div id="pdfTable1" #pdfTable class="pdfTable">
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
-    <!-- <h2 style="text-decoration: underline;">Applicants</h2> -->
     <ng-container *ngFor="let item of Applicants;let i = index">
-      <!-- <p style="font-weight: 400; font-size: 18px;"><span style="color: blue;">Applicant
-          Name</span>&nbsp;{{item.FirstName}}&nbsp;{{item.SurName}}</p> -->
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
         <thead>
           <tr>
-            <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">
-              {{item.FirstName}}&nbsp;{{item.SurName}}</th>
+            <th colspan="2" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">{{item.FirstName}}&nbsp;{{item.SurName}}</span>
+            </th>
           </tr>
         </thead>
       </table>
@@ -64,8 +62,11 @@
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
           <thead>
             <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Applicant
-                Details</th>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Applicant
+                  Details</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -147,8 +148,11 @@
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
           <thead>
             <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Applicant
-                Addresses</th>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Applicant
+                  Addresses</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -304,8 +308,10 @@
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
           <thead>
             <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Contact & More
-                Information</th>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Contact & More Information</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -373,8 +379,11 @@
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
           <thead>
             <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Employment
-                Details (more than 3 year records)</th>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Employment
+                  Details (more than 3 year records)</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -502,8 +511,10 @@
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
           <thead>
             <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Employment
-                Other Income</th>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Employment Other Income</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -549,7 +560,6 @@
           </tbody>
         </table>
       </ng-container>
-
       <!-- <h2 style="text-decoration: underline;">Applicant Addresses</h2>
       <ng-container *ngFor="let item2 of ApplicantAddress | filter : item.ApplicantId : 'ApplicantId';let j = index">
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
@@ -683,7 +693,6 @@
           </tbody>
         </table>
       </ng-container> -->
-
       <!-- <h2 style="text-decoration: underline;">Employment Details (more than 3 year records)</h2>
       <ng-container
         *ngFor="let item2 of ApplicantEmployeeDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
@@ -795,24 +804,26 @@
         </table>
       </ng-container> -->
     </ng-container>
-
     <h4>Assets</h4>
     <ng-container>
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
         <thead>
           <tr>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Assets
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Assets</span>
             </th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Estimated
-              Value</th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Ownership
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Estimated Value</span>
             </th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Security
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Ownership</span>
+            </th>
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Security</span>
             </th>
           </tr>
         </thead>
         <tbody>
-          <!-- For Property -->
           <ng-container *ngIf="Property && Property.length > 0">
             <tr *ngFor="let item of Property;let i = index">
               <td style="padding-left:5px;padding-top:5px; width: 60%;border:1px solid;">
@@ -833,8 +844,6 @@
                 Yes/No</td>
             </tr>
           </ng-container>
-
-          <!-- For Savings -->
           <ng-container *ngIf="Savings && Savings.length > 0">
             <tr *ngFor="let item of Savings;let i = index">
               <td style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;">
@@ -852,8 +861,6 @@
               </td>
             </tr>
           </ng-container>
-
-          <!-- For Superannuation -->
           <ng-container *ngIf="Superannuation && Superannuation.length > 0">
             <tr *ngFor="let item of Superannuation;let i = index">
               <td style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;">
@@ -871,8 +878,6 @@
               </td>
             </tr>
           </ng-container>
-
-          <!-- For Motor Vehicle -->
           <ng-container *ngIf="MotorVehicle && MotorVehicle.length > 0">
             <tr *ngFor="let item of MotorVehicle;let i = index">
               <td style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;">
@@ -891,8 +896,6 @@
               </td>
             </tr>
           </ng-container>
-
-          <!-- For Other Assets -->
           <ng-container *ngIf="MoreAssets && MoreAssets.length > 0">
             <tr *ngFor="let item of MoreAssets;let i = index">
               <td style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;">
@@ -911,7 +914,6 @@
               </td>
             </tr>
           </ng-container>
-          <!-- Total Footer -->
           <tr>
             <td
               style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;background-color: rgb(144,213,143);">
@@ -927,229 +929,32 @@
               style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(144,213,143);">
             </td>
           </tr>
-
         </tbody>
       </table>
     </ng-container>
-
-    <ng-container *ngIf="relativesObj">
-      <h4>Nearest Relative</h4>
-      <ng-container>
-        <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-          <thead>
-            <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Name of
-                Nearest Relative - that does not live with you</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr>
-              <td
-                style="padding-top:5px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                Full Name</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.FullName}}</td>
-            </tr>
-
-            <tr>
-              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                Relationship To You</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.RelationShipToYou}}
-              </td>
-            </tr>
-
-            <tr>
-              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">Which
-                Applicant?</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.ApplicantName}}
-              </td>
-            </tr>
-
-            <tr>
-              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">Contact
-                Number</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.ContactNumber}}
-              </td>
-            </tr>
-
-            <tr>
-              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">Australian
-                Residential Address</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                {{relativesObj.AusResidentialAddress}}</td>
-            </tr>
-
-
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-    <ng-container *ngIf="riskInsuarance">
-      <h4>Risk Profile</h4>
-      <ng-container>
-        <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-          <thead>
-            <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Risk Profile
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr>
-              <td
-                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                Do you have a clear credit file?</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.ClearCreditFile
-                == 2 ? 'Unsure' : riskInsuarance.ClearCreditFile == 1 ?
-                'Yes' : 'No' }}</td>
-            </tr>
-
-            <tr>
-              <td
-                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                Have you had issues with making repayments on any of your liabilities?</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                {{riskInsuarance.RepaymentsOnLiabilities == 1 ? 'Yes' : 'No' }}</td>
-            </tr>
-
-            <tr>
-              <td
-                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                <p><span style="font-weight:bold">Do you know of any foreseeable significant changes to your
-                    circumstances?</span></p>
-                <p><span style="font-style: italic;">For Example, are you planning on changing jobs? Retiring? Starting
-                    a Family?</span></p>
-              </td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.JobsChanging == 1
-                ? 'Yes' : 'No'}}
-                <p><span style="font-weight:bold">Comments:</span></p>
-                <p>{{riskInsuarance.JobsChangingSpecification}}</p>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-    <ng-container *ngIf="riskInsuarance">
-      <h4>Insuarance</h4>
-      <ng-container>
-        <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-          <thead>
-            <tr>
-              <th colspan="2" style="background-color: green;text-align: center;padding: 2px;color:white">Insuarance
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr>
-              <td
-                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                Do you currently have Income Protection Insurance?</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.PersonalInsurance
-                == 1 ? 'Yes' : 'No' }}</td>
-            </tr>
-
-            <tr>
-              <td
-                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
-                Do you have life, disablement, and trauma insurance?</td>
-              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.PersonalInsurance
-                == 1 ? 'Yes' : 'No' }}</td>
-            </tr>
-
-            <tr>
-              <td colspan="2" style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;">
-                <p style="text-align:center;margin-bottom: 0rem !important;">As part of our licence, we have a duty of
-                  care toward all our clients, to ensure that they are properly protected.</p>
-                <p style="text-align:center;margin-bottom: 0rem !important;">With this onus in mind, we will be
-                  providing you with a quote to take out a Loan Protection Plan.</p>
-
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-
-
-
-    <h4>Living Expenses</h4>
-    <ng-container>
-      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-        <thead>
-          <tr>
-            <th colspan="4" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-              <span style="color:white">Living Expenses</span>
-            </th>
-          </tr>
-          <tr>
-            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">Item</th>
-            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">
-              Description</th>
-            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">Monthly
-              Costs</th>
-            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">Comments
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- For Property rgb(202,233,192) -->
-          <ng-container *ngIf="livingExpenses && livingExpenses.length > 0">
-            <tr *ngFor="let item of livingExpenses;let i = index">
-              <td
-                style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
-                {{item.Title}}</td>
-              <td
-                style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
-                {{item.SubTitle}}</td>
-              <td style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;text-align: center;">${{item.Cost}}
-              </td>
-              <td style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;text-align: center;">
-                {{item.Comments}}</td>
-            </tr>
-          </ng-container>
-          <!-- Total Footer -->
-          <tr>
-            <td colspan="2"
-              style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;background-color: rgb(84,167,56);">
-              <span style="font-weight:bold;justify-content: end;display: flex;margin-right: 10px;">TOTAL</span>
-            </td>
-            <td colspan="2"
-              style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(84,167,56);">
-              $&nbsp;{{LivingExpensesAmount}}</td>
-          </tr>
-
-        </tbody>
-      </table>
-    </ng-container>
-
-
     <h4>Liabilities</h4>
     <ng-container>
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
         <thead>
           <tr>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">
-              Liabilities</th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Balance
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Liabilities</span>
             </th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Monthly
-              Payment</th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Name on
-              Liability</th>
-            <th style="background-color: green;text-align: center;padding: 2px;border: 1px solid;color:white">Paying
-              out?</th>
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Balance</span>
+            </th>
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Monthly Payment</span>
+            </th>
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;"><span
+                style="color:white">Name on
+                Liability</span></th>
+            <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;"><span
+                style="color:white">Paying
+                out?</span></th>
           </tr>
         </thead>
         <tbody>
-
-          <!-- For Personal Loan -->
           <ng-container *ngIf="Liabilities && (Liabilities | filter : 1 : 'LiabilityTypeID').length > 0">
             <tr *ngFor="let item of Liabilities | filter : 1 : 'LiabilityTypeID';let i = index">
 
@@ -1179,8 +984,6 @@
                 {{item.IsRefinance}}</td>
             </tr>
           </ng-container>
-
-          <!-- For Credit Card -->
           <ng-container *ngIf="Liabilities && (Liabilities | filter : 2 : 'LiabilityTypeID').length > 0">
             <tr *ngFor="let item of Liabilities | filter : 2 : 'LiabilityTypeID';let i = index">
 
@@ -1210,10 +1013,8 @@
                 {{item.IsRefinance}}</td>
             </tr>
           </ng-container>
-
           <ng-container *ngIf="Liabilities && (Liabilities | filter : 3 : 'LiabilityTypeID').length > 0">
             <tr *ngFor="let item of Liabilities | filter : 3 : 'LiabilityTypeID';let i = index">
-
               <td style="padding-left:5px;padding-top:5px; width: 60%;border:1px solid;">
                 <p style="font-weight:bold;margin-bottom: 0rem !important;">Salary Sacrifice {{i + 1}}</p>
                 <p><span style="font-weight:bold;margin-bottom: 0rem !important;">Purpose:</span>&nbsp;{{item.Lender}}
@@ -1239,7 +1040,6 @@
                 {{item.IsRefinance}}</td>
             </tr>
           </ng-container>
-
           <ng-container *ngIf="Liabilities && (Liabilities | filter : 4 : 'LiabilityTypeID').length > 0">
             <tr *ngFor="let item of Liabilities | filter : 4 : 'LiabilityTypeID';let i = index">
 
@@ -1268,8 +1068,6 @@
                 {{item.IsRefinance}}</td>
             </tr>
           </ng-container>
-
-          <!-- Total Footer -->
           <tr>
             <td
               style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;background-color: rgb(144,213,143);">
@@ -1289,6 +1087,217 @@
             </td>
           </tr>
 
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-container *ngIf="relativesObj">
+      <h4>Nearest Relative</h4>
+      <ng-container>
+        <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+          <thead>
+            <tr>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Name of Nearest Relative - that does not live with you</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style="padding-top:5px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                Full Name</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.FullName}}</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                Relationship To You</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.RelationShipToYou}}
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">Which
+                Applicant?</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.ApplicantName}}
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">Contact
+                Number</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{relativesObj.ContactNumber}}
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">Australian
+                Residential Address</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                {{relativesObj.AusResidentialAddress}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="riskInsuarance">
+      <h4>Risk Profile</h4>
+      <ng-container>
+        <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+          <thead>
+            <tr>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Risk Profile</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                Do you have a clear credit file?</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.ClearCreditFile
+                == 2 ? 'Unsure' : riskInsuarance.ClearCreditFile == 1 ?
+                'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+              <td
+                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                Have you had issues with making repayments on any of your liabilities?</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                {{riskInsuarance.RepaymentsOnLiabilities == 1 ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+              <td
+                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                <p><span style="font-weight:bold">Do you know of any foreseeable significant changes to your
+                    circumstances?</span></p>
+                <p><span style="font-style: italic;">For Example, are you planning on changing jobs? Retiring? Starting
+                    a Family?</span></p>
+              </td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.JobsChanging == 1
+                ? 'Yes' : 'No'}}
+                <p><span style="font-weight:bold">Comments:</span></p>
+                <p>{{riskInsuarance.JobsChangingSpecification}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="riskInsuarance">
+      <h4>Insuarance</h4>
+      <ng-container>
+        <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+          <thead>
+            <tr>
+              <th colspan="2"
+                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                <span style="color:white">Insuarance</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                Do you currently have Income Protection Insurance?</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.PersonalInsurance
+                == 1 ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+              <td
+                style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                Do you have life, disablement, and trauma insurance?</td>
+              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">{{riskInsuarance.PersonalInsurance
+                == 1 ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding:3px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;">
+                <p style="text-align:center;margin-bottom: 0rem !important;">As part of our licence, we have a duty of
+                  care toward all our clients, to ensure that they are properly protected.</p>
+                <p style="text-align:center;margin-bottom: 0rem !important;">With this onus in mind, we will be
+                  providing you with a quote to take out a Loan Protection Plan.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <h4>Living Expenses</h4>
+    <ng-container>
+      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <thead>
+          <tr>
+            <th colspan="4" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Living Expenses</span>
+            </th>
+          </tr>
+          <tr>
+            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">Item</th>
+            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">
+              Description</th>
+            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">Monthly
+              Costs</th>
+            <th style="background-color: rgb(176,223,160);text-align: center;padding: 2px;border: 1px solid;">Comments
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="livingExpenses && livingExpenses.length > 0">
+            <tr *ngFor="let item of livingExpenses;let i = index">
+              <td
+                style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+                {{item.Title}}</td>
+              <td
+                style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+                {{item.SubTitle}}</td>
+              <td style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;text-align: center;">${{item.Cost}}
+              </td>
+              <td style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;text-align: center;">
+                {{item.Comments}}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td colspan="2"
+              style="padding-left:5px;padding-top:5px; width: 55%;border:1px solid;background-color: rgb(84,167,56);">
+              <span style="font-weight:bold;justify-content: end;display: flex;margin-right: 10px;">TOTAL</span>
+            </td>
+            <td colspan="2"
+              style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(84,167,56);">
+              $&nbsp;{{LivingExpensesAmount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <h4>Reason For Application</h4>
+    <ng-container *ngIf="applicationReason != undefined && applicationReason.length > 0">
+      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <thead>
+          <tr>
+            <th colspan="2" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Reason For Application</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Loan Description
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{applicationReason[0].LoanDescription}}
+            </td>
+          </tr>
+          <tr *ngFor="let item of applicationReason">
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              {{item.Name}}
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{item.SelectedTypeId == 51 ? 'Important' :
+              item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}
+            </td>
+          </tr>
         </tbody>
       </table>
     </ng-container>
@@ -1555,39 +1564,6 @@
         </table>
       </ng-container>
     </ng-container> -->
-    <h4>Reason For Application</h4>
-    <ng-container *ngIf="applicationReason != undefined && applicationReason.length > 0">
-      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-        <thead>
-          <tr>
-            <th colspan="2" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-              <span style="color:white">Reason For Application</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
-              Loan Description
-            </td>
-            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
-              {{applicationReason[0].LoanDescription}}
-            </td>
-          </tr>
-          <tr *ngFor="let item of applicationReason">
-            <td
-              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
-              {{item.Name}}
-            </td>
-            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
-              {{item.SelectedTypeId == 51 ? 'Important' :
-              item.SelectedTypeId == 52 ? 'Not Important' : 'Dont Want' }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-container>
     <h4>Relatives</h4>
     <ng-container *ngIf="relativesObj != undefined">
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
@@ -1638,7 +1614,163 @@
         </tbody>
       </table>
     </ng-container>
-
+    <h4>Risk / Insuarance Profile</h4>
+    <ng-container *ngIf="riskInsuarance != undefined">
+      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <thead>
+          <tr>
+            <th colspan="2" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Relatives</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="riskInsuarance.JobsChanging == 1">
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Details
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.JobsChangingSpecification}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Clear Credit File
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.ClearCreditFile == 2 ? 'Unsure' : riskInsuarance.ClearCreditFile == 1 ?
+              'Yes' : 'No' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Issues in Payment of Liabilities
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.RepaymentsOnLiabilities == 1 ? 'Yes' :
+              'No' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Planning to change Job/Retiring/Starting a family?
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.JobsChanging == 1 ?
+              'Yes' : 'No'
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Comfortable with Property Insuarances?
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.ThingsInsurance == 1 ? 'Yes' :
+              'No' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Comfortable with Personal Insuarances?
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.PersonalInsurance == 1 ? 'Yes' :
+              'No' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Arrange an insuarance discussion meeting?
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{riskInsuarance.DiscussInsurance == 1 ? 'Yes' :
+              'No' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <h4>Retirement Plans</h4>
+    <ng-container *ngIf="retirementPlans != undefined">
+      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <thead>
+          <tr>
+            <th colspan="2" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Retirement Plans</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Retirement Age
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{retirementPlans.RetirementAge}}
+            </td>
+          </tr>
+          <tr *ngFor="let item of retirementPlansTable">
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              {{item.Text}}
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{item.IsChecked == true ? 'Yes' : 'No'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <h4>Financial Goals</h4>
+    <ng-container *ngIf="retirementPlans != undefined">
+      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <thead>
+          <tr>
+            <th colspan="2" style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+              <span style="color:white">Financial Goals</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Assistance in Investment
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{financialGoals.IsTaxResident == true ? 'Yes' : 'No'}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Future Financial Goal
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{financialGoals.FutureFinancialGoal}}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="width:20%;padding-left:5px;padding-top:5px;border:1px solid;font-weight:500;background-color: rgb(176,223,160);">
+              Retirement Age Income
+            </td>
+            <td style="width:40%;padding-left:5px;padding-top:5px;border:1px solid;background-color: rgb(202,233,192);">
+              {{financialGoals.RetirementAgeIncome}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
     <!-- <h2 style="text-decoration: underline;">Relatives</h2>
     <ng-container *ngIf="relativesObj">
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
@@ -1672,7 +1804,7 @@
         </tbody>
       </table>
     </ng-container> -->
-    <h2 style="text-decoration: underline;">Risk / Insuarance Profile</h2>
+    <!-- <h2 style="text-decoration: underline;">Risk / Insuarance Profile</h2>
     <ng-container *ngIf="riskInsuarance">
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
         <tbody>
@@ -1732,8 +1864,8 @@
           </tr>
         </tbody>
       </table>
-    </ng-container>
-    <ng-container *ngIf="retirementPlans != undefined">
+    </ng-container> -->
+    <!-- <ng-container *ngIf="retirementPlans != undefined">
       <h2 style="text-decoration: underline;">Retirement Plans</h2>
       <span><span style="font-weight:bold;">Retirement Age:</span>&nbsp;{{retirementPlans.RetirementAge}}</span>
       <h5 style="text-decoration: underline;">How you inted to make payments?</h5>
@@ -1750,8 +1882,8 @@
           </tbody>
         </table>
       </ng-container>
-    </ng-container>
-    <h2 style="text-decoration: underline;">Financial Goals</h2>
+    </ng-container> -->
+    <!-- <h2 style="text-decoration: underline;">Financial Goals</h2>
     <ng-container>
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
         <tbody>
@@ -1771,7 +1903,7 @@
           </tr>
         </tbody>
       </table>
-    </ng-container>
+    </ng-container> -->
     <!-- <ng-container *ngIf="livingExpenses">
       <h2 style="text-decoration: underline;">Living Expenses</h2>
         <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
