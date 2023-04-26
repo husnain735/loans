@@ -35,7 +35,7 @@ export class ApplicationComponent {
   applicationReason: any[] = [];
   retirementPlans: any;
   retirementPlansTable: any[];
-  livingExpenses: any[];
+  livingExpenses: any[] = [];
   AssetsIncome: number;
   FamilyExpenses: number;
   LivingExpensesAmount: number;
@@ -147,9 +147,9 @@ export class ApplicationComponent {
 
       this.FamilyExpenses = this.FamilyExpenses + this.TotalMonthlyIncome;
     });
-    // setTimeout(() => {
-    //   this.print();
-    // }, 5000);
+    setTimeout(() => {
+      this.print();
+    }, 5000);
   }
   print() {
     const pdfTable = JSON.stringify(
