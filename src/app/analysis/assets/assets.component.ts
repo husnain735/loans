@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   RxFormBuilder,
@@ -138,8 +138,8 @@ export class AssetsComponent {
     private router: Router
   ) {}
 
-  createAssetsDetails(): FormGroup {
-    return this.rxFormBuilder.group({
+  createAssetsDetails(guid?:string): FormGroup {
+    return this._formBuilder.group({
       PropertyID: [null],
       StreetNumber: [''],
       StreetName: [''],
@@ -153,6 +153,8 @@ export class AssetsComponent {
       IsMortgage: [false],
       ApplicantType: [''],
       ApplicationReasonID: [''],
+      RandomId: guid,
+      ApplicantTypeId: this._formBuilder.array([]),
       Mortgage: this.rxFormBuilder.array([
         {
           Lender: ['', [Validators.required]],
@@ -250,8 +252,20 @@ export class AssetsComponent {
   }
 
   addAssetsDetails(): void {
+    debugger
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
-    this.Items.push(this.createAssetsDetails());
+    var guid = this._sharedService.generateGUID();
+    // var SortOrder = this.PropertyItems.value.length + 1;
+    this.Items.push(this.createAssetsDetails(guid));
+    for (const i of this._sharedService.TotalApplicants) {
+      var obj = {
+        Name: i.FirstName + ' ' + i.SurName,
+        ApplicantId: i.ApplicantId,
+        IsChecked: false,
+        PropertyId: guid,
+      };
+      this.ApplicantIds.push(obj);
+    }
   }
   removeAssetsDetails(index, id) {
 
@@ -359,6 +373,7 @@ export class AssetsComponent {
         IsMortgage: i.IsMortgage,
         ApplicantType: i.ApplicantType,
         ApplicationReasonID: i.ApplicationReasonID,
+        ApplicantTypeId: i.ApplicantTypeId
       };
       if (i.IsMortgage == true) {
         i.Mortgage.forEach((j) => {
@@ -446,11 +461,15 @@ export class AssetsComponent {
     ;
     this._analysisService.getAllAssets(this.ApplicationId).subscribe((res) => {
       console.log(res.body);
-      // if (
-      //   res.body.AssetsDetails != undefined &&
-      //   res.body.AssetsDetails.length > 0
-      // ) {
-        this.patchAssetDetails(res.body.AssetsDetails);
+      if (
+        res.body.AssetsDetails != undefined &&
+        res.body.AssetsDetails.length > 0
+      ) {
+        this.patchAssetDetails(res.body.AssetsDetails, res.body.applicants_property_link);
+      }
+      else{
+        this.getAssetDetailsForm().clear();
+      }
         this.patchSavingDetails(res.body.Savings);
         this.patchSuperannuationDetails(res.body.Superannuation);
         this.patchMotorVehicleDetails(res.body.MotorVehicle);
@@ -459,11 +478,11 @@ export class AssetsComponent {
     });
   }
 
-  patchAssetDetails(AssetsDetails: any[]) {
-
+  patchAssetDetails(AssetsDetails: any[], checkboxArray: any[]) {
+    debugger
     this.getAssetDetailsForm().clear();
     AssetsDetails.forEach((i) => {
-      var form = this.rxFormBuilder.group({
+      var form = this._formBuilder.group({
         PropertyID : [i.PropertyID],
         StreetNumber: [i.StreetNumber],
         StreetName: [i.StreetName],
@@ -477,6 +496,8 @@ export class AssetsComponent {
         IsMortgage: [i.IsMortgage],
         ApplicantType: [i.ApplicantType],
         ApplicationReasonID: [''],
+        RandomId: i.PropertyID,
+        ApplicantTypeId: this._formBuilder.array([]),
         Mortgage: this.rxFormBuilder.array([
           {
             MortgageID : [i.MortgageID],
@@ -492,8 +513,41 @@ export class AssetsComponent {
           },
         ])
       });
+
+      var idx = checkboxArray.findIndex(
+        (j) => j.PropertyId == i.PropertyID
+      );
+      if (idx > -1) {
+        for (const k of this._sharedService.TotalApplicants) {
+          var idx2 = checkboxArray.findIndex(
+            (j) =>
+              j.ApplicantId == k.ApplicantId && j.PropertyId == i.PropertyID
+          );
+          if (idx2 > -1) {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: true,
+              PropertyId: i.PropertyID,
+            };
+            this.ApplicantIds.push(obj);
+          } else {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: false,
+              PropertyId: i.PropertyID,
+            };
+            this.ApplicantIds.push(obj);
+          }
+        }
+      }
       this.getAssetDetailsForm().push(form);
+      this.selectChecbox(i.PropertyID, 1);
     }); 
+
+     
+    
   }
 
   patchSavingDetails(SavingDetails: any[]) {
@@ -663,6 +717,33 @@ export class AssetsComponent {
         (error) => {}
       );
 
+  }
+  ApplicantIds: any[] = [];
+
+
+  selectChecbox(PropertyId, LiabilityTypeId) {
+    if (LiabilityTypeId == 1) {
+      const ApplicantProperty = (<FormArray>(
+        this.AssetsDetails.get('AssetsDetails')
+      )) as FormArray;
+
+      var idx = ApplicantProperty.value.findIndex(
+        (i) => i.RandomId == PropertyId
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantProperty.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.PropertyId == PropertyId) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    }
   }
 
 }

@@ -49,6 +49,9 @@ export class ApplicationComponent {
   TotalMonthlyIncome: number;
   ApplicationId: number;
   TotalAssetsEstimatedValue: number = 0;
+  Mortgage: any[];
+  LiabilitiesTotal: number;
+  LiabilitiesMonthlyPayment: number;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
   baseApiUrl = environment.ResourceServer.BaseApiUrl;
   constructor(
@@ -121,8 +124,10 @@ export class ApplicationComponent {
       console.log(this.Property);
       this.MonthlyIncome = res.body.MonthlyIncome;
       this.TotalMonthlyIncome = res.body.TotalMonthlyIncome;
+      this.Mortgage = res.body.Mortgage;
 
-      var property:number = 0,savings:number = 0,Superannuation:number = 0,motorVehicle:number = 0,MoreAssets:number = 0;
+      var property:number = 0,savings:number = 0,Superannuation:number = 0,motorVehicle:number = 0,
+      MoreAssets:number = 0,totalMortgage:number = 0,totalLiabilities:number = 0,monthlyPayment:number = 0;
       this.Property.forEach(item =>{
         property += +item.EstimatedValue
       })
@@ -146,6 +151,25 @@ export class ApplicationComponent {
       this.TotalAssetsEstimatedValue = property + savings + Superannuation + motorVehicle + MoreAssets;
 
       this.FamilyExpenses = this.FamilyExpenses + this.TotalMonthlyIncome;
+
+      if(this.Mortgage && this.Mortgage.length){
+        this.Mortgage.forEach(item =>{
+          totalMortgage += item.Balance;
+          monthlyPayment = item.Payment + monthlyPayment;
+        })
+
+      if(this.Liabilities && this.Liabilities.length){
+        this.Liabilities.forEach(item =>{
+          totalLiabilities += item.Balance;
+          monthlyPayment += item.Payment;
+        })
+      }
+
+      this.LiabilitiesTotal = totalLiabilities + totalMortgage;
+      this.LiabilitiesMonthlyPayment = monthlyPayment;
+
+      }
+
     });
     setTimeout(() => {
       this.print();
@@ -161,7 +185,6 @@ export class ApplicationComponent {
     };
 
     this._adminService.GeneratePhaseOnePdf(obj).subscribe((res) => {
-      debugger;
       console.log(this.baseApiUrl + '/' + res.body);
       var url = this.baseApiUrl + '/' + res.body;
       this.downloadPdf(url);

@@ -108,7 +108,7 @@
             "
           >
             <label class="constant"> Owner </label>
-            <div class="" formArrayName="ApplicationReasonID">
+            <!-- <div class="" formArrayName="ApplicationReasonID">
               <span
                 class=""
                 *ngFor="
@@ -128,6 +128,25 @@
                   Other
                 </mat-checkbox>
               </span>
+            </div> -->
+            <div>
+              <ng-container *ngIf="ApplicantIds != undefined && ApplicantIds.length > 0">
+                <span
+                  *ngFor="
+                    let item2 of ApplicantIds| filter : item.get('RandomId').value : 'PropertyId';
+                    let i2 = index
+                  "
+                  [ngClass]="i2 == 0 ? 'pl-0' : ''"
+                >
+                  <mat-checkbox
+                    (change)="item2.IsChecked = !item2.IsChecked;selectChecbox(item.get('RandomId').value,1)"
+                    [value]="item2.ApplicantId"
+                    [checked]="item2.IsChecked == true"
+                  >
+                    {{ item2.Name }}
+                  </mat-checkbox>
+                </span>
+              </ng-container>
             </div>
           </div>
         </div>

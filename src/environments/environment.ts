@@ -3,7 +3,7 @@ export const environment = {
     ResourceServer: {
         Endpoint: "https://localhost:44321/api/",
         BaseApiUrl: "https://localhost:44321",
-        // Endpoint: "http://loansapi.financeprospects.loans/api/"
+        //Endpoint: "http://loansapi.financeprospects.loans/api/"
     },
     key: {
       password: '192.168.10.1'
@@ -13,3 +13,4 @@ export const environment = {
       Password: 'admin@123'
     }
 }
+ 
