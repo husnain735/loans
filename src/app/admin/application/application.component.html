@@ -46,7 +46,7 @@
     </mat-table>
   </div>
 </ng-container>
-<div id="pdfTable1" #pdfTable class="pdfTable">
+<div hidden id="pdfTable1" #pdfTable class="pdfTable">
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
     <ng-container *ngFor="let item of Applicants;let i = index">
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
@@ -838,7 +838,13 @@
                 $&nbsp;{{item.EstimatedValue}}</td>
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
-                Name</td>
+                <ng-container
+                *ngFor="let item2 of applicants_property_link | filter : item.PropertyID : 'PropertyId';let j = index">
+                <p style="font-weight: 400; font-size: 14px;">
+                  {{item2.ApplicantName}}
+                </p>
+              </ng-container>  
+              </td>
               <td
                 style="padding-left:5px;padding-top:5px; width: 10%;border:1px solid;font-weight:500;text-align: center;">
                 Yes/No</td>
@@ -853,9 +859,15 @@
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
                 $&nbsp;{{item.EstimatedValue}}</td>
-              <td
+                <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
-                Name</td>
+                <ng-container
+                *ngFor="let item2 of applicants_savings_link | filter : item.SavingsID : 'SavingsID';let j = index">
+                <p style="font-weight: 400; font-size: 14px;">
+                  {{item2.ApplicantName}}
+                </p>
+              </ng-container>  
+              </td>
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(144,213,143);">
               </td>
@@ -870,9 +882,15 @@
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
                 $&nbsp;{{item.EstimatedValue}}</td>
-              <td
+                <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
-                Name</td>
+                <ng-container
+                *ngFor="let item2 of applicants_superannuation_link | filter : item.SuperannuationID : 'SuperannuationID';let j = index">
+                <p style="font-weight: 400; font-size: 14px;">
+                  {{item2.ApplicantName}}
+                </p>
+              </ng-container>  
+              </td>
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(144,213,143);">
               </td>
@@ -888,9 +906,15 @@
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
                 $&nbsp;{{item.EstimatedValue}}</td>
-              <td
+                <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
-                Name</td>
+                <ng-container
+                *ngFor="let item2 of applicants_motorVehicle_link | filter : item.MotorVehicleID : 'MotorVehicleID';let j = index">
+                <p style="font-weight: 400; font-size: 14px;">
+                  {{item2.ApplicantName}}
+                </p>
+              </ng-container>  
+              </td>
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(144,213,143);">
               </td>
@@ -906,9 +930,15 @@
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
                 $&nbsp;{{item.EstimatedValue}}</td>
-              <td
+                <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;">
-                Name</td>
+                <ng-container
+                *ngFor="let item2 of applicants_moreAssets_link | filter : item.MoreAssetsID : 'MoreAssetsID';let j = index">
+                <p style="font-weight: 400; font-size: 14px;">
+                  {{item2.ApplicantName}}
+                </p>
+              </ng-container>  
+              </td>
               <td
                 style="padding-left:5px;padding-top:5px; width: 15%;border:1px solid;font-weight:500;text-align: center;background-color: rgb(144,213,143);">
               </td>

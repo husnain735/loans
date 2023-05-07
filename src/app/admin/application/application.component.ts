@@ -29,6 +29,11 @@ export class ApplicationComponent {
   ApplicantOtherIncomes: any[] = [];
   Liabilities: any[] = [];
   liabilities_Applicants_Links: any[] = [];
+  applicants_property_link: any[] = [];
+  applicants_savings_link: any[] = [];
+  applicants_superannuation_link: any[] = [];
+  applicants_motorVehicle_link: any[] = [];
+  applicants_moreAssets_link: any[] = [];
   relativesObj: any;
   financialGoals: any;
   riskInsuarance: any;
@@ -62,7 +67,7 @@ export class ApplicationComponent {
   ) {}
   ngOnInit() {
     this.GetApplications();
-    this.PrintPDF("7d2f15c7-bebe-4c8f-9bd5-02fb0840321a");
+    // this.PrintPDF("90856614-47da-49e3-bdc2-6d809dadfde1");
   }
   GetApplications() {
     this._adminService.GetApplications().subscribe((res: any) => {
@@ -102,6 +107,12 @@ export class ApplicationComponent {
       this.Liabilities = res.body.GetLiabilities.Liabilities;
       this.liabilities_Applicants_Links =
         res.body.GetLiabilities.liabilities_Applicants_Links;
+
+      this.applicants_property_link = res.body.assets.applicants_property_link;
+      this.applicants_savings_link = res.body.assets.applicants_savings_link;
+      this.applicants_superannuation_link = res.body.assets.applicants_superannuation_link;
+      this.applicants_motorVehicle_link = res.body.assets.applicants_motorVehicle_link;
+      this.applicants_moreAssets_link = res.body.assets.applicants_moreAssets_link;
 
       this.relativesObj = res.body.relativeObj;
       this.financialGoals = res.body.financialGoalsObj;

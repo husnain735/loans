@@ -217,37 +217,45 @@ export class AssetsComponent {
     });
   }
 
-  createSavingDetails(): FormGroup {
-    return this.rxFormBuilder.group({
+  createSavingDetails(guid:string): FormGroup {
+    return this._formBuilder.group({
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
       OwnerID: [''],
+      RandomId: guid,
+      ApplicantTypeId: this._formBuilder.array([]),
     });
-  }
+  } 
 
-  createSuperannuationDetails(): FormGroup {
-    return this.rxFormBuilder.group({
+  createSuperannuationDetails(guid:string): FormGroup {
+    return this._formBuilder.group({
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
       OwnerID: [''],
+      RandomId: guid,
+      ApplicantTypeId: this._formBuilder.array([]),
     });
   }
 
-  createMotorVehicleDetails(): FormGroup {
-    return this.rxFormBuilder.group({
+  createMotorVehicleDetails(guid:string): FormGroup {
+    return this._formBuilder.group({
       Make: ['', [Validators.required]],
       Year: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
       OwnerID: [''],
+      RandomId: guid,
+      ApplicantTypeId: this._formBuilder.array([]),
     });
   }
 
-  createMoreAssetDetails(): FormGroup {
-    return this.rxFormBuilder.group({
+  createMoreAssetDetails(guid:string): FormGroup {
+    return this._formBuilder.group({
       AssetTypeID: [''],
       Details: [''],
       EstimatedValue: ['', [Validators.required]],
       OwnerID: [''],
+      RandomId: guid,
+      ApplicantTypeId: this._formBuilder.array([]),
     });
   }
 
@@ -255,7 +263,6 @@ export class AssetsComponent {
     debugger
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     var guid = this._sharedService.generateGUID();
-    // var SortOrder = this.PropertyItems.value.length + 1;
     this.Items.push(this.createAssetsDetails(guid));
     for (const i of this._sharedService.TotalApplicants) {
       var obj = {
@@ -277,8 +284,19 @@ export class AssetsComponent {
   }
 
   addSavingDetails(): void {
+    debugger
     this.Items = this.SavingDetails.get('SavingDetails') as FormArray;
-    this.Items.push(this.createSavingDetails());
+    var guid = this._sharedService.generateGUID();
+    this.Items.push(this.createSavingDetails(guid));
+    for (const i of this._sharedService.TotalApplicants) {
+      var obj = {
+        Name: i.FirstName + ' ' + i.SurName,
+        ApplicantId: i.ApplicantId,
+        IsChecked: false,
+        SavingsID: guid,
+      };
+      this.ApplicantIds.push(obj);
+    }
   }
   removeSavingDetails(index, id) {
     this.Items = this.SavingDetails.get('SavingDetails') as FormArray;
@@ -292,7 +310,17 @@ export class AssetsComponent {
     this.Items = this.SuperannuationDetails.get(
       'SuperannuationDetails'
     ) as FormArray;
-    this.Items.push(this.createSuperannuationDetails());
+    var guid = this._sharedService.generateGUID();
+    this.Items.push(this.createSuperannuationDetails(guid));
+    for (const i of this._sharedService.TotalApplicants) {
+      var obj = {
+        Name: i.FirstName + ' ' + i.SurName,
+        ApplicantId: i.ApplicantId,
+        IsChecked: false,
+        SuperannuationID: guid,
+      };
+      this.ApplicantIds.push(obj);
+    }
   }
   removeSuperannuationDetails(index, id) {
     this.Items = this.SuperannuationDetails.get(
@@ -308,7 +336,17 @@ export class AssetsComponent {
     this.Items = this.MotorVehicleDetails.get(
       'MotorVehicleDetails'
     ) as FormArray;
-    this.Items.push(this.createMotorVehicleDetails());
+    var guid = this._sharedService.generateGUID();
+    this.Items.push(this.createMotorVehicleDetails(guid));
+    for (const i of this._sharedService.TotalApplicants) {
+      var obj = {
+        Name: i.FirstName + ' ' + i.SurName,
+        ApplicantId: i.ApplicantId,
+        IsChecked: false,
+        MotorVehicleID: guid
+      };
+      this.ApplicantIds.push(obj);
+    }
   }
   removeMotorVehicleDetails(index, id) {
     this.Items = this.MotorVehicleDetails.get(
@@ -322,7 +360,17 @@ export class AssetsComponent {
 
   addMoreAssetDetails(): void {
     this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
-    this.Items.push(this.createMoreAssetDetails());
+    var guid = this._sharedService.generateGUID();
+    this.Items.push(this.createMoreAssetDetails(guid));
+    for (const i of this._sharedService.TotalApplicants) {
+      var obj = {
+        Name: i.FirstName + ' ' + i.SurName,
+        ApplicantId: i.ApplicantId,
+        IsChecked: false,
+        MoreAssetsID: guid,
+      };
+      this.ApplicantIds.push(obj);
+    }
   }
   removeMoreAssetDetails(index, id) {
     this.Items = this.MoreAssetDetails.get('MoreAssetDetails') as FormArray;
@@ -334,7 +382,7 @@ export class AssetsComponent {
 
 
   onSubmitAssets() {
-    ;
+    
     console.log(this.AssetsDetails.value);
     var assetDetails = [];
     assetDetails = this.AssetsDetails.value.AssetsDetails;
@@ -403,6 +451,7 @@ export class AssetsComponent {
         Institution: i.Institution,
         EstimatedValue: i.EstimatedValue,
         OwnerID: i.OwnerID,
+        ApplicantTypeId: i.ApplicantTypeId
       };
       savingsObj.push(saving);
     });
@@ -413,6 +462,7 @@ export class AssetsComponent {
         Institution: i.Institution,
         EstimatedValue: i.EstimatedValue,
         OwnerID: i.OwnerID,
+        ApplicantTypeId: i.ApplicantTypeId
       };
       superannuationObj.push(superannu);
     });
@@ -423,6 +473,7 @@ export class AssetsComponent {
         Make: i.Make,
         Year: i.Year,
         EstimatedValue: i.EstimatedValue,
+        ApplicantTypeId: i.ApplicantTypeId
       };
       motorVehicleObj.push(mv);
     });
@@ -434,6 +485,7 @@ export class AssetsComponent {
         Details: i.Details,
         EstimatedValue: i.EstimatedValue,
         OwnerID: i.OwnerID,
+        ApplicantTypeId: i.ApplicantTypeId
       };
       moreAssetsObj.push(massets);
     });
@@ -470,10 +522,50 @@ export class AssetsComponent {
       else{
         this.getAssetDetailsForm().clear();
       }
-        this.patchSavingDetails(res.body.Savings);
-        this.patchSuperannuationDetails(res.body.Superannuation);
-        this.patchMotorVehicleDetails(res.body.MotorVehicle);
-        this.patchMoreAssets(res.body.MoreAssets);
+
+      if (
+        res.body.Savings != undefined &&
+        res.body.Savings.length > 0
+      ) {
+        this.patchSavingDetails(res.body.Savings, res.body.applicants_savings_link);
+      }
+      else{
+        this.getSavingDetailsForm().clear();
+      }
+
+      if (
+        res.body.Superannuation != undefined &&
+        res.body.Superannuation.length > 0
+      ) {
+        this.patchSuperannuationDetails(res.body.Superannuation, res.body.applicants_superannuation_link);
+            }
+      else{
+        this.getSuperannuationDetailsForm().clear();
+      }
+
+      if (
+          res.body.MotorVehicle != undefined &&
+          res.body.MotorVehicle.length > 0
+        ) {
+          this.patchMotorVehicleDetails(res.body.MotorVehicle, res.body.applicants_motorVehicle_link);
+        
+        }
+        else{
+          this.getMotorVehicleDetailsForm().clear();
+        }
+
+
+
+        if (
+          res.body.MoreAssets != undefined &&
+          res.body.MoreAssets.length > 0
+        ) {
+          this.patchMoreAssets(res.body.MoreAssets, res.body.applicants_moreAssets_link);
+        }
+        else{
+          this.getMoreAssetDetailsForm().clear();
+        }
+
       // }
     });
   }
@@ -550,57 +642,181 @@ export class AssetsComponent {
     
   }
 
-  patchSavingDetails(SavingDetails: any[]) {
+  patchSavingDetails(SavingDetails: any[], checkboxArray: any[]) {
     this.getSavingDetailsForm().clear();
     SavingDetails.forEach((i) => {
-      var form = this.rxFormBuilder.group({
+      var form = this._formBuilder.group({
         SavingsID : [i.SavingsID],
         Institution: [i.Institution, [Validators.required]],
         EstimatedValue: [i.EstimatedValue, [Validators.required]],
         OwnerID: [i.OwnerID],
+        RandomId: i.SavingsID,
+        ApplicantTypeId: this._formBuilder.array([]),
       });
+      var idx = checkboxArray.findIndex(
+        (j) => j.SavingsID == i.SavingsID
+      );
+      if (idx > -1) {
+        for (const k of this._sharedService.TotalApplicants) {
+          var idx2 = checkboxArray.findIndex(
+            (j) =>
+              j.ApplicantId == k.ApplicantId && j.SavingsID == i.SavingsID
+          );
+          if (idx2 > -1) {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: true,
+              SavingsID: i.SavingsID,
+            };
+            this.ApplicantIds.push(obj);
+          } else {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: false,
+              SavingsID: i.SavingsID,
+            };
+            this.ApplicantIds.push(obj);
+          }
+        }
+      }
       this.getSavingDetailsForm().push(form);
+      this.selectChecbox(i.SavingsID, 2);
     });
   }
 
-  patchSuperannuationDetails(Superannuation: any[]) {
+  patchSuperannuationDetails(Superannuation: any[], checkboxArray: any[]) {
     this.getSuperannuationDetailsForm().clear();
     Superannuation.forEach((i) => {
-      var form = this.rxFormBuilder.group({
+      var form = this._formBuilder.group({
         SuperannuationID : [i.SuperannuationID],
         Institution: [i.Institution, [Validators.required]],
         EstimatedValue: [i.EstimatedValue, [Validators.required]],
         OwnerID: [i.OwnerID],
+        RandomId: i.SuperannuationID,
+        ApplicantTypeId: this._formBuilder.array([]),
       });
+      var idx = checkboxArray.findIndex(
+        (j) => j.SuperannuationID == i.SuperannuationID
+      );
+      if (idx > -1) {
+        for (const k of this._sharedService.TotalApplicants) {
+          var idx2 = checkboxArray.findIndex(
+            (j) =>
+              j.ApplicantId == k.ApplicantId && j.SuperannuationID == i.SuperannuationID
+          );
+          if (idx2 > -1) {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: true,
+              SuperannuationID: i.SuperannuationID,
+            };
+            this.ApplicantIds.push(obj);
+          } else {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: false,
+              SuperannuationID: i.SuperannuationID,
+            };
+            this.ApplicantIds.push(obj);
+          }
+        }
+      }
       this.getSuperannuationDetailsForm().push(form);
+      this.selectChecbox(i.SuperannuationID, 3);
     });
   }
 
-  patchMotorVehicleDetails(MotorVehicleDetails: any[]) {
+  patchMotorVehicleDetails(MotorVehicleDetails: any[], checkboxArray: any[]) {
     this.getMotorVehicleDetailsForm().clear();
     MotorVehicleDetails.forEach((i) => {
-      var form = this.rxFormBuilder.group({
+      var form = this._formBuilder.group({
         MotorVehicleID : [i.MotorVehicleID],
         Make: [i.Make, [Validators.required]],
         Year: [i.Year, [Validators.required]],
         EstimatedValue: [i.EstimatedValue, [Validators.required]],
         OwnerID: [i.OwnerID],
+        RandomId: i.MotorVehicleID,
+        ApplicantTypeId: this._formBuilder.array([]),
       });
+      var idx = checkboxArray.findIndex(
+        (j) => j.MotorVehicleID == i.MotorVehicleID
+      );
+      if (idx > -1) {
+        for (const k of this._sharedService.TotalApplicants) {
+          var idx2 = checkboxArray.findIndex(
+            (j) =>
+              j.ApplicantId == k.ApplicantId && j.MotorVehicleID == i.MotorVehicleID
+          );
+          if (idx2 > -1) {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: true,
+              MotorVehicleID: i.MotorVehicleID,
+            };
+            this.ApplicantIds.push(obj);
+          } else {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: false,
+              MotorVehicleID: i.MotorVehicleID,
+            };
+            this.ApplicantIds.push(obj);
+          }
+        }
+      }
       this.getMotorVehicleDetailsForm().push(form);
+      this.selectChecbox(i.MotorVehicleID, 4);
     });
   }
 
-  patchMoreAssets(MoreAssets: any[]) {
+  patchMoreAssets(MoreAssets: any[], checkboxArray: any[]) {
     this.getMoreAssetDetailsForm().clear();
     MoreAssets.forEach((i) => {
-      var form = this.rxFormBuilder.group({
+      var form = this._formBuilder.group({
         MoreAssetsID : [i.MoreAssetsID],
         AssetTypeID: [i.AssetTypeID],
         Details: [i.Details],
         EstimatedValue: [i.EstimatedValue, [Validators.required]],
         OwnerID: [i.OwnerID],
+        RandomId: i.MoreAssetsID,
+        ApplicantTypeId: this._formBuilder.array([]),
       });
+      var idx = checkboxArray.findIndex(
+        (j) => j.MoreAssetsID == i.MoreAssetsID
+      );
+      if (idx > -1) {
+        for (const k of this._sharedService.TotalApplicants) {
+          var idx2 = checkboxArray.findIndex(
+            (j) =>
+              j.ApplicantId == k.ApplicantId && j.MoreAssetsID == i.MoreAssetsID
+          );
+          if (idx2 > -1) {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: true,
+              MoreAssetsID: i.MoreAssetsID,
+            };
+            this.ApplicantIds.push(obj);
+          } else {
+            var obj = {
+              Name: k.FirstName + ' ' + k.SurName,
+              ApplicantId: k.ApplicantId,
+              IsChecked: false,
+              MoreAssetsID: i.MoreAssetsID,
+            };
+            this.ApplicantIds.push(obj);
+          }
+        }
+      }
       this.getMoreAssetDetailsForm().push(form);
+      this.selectChecbox(i.MoreAssetsID, 5);
     });
   }
 
@@ -720,15 +936,20 @@ export class AssetsComponent {
   }
   ApplicantIds: any[] = [];
 
+// property 1
+// savings 2
+// superannuation 3
+// motor vehicle 4
+// other assets 5
 
-  selectChecbox(PropertyId, LiabilityTypeId) {
+  selectChecbox(id, LiabilityTypeId) {
     if (LiabilityTypeId == 1) {
       const ApplicantProperty = (<FormArray>(
         this.AssetsDetails.get('AssetsDetails')
       )) as FormArray;
 
       var idx = ApplicantProperty.value.findIndex(
-        (i) => i.RandomId == PropertyId
+        (i) => i.RandomId == id
       );
       if (idx > -1) {
         const Applicants = (<FormArray>(
@@ -736,7 +957,95 @@ export class AssetsComponent {
         )) as FormArray;
         Applicants.clear();
         for (const i of this.ApplicantIds) {
-          if (i.PropertyId == PropertyId) {
+          if (i.PropertyId == id) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    }
+   else if (LiabilityTypeId == 2) {
+      const ApplicantProperty = (<FormArray>(
+        this.SavingDetails.get('SavingDetails')
+      )) as FormArray;
+
+      var idx = ApplicantProperty.value.findIndex(
+        (i) => i.RandomId == id
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantProperty.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.SavingsID == id) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    }
+    else if (LiabilityTypeId == 3) {
+      const ApplicantProperty = (<FormArray>(
+        this.SuperannuationDetails.get('SuperannuationDetails')
+      )) as FormArray;
+
+      var idx = ApplicantProperty.value.findIndex(
+        (i) => i.RandomId == id
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantProperty.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.SuperannuationID == id) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    }
+    else if (LiabilityTypeId == 4) {
+      const ApplicantProperty = (<FormArray>(
+        this.MotorVehicleDetails.get('MotorVehicleDetails')
+      )) as FormArray;
+
+      var idx = ApplicantProperty.value.findIndex(
+        (i) => i.RandomId == id
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantProperty.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.MotorVehicleID == id) {
+            if (i.IsChecked) {
+              Applicants.push(new FormControl(i.ApplicantId));
+            }
+          }
+        }
+      }
+    }
+    else if (LiabilityTypeId == 5) {
+      const ApplicantProperty = (<FormArray>(
+        this.MoreAssetDetails.get('MoreAssetDetails')
+      )) as FormArray;
+
+      var idx = ApplicantProperty.value.findIndex(
+        (i) => i.RandomId == id
+      );
+      if (idx > -1) {
+        const Applicants = (<FormArray>(
+          ApplicantProperty.at(idx).get('ApplicantTypeId')
+        )) as FormArray;
+        Applicants.clear();
+        for (const i of this.ApplicantIds) {
+          if (i.MoreAssetsID == id) {
             if (i.IsChecked) {
               Applicants.push(new FormControl(i.ApplicantId));
             }
