@@ -283,8 +283,8 @@ export class ApplicantDetailComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
   ngOnInit() {
-    for (let index = 0; index < 60; index++) {
-      this.NumberOfChildren.push(index + 1);
+    for (let index = 0; index <= 60; index++) {
+      this.NumberOfChildren.push(index);
     }
     this.ApplicantDetailObj = new Object();
     this.ApplicantDetailForm = this.rxFormBuilder.group({
@@ -1236,5 +1236,16 @@ export class ApplicantDetailComponent implements OnInit {
     }, error => {
 
     })
+  }
+  PatchPreviousAddressDetail() {
+    if (
+      this.ApplicantDetailObj != undefined &&
+      this.ApplicantDetailObj.ReplicateApplicantDetailAddresses != undefined &&
+      this.ApplicantDetailObj.ReplicateApplicantDetailAddresses.length > 0
+    ) {
+      this.PatchApplicationDetailAddressValue(
+        this.ApplicantDetailObj.ReplicateApplicantDetailAddresses
+      );
+    } 
   }
 }

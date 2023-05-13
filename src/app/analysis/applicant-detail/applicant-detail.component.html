@@ -181,6 +181,9 @@
         <ng-template matStepLabel
           >Address (more than 3 year records)</ng-template
         >
+        <div class="row mx-0 justify-content-end mt-1">
+          <button mat-button mat-raised-button (click)="PatchPreviousAddressDetail()">Add Previous Address</button>
+        </div>
         <form [formGroup]="ApplicantAddress" class="mt-4">
           <div
             formArrayName="ApplicantAddresses"
