@@ -1,4 +1,3 @@
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
@@ -52,7 +51,7 @@ export class ApplicantDetailComponent implements OnInit {
       MaritalStatusName: 'Other',
     },
   ];
-  NumberOfChildren = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  NumberOfChildren: any[] = [];
   IBORange = [
     {
       IBORangeTypeId: 15,
@@ -284,6 +283,9 @@ export class ApplicantDetailComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
   ngOnInit() {
+    for (let index = 0; index < 60; index++) {
+      this.NumberOfChildren.push(index + 1);
+    }
     this.ApplicantDetailObj = new Object();
     this.ApplicantDetailForm = this.rxFormBuilder.group({
       ApplicantDetailId: [''],
@@ -291,7 +293,7 @@ export class ApplicantDetailComponent implements OnInit {
       SalutationTypeId: ['', [Validators.required]],
       FirstName: ['', [Validators.required]],
       SurName: ['', [Validators.required]],
-      MiddleName: ['', [Validators.required]],
+      MiddleName: [''],
       DateOfBirth: ['', [Validators.required]],
       MaritalTypeId: new FormControl('', [Validators.required]),
       Specify: [
@@ -960,7 +962,9 @@ export class ApplicantDetailComponent implements OnInit {
             );
           }else {
             this.ApplicantDetailForm.patchValue({
-              ApplicantType: this.ApplicantDetailObj.Applicant.ApplicantTypeId.toString()
+              ApplicantType: this.ApplicantDetailObj.Applicant.ApplicantTypeId.toString(),
+              FirstName: this.ApplicantDetailObj.Applicant.FirstName,
+              SurName: this.ApplicantDetailObj.Applicant.SurName
             });
           }
           if (
