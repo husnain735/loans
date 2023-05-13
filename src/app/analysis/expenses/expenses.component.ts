@@ -110,10 +110,17 @@ export class ExpensesComponent implements OnInit {
     },
     {
       SortOrder: 18,
+      Title: 'Pet Expenses',
+      SubTitle:
+        'All the expenses of the pets you have',
+    },
+    {
+      SortOrder: 19,
       Title: 'Other',
       SubTitle:
         'Unique items not covered in above categories (must be explained further)',
     },
+
   ];
   ApplicantExpensesForm = this._formBuilder.group({
     ApplicationExpense: this._formBuilder.array([]),

@@ -219,6 +219,7 @@ export class AssetsComponent {
 
   createSavingDetails(guid:string): FormGroup {
     return this._formBuilder.group({
+      SavingsID: [null],
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
       OwnerID: [''],
@@ -229,6 +230,7 @@ export class AssetsComponent {
 
   createSuperannuationDetails(guid:string): FormGroup {
     return this._formBuilder.group({
+      SuperannuationID: [null],
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
       OwnerID: [''],
@@ -239,6 +241,7 @@ export class AssetsComponent {
 
   createMotorVehicleDetails(guid:string): FormGroup {
     return this._formBuilder.group({
+      MotorVehicleID: [null],
       Make: ['', [Validators.required]],
       Year: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
@@ -250,6 +253,7 @@ export class AssetsComponent {
 
   createMoreAssetDetails(guid:string): FormGroup {
     return this._formBuilder.group({
+      MoreAssetsID: [null],
       AssetTypeID: [''],
       Details: [''],
       EstimatedValue: ['', [Validators.required]],
@@ -275,7 +279,7 @@ export class AssetsComponent {
     }
   }
   removeAssetsDetails(index, id) {
-
+    debugger
     this.Items = this.AssetsDetails.get('AssetsDetails') as FormArray;
     this.Items.removeAt(index);
     if(id > 0){
