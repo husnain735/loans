@@ -75,7 +75,7 @@
               <input matInput placeholder="Surname" formControlName="SurName" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
-              <mat-label>Date of Birth (dd/mm/yyyy)</mat-label>
+              <mat-label>Date of Birth (mm/dd/yyyy)</mat-label>
               <input
                 matInput
                 [matDatepicker]="DateOfBirth"
@@ -147,31 +147,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- <mat-form-field class="col-6 w-100">
-              <mat-label>IBO Number</mat-label>
-              <input
-                matInput
-                placeholder="IBO Number"
-                formControlName="IBONumber"
-              />
-            </mat-form-field> -->
-            <!-- <mat-form-field
-              *ngIf="ApplicantDetailForm.get('IBONumber').value != ''"
-              class="col-6"
-            >
-              <mat-label>How long have you been an IBO?</mat-label>
-              <mat-select
-                placeholder="How long have you been an IBO?"
-                formControlName="IBORangeTypeId"
-              >
-                <mat-option
-                  *ngFor="let item of IBORange"
-                  [value]="item.IBORangeTypeId"
-                >
-                  {{ item.IBORangeTypeName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field> -->
           </div>
         </form>
         <form [formGroup]="ApplicantChildrenDetail" class="mt-3">
