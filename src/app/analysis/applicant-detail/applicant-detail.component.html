@@ -1,22 +1,15 @@
 <div class="p-3 bgWhite">
   <div class="d-flex justify-content-between align-items-center">
     <h1>{{ApplicantDetailObj?.Applicant?.FirstName}}&nbsp; {{ApplicantDetailObj?.Applicant?.SurName}}</h1>
-    <button
-            mat-button
-            mat-raised-button
-            color="primary"
-            (click)="openApplicantDailog(content)"
-          >
-            Remove this applicant
-            <mat-icon class="btnOrder">clear</mat-icon>
-          </button>
+    <button mat-button mat-raised-button color="primary" (click)="openApplicantDailog(content)">
+      Remove this applicant
+      <mat-icon class="btnOrder">clear</mat-icon>
+    </button>
   </div>
   <div>
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
       <mat-step [completed]="Step1">
-        <form
-          [formGroup]="ApplicantDetailForm"
-        >
+        <form [formGroup]="ApplicantDetailForm">
           <ng-template matStepLabel>Applicant Detail</ng-template>
           <div class="px-15">
             <label class="constant">Applicant or Guarantor:</label>
@@ -26,13 +19,9 @@
                 <mat-radio-button value="2">Guarantor</mat-radio-button>
                 <mat-radio-button value="3">Non-applicant</mat-radio-button>
               </mat-radio-group>
-              <mat-error
-                *ngIf="
+              <mat-error *ngIf="
                   ApplicantDetailForm.get('ApplicantType').hasError('required')
-                "
-                class="mat-error"
-                >Applicant type is required</mat-error
-              >
+                " class="mat-error">Applicant type is required</mat-error>
             </div>
             <label class="constant">Salutation:</label>
             <div>
@@ -42,33 +31,22 @@
                 <mat-radio-button value="6">Miss</mat-radio-button>
                 <mat-radio-button value="7">Ms</mat-radio-button>
               </mat-radio-group>
-              <mat-error
-                *ngIf="
+              <mat-error *ngIf="
                   ApplicantDetailForm.get('SalutationTypeId').hasError(
                     'required'
                   ) && ADSubmitted
-                "
-                class="mat-error"
-                >Salutation required
+                " class="mat-error">Salutation required
               </mat-error>
             </div>
           </div>
           <div class="row mx-0">
             <mat-form-field class="col-4 w-100">
               <mat-label>Given Names</mat-label>
-              <input
-                matInput
-                placeholder="Given Names"
-                formControlName="FirstName"
-              />
+              <input matInput placeholder="Given Names" formControlName="FirstName" />
             </mat-form-field>
             <mat-form-field class="col-4 w-100">
               <mat-label>Middle Name</mat-label>
-              <input
-                matInput
-                placeholder="Middle Name"
-                formControlName="MiddleName"
-              />
+              <input matInput placeholder="Middle Name" formControlName="MiddleName" />
             </mat-form-field>
             <mat-form-field class="col-4 w-100">
               <mat-label>Surname</mat-label>
@@ -76,73 +54,39 @@
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Date of Birth (mm/dd/yyyy)</mat-label>
-              <input
-                matInput
-                [matDatepicker]="DateOfBirth"
-                formControlName="DateOfBirth"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="DateOfBirth"
-              ></mat-datepicker-toggle>
+              <input matInput [matDatepicker]="DateOfBirth" formControlName="DateOfBirth" />
+              <mat-datepicker-toggle matSuffix [for]="DateOfBirth"></mat-datepicker-toggle>
               <mat-datepicker #DateOfBirth></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="col-3">
               <mat-label>Marital Status</mat-label>
-              <mat-select
-                placeholder="Marital Status"
-                formControlName="MaritalTypeId"
-              >
-                <mat-option
-                  *ngFor="let item of MaritalStatus"
-                  [value]="item.MaritalStatusId"
-                >
+              <mat-select placeholder="Marital Status" formControlName="MaritalTypeId">
+                <mat-option *ngFor="let item of MaritalStatus" [value]="item.MaritalStatusId">
                   {{ item.MaritalStatusName }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field
-              *ngIf="+ApplicantDetailForm.get('MaritalTypeId').value == 14"
-              class="col-3 w-100"
-            >
+            <mat-form-field *ngIf="+ApplicantDetailForm.get('MaritalTypeId').value == 14" class="col-3 w-100">
               <mat-label>Specify</mat-label>
               <input matInput placeholder="Specify" formControlName="Specify" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Drivers Licence No.</mat-label>
-              <input
-                matInput
-                placeholder="Drivers Licence No."
-                formControlName="DriversLicenceNo"
-              />
+              <input matInput placeholder="Drivers Licence No." formControlName="DriversLicenceNo" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Drivers Licence Expiry Date</mat-label>
-              <input
-                matInput
-                placeholder="Drivers Licence Expiry Date"
-                formControlName="DriversExpiryDate"
-              />
+              <input matInput placeholder="Drivers Licence Expiry Date" formControlName="DriversExpiryDate" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Mother's Maiden Name</mat-label>
-              <input
-                matInput
-                placeholder="Mother's Maiden Name"
-                formControlName="MotherName"
-              />
+              <input matInput placeholder="Mother's Maiden Name" formControlName="MotherName" />
             </mat-form-field>
             <mat-form-field class="col-6">
               <mat-label>Number of Children</mat-label>
-              <mat-select
-                (selectionChange)="addChildren()"
-                placeholder="Number of Children"
-                formControlName="NumberOfChildren"
-              >
-                <mat-option
-                  *ngFor="let item of NumberOfChildren"
-                  [value]="item"
-                >
+              <mat-select (selectionChange)="addChildren()" placeholder="Number of Children"
+                formControlName="NumberOfChildren">
+                <mat-option *ngFor="let item of NumberOfChildren" [value]="item">
                   {{ item }}
                 </mat-option>
               </mat-select>
@@ -151,102 +95,67 @@
         </form>
         <form [formGroup]="ApplicantChildrenDetail" class="mt-3">
           <div class="col-12 row mx-0 px-0" formArrayName="ApplicantChildrenDetails">
-              <div
-                class="col-3"
-                *ngFor="let phone of childForms.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field>
-                  <mat-label>Child #{{ i + 1 }}</mat-label>
-                  <mat-select
-                    placeholder="Child #{{ i + 1 }}"
-                    formControlName="Age"
-                  >
-                    <mat-option
-                      *ngFor="let item of NumberOfChildren"
-                      [value]="item"
-                    >
-                      {{ item }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+            <div class="col-3" *ngFor="let phone of childForms.controls; let i = index" [formGroupName]="i">
+              <mat-form-field>
+                <mat-label>Child #{{ i + 1 }}</mat-label>
+                <mat-select placeholder="Child #{{ i + 1 }}" formControlName="Age">
+                  <mat-option *ngFor="let item of NumberOfChildren" [value]="item">
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
+          </div>
         </form>
         <div class="px-15">
           <button mat-button mat-raised-button matStepperNext (click)="onApplicantDetailSubmit()">Next</button>
         </div>
       </mat-step>
       <mat-step [completed]="Step2">
-        <ng-template matStepLabel
-          >Address (more than 3 year records)</ng-template
-        >
-        <div class="row mx-0 justify-content-end mt-1">
+        <ng-template matStepLabel>Address (more than 3 year records)</ng-template>
+        <div *ngIf="this.ApplicantDetailObj != undefined &&
+        this.ApplicantDetailObj.ReplicateApplicantDetailAddresses != undefined &&
+        this.ApplicantDetailObj.ReplicateApplicantDetailAddresses.length > 0"
+          class="row mx-0 justify-content-end mt-1">
           <button mat-button mat-raised-button (click)="PatchPreviousAddressDetail()">Add Previous Address</button>
         </div>
         <form [formGroup]="ApplicantAddress" class="mt-4">
-          <div
-            formArrayName="ApplicantAddresses"
-            *ngFor="
+          <div formArrayName="ApplicantAddresses" *ngFor="
               let item of ApplicantAddress.get('ApplicantAddresses')[
                 'controls'
               ];
               let i = index
-            "
-          >
-            <div
-              [formGroupName]="i"
-              class="py-3 mb-3"
-              [ngClass]="
+            ">
+            <div [formGroupName]="i" class="py-3 mb-3" [ngClass]="
                 i > 0 && i % 2 == 1
                   ? 'bgSkinWhite'
                   : i > 0 && i % 2 == 0
                   ? 'bgLightGreen'
                   : ''
-              "
-            >
+              ">
               <div class="row mx-0">
                 <div *ngIf="i > 0" class="col-12 text-right mb-3">
-                  <button
-                    (click)="removeApplicantAddress(+item.get('ApplicantDetailAddressId').value,i)"
-                    mat-fab
-                    color="primary"
-                    aria-label="Example icon button with a delete icon"
-                  >
+                  <button (click)="removeApplicantAddress(+item.get('ApplicantDetailAddressId').value,i)" mat-fab
+                    color="primary" aria-label="Example icon button with a delete icon">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>
                 <mat-form-field class="col-4 w-100">
                   <mat-label>Street Number</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Number"
-                    formControlName="StreetNumber"
-                  />
+                  <input matInput placeholder="Street Number" formControlName="StreetNumber" />
                 </mat-form-field>
                 <mat-form-field class="col-4 w-100">
                   <mat-label>Street Name</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Name"
-                    formControlName="StreetName"
-                  />
+                  <input matInput placeholder="Street Name" formControlName="StreetName" />
                 </mat-form-field>
                 <div class="col-4 w-100"></div>
                 <mat-form-field class="col-4 w-100">
                   <mat-label>Suburb</mat-label>
-                  <input
-                    matInput
-                    placeholder="Suburb"
-                    formControlName="Suburb"
-                  />
+                  <input matInput placeholder="Suburb" formControlName="Suburb" />
                 </mat-form-field>
                 <mat-form-field class="col-3 w-100">
                   <mat-select placeholder="State" formControlName="StateTypeId">
-                    <mat-option
-                      *ngFor="let item of States"
-                      [value]="item.StatesID"
-                    >
+                    <mat-option *ngFor="let item of States" [value]="item.StatesID">
                       {{ item.StatesName }}
                     </mat-option>
                   </mat-select>
@@ -254,178 +163,93 @@
                 <div class="col-1 w-100"></div>
                 <mat-form-field class="col-4 w-100">
                   <mat-label>Postcode</mat-label>
-                  <input
-                    matInput
-                    placeholder="Postcode"
-                    formControlName="Postcode"
-                  />
+                  <input matInput placeholder="Postcode" formControlName="Postcode" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="item.get('PreviousAddressType').value == ''"
-                  class="col-2 w-100"
-                >
-                  <mat-select
-                    placeholder="Housing Status"
-                    formControlName="HousingStatusTypeId"
-                  >
-                    <mat-option
-                      *ngFor="let item of HousingState"
-                      [value]="item.HousingStateTypeId"
-                    >
+                <mat-form-field *ngIf="item.get('PreviousAddressType').value == ''" class="col-2 w-100">
+                  <mat-select placeholder="Housing Status" formControlName="HousingStatusTypeId">
+                    <mat-option *ngFor="let item of HousingState" [value]="item.HousingStateTypeId">
                       {{ item.HousingStateTypeName }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="+item.get('HousingStatusTypeId').value == 50"
-                  class="col-2 w-100"
-                >
+                <mat-form-field *ngIf="+item.get('HousingStatusTypeId').value == 50" class="col-2 w-100">
                   <mat-label>Specify</mat-label>
-                  <input
-                    matInput
-                    placeholder="Specify"
-                    formControlName="Specify"
-                  />
+                  <input matInput placeholder="Specify" formControlName="Specify" />
                 </mat-form-field>
                 <mat-form-field class="col-3 w-100">
-                  <mat-select
-                    placeholder="Time residing (Year)"
-                    formControlName="YearTimeResiding"
-                    (selectionChange)="
+                  <mat-select placeholder="Time residing (Year)" formControlName="YearTimeResiding" (selectionChange)="
                       selectApplicantAddressYear($event.value, item.get('ApplicantDetailAddressId').value != '' ? item.get('ApplicantDetailAddressId').value : i)
-                    "
-                  >
-                    <mat-option
-                      *ngFor="let item of ResidingYear"
-                      [value]="item"
-                    >
+                    ">
+                    <mat-option *ngFor="let item of ResidingYear" [value]="item">
                       {{ item }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-3 w-100">
-                  <mat-select
-                    placeholder="Month"
-                    formControlName="MonthTimeResiding"
-                    (selectionChange)="
+                  <mat-select placeholder="Month" formControlName="MonthTimeResiding" (selectionChange)="
                       selectApplicantAddressMonth($event.value, item.get('ApplicantDetailAddressId').value != '' ? item.get('ApplicantDetailAddressId').value : i)
-                    "
-                  >
-                    <mat-option
-                      *ngFor="let item of ResidingMonth"
-                      [value]="item"
-                    >
+                    ">
+                    <mat-option *ngFor="let item of ResidingMonth" [value]="item">
                       {{ item }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <div
-                  *ngIf="item.get('PreviousAddressType').value == ''"
-                  class="col-12 mb-3"
-                >
+                <div *ngIf="item.get('PreviousAddressType').value == ''" class="col-12 mb-3">
                   <label class="mb-2">Postal Address:</label>
                   <div>
-                    <mat-slide-toggle formControlName="MorePostalAddress"
-                      >Use the same address above</mat-slide-toggle
-                    >
+                    <mat-slide-toggle formControlName="MorePostalAddress">Use the same address above</mat-slide-toggle>
                   </div>
                 </div>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     item.get('MorePostalAddress').value == false &&
                     item.get('PreviousAddressType').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Street Number</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Number"
-                    formControlName="StreetNumber2"
-                  />
+                  <input matInput placeholder="Street Number" formControlName="StreetNumber2" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     item.get('MorePostalAddress').value == false &&
                     item.get('PreviousAddressType').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Street Name</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Name"
-                    formControlName="StreetName2"
-                  />
+                  <input matInput placeholder="Street Name" formControlName="StreetName2" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     item.get('MorePostalAddress').value == false &&
                     item.get('PreviousAddressType').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>POBox</mat-label>
                   <input matInput placeholder="POBox" formControlName="POBox" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     item.get('MorePostalAddress').value == false &&
                     item.get('PreviousAddressType').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Suburb</mat-label>
-                  <input
-                    matInput
-                    placeholder="Suburb"
-                    formControlName="Suburb2"
-                  />
+                  <input matInput placeholder="Suburb" formControlName="Suburb2" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     item.get('MorePostalAddress').value == false &&
                     item.get('PreviousAddressType').value == ''
-                  "
-                  class="col-3 w-100"
-                >
-                  <mat-select
-                    placeholder="State"
-                    formControlName="State2TypeId"
-                  >
-                    <mat-option
-                      *ngFor="let item of States"
-                      [value]="item.StatesID"
-                    >
+                  " class="col-3 w-100">
+                  <mat-select placeholder="State" formControlName="State2TypeId">
+                    <mat-option *ngFor="let item of States" [value]="item.StatesID">
                       {{ item.StatesName }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     item.get('MorePostalAddress').value == false &&
                     item.get('PreviousAddressType').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Postcode</mat-label>
-                  <input
-                    matInput
-                    placeholder="Postcode"
-                    formControlName="Postcode2"
-                  />
+                  <input matInput placeholder="Postcode" formControlName="Postcode2" />
                 </mat-form-field>
               </div>
             </div>
           </div>
           <div *ngIf="!IsApplicantAddressMoreThen3" class="px-15 mb-3">
-            <button
-              mat-button
-              mat-raised-button
-              color="primary"
-              (click)="addApplicantAddress(1)"
-              class="mb-3"
-            >
+            <button mat-button mat-raised-button color="primary" (click)="addApplicantAddress(1)" class="mb-3">
               Add Previous Address
               <mat-icon class="btnOrder">add</mat-icon>
             </button>
@@ -434,104 +258,61 @@
         </form>
         <div class="px-15">
           <button mat-button mat-raised-button matStepperPrevious>Back</button>
-          <button
-            mat-button
-            mat-raised-button
-            matStepperNext
-            class="ml-2"
-            [disabled]="!IsApplicantAddressMoreThen3"
-            (click)="Step2 = true;onApplicantAddressSubmit()"
-          >
+          <button mat-button mat-raised-button matStepperNext class="ml-2" [disabled]="!IsApplicantAddressMoreThen3"
+            (click)="Step2 = true;onApplicantAddressSubmit()">
             Next
           </button>
         </div>
       </mat-step>
       <mat-step [completed]="Step3">
         <ng-template matStepLabel>Contact & More Information</ng-template>
-        <form
-          [formGroup]="ApplicantContactInformation"
-          (ngSubmit)="onApplicantContactInformationSubmit()"
-          class="mt-4"
-        >
+        <form [formGroup]="ApplicantContactInformation" (ngSubmit)="onApplicantContactInformationSubmit()" class="mt-4">
           <div class="row mx-0">
             <mat-form-field class="col-6 w-100">
               <mat-label>Home Phone</mat-label>
-              <input
-                matInput
-                placeholder="Home Phone"
-                formControlName="PhoneNumber"
-              />
+              <input matInput placeholder="Home Phone" formControlName="PhoneNumber" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Mobile</mat-label>
-              <input
-                matInput
-                placeholder="Mobile"
-                formControlName="MobileNumber"
-              />
+              <input matInput placeholder="Mobile" formControlName="MobileNumber" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Email</mat-label>
-              <input
-                matInput
-                placeholder="Email"
-                formControlName="EmailAddress"
-              />
+              <input matInput placeholder="Email" formControlName="EmailAddress" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
               <mat-label>Skype Address</mat-label>
-              <input
-                matInput
-                placeholder="Skype Address"
-                formControlName="SkypeAddress"
-              />
+              <input matInput placeholder="Skype Address" formControlName="SkypeAddress" />
             </mat-form-field>
           </div>
           <div class="px-15 mb-2">
-            <label class=""
-              >Are you a Tax resident of any foreign country?</label
-            >
+            <label class="">Are you a Tax resident of any foreign country?</label>
             <div>
               <mat-radio-group formControlName="IsTaxResident">
                 <mat-radio-button value="true">Yes</mat-radio-button>
                 <mat-radio-button value="false">No</mat-radio-button>
               </mat-radio-group>
             </div>
-            <mat-error
-              *ngIf="
+            <mat-error *ngIf="
                 ApplicantContactInformation.get('IsTaxResident').hasError(
                   'required'
                 ) && ACInformation
-              "
-              class="mat-error"
-              >required
+              " class="mat-error">required
             </mat-error>
           </div>
-          <mat-form-field
-            *ngIf="
+          <mat-form-field *ngIf="
               ApplicantContactInformation.get('IsTaxResident').value == 'true'
-            "
-            class="col-12 w-100"
-          >
+            " class="col-12 w-100">
             <mat-label>Country</mat-label>
             <input matInput placeholder="Country" formControlName="Country" />
           </mat-form-field>
 
-          <mat-form-field
-            *ngIf="
+          <mat-form-field *ngIf="
               ApplicantContactInformation.get('IsTaxResident').value == 'true'
-            "
-            class="col-12"
-          >
+            " class="col-12">
             <mat-label>What is your Citizenship Status?</mat-label>
-            <mat-select
-              placeholder=""
-              formControlName="CitizenshipStatusTypeId"
-            >
-              <mat-option
-                *ngFor="let item of CitizenshipStatus"
-                [value]="item.CitizenshipStatusID"
-              >
+            <mat-select placeholder="" formControlName="CitizenshipStatusTypeId">
+              <mat-option *ngFor="let item of CitizenshipStatus" [value]="item.CitizenshipStatusID">
                 {{ item.CitizenshipStatusName }}
               </mat-option>
             </mat-select>
@@ -547,161 +328,95 @@
         </form>
       </mat-step>
       <mat-step [completed]="Step4">
-        <ng-template matStepLabel
-          >Employment Details (more than 3 year records)</ng-template
-        >
+        <ng-template matStepLabel>Employment Details (more than 3 year records)</ng-template>
         <form [formGroup]="ApplicantEmploymentDetail" (ngSubmit)="onApplicantEmploymentDetailSubmit()" class="mt-4">
-          <div
-            formArrayName="ApplicantEmploymentDetails"
-            *ngFor="
+          <div formArrayName="ApplicantEmploymentDetails" *ngFor="
               let item of ApplicantEmploymentDetail.get(
                 'ApplicantEmploymentDetails'
               )['controls'];
               let i = index
-            "
-          >
-            <div
-              [formGroupName]="i"
-              class="py-3 mb-3"
-              [ngClass]="
+            ">
+            <div [formGroupName]="i" class="py-3 mb-3" [ngClass]="
                 i > 0 && i % 2 == 1
                   ? 'bgSkinWhite'
                   : i > 0 && i % 2 == 0
                   ? 'bgLightGreen'
                   : ''
-              "
-            >
+              ">
               <div class="row mx-0">
                 <div class="col-3 w-100">
-                  <mat-form-field
-                    *ngIf="+item.get('PreviousEmployementType').value == 1"
-                  >
-                    <mat-select
-                      placeholder="Type"
-                      formControlName="EmploymentTypeId"
-                    >
-                      <mat-option
-                        *ngFor="let item of EmploymentDetail"
-                        [value]="item.EmploymentDetailTypeID"
-                      >
+                  <mat-form-field *ngIf="+item.get('PreviousEmployementType').value == 1">
+                    <mat-select placeholder="Type" formControlName="EmploymentTypeId">
+                      <mat-option *ngFor="let item of EmploymentDetail" [value]="item.EmploymentDetailTypeID">
                         {{ item.EmploymentDetailTypeName }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div
-                  class="col-9 text-right"
-                  [ngClass]="
+                <div class="col-9 text-right" [ngClass]="
                     +item.get('PreviousEmployementType').value == 2
                       ? 'mb-3'
                       : ''
-                  "
-                >
-                  <button
-                    *ngIf="i > 0"
-                    (click)="removeApplicantEmploymentDetail(+item.get('ApplicantEmployeeDetailsID').value , i)"
-                    mat-fab
-                    color="primary"
-                    aria-label="Example icon button with a delete icon"
-                  >
+                  ">
+                  <button *ngIf="i > 0"
+                    (click)="removeApplicantEmploymentDetail(+item.get('ApplicantEmployeeDetailsID').value , i)" mat-fab
+                    color="primary" aria-label="Example icon button with a delete icon">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>
               </div>
               <div class="row mx-0">
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-6 w-100"
-                >
+                  " class="col-6 w-100">
                   <mat-label>Occupation</mat-label>
-                  <input
-                    matInput
-                    placeholder="Occupation"
-                    formControlName="Occupation"
-                    type="text"
-                  />
+                  <input matInput placeholder="Occupation" formControlName="Occupation" type="text" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-6 w-100"
-                >
+                  " class="col-6 w-100">
                   <mat-label>Employer</mat-label>
-                  <input
-                    matInput
-                    placeholder="Employer"
-                    formControlName="Employer"
-                  />
+                  <input matInput placeholder="Employer" formControlName="Employer" />
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Street Number</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Number"
-                    formControlName="StreetNumber"
-                  />
+                  <input matInput placeholder="Street Number" formControlName="StreetNumber" />
                 </mat-form-field>
 
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Street Name</mat-label>
-                  <input
-                    matInput
-                    placeholder="Street Name"
-                    formControlName="StreetName"
-                  />
+                  <input matInput placeholder="Street Name" formControlName="StreetName" />
                 </mat-form-field>
                 <div class="col-4 w-100"></div>
 
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Suburb</mat-label>
-                  <input
-                    matInput
-                    placeholder="Suburb"
-                    formControlName="Suburb"
-                  />
+                  <input matInput placeholder="Suburb" formControlName="Suburb" />
                 </mat-form-field>
 
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-3 w-100"
-                >
+                  " class="col-3 w-100">
                   <mat-select placeholder="State" formControlName="StateId">
-                    <mat-option
-                      *ngFor="let item of States"
-                      [value]="item.StatesID"
-                    >
+                    <mat-option *ngFor="let item of States" [value]="item.StatesID">
                       {{ item.StatesName }}
                     </mat-option>
                   </mat-select>
@@ -709,95 +424,57 @@
 
                 <div class="col-1 w-100"></div>
 
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-4 w-100"
-                >
+                  " class="col-4 w-100">
                   <mat-label>Postcode</mat-label>
-                  <input
-                    matInput
-                    placeholder="Postcode"
-                    formControlName="Postcode"
-                  />
+                  <input matInput placeholder="Postcode" formControlName="Postcode" />
                 </mat-form-field>
 
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-6 w-100"
-                >
+                  " class="col-6 w-100">
                   <mat-label>Work Phone</mat-label>
-                  <input
-                    matInput
-                    placeholder="Work Phone"
-                    formControlName="WorkPhone"
-                  />
+                  <input matInput placeholder="Work Phone" formControlName="WorkPhone" />
                 </mat-form-field>
 
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-2 w-100"
-                >
+                  " class="col-2 w-100">
                   <mat-select placeholder="Basis" formControlName="BasisTypeId">
-                    <mat-option
-                      *ngFor="let item of Basis"
-                      [value]="item.BasisID"
-                    >
+                    <mat-option *ngFor="let item of Basis" [value]="item.BasisID">
                       {{ item.BasisName }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
                 <div class="col-4 w-100"></div>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     +item.get('EmploymentTypeId').value == 23 ||
                     +item.get('EmploymentTypeId').value == 24 ||
                     +item.get('EmploymentTypeId').value == 25 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-6 w-100"
-                >
+                  " class="col-6 w-100">
                   <mat-label>Date Started</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="StartedDate"
-                    formControlName="StartedDate"
-                    (dateChange)="addEvent('change', $event, +item.get('ApplicantEmployeeDetailsID').value > 0 ? +item.get('ApplicantEmployeeDetailsID').value : i)"
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="StartedDate"
-                  ></mat-datepicker-toggle>
+                  <input matInput [matDatepicker]="StartedDate" formControlName="StartedDate"
+                    (dateChange)="addEvent('change', $event, +item.get('ApplicantEmployeeDetailsID').value > 0 ? +item.get('ApplicantEmployeeDetailsID').value : i)" />
+                  <mat-datepicker-toggle matSuffix [for]="StartedDate"></mat-datepicker-toggle>
                   <mat-datepicker #StartedDate></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field
-                  *ngIf="
+                <mat-form-field *ngIf="
                     +item.get('EmploymentTypeId').value == 21 ||
                     +item.get('EmploymentTypeId').value == 22 ||
                     +item.get('EmploymentTypeId').value == 25 ||
                     item.get('EmploymentTypeId').value == ''
-                  "
-                  class="col-6 w-100"
-                >
+                  " class="col-6 w-100">
                   <mat-label>Gross Income</mat-label>
-                  <input
-                    type="number"
-                    matInput
-                    placeholder="Gross Income"
-                    formControlName="GrossIncome"
-                  />
+                  <input type="number" matInput placeholder="Gross Income" formControlName="GrossIncome" />
                   <span matPrefix>&nbsp;$&nbsp;</span>
                 </mat-form-field>
               </div>
@@ -805,22 +482,13 @@
           </div>
         </form>
         <div class="px-15 mb-3">
-          <button
-            *ngIf="IsButtonVisible"
-            mat-button
-            mat-raised-button
-            color="primary"
-            (click)="addApplicantEmploymentDetail(2)"
-          >
+          <button *ngIf="IsButtonVisible" mat-button mat-raised-button color="primary"
+            (click)="addApplicantEmploymentDetail(2)">
             Add Previous Employment
             <mat-icon class="btnOrder">add</mat-icon>
           </button>
-          <button
-            mat-stroked-button
-            color="primary"
-            [ngClass]="IsButtonVisible ? 'ml-3' : ''"
-            (click)="addApplicantEmploymentDetail(1)"
-          >
+          <button mat-stroked-button color="primary" [ngClass]="IsButtonVisible ? 'ml-3' : ''"
+            (click)="addApplicantEmploymentDetail(1)">
             Add More Current Employment
             <mat-icon class="btnOrder">add</mat-icon>
           </button>
@@ -835,14 +503,8 @@
         </div>
         <div class="px-15">
           <button mat-button mat-raised-button matStepperPrevious>Back</button>
-          <button
-            mat-button
-            mat-raised-button
-            matStepperNext
-            class="ml-2"
-            [disabled]="IsYearMoreThen3"
-            (click)="onApplicantEmploymentDetailSubmit()"
-          >
+          <button mat-button mat-raised-button matStepperNext class="ml-2" [disabled]="IsYearMoreThen3"
+            (click)="onApplicantEmploymentDetailSubmit()">
             Next
           </button>
         </div>
@@ -850,74 +512,42 @@
       <mat-step [completed]="Step5">
         <ng-template matStepLabel>Other Income</ng-template>
         <div [formGroup]="ApplicantOtherIncome" class="mt-4">
-          <div
-            formArrayName="ApplicantOtherIncomes"
-            *ngFor="
+          <div formArrayName="ApplicantOtherIncomes" *ngFor="
               let item of ApplicantOtherIncome.get('ApplicantOtherIncomes')[
                 'controls'
               ];
               let i = index
-            "
-          >
-            <div
-              [formGroupName]="i"
-              class="py-3 mb-3"
-              [ngClass]="
+            ">
+            <div [formGroupName]="i" class="py-3 mb-3" [ngClass]="
                 i % 2 == 1 ? 'bgSkinWhite' : i % 2 == 0 ? 'bgLightGreen' : ''
-              "
-            >
+              ">
               <div class="row mx-0">
                 <div class="col-12 text-right mb-3">
-                  <button
-                    (click)="removeApplicantOtherIncome(+item.get('ApplicantOtherIncomeId').value, i)"
-                    mat-fab
-                    color="primary"
-                    aria-label="Example icon button with a delete icon"
-                  >
+                  <button (click)="removeApplicantOtherIncome(+item.get('ApplicantOtherIncomeId').value, i)" mat-fab
+                    color="primary" aria-label="Example icon button with a delete icon">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>
 
                 <mat-form-field class="col-3 w-100">
-                  <mat-select
-                    placeholder="Type"
-                    formControlName="OtherIncomeType"
-                  >
-                    <mat-option
-                      *ngFor="let item of OtherIncomeType"
-                      [value]="item.OtherIncomeTypeId"
-                    >
+                  <mat-select placeholder="Type" formControlName="OtherIncomeType">
+                    <mat-option *ngFor="let item of OtherIncomeType" [value]="item.OtherIncomeTypeId">
                       {{ item.OtherIncomeName }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-9 w-100">
                   <mat-label>Details</mat-label>
-                  <input
-                    matInput
-                    placeholder="Details"
-                    formControlName="OtherDetails"
-                  />
+                  <input matInput placeholder="Details" formControlName="OtherDetails" />
                 </mat-form-field>
                 <mat-form-field class="col-2 w-100">
                   <mat-label>Amount</mat-label>
-                  <input
-                    type="number"
-                    matInput
-                    placeholder="Amount"
-                    formControlName="OtherAmount"
-                  />
+                  <input type="number" matInput placeholder="Amount" formControlName="OtherAmount" />
                   <span matPrefix>&nbsp;$&nbsp;</span>
                 </mat-form-field>
                 <mat-form-field class="col-3 w-100">
-                  <mat-select
-                    placeholder="Per"
-                    formControlName="OtherDurationType"
-                  >
-                    <mat-option
-                      *ngFor="let item of OtherIncomeDurationType"
-                      [value]="item.OtherIncomeDurationTypeId"
-                    >
+                  <mat-select placeholder="Per" formControlName="OtherDurationType">
+                    <mat-option *ngFor="let item of OtherIncomeDurationType" [value]="item.OtherIncomeDurationTypeId">
                       {{ item.OtherIncomeDurationTypeName }}
                     </mat-option>
                   </mat-select>
@@ -927,12 +557,7 @@
           </div>
         </div>
         <div class="px-15 mb-3">
-          <button
-            mat-button
-            mat-raised-button
-            color="primary"
-            (click)="addApplicantOtherIncome()"
-          >
+          <button mat-button mat-raised-button color="primary" (click)="addApplicantOtherIncome()">
             Add Other Income
             <mat-icon class="btnOrder">add</mat-icon>
           </button>
@@ -948,14 +573,9 @@
         <ng-template matStepLabel>Done</ng-template>
         <h1>Well done!</h1>
         <div class="mb-3">
-          <button
-            mat-button
-            mat-raised-button
-            color="primary"
-            (click)="ApplicantDetailsCompleted()"
-          >
-          Return to Applicants List
-          <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
+          <button mat-button mat-raised-button color="primary" (click)="ApplicantDetailsCompleted()">
+            Return to Applicants List
+            <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
           </button>
         </div>
       </mat-step>
