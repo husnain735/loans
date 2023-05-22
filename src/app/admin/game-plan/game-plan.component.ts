@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { AdminService } from 'src/app/shared/services/admin.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-game-plan',
@@ -22,8 +23,9 @@ export class GamePlanComponent implements OnInit {
   constructor(
     private rxFormBuilder: RxFormBuilder,
     private route: ActivatedRoute,
-    private _adminService: AdminService
-  ) {}
+    private _adminService: AdminService,
+    public _sharedService: SharedService
+  ) { }
 
   ngOnInit(): void {
     this.GamePlanForm = this.rxFormBuilder.group({
@@ -34,6 +36,10 @@ export class GamePlanComponent implements OnInit {
       RefererId: new FormControl('', [Validators.required]),
       PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
       PrimaryPurposeSubTitle: ['', [Validators.required]],
+      ImmediateGoalsObjectivesTitleId: new FormControl('', [Validators.required]),
+      ImmediateGoalsObjectivesSubTitle: ['', [Validators.required]],
+      FutureFinancialGoalsTitleId: new FormControl('', [Validators.required]),
+      FutureFinancialGoalsSubTitle: ['', [Validators.required]],
     });
     this.route.params.subscribe((params: any) => {
       this.ApplicationId = params['guid'];
@@ -49,7 +55,6 @@ export class GamePlanComponent implements OnInit {
       this.GamPlanObj = res.body;
       this.GamePlanForm.patchValue({
         ClientName: this.GamPlanObj.Applicant.ClientName,
-
       });
     });
   }
@@ -77,37 +82,21 @@ export class GamePlanComponent implements OnInit {
       Name: newValue,
     });
   }
-  addLender(newValue: string): void {
+  addEntry(newValue: string, TypeId, TypeName): void {
     newValue = newValue.trim();
     if (!newValue) {
       return;
     }
-    this.GamPlanObj.Lenders.push({
-      LenderId: -1,
-      LenderName: newValue,
-    });
-  }
-  addReferer(newValue: string): void {
-    newValue = newValue.trim();
-    if (!newValue) {
-      return;
-    }
-    this.GamPlanObj.Referers.push({
-      RefererId: -1,
-      RefererName: newValue,
-    });
-  }
-  addPrimaryPurpose(newValue: string): void {
-    newValue = newValue.trim();
-    if (!newValue) {
-      return;
-    }
-    this.GamPlanObj.PrimaryPurposes.push({
-      PrimaryPurposeId: -1,
-      PrimaryPurposeName: newValue,
-    });
-  }
 
+    this.GamPlanObj.GamePlanLookups.push({
+      Id: -1,
+      Name: newValue,
+      TypeId: TypeId,
+      TypeName: TypeName,
+      Guid: this._sharedService.generateGUID()
+    });
+
+  }
   handleInput(event) {
     var previousLength = 0;
     const bullet = '\u2022';
@@ -124,7 +113,16 @@ export class GamePlanComponent implements OnInit {
     previousLength = newLength;
   }
 
-  test(event:any){
+  test(event: any) {
     console.log(event.source.triggerValue);
+  }
+  removeEntry(Guid) {
+    var idx = this.GamPlanObj.GamePlanLookups.findIndex(x => x.Guid == Guid);
+    if (idx > -1) {
+      this.GamPlanObj.GamePlanLookups.splice(idx, 1);
+    }
+  }
+  removeLoansBroker(index) {
+    this.GamPlanObj.LoansBrokers.splice(index, 1);
   }
 }

@@ -10,11 +10,16 @@
             <mat-form-field class="w-100">
               <input matInput placeholder="Borker Name" value="" #itemName1>
             </mat-form-field>
-            <button mat-button mat-raised-button color="primary" (click)="addLoansBroker(itemName1.value);itemName1.value=''">
+            <button mat-button mat-raised-button color="primary"
+              (click)="addLoansBroker(itemName1.value);itemName1.value=''">
               Add</button>
           </div>
-          <mat-option *ngFor="let loansBroker of this.GamPlanObj.LoansBrokers" [value]="loansBroker.LoansBrokerId">
-            {{ loansBroker.Name }}
+          <mat-option *ngFor="let loansBroker of this.GamPlanObj.LoansBrokers ; let i = index"
+            [value]="loansBroker.LoansBrokerId">
+            <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+              {{ loansBroker.Name }}
+              <mat-icon *ngIf="loansBroker.LoansBrokerId == -1" (click)="removeLoansBroker(i)">delete</mat-icon>
+            </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -30,22 +35,22 @@
             <mat-form-field class="w-100">
               <input matInput placeholder="Lender Name" value="" #itemName2>
             </mat-form-field>
-            <button mat-button mat-raised-button color="primary" (click)="addLender(itemName2.value);itemName2.value=''">
+            <button mat-button mat-raised-button color="primary"
+              (click)="addEntry(itemName2.value,2,'Lender');itemName2.value=''">
               Add</button>
           </div>
-          <mat-option *ngFor="let lender of this.GamPlanObj.Lenders" [value]="lender.LenderId">
-            {{ lender.LenderName }}
+          <mat-option *ngFor="let lender of this.GamPlanObj.GamePlanLookups | filter : 2 : 'TypeId'; let i = index"
+            [value]="lender.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              <span>{{ lender.Name }}</span>
+              <mat-icon *ngIf="lender.Id == -1" (click)="removeEntry(lender.Guid)">delete</mat-icon>
+            </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="col-6 w-100">
         <mat-label>Client</mat-label>
-        <input
-          readonly
-          matInput
-          placeholder="Client Name"
-          formControlName="ClientName"
-        />
+        <input readonly matInput placeholder="Client Name" formControlName="ClientName" />
       </mat-form-field>
       <mat-form-field class="col-12">
         <mat-select placeholder="Select Referer" formControlName="RefererId">
@@ -53,27 +58,36 @@
             <mat-form-field class="w-100">
               <input matInput placeholder="Referer Name" value="" #itemName3>
             </mat-form-field>
-            <button mat-button mat-raised-button color="primary" (click)="addReferer(itemName3.value);itemName3.value=''">
+            <button mat-button mat-raised-button color="primary"
+              (click)="addEntry(itemName3.value,3,'Referrer');itemName3.value=''">
               Add</button>
           </div>
-          <mat-option *ngFor="let referer of this.GamPlanObj.Referers" [value]="referer.RefererId">
-            {{ referer.RefererName }}
+          <mat-option *ngFor="let referer of this.GamPlanObj.GamePlanLookups | filter : 3 : 'TypeId'"
+            [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+              <mat-icon *ngIf="referer.Id == -1" (click)="removeEntry(referer.Guid)">delete</mat-icon>
+            </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="col-12">
-        <mat-select placeholder="Select Primary Purpose"
-        (selectionChange)="test($event)"
-        formControlName="PrimaryPurposeTitleId">
+        <mat-select placeholder="Select Primary Purpose" (selectionChange)="test($event)"
+          formControlName="PrimaryPurposeTitleId">
           <div class="d-flex justify-content-between align-items-center px-2 gap-6">
             <mat-form-field class="w-100">
-              <input matInput placeholder="Primary Purpose Name" value="" #itemName4>
+              <input matInput placeholder="Primary Purpose Title" value="" #itemName4>
             </mat-form-field>
-            <button mat-button mat-raised-button color="primary" (click)="addPrimaryPurpose(itemName4.value);itemName4.value=''">
+            <button mat-button mat-raised-button color="primary"
+              (click)="addEntry(itemName4.value,4,'Primary Purpose');itemName4.value=''">
               Add</button>
           </div>
-          <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.PrimaryPurposes" [value]="primaryPurpose.PrimaryPurposeId">
-            {{ primaryPurpose.PrimaryPurposeName }}
+          <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
+            [value]="primaryPurpose.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ primaryPurpose.Name }}
+              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Guid)">delete</mat-icon>
+            </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -82,34 +96,61 @@
         <textarea matInput [rows]="5" (input)="handleInput($event)" formControlName="PrimaryPurposeSubTitle"></textarea>
       </mat-form-field>
       <mat-form-field class="col-12">
-        <mat-select placeholder="Select Primary Purpose" formControlName="PrimaryPurposeTitleId">
+        <mat-select placeholder="Select Primary Purpose" (selectionChange)="test($event)"
+          formControlName="ImmediateGoalsObjectivesTitleId">
           <div class="d-flex justify-content-between align-items-center px-2 gap-6">
             <mat-form-field class="w-100">
-              <input matInput placeholder="Primary Purpose Name" value="" #itemName4>
+              <input matInput placeholder="Immediate Goals and Objectives Title" value="" #itemName5>
             </mat-form-field>
-            <button mat-button mat-raised-button color="primary" (click)="addPrimaryPurpose(itemName4.value);itemName4.value=''">
+            <button mat-button mat-raised-button color="primary"
+              (click)="addEntry(itemName5.value,4,'Primary Purpose');itemName5.value=''">
               Add</button>
           </div>
-          <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.PrimaryPurposes" [value]="primaryPurpose.PrimaryPurposeId">
-            {{ primaryPurpose.PrimaryPurposeName }}
+          <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
+            [value]="primaryPurpose.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ primaryPurpose.Name }}
+              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Guid)">delete</mat-icon>
+            </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="col-12 w-100">
-        <mat-label>Primary Purpose SubTitle</mat-label>
-        <textarea matInput [rows]="5" (input)="handleInput($event)" formControlName="PrimaryPurposeSubTitle"></textarea>
+        <mat-label>Immediate Goals and Objectives SubTitle</mat-label>
+        <textarea matInput [rows]="5" (input)="handleInput($event)"
+          formControlName="ImmediateGoalsObjectivesSubTitle"></textarea>
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <mat-select placeholder="Select Primary Purpose" (selectionChange)="test($event)"
+          formControlName="FutureFinancialGoalsTitleId">
+          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Future Financial Goals Title" value="" #itemName6>
+            </mat-form-field>
+            <button mat-button mat-raised-button color="primary"
+              (click)="addEntry(itemName6.value,4,'Primary Purpose');;itemName6.value=''">
+              Add</button>
+          </div>
+          <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
+            [value]="primaryPurpose.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ primaryPurpose.Name }}
+              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Guid)">delete</mat-icon>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-12 w-100">
+        <mat-label>Future Financial Goals SubTitle</mat-label>
+        <textarea matInput [rows]="5" (input)="handleInput($event)"
+          formControlName="FutureFinancialGoalsSubTitle"></textarea>
       </mat-form-field>
     </div>
   </form>
   <div class="step-nav">
     <div class="d-flex justify-content-between align-items-center px-2 gap-6">
       <button mat-flat-button [routerLink]="'/admin'">Back</button>
-      <button
-        (click)="onGamePlanSubmit()"
-        mat-raised-button
-        color="primary"
-        class="next"
-      >
+      <button (click)="onGamePlanSubmit()" mat-raised-button color="primary" class="next">
         Next
         <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
       </button>
