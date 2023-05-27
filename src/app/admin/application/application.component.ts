@@ -202,16 +202,6 @@ export class ApplicationComponent {
     });
   }
   downloadPdf(url) {
-    // this.http.get(url, { responseType: "arraybuffer" }).subscribe(
-    //   pdf => {
-    //     const blob = new Blob([pdf], { type: "application/pdf" });
-    //     const fileName = "finance.pdf";
-    //     saveAs(blob, fileName);
-    //   },
-    //   err => {
-    //     console.log("err->", err);
-    //   }
-    // );
     window.open(url, '_blank');
   }
   gotoGamePlan(ApplicationId) {
