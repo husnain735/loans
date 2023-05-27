@@ -48,1112 +48,1126 @@
 </ng-container>
 <div id="pdfTable1" #pdfTable class="pdfTable">
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
-        <ng-container>
-          <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-            <tbody>
-              <tr>
-                <td style="width: 50%;">
-                  <ng-container *ngFor="let item of Applicants;let i = index">
-                    <table *ngIf="i % 2 == 0"
-                      style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                      <thead>
-                        <tr>
-                          <th colspan="2"
-                            style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                            <span style="color:white">{{item.FirstName}}&nbsp;{{item.SurName}}</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Applicant
-                                    Details</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td
-                                  style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Applicant Type</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.ApplicantTypeId == 1 ?
-                                  "Applicant" : item2.ApplicantTypeId == 2 ?
-                                  "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Salutation
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.SalutationTypeId == 4
-                                  ?
-                                  "Mr" : item2.SalutationTypeId == 5 ?
-                                  "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" :
-                                  ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  FirstName
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.FirstName}}
-                                </td>
-                              </tr>
+    <ng-container>
+      <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <tbody>
+          <tr>
+            <td style="width: 50%;">
+              <ng-container *ngFor="let item of Applicants;let i = index">
+                <table *ngIf="i % 2 == 0"
+                  style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                  <thead>
+                    <tr>
+                      <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                        <span style="color:white">{{item.FirstName}}&nbsp;{{item.SurName}}</span>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                        <span style="color:white">Applicant
+                          Details</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <tbody>
+                            <tr>
+                              <td
+                                style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Applicant Type</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.ApplicantTypeId == 1 ?
+                                "Applicant" : item2.ApplicantTypeId == 2 ?
+                                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Salutation
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.SalutationTypeId == 4
+                                ?
+                                "Mr" : item2.SalutationTypeId == 5 ?
+                                "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" :
+                                ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                FirstName
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.FirstName}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  SurName
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.SurName}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Middle
-                                  Name
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MiddleName}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Mother
-                                  Name
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MotherName}}
-                                </td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                SurName
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.SurName}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Middle
+                                Name
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MiddleName}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Mother
+                                Name
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MotherName}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Date Of
-                                  Birth</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.DateOfBirth
-                                  |
-                                  date :
-                                  "dd/MM/yyyy"}}</td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Marital
-                                  Status</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MaritalTypeId
-                                  == 8 ?
-                                  "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
-                                  10 ? "DeFacto" :
-                                  item2.MaritalTypeId == 11 ? "Seperated" : item2.MaritalTypeId == 12 ? "Divorced" :
-                                  item2.MaritalTypeId
-                                  == 13 ? "Widowed" :
-                                  item2.MaritalTypeId == 14 ? "Other" : ""}}</td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Date Of
+                                Birth</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.DateOfBirth
+                                |
+                                date :
+                                "dd/MM/yyyy"}}</td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Marital
+                                Status</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MaritalTypeId
+                                == 8 ?
+                                "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
+                                10 ? "DeFacto" :
+                                item2.MaritalTypeId == 11 ? "Seperated" : item2.MaritalTypeId == 12 ? "Divorced" :
+                                item2.MaritalTypeId
+                                == 13 ? "Widowed" :
+                                item2.MaritalTypeId == 14 ? "Other" : ""}}</td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Drivers
-                                  Expiry Date</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.DriversExpiryDate}}
-                                </td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Drivers
+                                Expiry Date</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.DriversExpiryDate}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Drivers
-                                  License No</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.DriversLicenceNo}}
-                                </td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Drivers
+                                License No</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.DriversLicenceNo}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Number
-                                  of
-                                  Children</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.NumberOfChildren}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantAddress | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Applicant
-                                    Addresses</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Number
+                                of
+                                Children</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.NumberOfChildren}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantAddress | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Applicant
+                                  Addresses</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Street Number
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetNumber}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Street Number
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetNumber}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Street Name
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetName}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Street Name
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetName}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Suburb
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Suburb}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Suburb
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Suburb}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  State
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StateTypeId == 26 ? "SA" : item2.StateTypeId == 27 ? "ACT" : item2.StateTypeId
-                                  == 28 ? "NSW"
-                                  :
-                                  item2.StateTypeId == 29 ? "NT" : item2.StateTypeId == 30 ? "QLD" : item2.StateTypeId
-                                  == 31 ? "TAS" :
-                                  item2.StateTypeId == 32 ? "VIC" : item2.StateTypeId == 33 ? "WA" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                State
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StateTypeId == 26 ? "SA" : item2.StateTypeId == 27 ? "ACT" : item2.StateTypeId
+                                == 28 ? "NSW"
+                                :
+                                item2.StateTypeId == 29 ? "NT" : item2.StateTypeId == 30 ? "QLD" : item2.StateTypeId
+                                == 31 ? "TAS" :
+                                item2.StateTypeId == 32 ? "VIC" : item2.StateTypeId == 33 ? "WA" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Post Code
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Postcode}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Post Code
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Postcode}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Housing Status
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.HousingStatusTypeId == 46 ? "Renting" :
-                                  item2.HousingStatusTypeId == 47 ? "Mortgage" :
-                                  item2.HousingStatusTypeId == 48 ? "With parents" :
-                                  item2.HousingStatusTypeId == 49 ? "Home in duty" : item2.HousingStatusTypeId == 50 ?
-                                  "Other" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Housing Status
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.HousingStatusTypeId == 46 ? "Renting" :
+                                item2.HousingStatusTypeId == 47 ? "Mortgage" :
+                                item2.HousingStatusTypeId == 48 ? "With parents" :
+                                item2.HousingStatusTypeId == 49 ? "Home in duty" : item2.HousingStatusTypeId == 50 ?
+                                "Other" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Specify
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Specify}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Specify
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Specify}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Time Residing
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.YearTimeResiding}}&nbsp; {{item2.YearTimeResiding > 1 ? 'Years' : 'Year'}}
-                                  &nbsp;
-                                  {{item2.MonthTimeResiding}}
-                                  &nbsp; {{item2.MonthTimeResiding > 1 ? 'Months' : 'Month'}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Time Residing
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.YearTimeResiding}}&nbsp; {{item2.YearTimeResiding > 1 ? 'Years' : 'Year'}}
+                                &nbsp;
+                                {{item2.MonthTimeResiding}}
+                                &nbsp; {{item2.MonthTimeResiding > 1 ? 'Months' : 'Month'}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Street Number 2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.YearTimeResiding < 3 ? item2.YearTimeResiding>= 2 && item2.MonthTimeResiding
-                                    >= 12 ?
-                                    item2.StreetNumber2 : item2.StreetName : item2.StreetNumber2}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Street Number 2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.YearTimeResiding < 3 ? item2.YearTimeResiding>= 2 && item2.MonthTimeResiding
+                                  >= 12 ?
+                                  item2.StreetNumber2 : item2.StreetName : item2.StreetNumber2}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  StreetName2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetName2}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                StreetName2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetName2}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  POBox
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.POBox}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                POBox
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.POBox}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Suburb 2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Suburb2}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Suburb 2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Suburb2}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  State
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.State2TypeId == 26 ? "SA" : item2.State2TypeId == 27 ? "ACT" :
-                                  item2.State2TypeId == 28 ?
-                                  "NSW" :
-                                  item2.State2TypeId == 29 ? "NT" : item2.State2TypeId == 30 ? "QLD" :
-                                  item2.State2TypeId == 31 ?
-                                  "TAS"
-                                  :
-                                  item2.State2TypeId == 32 ? "VIC" : item2.State2TypeId == 33 ? "WA" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                State
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.State2TypeId == 26 ? "SA" : item2.State2TypeId == 27 ? "ACT" :
+                                item2.State2TypeId == 28 ?
+                                "NSW" :
+                                item2.State2TypeId == 29 ? "NT" : item2.State2TypeId == 30 ? "QLD" :
+                                item2.State2TypeId == 31 ?
+                                "TAS"
+                                :
+                                item2.State2TypeId == 32 ? "VIC" : item2.State2TypeId == 33 ? "WA" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Post Code 2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Postcode2}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantContactInformations | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Contact & More Information</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Post Code 2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Postcode2}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantContactInformations | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Contact & More Information</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Home Number
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.PhoneNumber}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Home Number
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.PhoneNumber}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Mobile Number
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MobileNumber}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Mobile Number
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MobileNumber}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Email Address
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.EmailAddress}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Email Address
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.EmailAddress}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Skype Address
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.SkypeAddress}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Skype Address
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.SkypeAddress}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Country
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Country}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Country
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Country}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Citizenship
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.CitizenshipStatusTypeId == 18 ? "Citizen" :
-                                  item2.CitizenshipStatusTypeId == 19 ? "Permanent Resident" :
-                                  item2.CitizenshipStatusTypeId == 20 ? "" : "Visa"}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantEmployeeDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Employment
-                                    Details (more than 3 year records)</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Citizenship
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.CitizenshipStatusTypeId == 18 ? "Citizen" :
+                                item2.CitizenshipStatusTypeId == 19 ? "Permanent Resident" :
+                                item2.CitizenshipStatusTypeId == 20 ? "" : "Visa"}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantEmployeeDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Employment
+                                  Details (more than 3 year records)</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Employment Detail
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.EmploymentTypeId == 21 ? "PAYG" : item2.EmploymentTypeId == 22 ? "Self Employed" :
-                                  item2.EmploymentTypeId == 23 ? "Unemployed" :
-                                  item2.EmploymentTypeId == 24 ? "Home Duties" :
-                                  item2.EmploymentTypeId == 25 ? "Retired" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Employment Detail
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.EmploymentTypeId == 21 ? "PAYG" : item2.EmploymentTypeId == 22 ? "Self Employed"
+                                :
+                                item2.EmploymentTypeId == 23 ? "Unemployed" :
+                                item2.EmploymentTypeId == 24 ? "Home Duties" :
+                                item2.EmploymentTypeId == 25 ? "Retired" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Occupation
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Occuptation != '' ? item2.Occuptation : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Occupation
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Occuptation != '' ? item2.Occuptation : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Employer
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Employer != '' ? item2.Employer : "none" }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Employer
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Employer != '' ? item2.Employer : "none" }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Address
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetNumber != '' ? item2.StreetNumber : 'none'}} &nbsp;
-                                  {{item2.StreetName != '' ? item2.StreetName : 'none'}} &nbsp;
-                                  {{item2.Suburb != '' ? item2.Suburb : "none"}} &nbsp;
-                                  {{item2.StateId == 26 ? "SA" : item2.StateId == 27 ? "ACT" :
-                                  item2.StateId == 28 ? "NSW" :
-                                  item2.StateId == 29 ? "NT" : item2.StateId == 30 ? "QLD" :
-                                  item2.StateId == 31 ? "TAS" :
-                                  item2.StateId == 32 ? "VIC" : item2.StateId == 33 ? "WA" : "none"}} &nbsp;
-                                  {{item2.Postcode != '' ? item2.Postcode : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Address
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetNumber != '' ? item2.StreetNumber : 'none'}} &nbsp;
+                                {{item2.StreetName != '' ? item2.StreetName : 'none'}} &nbsp;
+                                {{item2.Suburb != '' ? item2.Suburb : "none"}} &nbsp;
+                                {{item2.StateId == 26 ? "SA" : item2.StateId == 27 ? "ACT" :
+                                item2.StateId == 28 ? "NSW" :
+                                item2.StateId == 29 ? "NT" : item2.StateId == 30 ? "QLD" :
+                                item2.StateId == 31 ? "TAS" :
+                                item2.StateId == 32 ? "VIC" : item2.StateId == 33 ? "WA" : "none"}} &nbsp;
+                                {{item2.Postcode != '' ? item2.Postcode : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Work Phone
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.WorkPhone != '' ? item2.WorkPhone : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Work Phone
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.WorkPhone != '' ? item2.WorkPhone : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Basis
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.BasisTypeId == 34 ? "Full Time" : item2.BasisTypeId == 35 ? "Part Time" :
-                                  item2.BasisTypeId == 36 ? "Casual" : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Basis
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.BasisTypeId == 34 ? "Full Time" : item2.BasisTypeId == 35 ? "Part Time" :
+                                item2.BasisTypeId == 36 ? "Casual" : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Started Date
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StartedDate | date : "dd/MM/yyyy" }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Started Date
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StartedDate | date : "dd/MM/yyyy" }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Gross Income
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  $&nbsp;{{item2.GrossIncome != '' ? item2.GrossIncome : 'none'}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantOtherIncomes | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Employment Other Income</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Gross Income
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                $&nbsp;{{item2.GrossIncome != '' ? item2.GrossIncome : 'none'}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantOtherIncomes | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Employment Other Income</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Income Type
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherIncomeType == 37 ? "Family Tax Benefit" : item2.OtherIncomeType == 38 ?
-                                  "Pensions" :
-                                  item2.OtherIncomeType == 39 ? "Child Support" :
-                                  item2.OtherIncomeType == 40 ? "Maintenance" : item2.OtherIncomeType == 41 ? "Other" :
-                                  ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Other Income Type
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherIncomeType == 37 ? "Family Tax Benefit" : item2.OtherIncomeType == 38 ?
+                                "Pensions" :
+                                item2.OtherIncomeType == 39 ? "Child Support" :
+                                item2.OtherIncomeType == 40 ? "Maintenance" : item2.OtherIncomeType == 41 ? "Other" :
+                                ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Details
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherDetails}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Other Details
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherDetails}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Amount
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherAmount}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Other Amount
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherAmount}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Duration
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherDurationType == 42 ? "Week" : item2.OtherDurationType == 43 ? "Fortnight"
-                                  :
-                                  item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "Year" :
-                                  ""}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                      </ng-container>
-                    </table>
-                  </ng-container>
-                </td>
-                <td style="width: 50%;">
-                  <ng-container *ngFor="let item of Applicants;let i = index">
-                    <table *ngIf="i % 2 == 1"
-                      style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                      <thead>
-                        <tr>
-                          <th colspan="2"
-                            style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                            <span style="color:white">{{item.FirstName}}&nbsp;{{item.SurName}}</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Applicant
-                                    Details</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td
-                                  style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Applicant Type</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.ApplicantTypeId == 1 ?
-                                  "Applicant" : item2.ApplicantTypeId == 2 ?
-                                  "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Salutation
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.SalutationTypeId == 4
-                                  ?
-                                  "Mr" : item2.SalutationTypeId == 5 ?
-                                  "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" :
-                                  ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  FirstName
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.FirstName}}
-                                </td>
-                              </tr>
+                                Other Duration
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherDurationType == 42 ? "Week" : item2.OtherDurationType == 43 ? "Fortnight"
+                                :
+                                item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "Year" :
+                                ""}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-container>
+            </td>
+            <td style="width: 50%;">
+              <ng-container *ngFor="let item of Applicants;let i = index">
+                <table *ngIf="i % 2 == 1"
+                  style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                  <thead>
+                    <tr>
+                      <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                        <span style="color:white">{{item.FirstName}}&nbsp;{{item.SurName}}</span>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                        <span style="color:white">Applicant
+                          Details</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item2 of ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <tbody>
+                            <tr>
+                              <td
+                                style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Applicant Type</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.ApplicantTypeId == 1 ?
+                                "Applicant" : item2.ApplicantTypeId == 2 ?
+                                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Salutation
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.SalutationTypeId == 4
+                                ?
+                                "Mr" : item2.SalutationTypeId == 5 ?
+                                "Mrs" : item2.SalutationTypeId == 6 ? "Miss" : item2.SalutationTypeId == 7 ? "Ms" :
+                                ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                FirstName
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.FirstName}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  SurName
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.SurName}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Middle
-                                  Name
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MiddleName}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Mother
-                                  Name
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MotherName}}
-                                </td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                SurName
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.SurName}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Middle
+                                Name
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MiddleName}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Mother
+                                Name
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MotherName}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Date Of
-                                  Birth</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.DateOfBirth
-                                  |
-                                  date :
-                                  "dd/MM/yyyy"}}</td>
-                              </tr>
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Marital
-                                  Status</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MaritalTypeId
-                                  == 8 ?
-                                  "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
-                                  10 ? "DeFacto" :
-                                  item2.MaritalTypeId == 11 ? "Seperated" : item2.MaritalTypeId == 12 ? "Divorced" :
-                                  item2.MaritalTypeId
-                                  == 13 ? "Widowed" :
-                                  item2.MaritalTypeId == 14 ? "Other" : ""}}</td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Date Of
+                                Birth</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.DateOfBirth
+                                |
+                                date :
+                                "dd/MM/yyyy"}}</td>
+                            </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Marital
+                                Status</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MaritalTypeId
+                                == 8 ?
+                                "Single" : item2.MaritalTypeId == 9 ? "Married" : item2.MaritalTypeId ==
+                                10 ? "DeFacto" :
+                                item2.MaritalTypeId == 11 ? "Seperated" : item2.MaritalTypeId == 12 ? "Divorced" :
+                                item2.MaritalTypeId
+                                == 13 ? "Widowed" :
+                                item2.MaritalTypeId == 14 ? "Other" : ""}}</td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Drivers
-                                  Expiry Date</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.DriversExpiryDate}}
-                                </td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Drivers
+                                Expiry Date</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.DriversExpiryDate}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Drivers
-                                  License No</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.DriversLicenceNo}}
-                                </td>
-                              </tr>
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Drivers
+                                License No</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.DriversLicenceNo}}
+                              </td>
+                            </tr>
 
-                              <tr>
-                                <td
-                                  style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                  Number
-                                  of
-                                  Children</td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.NumberOfChildren}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantAddress | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Applicant
-                                    Addresses</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                            <tr>
+                              <td
+                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                Number
+                                of
+                                Children</td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.NumberOfChildren}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantAddress | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Applicant
+                                  Addresses</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Street Number
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetNumber}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Street Number
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetNumber}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Street Name
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetName}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Street Name
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetName}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Suburb
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Suburb}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Suburb
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Suburb}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  State
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StateTypeId == 26 ? "SA" : item2.StateTypeId == 27 ? "ACT" : item2.StateTypeId
-                                  == 28 ? "NSW"
-                                  :
-                                  item2.StateTypeId == 29 ? "NT" : item2.StateTypeId == 30 ? "QLD" : item2.StateTypeId
-                                  == 31 ? "TAS" :
-                                  item2.StateTypeId == 32 ? "VIC" : item2.StateTypeId == 33 ? "WA" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                State
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StateTypeId == 26 ? "SA" : item2.StateTypeId == 27 ? "ACT" : item2.StateTypeId
+                                == 28 ? "NSW"
+                                :
+                                item2.StateTypeId == 29 ? "NT" : item2.StateTypeId == 30 ? "QLD" : item2.StateTypeId
+                                == 31 ? "TAS" :
+                                item2.StateTypeId == 32 ? "VIC" : item2.StateTypeId == 33 ? "WA" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Post Code
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Postcode}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Post Code
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Postcode}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Housing Status
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.HousingStatusTypeId == 46 ? "Renting" :
-                                  item2.HousingStatusTypeId == 47 ? "Mortgage" :
-                                  item2.HousingStatusTypeId == 48 ? "With parents" :
-                                  item2.HousingStatusTypeId == 49 ? "Home in duty" : item2.HousingStatusTypeId == 50 ?
-                                  "Other" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Housing Status
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.HousingStatusTypeId == 46 ? "Renting" :
+                                item2.HousingStatusTypeId == 47 ? "Mortgage" :
+                                item2.HousingStatusTypeId == 48 ? "With parents" :
+                                item2.HousingStatusTypeId == 49 ? "Home in duty" : item2.HousingStatusTypeId == 50 ?
+                                "Other" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Specify
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Specify}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Specify
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Specify}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Time Residing
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.YearTimeResiding}}&nbsp; {{item2.YearTimeResiding > 1 ? 'Years' : 'Year'}}
-                                  &nbsp;
-                                  {{item2.MonthTimeResiding}}
-                                  &nbsp; {{item2.MonthTimeResiding > 1 ? 'Months' : 'Month'}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Time Residing
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.YearTimeResiding}}&nbsp; {{item2.YearTimeResiding > 1 ? 'Years' : 'Year'}}
+                                &nbsp;
+                                {{item2.MonthTimeResiding}}
+                                &nbsp; {{item2.MonthTimeResiding > 1 ? 'Months' : 'Month'}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Street Number 2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.YearTimeResiding < 3 ? item2.YearTimeResiding>= 2 && item2.MonthTimeResiding
-                                    >= 12 ?
-                                    item2.StreetNumber2 : item2.StreetName : item2.StreetNumber2}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Street Number 2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.YearTimeResiding < 3 ? item2.YearTimeResiding>= 2 && item2.MonthTimeResiding
+                                  >= 12 ?
+                                  item2.StreetNumber2 : item2.StreetName : item2.StreetNumber2}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  StreetName2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetName2}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                StreetName2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetName2}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  POBox
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.POBox}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                POBox
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.POBox}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Suburb 2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Suburb2}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Suburb 2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Suburb2}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  State
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.State2TypeId == 26 ? "SA" : item2.State2TypeId == 27 ? "ACT" :
-                                  item2.State2TypeId == 28 ?
-                                  "NSW" :
-                                  item2.State2TypeId == 29 ? "NT" : item2.State2TypeId == 30 ? "QLD" :
-                                  item2.State2TypeId == 31 ?
-                                  "TAS"
-                                  :
-                                  item2.State2TypeId == 32 ? "VIC" : item2.State2TypeId == 33 ? "WA" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                State
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.State2TypeId == 26 ? "SA" : item2.State2TypeId == 27 ? "ACT" :
+                                item2.State2TypeId == 28 ?
+                                "NSW" :
+                                item2.State2TypeId == 29 ? "NT" : item2.State2TypeId == 30 ? "QLD" :
+                                item2.State2TypeId == 31 ?
+                                "TAS"
+                                :
+                                item2.State2TypeId == 32 ? "VIC" : item2.State2TypeId == 33 ? "WA" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Post Code 2
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Postcode2}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantContactInformations | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Contact & More Information</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Post Code 2
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Postcode2}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantContactInformations | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Contact & More Information</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Home Number
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.PhoneNumber}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Home Number
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.PhoneNumber}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Mobile Number
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.MobileNumber}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Mobile Number
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.MobileNumber}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Email Address
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.EmailAddress}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Email Address
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.EmailAddress}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Skype Address
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.SkypeAddress}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Skype Address
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.SkypeAddress}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Country
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Country}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Country
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Country}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Citizenship
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.CitizenshipStatusTypeId == 18 ? "Citizen" :
-                                  item2.CitizenshipStatusTypeId == 19 ? "Permanent Resident" :
-                                  item2.CitizenshipStatusTypeId == 20 ? "" : "Visa"}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantEmployeeDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Employment
-                                    Details (more than 3 year records)</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Citizenship
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.CitizenshipStatusTypeId == 18 ? "Citizen" :
+                                item2.CitizenshipStatusTypeId == 19 ? "Permanent Resident" :
+                                item2.CitizenshipStatusTypeId == 20 ? "" : "Visa"}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantEmployeeDetails | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Employment
+                                  Details (more than 3 year records)</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Employment Detail
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.EmploymentTypeId == 21 ? "PAYG" : item2.EmploymentTypeId == 22 ? "Self Employed" :
-                                  item2.EmploymentTypeId == 23 ? "Unemployed" :
-                                  item2.EmploymentTypeId == 24 ? "Home Duties" :
-                                  item2.EmploymentTypeId == 25 ? "Retired" : ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Employment Detail
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.EmploymentTypeId == 21 ? "PAYG" : item2.EmploymentTypeId == 22 ? "Self Employed"
+                                :
+                                item2.EmploymentTypeId == 23 ? "Unemployed" :
+                                item2.EmploymentTypeId == 24 ? "Home Duties" :
+                                item2.EmploymentTypeId == 25 ? "Retired" : ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Occupation
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Occuptation != '' ? item2.Occuptation : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Occupation
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Occuptation != '' ? item2.Occuptation : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Employer
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.Employer != '' ? item2.Employer : "none" }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Employer
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.Employer != '' ? item2.Employer : "none" }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Address
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StreetNumber != '' ? item2.StreetNumber : 'none'}} &nbsp;
-                                  {{item2.StreetName != '' ? item2.StreetName : 'none'}} &nbsp;
-                                  {{item2.Suburb != '' ? item2.Suburb : "none"}} &nbsp;
-                                  {{item2.StateId == 26 ? "SA" : item2.StateId == 27 ? "ACT" :
-                                  item2.StateId == 28 ? "NSW" :
-                                  item2.StateId == 29 ? "NT" : item2.StateId == 30 ? "QLD" :
-                                  item2.StateId == 31 ? "TAS" :
-                                  item2.StateId == 32 ? "VIC" : item2.StateId == 33 ? "WA" : "none"}} &nbsp;
-                                  {{item2.Postcode != '' ? item2.Postcode : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Address
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StreetNumber != '' ? item2.StreetNumber : 'none'}} &nbsp;
+                                {{item2.StreetName != '' ? item2.StreetName : 'none'}} &nbsp;
+                                {{item2.Suburb != '' ? item2.Suburb : "none"}} &nbsp;
+                                {{item2.StateId == 26 ? "SA" : item2.StateId == 27 ? "ACT" :
+                                item2.StateId == 28 ? "NSW" :
+                                item2.StateId == 29 ? "NT" : item2.StateId == 30 ? "QLD" :
+                                item2.StateId == 31 ? "TAS" :
+                                item2.StateId == 32 ? "VIC" : item2.StateId == 33 ? "WA" : "none"}} &nbsp;
+                                {{item2.Postcode != '' ? item2.Postcode : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Work Phone
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.WorkPhone != '' ? item2.WorkPhone : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Work Phone
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.WorkPhone != '' ? item2.WorkPhone : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Basis
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.BasisTypeId == 34 ? "Full Time" : item2.BasisTypeId == 35 ? "Part Time" :
-                                  item2.BasisTypeId == 36 ? "Casual" : "none"}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Basis
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.BasisTypeId == 34 ? "Full Time" : item2.BasisTypeId == 35 ? "Part Time" :
+                                item2.BasisTypeId == 36 ? "Casual" : "none"}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Started Date
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.StartedDate | date : "dd/MM/yyyy" }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Started Date
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.StartedDate | date : "dd/MM/yyyy" }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Gross Income
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  $&nbsp;{{item2.GrossIncome != '' ? item2.GrossIncome : 'none'}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                        <ng-container
-                          *ngFor="let item2 of ApplicantOtherIncomes | filter : item.ApplicantId : 'ApplicantId';let j = index">
-                          <table
-                            style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-                            <thead>
-                              <tr>
-                                <th colspan="2"
-                                  style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
-                                  <span style="color:white">Employment Other Income</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Gross Income
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                $&nbsp;{{item2.GrossIncome != '' ? item2.GrossIncome : 'none'}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let item2 of ApplicantOtherIncomes | filter : item.ApplicantId : 'ApplicantId';let j = index">
+                      <td>
+                        <table
+                          style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+                          <thead>
+                            <tr>
+                              <th colspan="2"
+                                style="background-color: rgb(56,112,38);text-align: center;padding: 2px;border: 1px solid;">
+                                <span style="color:white">Employment Other Income</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Income Type
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherIncomeType == 37 ? "Family Tax Benefit" : item2.OtherIncomeType == 38 ?
-                                  "Pensions" :
-                                  item2.OtherIncomeType == 39 ? "Child Support" :
-                                  item2.OtherIncomeType == 40 ? "Maintenance" : item2.OtherIncomeType == 41 ? "Other" :
-                                  ""}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Other Income Type
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherIncomeType == 37 ? "Family Tax Benefit" : item2.OtherIncomeType == 38 ?
+                                "Pensions" :
+                                item2.OtherIncomeType == 39 ? "Child Support" :
+                                item2.OtherIncomeType == 40 ? "Maintenance" : item2.OtherIncomeType == 41 ? "Other" :
+                                ""}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Details
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherDetails}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Other Details
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherDetails}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Amount
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherAmount}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
+                                Other Amount
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherAmount}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
                     width: 15%;border:1px solid;font-weight:500;">
-                                  Other Duration
-                                </td>
-                                <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
-                                  {{item2.OtherDurationType == 42 ? "Week" : item2.OtherDurationType == 43 ? "Fortnight"
-                                  :
-                                  item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "Year" :
-                                  ""}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </ng-container>
-                      </ng-container>
-                    </table>
-                  </ng-container>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </ng-container>
+                                Other Duration
+                              </td>
+                              <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
+                                {{item2.OtherDurationType == 42 ? "Week" : item2.OtherDurationType == 43 ? "Fortnight"
+                                :
+                                item2.OtherDurationType == 44 ? "Month" : item2.OtherDurationType == 45 ? "Year" :
+                                ""}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
     <h4>Assets</h4>
     <ng-container>
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
