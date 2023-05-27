@@ -46,15 +46,22 @@
     </mat-table>
   </div>
 </ng-container>
-<div hidden id="pdfTable1" #pdfTable class="pdfTable">
+<div id="pdfTable1" #pdfTable class="pdfTable">
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
     <ng-container>
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
+        <thead>
+          <tr>
+            <th>
+
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <td style="width: 50%;">
+            <td style="width: 50%;vertical-align: top;">
               <ng-container *ngFor="let item of Applicants;let i = index">
-                <table *ngIf="i % 2 == 0"
+                <table *ngIf="i % 2 == 1"
                   style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
                   <thead>
                     <tr>
@@ -608,9 +615,9 @@
                 </table>
               </ng-container>
             </td>
-            <td style="width: 50%;">
+            <td style="width: 50%;vertical-align: top;">
               <ng-container *ngFor="let item of Applicants;let i = index">
-                <table *ngIf="i % 2 == 1"
+                <table *ngIf="i % 2 == 0"
                   style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
                   <thead>
                     <tr>
