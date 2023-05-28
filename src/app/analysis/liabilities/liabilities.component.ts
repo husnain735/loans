@@ -114,6 +114,8 @@ export class LiabilitiesComponent implements OnInit {
       Lender: ['', [Validators.required]],
       Balance: ['', [Validators.required]],
       Payment: ['', [Validators.required]],
+      BSB: [''],
+      AccountNumber: [''],
       PaymentTimePeriod: ['', [Validators.required]],
       ApplicantTypeId: this._formBuilder.array([]),
       CardLimit: [
@@ -203,6 +205,8 @@ export class LiabilitiesComponent implements OnInit {
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
           SortOrder: +i.SortOrder,
+          AccountNumber: i.AccountNumber,
+          BSB: i.BSB
         };
         liabilities.push(obj);
       });
@@ -224,6 +228,8 @@ export class LiabilitiesComponent implements OnInit {
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
           SortOrder: +i.SortOrder,
+          AccountNumber: i.AccountNumber,
+          BSB: i.BSB
         };
         liabilities.push(obj);
       });
@@ -245,6 +251,8 @@ export class LiabilitiesComponent implements OnInit {
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
           SortOrder: +i.SortOrder,
+          AccountNumber: i.AccountNumber,
+          BSB: i.BSB
         };
         liabilities.push(obj);
       });
@@ -266,6 +274,8 @@ export class LiabilitiesComponent implements OnInit {
           CardLimit: +i.CardLimit,
           IsRefinance: i.IsRefinance == 'true' ? true : false,
           SortOrder: +i.SortOrder,
+          AccountNumber: i.AccountNumber,
+          BSB: i.BSB
         };
         liabilities.push(obj);
       });
@@ -390,6 +400,8 @@ export class LiabilitiesComponent implements OnInit {
         Balance: [i.Balance, [Validators.required]],
         Payment: [i.Payment, [Validators.required]],
         PaymentTimePeriod: [i.PaymentTimePeriod, [Validators.required]],
+        BSB: i.BSB,
+        AccountNumber: i.AccountNumber,
         ApplicantTypeId: this._formBuilder.array([]),
         CardLimit: [
           i.CardLimit,

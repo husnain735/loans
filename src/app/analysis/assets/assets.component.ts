@@ -222,6 +222,8 @@ export class AssetsComponent {
       SavingsID: [null],
       Institution: ['', [Validators.required]],
       EstimatedValue: ['', [Validators.required]],
+      BSB: [''],
+      AccountNumber: [''], 
       OwnerID: [''],
       RandomId: guid,
       ApplicantTypeId: this._formBuilder.array([]),
@@ -452,6 +454,8 @@ export class AssetsComponent {
     savings.forEach((i) => {
       var saving = {
         SavingsID : i.SavingsID,
+        AccountNumber : i.AccountNumber,
+        BSB : i.BSB,
         Institution: i.Institution,
         EstimatedValue: i.EstimatedValue,
         OwnerID: i.OwnerID,
@@ -655,6 +659,8 @@ export class AssetsComponent {
         EstimatedValue: [i.EstimatedValue, [Validators.required]],
         OwnerID: [i.OwnerID],
         RandomId: i.SavingsID,
+        AccountNumber: i.AccountNumber,
+        BSB: i.BSB,
         ApplicantTypeId: this._formBuilder.array([]),
       });
       var idx = checkboxArray.findIndex(
