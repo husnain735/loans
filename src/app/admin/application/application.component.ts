@@ -125,6 +125,7 @@ export class ApplicationComponent {
       this.livingExpenses = res.body.getLivingExpenses.LivingExpenses;
       this.AssetsIncome = res.body.AssetsIncome;
       this.FamilyExpenses = res.body.FamilyExpenses;
+      debugger
       this.LivingExpensesAmount = res.body.LivingExpenses;
       this.OtherIncome = res.body.OtherIncome;
       this.Property = res.body.assets.AssetsDetails;
@@ -136,6 +137,7 @@ export class ApplicationComponent {
       this.MonthlyIncome = res.body.MonthlyIncome;
       this.TotalMonthlyIncome = res.body.TotalMonthlyIncome;
       this.Mortgage = res.body.Mortgage;
+      this.AssetsIncome = res.body.AssetsIncome;
 
       var property:number = 0,savings:number = 0,Superannuation:number = 0,motorVehicle:number = 0,
       MoreAssets:number = 0,totalMortgage:number = 0,totalLiabilities:number = 0,monthlyPayment:number = 0;
@@ -168,6 +170,10 @@ export class ApplicationComponent {
           totalMortgage += item.Balance;
           monthlyPayment = item.Payment + monthlyPayment;
         })
+      }
+      else{
+        totalMortgage = 0;
+      }
 
       if(this.Liabilities && this.Liabilities.length){
         this.Liabilities.forEach(item =>{
@@ -175,11 +181,12 @@ export class ApplicationComponent {
           monthlyPayment += item.Payment;
         })
       }
+      else{
+        totalLiabilities = 0;
+      }
 
       this.LiabilitiesTotal = totalLiabilities + totalMortgage;
       this.LiabilitiesMonthlyPayment = monthlyPayment;
-
-      }
 
     });
     setTimeout(() => {

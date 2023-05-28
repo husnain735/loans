@@ -71,11 +71,11 @@
               <input matInput placeholder="Specify" formControlName="Specify" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
-              <mat-label>Drivers Licence No.</mat-label>
+              <mat-label>Drivers License No.</mat-label>
               <input matInput placeholder="Drivers Licence No." formControlName="DriversLicenceNo" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
-              <mat-label>Drivers Licence Expiry Date</mat-label>
+              <mat-label>Drivers License Expiry Date</mat-label>
               <input matInput placeholder="Drivers Licence Expiry Date" formControlName="DriversExpiryDate" />
             </mat-form-field>
             <mat-form-field class="col-6 w-100">
@@ -117,9 +117,8 @@
         this.ApplicantDetailObj.ReplicateApplicantDetailAddresses != undefined &&
         this.ApplicantDetailObj.ReplicateApplicantDetailAddresses.length > 0"
           class="row mx-0 justify-content-end mt-1">
-          <mat-checkbox (change)='PatchPreviousAddressDetail($event)' color='primary' [(ngModel)]='isChecked'> Use Same
+          <mat-checkbox (change)='PatchPreviousAddressDetail($event)' [(ngModel)]='isChecked'> Use same
             address as Applicant 1</mat-checkbox>
-            {{ApplicantAddressCount}}
         </div>
         <form [formGroup]="ApplicantAddress" class="mt-4">
           <div formArrayName="ApplicantAddresses" *ngFor="
