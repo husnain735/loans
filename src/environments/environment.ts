@@ -1,10 +1,9 @@
 export const environment = {
     production: false,
     ResourceServer: {
-        Endpoint: "https://localhost:44321/api/",
+        // Endpoint: "https://localhost:44321/api/",
         BaseApiUrl: "https://localhost:44321",
-        //BaseApiUrl: "http://loansapi.financeprospects.loans",
-        //Endpoint: "http://loansapi.financeprospects.loans/api/"
+        Endpoint: "http://loansapi.financeprospects.loans/api/"
     },
     key: {
       password: '192.168.10.1'

@@ -50,13 +50,6 @@
   <ng-container *ngIf="Applicants != undefined && Applicants.length > 0">
     <ng-container>
       <table style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
-        <thead>
-          <tr>
-            <th>
-
-            </th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
             <td style="width: 50%;vertical-align: top;">
@@ -85,16 +78,16 @@
                           <tbody>
                             <tr>
                               <td
-                                style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="padding-top:7px;padding-bottom:7px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
                                 Applicant Type</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
                                 {{item2.ApplicantTypeId == 1 ?
                                 "Applicant" : item2.ApplicantTypeId == 2 ?
-                                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</td>
+                                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}&nbsp;{{(ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId').length - i+1}}</td>
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Salutation
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -107,7 +100,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 FirstName
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -117,7 +110,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 SurName
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -126,7 +119,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Middle
                                 Name
                               </td>
@@ -136,7 +129,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Mother
                                 Name
                               </td>
@@ -147,7 +140,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Date Of
                                 Birth</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -158,7 +151,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Marital
                                 Status</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -174,7 +167,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Drivers
                                 Expiry Date</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -184,7 +177,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Drivers
                                 License No</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -194,7 +187,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Number
                                 of
                                 Children</td>
@@ -223,7 +216,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Street Number
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -232,7 +225,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Street Name
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -241,7 +234,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Suburb
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -250,7 +243,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 State
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -264,7 +257,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Post Code
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -273,7 +266,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Housing Status
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -286,7 +279,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Specify
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -295,7 +288,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Time Residing
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -307,7 +300,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Street Number 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -318,7 +311,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 StreetName2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -327,7 +320,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 POBox
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -336,7 +329,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Suburb 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -345,7 +338,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 State
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -361,7 +354,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Post Code 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -388,7 +381,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Home Number
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -397,7 +390,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Mobile Number
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -406,7 +399,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Email Address
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -415,7 +408,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Skype Address
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -424,7 +417,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Country
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -433,7 +426,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Citizenship
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -463,7 +456,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Employment Detail
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -476,7 +469,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Occupation
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -485,7 +478,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Employer
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -494,7 +487,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Address
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -511,7 +504,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Work Phone
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -520,7 +513,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Basis
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -530,7 +523,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Started Date
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -539,7 +532,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Gross Income
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -566,7 +559,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Income Type
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -579,7 +572,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Details
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -588,7 +581,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Amount
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -597,7 +590,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Duration
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -615,7 +608,7 @@
                 </table>
               </ng-container>
             </td>
-            <td style="width: 50%;vertical-align: top;">
+            <td style="width: 50%;;vertical-align: top;">
               <ng-container *ngFor="let item of Applicants;let i = index">
                 <table *ngIf="i % 2 == 0"
                   style="width: 100%;margin-bottom: 1rem;color: #212529;border-collapse: collapse;display: table;">
@@ -641,16 +634,17 @@
                           <tbody>
                             <tr>
                               <td
-                                style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
-                                Applicant Type</td>
+                                style="padding-top:7px;padding-bottom:7px;background-color: rgb(144, 213, 144); width: 50%;border:1px solid;font-weight:500;">
+                                Applicant Type
+                              </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
                                 {{item2.ApplicantTypeId == 1 ?
                                 "Applicant" : item2.ApplicantTypeId == 2 ?
-                                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}</td>
+                                "Guarantor" : item2.ApplicantTypeId == 3 ? "Non-applicant" : ""}}&nbsp;{{(ApplicantsDetails | filter : item.ApplicantId : 'ApplicantId').length - i+1}}</td>
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Salutation
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -663,7 +657,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 FirstName
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -673,7 +667,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 SurName
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -682,7 +676,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Middle
                                 Name
                               </td>
@@ -692,7 +686,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Mother
                                 Name
                               </td>
@@ -703,7 +697,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Date Of
                                 Birth</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -714,7 +708,7 @@
                             </tr>
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Marital
                                 Status</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -730,7 +724,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Drivers
                                 Expiry Date</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -740,7 +734,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Drivers
                                 License No</td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -750,7 +744,7 @@
 
                             <tr>
                               <td
-                                style="background-color: rgb(144, 213, 144); width: 15%;border:1px solid;font-weight:500;">
+                                style="background-color: rgb(144, 213, 144); width: 50%;padding-top:7px;padding-bottom:7px;border:1px solid;font-weight:500;">
                                 Number
                                 of
                                 Children</td>
@@ -779,7 +773,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Street Number
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -788,7 +782,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Street Name
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -797,7 +791,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Suburb
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -806,7 +800,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 State
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -820,7 +814,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Post Code
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -829,7 +823,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Housing Status
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -842,7 +836,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Specify
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -851,7 +845,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Time Residing
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -863,7 +857,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Street Number 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -874,8 +868,8 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
-                                StreetName2
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
+                                StreetName 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
                                 {{item2.StreetName2}}
@@ -883,7 +877,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 POBox
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -892,7 +886,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Suburb 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -901,7 +895,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 State
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -917,7 +911,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Post Code 2
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -944,7 +938,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Home Number
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -953,7 +947,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Mobile Number
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -962,7 +956,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Email Address
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -971,7 +965,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Skype Address
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -980,7 +974,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Country
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -989,7 +983,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Citizenship
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1019,7 +1013,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Employment Detail
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1032,7 +1026,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Occupation
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1041,7 +1035,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Employer
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1050,7 +1044,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Address
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1067,7 +1061,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Work Phone
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1076,7 +1070,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Basis
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1086,7 +1080,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Started Date
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1095,7 +1089,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Gross Income
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1122,7 +1116,7 @@
                           <tbody>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Income Type
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1135,7 +1129,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Details
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1144,7 +1138,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Amount
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1153,7 +1147,7 @@
                             </tr>
                             <tr>
                               <td style="padding-left:5px;padding-top:5px;background-color: rgb(144, 213, 144);
-                    width: 15%;border:1px solid;font-weight:500;">
+                    padding-left:5px;padding-top:5px;border:1px solid;width:50%;border:1px solid;font-weight:500;">
                                 Other Duration
                               </td>
                               <td style="padding-left:5px;padding-top:5px;border:1px solid;width:50%">
@@ -1947,5 +1941,5 @@
         </tbody>
       </table>
     </ng-container>
-  </ng-container>
+  </ng-container> 
 </div>
