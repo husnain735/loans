@@ -302,8 +302,8 @@ export class ApplicantDetailComponent implements OnInit {
           conditionalExpression: (x) => x.MaritalTypeId == 14,
         }),
       ],
-      DriversLicenceNo: ['', [Validators.required]],
-      DriversExpiryDate: ['', [Validators.required]],
+      DriversLicenceNo: [''],
+      DriversExpiryDate: [''],
       MotherName: ['', [Validators.required]],
       NumberOfChildren: ['', [Validators.required]],
       IBONumber: [''],
@@ -967,6 +967,7 @@ export class ApplicantDetailComponent implements OnInit {
               SurName: this.ApplicantDetailObj.Applicant.SurName
             });
           }
+          debugger
           if (
             this.ApplicantDetailObj != undefined &&
             this.ApplicantDetailObj.ApplicantDetailAddresses != undefined &&
@@ -1237,15 +1238,26 @@ export class ApplicantDetailComponent implements OnInit {
 
     })
   }
-  PatchPreviousAddressDetail() {
-    if (
-      this.ApplicantDetailObj != undefined &&
-      this.ApplicantDetailObj.ReplicateApplicantDetailAddresses != undefined &&
-      this.ApplicantDetailObj.ReplicateApplicantDetailAddresses.length > 0
-    ) {
-      this.PatchApplicationDetailAddressValue(
-        this.ApplicantDetailObj.ReplicateApplicantDetailAddresses
-      );
-    } 
+  PatchPreviousAddressDetail(event) {
+    debugger
+    if (event.checked) {
+      if (
+        this.ApplicantDetailObj != undefined &&
+        this.ApplicantDetailObj.ReplicateApplicantDetailAddresses != undefined &&
+        this.ApplicantDetailObj.ReplicateApplicantDetailAddresses.length > 0
+      ) {
+        this.PatchApplicationDetailAddressValue(
+          this.ApplicantDetailObj.ReplicateApplicantDetailAddresses
+        );
+      } 
+    }
+    else {
+      this.GetApplicantAddress().clear();
+      this.addApplicantAddress('');
+      this.IsApplicantAddressMoreThen3 = false;
+      if (this.ApplicantAddressCount == 0) {
+        this.ApplicantAddressCount++;
+      }
+    }
   }
 }

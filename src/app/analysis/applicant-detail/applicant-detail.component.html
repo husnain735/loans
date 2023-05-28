@@ -117,7 +117,9 @@
         this.ApplicantDetailObj.ReplicateApplicantDetailAddresses != undefined &&
         this.ApplicantDetailObj.ReplicateApplicantDetailAddresses.length > 0"
           class="row mx-0 justify-content-end mt-1">
-          <button mat-button mat-raised-button (click)="PatchPreviousAddressDetail()">Add Previous Address</button>
+          <mat-checkbox (change)='PatchPreviousAddressDetail($event)' color='primary' [(ngModel)]='isChecked'> Use Same
+            address as Applicant 1</mat-checkbox>
+            {{ApplicantAddressCount}}
         </div>
         <form [formGroup]="ApplicantAddress" class="mt-4">
           <div formArrayName="ApplicantAddresses" *ngFor="
