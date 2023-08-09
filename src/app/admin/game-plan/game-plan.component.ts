@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { AdminService } from 'src/app/shared/services/admin.service';
+import { GamePlanService } from 'src/app/shared/services/gameplan.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
@@ -24,25 +26,28 @@ export class GamePlanComponent implements OnInit {
     private rxFormBuilder: RxFormBuilder,
     private route: ActivatedRoute,
     private _adminService: AdminService,
+    private _gamePlanService: GamePlanService,
     public _sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
-    this.GamePlanForm = this.rxFormBuilder.group({
-      BrokerId: new FormControl('', [Validators.required]),
-      PlanDate: ['', [Validators.required]],
-      LenderId: new FormControl('', [Validators.required]),
-      ClientName: ['', [Validators.required]],
-      RefererId: new FormControl('', [Validators.required]),
-      PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
-      PrimaryPurposeSubTitle: ['', [Validators.required]],
-      ImmediateGoalsObjectivesTitleId: new FormControl('', [Validators.required]),
-      ImmediateGoalsObjectivesSubTitle: ['', [Validators.required]],
-      FutureFinancialGoalsTitleId: new FormControl('', [Validators.required]),
-      FutureFinancialGoalsSubTitle: ['', [Validators.required]],
-    });
+
     this.route.params.subscribe((params: any) => {
       this.ApplicationId = params['guid'];
+      this.GamePlanForm = this.rxFormBuilder.group({
+        ApplicationId: new FormControl(this.ApplicationId),
+        BrokerId: new FormControl('', [Validators.required]),
+        PlanDate: ['', [Validators.required]],
+        LenderId: new FormControl('', [Validators.required]),
+        ClientName: ['', [Validators.required]],
+        RefererId: new FormControl('', [Validators.required])
+        // PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
+        // PrimaryPurposeSubTitle: ['', [Validators.required]],
+        // ImmediateGoalsObjectivesTitleId: new FormControl('', [Validators.required]),
+        // ImmediateGoalsObjectivesSubTitle: ['', [Validators.required]],
+        // FutureFinancialGoalsTitleId: new FormControl('', [Validators.required]),
+        // FutureFinancialGoalsSubTitle: ['', [Validators.required]],
+      });
     });
     this.GamPlanObj = new Object();
     this.GetGamePlanMetadata();
@@ -53,6 +58,9 @@ export class GamePlanComponent implements OnInit {
     };
     this._adminService.GetGamePlanMetadata(obj).subscribe((res: any) => {
       this.GamPlanObj = res.body;
+      this.GamPlanObj.GamePlanLookups.forEach(i => {
+        i.Guid = i.Id
+      });
       this.GamePlanForm.patchValue({
         ClientName: this.GamPlanObj.Applicant.ClientName,
       });
@@ -66,12 +74,7 @@ export class GamePlanComponent implements OnInit {
     }
     this.foods.push({ value: -1, viewValue: newValue });
   }
-  onGamePlanSubmit() {
-    if (this.GamePlanForm.invalid) {
-      return;
-    }
-    console.log(this.GamePlanForm.value);
-  }
+
   addLoansBroker(newValue: string): void {
     newValue = newValue.trim();
     if (!newValue) {
@@ -125,4 +128,32 @@ export class GamePlanComponent implements OnInit {
   removeLoansBroker(index) {
     this.GamPlanObj.LoansBrokers.splice(index, 1);
   }
+  SaveGamePlan() {
+    if (this.GamePlanForm.invalid) {
+      return;
+    }
+
+    var gamePlanLookup = this.GamPlanObj.GamePlanLookups.filter(x => x.Id == -1);
+    var gamePlan = {
+      ApplicationId: this.GamePlanForm.value.ApplicationId,
+      BrokerId: this.GamePlanForm.value.BrokerId,
+      PlanDate: this.GamePlanForm.value.PlanDate,
+      LenderId: this.GamePlanForm.value.LenderId,
+      ClientName: this.GamePlanForm.value.ClientName,
+      RefererId: this.GamePlanForm.value.RefererId
+    }
+    var obj = {
+      GamePlan: gamePlan,
+      GamePlanLookup: gamePlanLookup
+    }
+    this._gamePlanService.SaveGamePlan(obj).subscribe({
+      next: (response) => {
+
+      },
+      error: (error) => {
+
+      }
+    })
+  }
+  
 }
