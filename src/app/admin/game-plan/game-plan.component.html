@@ -31,10 +31,10 @@
               Add</button>
           </div>
           <mat-option *ngFor="let lender of this.GamPlanObj.GamePlanLookups | filter : 2 : 'TypeId'; let i = index"
-            [value]="lender.Guid">
+            [value]="lender.Id">
             <div class="d-flex justify-content-between align-item-center">
               <span>{{ lender.Name }}</span>
-              <!-- <mat-icon *ngIf="lender.Id == -1" (click)="removeEntry(lender.Guid)">delete</mat-icon> -->
+              <!-- <mat-icon *ngIf="lender.Id == -1" (click)="removeEntry(lender.Id)">delete</mat-icon> -->
             </div>
           </mat-option>
         </mat-select>
@@ -54,10 +54,10 @@
               Add</button>
           </div>
           <mat-option *ngFor="let referer of this.GamPlanObj.GamePlanLookups | filter : 3 : 'TypeId'"
-            [value]="referer.Guid">
+            [value]="referer.Id">
             <div class="d-flex justify-content-between align-item-center">
               {{ referer.Name }}
-              <!-- <mat-icon *ngIf="referer.Id == -1" (click)="removeEntry(referer.Guid)">delete</mat-icon> -->
+              <!-- <mat-icon *ngIf="referer.Id == -1" (click)="removeEntry(referer.Id)">delete</mat-icon> -->
             </div>
           </mat-option>
         </mat-select>
@@ -77,7 +77,7 @@
             [value]="primaryPurpose.Id">
             <div class="d-flex justify-content-between align-item-center">
               {{ primaryPurpose.Name }}
-              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Guid)">delete</mat-icon>
+              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Id)">delete</mat-icon>
             </div>
           </mat-option>
         </mat-select>
@@ -101,7 +101,7 @@
             [value]="primaryPurpose.Id">
             <div class="d-flex justify-content-between align-item-center">
               {{ primaryPurpose.Name }}
-              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Guid)">delete</mat-icon>
+              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Id)">delete</mat-icon>
             </div>
           </mat-option>
         </mat-select>
@@ -126,7 +126,7 @@
             [value]="primaryPurpose.Id">
             <div class="d-flex justify-content-between align-item-center">
               {{ primaryPurpose.Name }}
-              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Guid)">delete</mat-icon>
+              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Id)">delete</mat-icon>
             </div>
           </mat-option>
         </mat-select>

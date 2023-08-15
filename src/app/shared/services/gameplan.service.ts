@@ -14,4 +14,8 @@ export class GamePlanService {
   SaveGamePlan(obj: any): Observable<any> {
     return this.apiService.post(`${this.pageUrl}SaveGamePlan/`, obj);
   }
+
+  SaveGamePlanLookup(obj: any): Observable<any> {
+    return this.apiService.post(`${this.pageUrl}SaveGamePlanLookup/`, obj);
+  }
 }

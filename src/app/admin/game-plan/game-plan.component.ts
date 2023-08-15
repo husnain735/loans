@@ -40,7 +40,7 @@ export class GamePlanComponent implements OnInit {
         PlanDate: ['', [Validators.required]],
         LenderId: new FormControl('', [Validators.required]),
         ClientName: ['', [Validators.required]],
-        RefererId: new FormControl('', [Validators.required])
+        RefererId: new FormControl('', [Validators.required]),
         // PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
         // PrimaryPurposeSubTitle: ['', [Validators.required]],
         // ImmediateGoalsObjectivesTitleId: new FormControl('', [Validators.required]),
@@ -85,9 +85,14 @@ export class GamePlanComponent implements OnInit {
       Name: newValue,
     });
   }
+
   addEntry(newValue: string, TypeId, TypeName): void {
     newValue = newValue.trim();
     if (!newValue) {
+      return;
+    }
+
+    if(this.checkIfExists(newValue,TypeName)) {
       return;
     }
 
@@ -96,10 +101,36 @@ export class GamePlanComponent implements OnInit {
       Name: newValue,
       TypeId: TypeId,
       TypeName: TypeName,
-      Guid: this._sharedService.generateGUID()
     });
 
+    const obj = this.GamPlanObj.GamePlanLookups.find(item => item.Id == -1);
+
+    this._gamePlanService.SaveGamePlanLookup(obj).subscribe({
+      next: (response) => {
+        var index = this.GamPlanObj.GamePlanLookups.findIndex(item => item.Id == -1);
+        if(index > -1) {
+          this.GamPlanObj.GamePlanLookups[index].Id = response.body;
+        }
+
+      },
+      error: (error) => {
+
+      }
+    })
+
   }
+
+  checkIfExists(newValue: string, TypeName: string): boolean {
+
+    const exists = this.GamPlanObj.GamePlanLookups.find(item => item.Name == newValue && item.TypeName == TypeName);
+
+    if(exists) {
+      return true;
+    }
+    return false;
+
+  }
+
   handleInput(event) {
     var previousLength = 0;
     const bullet = '\u2022';
@@ -134,6 +165,9 @@ export class GamePlanComponent implements OnInit {
     }
 
     var gamePlanLookup = this.GamPlanObj.GamePlanLookups.filter(x => x.Id == -1);
+      for (let item of gamePlanLookup) {
+        item.Id = null; 
+      }
     var gamePlan = {
       ApplicationId: this.GamePlanForm.value.ApplicationId,
       BrokerId: this.GamePlanForm.value.BrokerId,
