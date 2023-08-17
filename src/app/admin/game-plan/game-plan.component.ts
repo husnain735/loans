@@ -28,10 +28,9 @@ export class GamePlanComponent implements OnInit {
     private _adminService: AdminService,
     private _gamePlanService: GamePlanService,
     public _sharedService: SharedService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.route.params.subscribe((params: any) => {
       this.ApplicationId = params['guid'];
       this.GamePlanForm = this.rxFormBuilder.group({
@@ -58,8 +57,8 @@ export class GamePlanComponent implements OnInit {
     };
     this._adminService.GetGamePlanMetadata(obj).subscribe((res: any) => {
       this.GamPlanObj = res.body;
-      this.GamPlanObj.GamePlanLookups.forEach(i => {
-        i.Guid = i.Id
+      this.GamPlanObj.GamePlanLookups.forEach((i) => {
+        i.Guid = i.Id;
       });
       this.GamePlanForm.patchValue({
         ClientName: this.GamPlanObj.Applicant.ClientName,
@@ -86,49 +85,47 @@ export class GamePlanComponent implements OnInit {
     });
   }
 
-  addEntry(newValue: string, TypeId, TypeName): void {
+  SaveGamePlanLookup(newValue: string, TypeId, TypeName): void {
     newValue = newValue.trim();
     if (!newValue) {
       return;
     }
 
-    if(this.checkIfExists(newValue,TypeName)) {
+    if (this.checkIfExists(newValue, TypeName)) {
       return;
     }
 
-    this.GamPlanObj.GamePlanLookups.push({
+    // this.GamPlanObj.GamePlanLookups.push({
+    //   Id: -1,
+    //   Name: newValue,
+    //   TypeId: TypeId,
+    //   TypeName: TypeName,
+    // });
+
+    const obj = {
       Id: -1,
       Name: newValue,
       TypeId: TypeId,
       TypeName: TypeName,
-    });
-
-    const obj = this.GamPlanObj.GamePlanLookups.find(item => item.Id == -1);
-
+    };
     this._gamePlanService.SaveGamePlanLookup(obj).subscribe({
       next: (response) => {
-        var index = this.GamPlanObj.GamePlanLookups.findIndex(item => item.Id == -1);
-        if(index > -1) {
-          this.GamPlanObj.GamePlanLookups[index].Id = response.body;
-        }
-
+        obj.Id = response.body;
+        this.GamPlanObj.GamePlanLookups.push(obj);
       },
-      error: (error) => {
-
-      }
-    })
-
+      error: (error) => {},
+    });
   }
 
   checkIfExists(newValue: string, TypeName: string): boolean {
+    const exists = this.GamPlanObj.GamePlanLookups.find(
+      (item) => item.Name == newValue && item.TypeName == TypeName
+    );
 
-    const exists = this.GamPlanObj.GamePlanLookups.find(item => item.Name == newValue && item.TypeName == TypeName);
-
-    if(exists) {
+    if (exists) {
       return true;
     }
     return false;
-
   }
 
   handleInput(event) {
@@ -151,7 +148,7 @@ export class GamePlanComponent implements OnInit {
     console.log(event.source.triggerValue);
   }
   removeEntry(Guid) {
-    var idx = this.GamPlanObj.GamePlanLookups.findIndex(x => x.Guid == Guid);
+    var idx = this.GamPlanObj.GamePlanLookups.findIndex((x) => x.Guid == Guid);
     if (idx > -1) {
       this.GamPlanObj.GamePlanLookups.splice(idx, 1);
     }
@@ -164,30 +161,27 @@ export class GamePlanComponent implements OnInit {
       return;
     }
 
-    var gamePlanLookup = this.GamPlanObj.GamePlanLookups.filter(x => x.Id == -1);
-      for (let item of gamePlanLookup) {
-        item.Id = null; 
-      }
+    var gamePlanLookup = this.GamPlanObj.GamePlanLookups.filter(
+      (x) => x.Id == -1
+    );
+    for (let item of gamePlanLookup) {
+      item.Id = null;
+    }
     var gamePlan = {
       ApplicationId: this.GamePlanForm.value.ApplicationId,
       BrokerId: this.GamePlanForm.value.BrokerId,
       PlanDate: this.GamePlanForm.value.PlanDate,
       LenderId: this.GamePlanForm.value.LenderId,
       ClientName: this.GamePlanForm.value.ClientName,
-      RefererId: this.GamePlanForm.value.RefererId
-    }
+      RefererId: this.GamePlanForm.value.RefererId,
+    };
     var obj = {
       GamePlan: gamePlan,
-      GamePlanLookup: gamePlanLookup
-    }
+      GamePlanLookup: gamePlanLookup,
+    };
     this._gamePlanService.SaveGamePlan(obj).subscribe({
-      next: (response) => {
-
-      },
-      error: (error) => {
-
-      }
-    })
+      next: (response) => {},
+      error: (error) => {},
+    });
   }
-  
 }

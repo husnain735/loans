@@ -4,11 +4,27 @@
   </div>
   <form [formGroup]="GamePlanForm">
     <div class="row mx-0">
+      <mat-form-field class="col-12 w-100">
+        <mat-label>Client</mat-label>
+        <input
+          readonly
+          matInput
+          placeholder="Client Name"
+          formControlName="ClientName"
+        />
+      </mat-form-field>
       <mat-form-field class="col-6">
         <mat-select placeholder="Select Broker" formControlName="BrokerId">
-          <mat-option *ngFor="let loansBroker of this.GamPlanObj.LoansBrokers ; let i = index"
-            [value]="loansBroker.LoansBrokerId">
-            <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-option
+            *ngFor="
+              let loansBroker of this.GamPlanObj.LoansBrokers;
+              let i = index
+            "
+            [value]="loansBroker.LoansBrokerId"
+          >
+            <div
+              class="d-flex justify-content-between align-items-center px-2 gap-6"
+            >
               {{ loansBroker.Name }}
             </div>
           </mat-option>
@@ -17,44 +33,76 @@
       <mat-form-field class="col-6 w-100">
         <mat-label>Date of Birth (dd/mm/yyyy)</mat-label>
         <input matInput [matDatepicker]="PlanDate" formControlName="PlanDate" />
-        <mat-datepicker-toggle matSuffix [for]="PlanDate"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="PlanDate"
+        ></mat-datepicker-toggle>
         <mat-datepicker #PlanDate></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="col-6">
+        <div class="d-flex justify-content-between align-items-center gap-6">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Lender Name"
+              value=""
+              #itemName2
+              (keydown.enter)="$event.stopPropagation()"
+            />
+          </mat-form-field>
+          <button
+            mat-button
+            mat-raised-button
+            color="primary"
+            (click)="
+              SaveGamePlanLookup(itemName2.value, 2, 'Lender');
+              itemName2.value = ''
+            "
+          >
+            Add
+          </button>
+        </div>
         <mat-select placeholder="Select Lender" formControlName="LenderId">
-          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
-            <mat-form-field class="w-100">
-              <input matInput placeholder="Lender Name" value="" #itemName2>
-            </mat-form-field>
-            <button mat-button mat-raised-button color="primary"
-              (click)="addEntry(itemName2.value,2,'Lender');itemName2.value=''">
-              Add</button>
-          </div>
-          <mat-option *ngFor="let lender of this.GamPlanObj.GamePlanLookups | filter : 2 : 'TypeId'; let i = index"
-            [value]="lender.Id">
+          <mat-option
+            *ngFor="
+              let lender of GamPlanObj.GamePlanLookups | filter : 2 : 'TypeId';
+              let i = index
+            "
+            [value]="lender.Id"
+          >
             <div class="d-flex justify-content-between align-item-center">
               <span>{{ lender.Name }}</span>
-              <!-- <mat-icon *ngIf="lender.Id == -1" (click)="removeEntry(lender.Id)">delete</mat-icon> -->
             </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="col-6 w-100">
-        <mat-label>Client</mat-label>
-        <input readonly matInput placeholder="Client Name" formControlName="ClientName" />
-      </mat-form-field>
-      <mat-form-field class="col-12">
+      <mat-form-field class="col-6">
+        <div
+          class="d-flex justify-content-between align-items-center px-2 gap-6"
+        >
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Referer Name" value="" #itemName3 />
+          </mat-form-field>
+          <button
+            mat-button
+            mat-raised-button
+            color="primary"
+            (click)="
+              SaveGamePlanLookup(itemName3.value, 3, 'Referrer');
+              itemName3.value = ''
+            "
+          >
+            Add
+          </button>
+        </div>
         <mat-select placeholder="Select Referer" formControlName="RefererId">
-          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
-            <mat-form-field class="w-100">
-              <input matInput placeholder="Referer Name" value="" #itemName3>
-            </mat-form-field>
-            <button mat-button mat-raised-button color="primary"
-              (click)="addEntry(itemName3.value,3,'Referrer');itemName3.value=''">
-              Add</button>
-          </div>
-          <mat-option *ngFor="let referer of this.GamPlanObj.GamePlanLookups | filter : 3 : 'TypeId'"
-            [value]="referer.Id">
+          <mat-option
+            *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 3 : 'TypeId'
+            "
+            [value]="referer.Id"
+          >
             <div class="d-flex justify-content-between align-item-center">
               {{ referer.Name }}
               <!-- <mat-icon *ngIf="referer.Id == -1" (click)="removeEntry(referer.Id)">delete</mat-icon> -->
@@ -70,7 +118,7 @@
               <input matInput placeholder="Primary Purpose Title" value="" #itemName4>
             </mat-form-field>
             <button mat-button mat-raised-button color="primary"
-              (click)="addEntry(itemName4.value,4,'Primary Purpose');itemName4.value=''">
+              (click)="SaveGamePlanLookup(itemName4.value,4,'Primary Purpose');itemName4.value=''">
               Add</button>
           </div>
           <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
@@ -94,7 +142,7 @@
               <input matInput placeholder="Immediate Goals and Objectives Title" value="" #itemName5>
             </mat-form-field>
             <button mat-button mat-raised-button color="primary"
-              (click)="addEntry(itemName5.value,4,'Primary Purpose');itemName5.value=''">
+              (click)="SaveGamePlanLookup(itemName5.value,4,'Primary Purpose');itemName5.value=''">
               Add</button>
           </div>
           <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
@@ -119,7 +167,7 @@
               <input matInput placeholder="Future Financial Goals Title" value="" #itemName6>
             </mat-form-field>
             <button mat-button mat-raised-button color="primary"
-              (click)="addEntry(itemName6.value,4,'Primary Purpose');;itemName6.value=''">
+              (click)="SaveGamePlanLookup(itemName6.value,4,'Primary Purpose');;itemName6.value=''">
               Add</button>
           </div>
           <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
@@ -141,7 +189,12 @@
   <div class="step-nav">
     <div class="d-flex justify-content-between align-items-center px-2 gap-6">
       <button mat-flat-button [routerLink]="'/admin'">Back</button>
-      <button (click)="SaveGamePlan()" mat-raised-button color="primary" class="next">
+      <button
+        (click)="SaveGamePlan()"
+        mat-raised-button
+        color="primary"
+        class="next"
+      >
         Next
         <mat-icon class="btnOrder">keyboard_arrow_right</mat-icon>
       </button>
