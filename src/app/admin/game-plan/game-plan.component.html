@@ -110,31 +110,37 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- <mat-form-field class="col-12">
-        <mat-select placeholder="Select Primary Purpose" (selectionChange)="test($event)"
-          formControlName="PrimaryPurposeTitleId">
-          <div class="d-flex justify-content-between align-items-center px-2 gap-6">
-            <mat-form-field class="w-100">
-              <input matInput placeholder="Primary Purpose Title" value="" #itemName4>
-            </mat-form-field>
-            <button mat-button mat-raised-button color="primary"
-              (click)="SaveGamePlanLookup(itemName4.value,4,'Primary Purpose');itemName4.value=''">
-              Add</button>
-          </div>
+       <mat-form-field class="col-12">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Primary Purpose Title" value="" #itemName4>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary"
+            (click)="SaveGamePlanLookup(itemName4.value,4,'Primary Purpose');itemName4.value=''">
+            Add</button>
+        </div>
+        <mat-select placeholder="Select Primary Purpose"
+          formControlName="PrimaryPurposeTitleId"> 
           <mat-option *ngFor="let primaryPurpose of this.GamPlanObj.GamePlanLookups | filter : 4 : 'TypeId'"
             [value]="primaryPurpose.Id">
             <div class="d-flex justify-content-between align-item-center">
               {{ primaryPurpose.Name }}
-              <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Id)">delete</mat-icon>
+              <!-- <mat-icon *ngIf="primaryPurpose.Id == -1" (click)="removeEntry(primaryPurpose.Id)">delete</mat-icon> -->
             </div>
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="col-12 w-100">
+      <div class="col-12 w-100">
+        <mat-label>Primary Purpose SubTitle</mat-label>
+        <angular-editor formControlName="PrimaryPurposeSubTitle" [config]="config"></angular-editor>
+      </div>
+      
+      <!-- <mat-form-field class="col-12 w-100">
         <mat-label>Primary Purpose SubTitle</mat-label>
         <textarea matInput [rows]="5" (input)="handleInput($event)" formControlName="PrimaryPurposeSubTitle"></textarea>
-      </mat-form-field>
-      <mat-form-field class="col-12">
+        
+      </mat-form-field> -->
+     <!-- <mat-form-field class="col-12">
         <mat-select placeholder="Select Primary Purpose" (selectionChange)="test($event)"
           formControlName="ImmediateGoalsObjectivesTitleId">
           <div class="d-flex justify-content-between align-items-center px-2 gap-6">

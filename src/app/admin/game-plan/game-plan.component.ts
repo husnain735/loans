@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { GamePlanService } from 'src/app/shared/services/gameplan.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
+
 
 @Component({
   selector: 'app-game-plan',
@@ -22,6 +23,35 @@ export class GamePlanComponent implements OnInit {
     { value: 3, viewValue: 'Group 3' },
     { value: 4, viewValue: 'Group 4' },
   ];
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['insertImage','insertVideo','textColor','backgroundColor']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ],
+  };
+  
   constructor(
     private rxFormBuilder: RxFormBuilder,
     private route: ActivatedRoute,
@@ -34,14 +64,15 @@ export class GamePlanComponent implements OnInit {
     this.route.params.subscribe((params: any) => {
       this.ApplicationId = params['guid'];
       this.GamePlanForm = this.rxFormBuilder.group({
+        GamePlanId: [0],
         ApplicationId: new FormControl(this.ApplicationId),
         BrokerId: new FormControl('', [Validators.required]),
         PlanDate: ['', [Validators.required]],
         LenderId: new FormControl('', [Validators.required]),
         ClientName: ['', [Validators.required]],
         RefererId: new FormControl('', [Validators.required]),
-        // PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
-        // PrimaryPurposeSubTitle: ['', [Validators.required]],
+        PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
+        PrimaryPurposeSubTitle: ['', [Validators.required]],
         // ImmediateGoalsObjectivesTitleId: new FormControl('', [Validators.required]),
         // ImmediateGoalsObjectivesSubTitle: ['', [Validators.required]],
         // FutureFinancialGoalsTitleId: new FormControl('', [Validators.required]),
@@ -60,9 +91,26 @@ export class GamePlanComponent implements OnInit {
       this.GamPlanObj.GamePlanLookups.forEach((i) => {
         i.Guid = i.Id;
       });
-      this.GamePlanForm.patchValue({
-        ClientName: this.GamPlanObj.Applicant.ClientName,
-      });
+      if (this.GamPlanObj.GamePlan == undefined) {
+        this.GamePlanForm.patchValue({
+          ClientName: this.GamPlanObj.Applicant.ClientName,
+        });
+      } else {
+        this.PatchGamePlan();
+      }
+    });
+  }
+  PatchGamePlan() {
+    this.GamePlanForm.patchValue({
+      GamePlanId: this.GamPlanObj.GamePlan.GamePlanId,
+      ClientName: this.GamPlanObj.GamePlan.ClientName,
+      ApplicationId: this.GamPlanObj.GamePlan.ApplicationId,
+      BrokerId: this.GamPlanObj.GamePlan.BrokerId,
+      PlanDate: this.GamPlanObj.GamePlan.PlanDate,
+      LenderId: this.GamPlanObj.GamePlan.LenderId,
+      RefererId: this.GamPlanObj.GamePlan.RefererId,
+      PrimaryPurposeTitleId: this.GamPlanObj.GamePlan.PrimaryPurposeTitleId,
+      PrimaryPurposeSubTitle: this.GamPlanObj.GamePlan.PrimaryPurposeSubTitle,
     });
   }
 
@@ -94,14 +142,6 @@ export class GamePlanComponent implements OnInit {
     if (this.checkIfExists(newValue, TypeName)) {
       return;
     }
-
-    // this.GamPlanObj.GamePlanLookups.push({
-    //   Id: -1,
-    //   Name: newValue,
-    //   TypeId: TypeId,
-    //   TypeName: TypeName,
-    // });
-
     const obj = {
       Id: -1,
       Name: newValue,
@@ -168,12 +208,15 @@ export class GamePlanComponent implements OnInit {
       item.Id = null;
     }
     var gamePlan = {
+      GamePlanId: this.GamePlanForm.value.GamePlanId,
       ApplicationId: this.GamePlanForm.value.ApplicationId,
       BrokerId: this.GamePlanForm.value.BrokerId,
       PlanDate: this.GamePlanForm.value.PlanDate,
       LenderId: this.GamePlanForm.value.LenderId,
       ClientName: this.GamePlanForm.value.ClientName,
       RefererId: this.GamePlanForm.value.RefererId,
+      PrimaryPurposeTitleId: this.GamePlanForm.value.PrimaryPurposeTitleId,
+      PrimaryPurposeSubTitle: this.GamePlanForm.value.PrimaryPurposeSubTitle
     };
     var obj = {
       GamePlan: gamePlan,

@@ -4,7 +4,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from '../material/material.module';
 import { FormFilterPipe } from './pipes/filter.pipe';
 import { FilterPipe } from './pipes/genericFilter.pipe';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -14,12 +14,14 @@ import { FilterPipe } from './pipes/genericFilter.pipe';
   imports: [
     CommonModule,
     MaterialModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    AngularEditorModule
   ],exports: [
     MaterialModule,
     MatNativeDateModule,
     FormFilterPipe,
-    FilterPipe
+    FilterPipe,
+    AngularEditorModule
   ]
 })
 export class SharedModule { }
