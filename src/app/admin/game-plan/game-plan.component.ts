@@ -7,7 +7,6 @@ import { AdminService } from 'src/app/shared/services/admin.service';
 import { GamePlanService } from 'src/app/shared/services/gameplan.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 
-
 @Component({
   selector: 'app-game-plan',
   templateUrl: './game-plan.component.html',
@@ -33,25 +32,25 @@ export class GamePlanComponent implements OnInit {
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
-      ['insertImage','insertVideo','textColor','backgroundColor']
-      ],
+      ['insertImage', 'insertVideo', 'textColor', 'backgroundColor'],
+    ],
     customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
-        class: 'redText'
+        class: 'redText',
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
     ],
   };
-  
+
   constructor(
     private rxFormBuilder: RxFormBuilder,
     private route: ActivatedRoute,
@@ -73,10 +72,19 @@ export class GamePlanComponent implements OnInit {
         RefererId: new FormControl('', [Validators.required]),
         PrimaryPurposeTitleId: new FormControl('', [Validators.required]),
         PrimaryPurposeSubTitle: ['', [Validators.required]],
-        // ImmediateGoalsObjectivesTitleId: new FormControl('', [Validators.required]),
-        // ImmediateGoalsObjectivesSubTitle: ['', [Validators.required]],
-        // FutureFinancialGoalsTitleId: new FormControl('', [Validators.required]),
-        // FutureFinancialGoalsSubTitle: ['', [Validators.required]],
+        ImmediateGoalsObjectivesTitleId: new FormControl('', [
+          Validators.required,
+        ]),
+        ImmediateGoalsObjectivesSubTitle: ['', [Validators.required]],
+        FutureFinancialGoalsTitleId: new FormControl('', [Validators.required]),
+        FutureFinancialGoalsSubTitle: ['', [Validators.required]],
+        OurRecommendationTitleId: ['', [Validators.required]],
+        OurRecommendationSubTitle: ['', [Validators.required]],
+        RatePreferenceId: ['', [Validators.required]],
+        Importance: ['', [Validators.required]],
+        PaymentPreferenceId: ['', [Validators.required]],
+        ReasonOfImportanceId: ['', [Validators.required]],
+        SpecialFeaturesId: ['', [Validators.required]],
       });
     });
     this.GamPlanObj = new Object();
@@ -111,6 +119,10 @@ export class GamePlanComponent implements OnInit {
       RefererId: this.GamPlanObj.GamePlan.RefererId,
       PrimaryPurposeTitleId: this.GamPlanObj.GamePlan.PrimaryPurposeTitleId,
       PrimaryPurposeSubTitle: this.GamPlanObj.GamePlan.PrimaryPurposeSubTitle,
+      ImmediateGoalsObjectivesTitleId: this.GamPlanObj.GamePlan.ImmediateGoalsObjectivesTitleId,
+      ImmediateGoalsObjectivesSubTitle: this.GamPlanObj.GamePlan.ImmediateGoalsObjectivesSubTitle,
+      FutureFinancialGoalsTitleId: this.GamPlanObj.GamePlan.FutureFinancialGoalsTitleId,
+      FutureFinancialGoalsSubTitle: this.GamPlanObj.GamePlan.FutureFinancialGoalsSubTitle,
     });
   }
 
@@ -150,6 +162,7 @@ export class GamePlanComponent implements OnInit {
     };
     this._gamePlanService.SaveGamePlanLookup(obj).subscribe({
       next: (response) => {
+        debugger
         obj.Id = response.body;
         this.GamPlanObj.GamePlanLookups.push(obj);
       },
@@ -216,11 +229,14 @@ export class GamePlanComponent implements OnInit {
       ClientName: this.GamePlanForm.value.ClientName,
       RefererId: this.GamePlanForm.value.RefererId,
       PrimaryPurposeTitleId: this.GamePlanForm.value.PrimaryPurposeTitleId,
-      PrimaryPurposeSubTitle: this.GamePlanForm.value.PrimaryPurposeSubTitle
+      PrimaryPurposeSubTitle: this.GamePlanForm.value.PrimaryPurposeSubTitle,
+      ImmediateGoalsObjectivesTitleId: this.GamePlanForm.value.ImmediateGoalsObjectivesTitleId,
+      ImmediateGoalsObjectivesSubTitle: this.GamePlanForm.value.ImmediateGoalsObjectivesSubTitle,
+      FutureFinancialGoalsTitleId: this.GamePlanForm.value.FutureFinancialGoalsTitleId,
+      FutureFinancialGoalsSubTitle: this.GamePlanForm.value.FutureFinancialGoalsSubTitle,
     };
     var obj = {
       GamePlan: gamePlan,
-      GamePlanLookup: gamePlanLookup,
     };
     this._gamePlanService.SaveGamePlan(obj).subscribe({
       next: (response) => {},
