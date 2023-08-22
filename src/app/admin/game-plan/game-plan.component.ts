@@ -97,7 +97,12 @@ export class GamePlanComponent implements OnInit {
         ProductComparison1Id: ['', [Validators.required]],
         ProductComparison2Id: ['', [Validators.required]],
         ProductComparison3Id: ['', [Validators.required]],
-        AppendixText:['', [Validators.required]],
+        AppendixText:['As per myCRM and Fact Finder', [Validators.required]],
+        MissingDocumentToRequestIds: ['', [Validators.required]],
+        IsAddLenderRateLock: ['', [Validators.required]],
+        ITBSMMessageText: ['', [Validators.required]],
+        ClientsIdentifiedId: ['', [Validators.required]],
+        DocumentDeliveryId: ['', [Validators.required]],
       });
     });
     this.GamPlanObj = new Object();
@@ -145,6 +150,22 @@ export class GamePlanComponent implements OnInit {
       SpecialFeaturesId: this.GamPlanObj.GamePlan.SpecialFeaturesId,
       RationaleForRecommendationTitleId: this.GamPlanObj.GamePlan.RationaleForRecommendationTitleId,
       RationaleForRecommendationSubTitle: this.GamPlanObj.GamePlan.RationaleForRecommendationSubTitle,
+      Importance2Id: this.GamPlanObj.GamePlan.Importance2Id,
+      OtherInformationText: this.GamPlanObj.GamePlan.OtherInformationText,
+      ClientUnderstandingText: this.GamPlanObj.GamePlan.ClientUnderstandingText,
+      BrokerInterviewedDate: this.GamPlanObj.GamePlan.BrokerInterviewedDate,
+      CurrentLenderId: this.GamPlanObj.GamePlan.CurrentLenderId,
+      HappyWithCurrentLenderId: this.GamPlanObj.GamePlan.HappyWithCurrentLenderId,
+      PreferedLenderId: this.GamPlanObj.GamePlan.PreferedLenderId,
+      ProductComparison1Id: this.GamPlanObj.GamePlan.ProductComparison1Id,
+      ProductComparison2Id: this.GamPlanObj.GamePlan.ProductComparison2Id,
+      ProductComparison3Id: this.GamPlanObj.GamePlan.ProductComparison3Id,
+      AppendixText: this.GamPlanObj.GamePlan.AppendixText,
+      MissingDocumentToRequestIds: this.GamPlanObj.GamePlan.MissingDocumentToRequestIds,
+      IsAddLenderRateLock: this.GamPlanObj.GamePlan.IsAddLenderRateLock,
+      ITBSMMessageText: this.GamPlanObj.GamePlan.ITBSMMessageText,
+      ClientsIdentifiedId: this.GamPlanObj.GamePlan.ClientsIdentifiedId,
+      DocumentDeliveryId: this.GamPlanObj.GamePlan.DocumentDeliveryId,
     });
   }
 
@@ -265,13 +286,41 @@ export class GamePlanComponent implements OnInit {
       SpecialFeaturesId: this.GamePlanForm.value.SpecialFeaturesId,
       RationaleForRecommendationTitleId: this.GamePlanForm.value.RationaleForRecommendationTitleId,
       RationaleForRecommendationSubTitle: this.GamePlanForm.value.RationaleForRecommendationSubTitle,
+      Importance2Id: this.GamePlanForm.value.Importance2Id,
+      OtherInformationText: this.GamePlanForm.value.OtherInformationText,
+      ClientUnderstandingText: this.GamePlanForm.value.ClientUnderstandingText,
+      BrokerInterviewedDate: this.GamePlanForm.value.BrokerInterviewedDate,
+      CurrentLenderId: this.GamePlanForm.value.CurrentLenderId,
+      HappyWithCurrentLenderId: this.GamePlanForm.value.HappyWithCurrentLenderId,
+      PreferedLenderId: this.GamePlanForm.value.PreferedLenderId,
+      ProductComparison1Id: this.GamePlanForm.value.ProductComparison1Id,
+      ProductComparison2Id: this.GamePlanForm.value.ProductComparison2Id,
+      ProductComparison3Id: this.GamePlanForm.value.ProductComparison3Id,
+      AppendixText: this.GamePlanForm.value.AppendixText,
+      MissingDocumentToRequestIds: this.GamePlanForm.value.MissingDocumentToRequestIds,
+      IsAddLenderRateLock: this.GamePlanForm.value.IsAddLenderRateLock,
+      ITBSMMessageText: this.GamePlanForm.value.ITBSMMessageText,
+      ClientsIdentifiedId: this.GamePlanForm.value.ClientsIdentifiedId,
+      DocumentDeliveryId: this.GamePlanForm.value.DocumentDeliveryId,
     };
     var obj = {
       GamePlan: gamePlan,
     };
+
     this._gamePlanService.SaveGamePlan(obj).subscribe({
       next: (response) => {},
       error: (error) => {},
     });
+  }
+  setInformationBrokerMessage(event) {
+    debugger
+    var idx = this.GamPlanObj.GamePlanLookups.findIndex(x => x.Id == event);
+    if (idx > -1) {
+      var name = this.GamPlanObj.GamePlanLookups[idx].Name;
+      this.GamePlanForm.patchValue({
+        ITBSMMessageText: 'Please prepare and send Discharge form for ' + name + ' both applicants to sign (signing page to be added to all signing pages)',
+        AppendixText:['As per myCRM and Fact Finder', [Validators.required]],
+      });
+    }
   }
 }

@@ -29,7 +29,7 @@
       <mat-form-field class="col-6">
         <div class="d-flex justify-content-between align-items-center gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Lender Name" value="" #itemName2/>
+            <input matInput placeholder="Lender Name" value="" #itemName2 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName2.value, 2, 'Lender');
@@ -52,7 +52,7 @@
       <mat-form-field class="col-6">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Referer Name" value="" #itemName3/>
+            <input matInput placeholder="Referer Name" value="" #itemName3 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName3.value, 3, 'Referrer');
@@ -101,7 +101,11 @@
             <input matInput placeholder="Immediate Goals and Objectives Title" value="" #itemName5 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName5.value, 5, 'Immediate Goals and Objectives');
+              SaveGamePlanLookup(
+                itemName5.value,
+                5,
+                'Immediate Goals and Objectives'
+              );
               itemName5.value = ''
             ">
             Add
@@ -134,7 +138,11 @@
             <input matInput placeholder="Future Financial Goals Title" value="" #itemName6 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName6.value, 6, 'Future Financial Goals Title');
+              SaveGamePlanLookup(
+                itemName6.value,
+                6,
+                'Future Financial Goals Title'
+              );
               itemName6.value = ''
             ">
             Add
@@ -157,7 +165,11 @@
             <input matInput placeholder="Our Recommendation" value="" #itemName7 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName7.value, 7, 'Our Recommendation Title');
+              SaveGamePlanLookup(
+                itemName7.value,
+                7,
+                'Our Recommendation Title'
+              );
               itemName7.value = ''
             ">
             Add
@@ -190,13 +202,18 @@
             <input matInput placeholder="Rationale for recommendation" value="" #itemName8 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName8.value, 8, 'Rationale for recommendation Title');
+              SaveGamePlanLookup(
+                itemName8.value,
+                8,
+                'Rationale for recommendation Title'
+              );
               itemName8.value = ''
             ">
             Add
           </button>
         </div>
-        <mat-select placeholder="Select Rationale for recommendation Title" formControlName="RationaleForRecommendationTitleId">
+        <mat-select placeholder="Select Rationale for recommendation Title"
+          formControlName="RationaleForRecommendationTitleId">
           <mat-option *ngFor="
               let primaryPurpose of this.GamPlanObj.GamePlanLookups
                 | filter : 8 : 'TypeId'
@@ -218,7 +235,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Rate Preference" value="" #itemName9/>
+            <input matInput placeholder="Rate Preference" value="" #itemName9 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName9.value, 9, 'Rate Preference');
@@ -241,7 +258,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Importance" value="" #itemName10/>
+            <input matInput placeholder="Importance" value="" #itemName10 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName10.value, 10, 'Importance');
@@ -264,7 +281,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Payment Preference" value="" #itemName11/>
+            <input matInput placeholder="Payment Preference" value="" #itemName11 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName11.value, 11, 'Payment Preference');
@@ -287,7 +304,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Reason Of Importance" value="" #itemName12/>
+            <input matInput placeholder="Reason Of Importance" value="" #itemName12 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName12.value, 12, 'Reason Of Importance');
@@ -310,7 +327,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Special Features" value="" #itemName13/>
+            <input matInput placeholder="Special Features" value="" #itemName13 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName13.value, 13, 'Special Features');
@@ -333,7 +350,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Importance 2" value="" #itemName14/>
+            <input matInput placeholder="Importance 2" value="" #itemName14 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName14.value, 14, 'Importance 2');
@@ -373,7 +390,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Current Lender" value="" #itemName15/>
+            <input matInput placeholder="Current Lender" value="" #itemName15 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName15.value, 15, 'Current Lender');
@@ -382,7 +399,8 @@
             Add
           </button>
         </div>
-        <mat-select placeholder="Select Current Lender" formControlName="CurrentLenderId">
+        <mat-select placeholder="Select Current Lender" formControlName="CurrentLenderId"
+          (selectionChange)="setInformationBrokerMessage($event.value)">
           <mat-option *ngFor="
               let referer of this.GamPlanObj.GamePlanLookups
                 | filter : 15 : 'TypeId'
@@ -396,10 +414,14 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Happy With Current Lender" value="" #itemName16/>
+            <input matInput placeholder="Happy With Current Lender" value="" #itemName16 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName16.value, 16, 'Happy With Current Lender');
+              SaveGamePlanLookup(
+                itemName16.value,
+                16,
+                'Happy With Current Lender'
+              );
               itemName16.value = ''
             ">
             Add
@@ -419,7 +441,7 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Prefered Lender" value="" #itemName17/>
+            <input matInput placeholder="Prefered Lender" value="" #itemName17 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
               SaveGamePlanLookup(itemName17.value, 17, 'Prefered Lender');
@@ -445,10 +467,14 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Product Comparison One" value="" #itemName18/>
+            <input matInput placeholder="Product Comparison One" value="" #itemName18 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName18.value, 18, 'Product Comparison One');
+              SaveGamePlanLookup(
+                itemName18.value,
+                18,
+                'Product Comparison One'
+              );
               itemName18.value = ''
             ">
             Add
@@ -468,10 +494,14 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Product Comparison Two" value="" #itemName19/>
+            <input matInput placeholder="Product Comparison Two" value="" #itemName19 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName19.value, 19, 'Product Comparison Two');
+              SaveGamePlanLookup(
+                itemName19.value,
+                19,
+                'Product Comparison Two'
+              );
               itemName19.value = ''
             ">
             Add
@@ -491,10 +521,14 @@
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Product Comparison Three" value="" #itemName20/>
+            <input matInput placeholder="Product Comparison Three" value="" #itemName20 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(itemName20.value, 20, 'Product Comparison Three');
+              SaveGamePlanLookup(
+                itemName20.value,
+                20,
+                'Product Comparison Three'
+              );
               itemName20.value = ''
             ">
             Add
@@ -513,7 +547,109 @@
       </mat-form-field>
       <mat-form-field class="col-4 w-100">
         <mat-label>APPENDIX</mat-label>
-        <textarea matInput placeholder="Appendix Text" formControlName="AppendixText"></textarea>
+        <textarea matInput placeholder="Appendix Text" readonly formControlName="AppendixText"></textarea>
+      </mat-form-field>
+      <div class="col-12 mt-3">
+        <mat-label>Information To Broker Support Manager</mat-label>
+      </div>
+      <mat-form-field class="col-6 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Product Comparison Three" value="" #itemName21 />
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(
+                itemName21.value,
+                21,
+                'Product Comparison Three'
+              );
+              itemName21.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Missing Document To Request" formControlName="MissingDocumentToRequestIds"
+          multiple>
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 21 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-6 w-100 d-flex align-items-center">
+        <mat-label>Select Lender Rate Lock</mat-label>
+        <mat-radio-group formControlName="IsAddLenderRateLock" name="IsAddLenderRateLock">
+          <mat-radio-button id="IsAddLenderRateLock1" value="1">Yes</mat-radio-button>
+          <mat-radio-button id="IsAddLenderRateLock2" value="0">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field class="col-12 w-100">
+        <mat-label>Information To Broker Support Manager Text</mat-label>
+        <textarea matInput placeholder="Appendix Text" readonly formControlName="ITBSMMessageText"></textarea>
+      </mat-form-field>
+      <div class="col-6 mt-3">
+        <mat-label>Have the client's been identified</mat-label>
+      </div>
+      <div class="col-6 mt-3">
+        <mat-label>Document Delivery</mat-label>
+      </div>
+      <mat-form-field class="col-6 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Clients Identified" value="" #itemName22 />
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(
+                itemName22.value,
+                22,
+                'Clients Identified'
+              );
+              itemName22.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Clients Identified" formControlName="ClientsIdentifiedId">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 22 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-6 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Document Delivery" value="" #itemName23 />
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(
+                itemName23.value,
+                23,
+                'Document Delivery'
+              );
+              itemName23.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Document Delivery" formControlName="DocumentDeliveryId">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 23 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
   </form>
