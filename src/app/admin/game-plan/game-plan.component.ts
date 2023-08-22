@@ -296,7 +296,7 @@ export class GamePlanComponent implements OnInit {
       ProductComparison1Id: this.GamePlanForm.value.ProductComparison1Id,
       ProductComparison2Id: this.GamePlanForm.value.ProductComparison2Id,
       ProductComparison3Id: this.GamePlanForm.value.ProductComparison3Id,
-      AppendixText: this.GamePlanForm.value.AppendixText,
+      //AppendixText: this.GamePlanForm.value.AppendixText,
       MissingDocumentToRequestIds: this.GamePlanForm.value.MissingDocumentToRequestIds,
       IsAddLenderRateLock: this.GamePlanForm.value.IsAddLenderRateLock,
       ITBSMMessageText: this.GamePlanForm.value.ITBSMMessageText,
