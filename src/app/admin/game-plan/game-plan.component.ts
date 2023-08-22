@@ -81,10 +81,23 @@ export class GamePlanComponent implements OnInit {
         OurRecommendationTitleId: ['', [Validators.required]],
         OurRecommendationSubTitle: ['', [Validators.required]],
         RatePreferenceId: ['', [Validators.required]],
-        Importance: ['', [Validators.required]],
+        ImportanceId: ['', [Validators.required]],
         PaymentPreferenceId: ['', [Validators.required]],
         ReasonOfImportanceId: ['', [Validators.required]],
         SpecialFeaturesId: ['', [Validators.required]],
+        RationaleForRecommendationTitleId: ['', [Validators.required]],
+        RationaleForRecommendationSubTitle: ['', [Validators.required]],
+        Importance2Id: ['', [Validators.required]],
+        OtherInformationText: ['', [Validators.required]],
+        ClientUnderstandingText: ['', [Validators.required]],
+        BrokerInterviewedDate: ['', [Validators.required]],
+        CurrentLenderId: ['', [Validators.required]],
+        HappyWithCurrentLenderId: ['', [Validators.required]],
+        PreferedLenderId: ['', [Validators.required]],
+        ProductComparison1Id: ['', [Validators.required]],
+        ProductComparison2Id: ['', [Validators.required]],
+        ProductComparison3Id: ['', [Validators.required]],
+        AppendixText:['', [Validators.required]],
       });
     });
     this.GamPlanObj = new Object();
@@ -123,6 +136,15 @@ export class GamePlanComponent implements OnInit {
       ImmediateGoalsObjectivesSubTitle: this.GamPlanObj.GamePlan.ImmediateGoalsObjectivesSubTitle,
       FutureFinancialGoalsTitleId: this.GamPlanObj.GamePlan.FutureFinancialGoalsTitleId,
       FutureFinancialGoalsSubTitle: this.GamPlanObj.GamePlan.FutureFinancialGoalsSubTitle,
+      OurRecommendationTitleId: this.GamPlanObj.GamePlan.OurRecommendationTitleId,
+      OurRecommendationSubTitle: this.GamPlanObj.GamePlan.OurRecommendationSubTitle,
+      RatePreferenceId: this.GamPlanObj.GamePlan.RatePreferenceId,
+      ImportanceId: this.GamPlanObj.GamePlan.ImportanceId,
+      PaymentPreferenceId: this.GamPlanObj.GamePlan.PaymentPreferenceId,
+      ReasonOfImportanceId: this.GamPlanObj.GamePlan.ReasonOfImportanceId,
+      SpecialFeaturesId: this.GamPlanObj.GamePlan.SpecialFeaturesId,
+      RationaleForRecommendationTitleId: this.GamPlanObj.GamePlan.RationaleForRecommendationTitleId,
+      RationaleForRecommendationSubTitle: this.GamPlanObj.GamePlan.RationaleForRecommendationSubTitle,
     });
   }
 
@@ -234,6 +256,15 @@ export class GamePlanComponent implements OnInit {
       ImmediateGoalsObjectivesSubTitle: this.GamePlanForm.value.ImmediateGoalsObjectivesSubTitle,
       FutureFinancialGoalsTitleId: this.GamePlanForm.value.FutureFinancialGoalsTitleId,
       FutureFinancialGoalsSubTitle: this.GamePlanForm.value.FutureFinancialGoalsSubTitle,
+      OurRecommendationTitleId: this.GamePlanForm.value.OurRecommendationTitleId,
+      OurRecommendationSubTitle: this.GamePlanForm.value.OurRecommendationSubTitle,
+      RatePreferenceId: this.GamePlanForm.value.RatePreferenceId,
+      ImportanceId: this.GamePlanForm.value.ImportanceId,
+      PaymentPreferenceId: this.GamePlanForm.value.PaymentPreferenceId,
+      ReasonOfImportanceId: this.GamePlanForm.value.ReasonOfImportanceId,
+      SpecialFeaturesId: this.GamePlanForm.value.SpecialFeaturesId,
+      RationaleForRecommendationTitleId: this.GamePlanForm.value.RationaleForRecommendationTitleId,
+      RationaleForRecommendationSubTitle: this.GamePlanForm.value.RationaleForRecommendationSubTitle,
     };
     var obj = {
       GamePlan: gamePlan,

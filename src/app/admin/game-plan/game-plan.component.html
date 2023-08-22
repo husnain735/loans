@@ -212,6 +212,9 @@
         <angular-editor id="RationaleForRecommendationSubTitle" formControlName="RationaleForRecommendationSubTitle"
           [config]="config"></angular-editor>
       </div>
+      <div class="col-12 mt-3">
+        <mat-label>Your Loan Preference</mat-label>
+      </div>
       <mat-form-field class="col-4 mt-3">
         <div class="d-flex justify-content-between align-items-center px-2 gap-6">
           <mat-form-field class="w-100">
@@ -326,6 +329,191 @@
             </div>
           </mat-option>
         </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Importance 2" value="" #itemName14/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName14.value, 14, 'Importance 2');
+              itemName14.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Importance 2" formControlName="Importance2Id">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 14 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 w-100">
+        <mat-label>Other Information Text</mat-label>
+        <textarea matInput placeholder="Other Information Text" formControlName="OtherInformationText"></textarea>
+      </mat-form-field>
+      <mat-form-field class="col-4 w-100">
+        <mat-label>Client Understanding Text</mat-label>
+        <textarea matInput placeholder="Client Understanding Text" formControlName="ClientUnderstandingText"></textarea>
+      </mat-form-field>
+      <mat-form-field class="col-4 w-100">
+        <mat-label>BrokerInterviewedDate</mat-label>
+        <input matInput [matDatepicker]="BrokerInterviewedDate" formControlName="BrokerInterviewedDate" />
+        <mat-datepicker-toggle matSuffix [for]="BrokerInterviewedDate"></mat-datepicker-toggle>
+        <mat-datepicker #BrokerInterviewedDate></mat-datepicker>
+      </mat-form-field>
+      <div class="col-12 mt-3">
+        <mat-label>Lender Preference</mat-label>
+      </div>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Current Lender" value="" #itemName15/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName15.value, 15, 'Current Lender');
+              itemName15.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Current Lender" formControlName="CurrentLenderId">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 15 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Happy With Current Lender" value="" #itemName16/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName16.value, 16, 'Happy With Current Lender');
+              itemName16.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Happy With Current Lender" formControlName="HappyWithCurrentLenderId">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 16 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Prefered Lender" value="" #itemName17/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName17.value, 17, 'Prefered Lender');
+              itemName17.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Prefered Lender" formControlName="PreferedLenderId">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 17 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-12 mt-3">
+        <mat-label>Product Comparison</mat-label>
+      </div>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Product Comparison One" value="" #itemName18/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName18.value, 18, 'Product Comparison One');
+              itemName18.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Product Comparison One" formControlName="ProductComparison1Id">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 18 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Product Comparison Two" value="" #itemName19/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName19.value, 19, 'Product Comparison Two');
+              itemName19.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Product Comparison Two" formControlName="ProductComparison2Id">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 19 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 mt-3">
+        <div class="d-flex justify-content-between align-items-center px-2 gap-6">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Product Comparison Three" value="" #itemName20/>
+          </mat-form-field>
+          <button mat-button mat-raised-button color="primary" (click)="
+              SaveGamePlanLookup(itemName20.value, 20, 'Product Comparison Three');
+              itemName20.value = ''
+            ">
+            Add
+          </button>
+        </div>
+        <mat-select placeholder="Select Product Comparison Three" formControlName="ProductComparison3Id">
+          <mat-option *ngFor="
+              let referer of this.GamPlanObj.GamePlanLookups
+                | filter : 20 : 'TypeId'
+            " [value]="referer.Id">
+            <div class="d-flex justify-content-between align-item-center">
+              {{ referer.Name }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-4 w-100">
+        <mat-label>APPENDIX</mat-label>
+        <textarea matInput placeholder="Appendix Text" formControlName="AppendixText"></textarea>
       </mat-form-field>
     </div>
   </form>
