@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
@@ -50,13 +51,15 @@ export class GamePlanComponent implements OnInit {
       },
     ],
   };
+  lockupObject: any;
 
   constructor(
     private rxFormBuilder: RxFormBuilder,
     private route: ActivatedRoute,
     private _adminService: AdminService,
     private _gamePlanService: GamePlanService,
-    public _sharedService: SharedService
+    public _sharedService: SharedService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -296,7 +299,7 @@ export class GamePlanComponent implements OnInit {
       ProductComparison1Id: this.GamePlanForm.value.ProductComparison1Id,
       ProductComparison2Id: this.GamePlanForm.value.ProductComparison2Id,
       ProductComparison3Id: this.GamePlanForm.value.ProductComparison3Id,
-      //AppendixText: this.GamePlanForm.value.AppendixText,
+      AppendixText: this.GamePlanForm.value.AppendixText,
       MissingDocumentToRequestIds: this.GamePlanForm.value.MissingDocumentToRequestIds,
       IsAddLenderRateLock: this.GamePlanForm.value.IsAddLenderRateLock,
       ITBSMMessageText: this.GamePlanForm.value.ITBSMMessageText,
@@ -319,8 +322,25 @@ export class GamePlanComponent implements OnInit {
       var name = this.GamPlanObj.GamePlanLookups[idx].Name;
       this.GamePlanForm.patchValue({
         ITBSMMessageText: 'Please prepare and send Discharge form for ' + name + ' both applicants to sign (signing page to be added to all signing pages)',
-        AppendixText:['As per myCRM and Fact Finder', [Validators.required]],
+        AppendixText: 'As per myCRM and Fact Finder',
       });
     }
+  }
+  selectLockUpToEdit(event,temp,Id) {
+    event.stopPropagation();
+    var idx = this.GamPlanObj.GamePlanLookups.findIndex(x => x.Id == Id);
+    if (idx > -1) {
+      this.lockupObject = new Object();
+      this.lockupObject.Id = this.GamPlanObj.GamePlanLookups[idx].Id;
+      this.lockupObject.Name = this.GamPlanObj.GamePlanLookups[idx].Name;
+      this.openDailog(temp);
+    }
+  }
+  openDailog(content): void {
+    const dialogRef = this.dialog.open(content, {
+      height: '260px',
+      width: '500px',
+      disableClose: true
+    });
   }
 }

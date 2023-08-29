@@ -45,6 +45,8 @@
             " [value]="lender.Id">
             <div class="d-flex justify-content-between align-item-center">
               <span>{{ lender.Name }}</span>
+              <mat-icon (click)="selectLockUpToEdit($event,content, lender.Id)" aria-hidden="false"
+                aria-label="Example home icon" fontIcon="edit"></mat-icon>
             </div>
           </mat-option>
         </mat-select>
@@ -603,11 +605,7 @@
             <input matInput placeholder="Clients Identified" value="" #itemName22 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(
-                itemName22.value,
-                22,
-                'Clients Identified'
-              );
+              SaveGamePlanLookup(itemName22.value, 22, 'Clients Identified');
               itemName22.value = ''
             ">
             Add
@@ -630,11 +628,7 @@
             <input matInput placeholder="Document Delivery" value="" #itemName23 />
           </mat-form-field>
           <button mat-button mat-raised-button color="primary" (click)="
-              SaveGamePlanLookup(
-                itemName23.value,
-                23,
-                'Document Delivery'
-              );
+              SaveGamePlanLookup(itemName23.value, 23, 'Document Delivery');
               itemName23.value = ''
             ">
             Add
@@ -663,3 +657,22 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <span style="font-size: 16px; font-weight: 500">Edit Lockup</span>
+    <mat-icon mat-dialog-close class="btnOrder">cancel</mat-icon>
+  </div>
+  <div class="modal-body p-relative p-4">
+    <mat-form-field class="col-12 w-100 px-0">
+      <mat-label>Edit</mat-label>
+      <input id="editableLockup" matInput placeholder="Selected Value" [(ngModel)]="lockupObject.Name" />
+    </mat-form-field>
+  </div>
+  <div class="modal-footer">
+    <button mat-button mat-dialog-close type="button">Cancel</button>
+    <button mat-button mat-raised-button color="primary" type="button">
+      Edit
+    </button>
+  </div>
+</ng-template>
